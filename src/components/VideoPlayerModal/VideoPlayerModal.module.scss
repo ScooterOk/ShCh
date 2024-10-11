@@ -1,0 +1,72 @@
+@use '@/styles/vars' as *;
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background-color: $bg-dark;
+  z-index: 100;
+  visibility: hidden;
+  &__cursor {
+    position: absolute;
+    color: $red;
+    z-index: 1;
+    font-size: 20px;
+    font-weight: 600;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    transform: translate3D(
+      calc((var(--mouse-x) * 1px) + 1rem),
+      calc((var(--mouse-y) * 1px) + 1rem),
+      0
+    );
+  }
+  &__close {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid $red;
+    color: $red;
+    cursor: pointer;
+    z-index: 1;
+  }
+}
+
+.controls {
+  position: absolute;
+  left: 40px;
+  bottom: 40px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  &__action {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $red;
+    color: $black;
+    cursor: pointer;
+    border: none;
+    outline: none;
+  }
+  &__timer {
+    color: $red;
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 20px;
+  }
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

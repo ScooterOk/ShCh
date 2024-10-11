@@ -1,0 +1,12 @@
+@use '@/styles/vars' as *;
+
+.button {
+  height: 100%;
+  background-color: $black;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.canvas {
+  aspect-ratio: 1 / 1;
+}

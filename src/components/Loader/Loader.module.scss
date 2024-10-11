@@ -1,0 +1,36 @@
+@use '@/styles/vars' as *;
+
+.loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $bg;
+}
+.grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.name {
+  span {
+    opacity: 0;
+  }
+}
+.image {
+  background-color: #000;
+  transform: scaleY(0);
+  width: 80px;
+  height: 80px;
+  img {
+    display: none;
+    width: 100%;
+    height: 100%;
+  }
+}
+.count {
+  display: none;
+}
