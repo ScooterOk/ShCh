@@ -8,7 +8,10 @@ import {
 import { useThree, extend, useFrame } from '@react-three/fiber';
 
 // import * as postprocessing from '@react-three/postprocessing';
-import { EffectComposer as Composer } from '@react-three/postprocessing';
+import {
+  BrightnessContrast,
+  EffectComposer as Composer,
+} from '@react-three/postprocessing';
 import {
   EffectComposer,
   LensDistortionEffect,
@@ -16,8 +19,8 @@ import {
   EffectPass,
   Pass,
 } from 'postprocessing';
-import React, { forwardRef, useEffect, useMemo, useRef } from 'react';
-import { DirectionalLightHelper } from 'three';
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
+
 import * as THREE from 'three';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 
@@ -27,8 +30,8 @@ import { folder, useControls } from 'leva';
 
 extend({ LensDistortionEffect });
 
-const LensDistortion = (props) => {
-  const { scene, camera, gl } = useThree();
+const LensDistortion = () => {
+  const { gl } = useThree();
   const composer = useMemo(() => new EffectComposer(gl), [gl]);
   // const { value } = useControls({
   //   Distortion: folder(
@@ -61,8 +64,10 @@ const LensDistortion = (props) => {
 
 const CoubScene = () => {
   const light = useRef();
-  const video = useRef();
+  const cubeRef = useRef();
   const three = useThree();
+
+  console.log('three', three.camera);
 
   const params = {
     distortion: new THREE.Vector2(0.5, 0.5),
@@ -75,30 +80,63 @@ const CoubScene = () => {
   //   scene.add(new DirectionalLightHelper(light.current));
   // }, [scene]);
 
-  const texture = useVideoTexture('/video/Hero_head_video_02.mp4');
+  const intro_slide_1 = useVideoTexture('/video/CUBE_01_intro.mp4', {
+    start: false,
+  });
+  const loop_slide_1 = useVideoTexture('/video/CUBE_01_loop.mp4', {
+    start: false,
+  });
+  const intro_slide_2 = useVideoTexture('/video/CUBE_02_intro.mp4', {
+    start: false,
+  });
+  const loop_slide_2 = useVideoTexture('/video/CUBE_02_loop.mp4', {
+    start: false,
+  });
+  const intro_slide_3 = useVideoTexture('/video/CUBE_03_intro.mp4', {
+    start: false,
+  });
+  const loop_slide_3 = useVideoTexture('/video/CUBE_03_loop.mp4', {
+    start: false,
+  });
+
+  const loop_slide_4 = useVideoTexture('/video/CUBE_03_loop.mp4');
+
+  const [slide1, setSlide1] = useState(intro_slide_1);
+  const [slide2, setSlide2] = useState(intro_slide_2);
+  const [slide3, setSlide3] = useState(intro_slide_3);
+
+  console.log('cubeRef', cubeRef.current);
+
+  // CUBE ROTATION USED FRAME
+  useFrame(({ clock }) => {
+    const time = clock.getElapsedTime();
+    if (cubeRef.current) {
+      cubeRef.current.rotation.y = time * 0.25;
+    }
+  });
 
   return (
     <>
       <group>
-        <mesh position={[0, 0.49, 0]}>
-          <boxGeometry args={[2, 1, 1]} />
-          <meshBasicMaterial ref={video} attach={'material-0'} map={texture} />
-          <meshBasicMaterial attach={'material-1'} color={'#00ff00'} />
-          <meshBasicMaterial attach={'material-2'} color={'#0000ff'} />
-          <meshBasicMaterial attach={'material-3'} color={'#ffff00'} />
-          <meshBasicMaterial attach={'material-4'} color={'#ff00ff'} />
-          <meshBasicMaterial attach={'material-5'} color={'#00ffff'} />
+        <mesh ref={cubeRef} position={[0, 0, 0]}>
+          <boxGeometry args={[2, 2, 2]} />
+          <meshBasicMaterial attach={'material-0'} map={slide3} />
+          <meshStandardMaterial attach={'material-1'} map={slide1} />
+          <meshBasicMaterial attach={'material-2'} color={'#cccccc'} />
+          <meshBasicMaterial attach={'material-3'} color={'#cccccc'} />
+          <meshBasicMaterial attach={'material-4'} map={loop_slide_4} />
+          <meshBasicMaterial attach={'material-5'} map={slide2} />
         </mesh>
         {/* <mesh position={[0, 0.5, 0]}>
           <boxGeometry args={[2, 1, 1]} />
           <meshStandardMaterial roughness={0.5} metalness={0} />
         </mesh> */}
       </group>
-      <mesh position={[0, 0, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[10, 10]} rotateX={-Math.PI / 2} />
         {/* <meshStandardMaterial roughness={0} metalness={0} /> */}
         <MeshReflectorMaterial
-          blur={[300, 50]}
+          blur={[500, 50]}
           resolution={1024}
           mixBlur={1}
           mixStrength={100}
@@ -113,10 +151,16 @@ const CoubScene = () => {
 
       <Composer>
         <LensDistortion />
+        <BrightnessContrast
+          brightness={0.06} // brightness. min: -1, max: 1
+          contrast={0.15} // contrast: min -1, max: 1
+        />
       </Composer>
 
       <ambientLight intensity={2} />
-      {/* <directionalLight position={[5, 5, 0]} intensity={1} ref={light} /> */}
+
+      {/* <directionalLight position={[5, 5, 0]} intensity={5} ref={light} /> */}
+
       {/* <rectAreaLight
         ref={light}
         width={2}
