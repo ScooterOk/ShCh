@@ -6,7 +6,7 @@ export const mainContext = createContext({ name: 'Scooter)Ok' });
 
 const MainProvider = ({ children }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [noScroll, setNoScroll] = useState(true);
+  const [noScroll, setNoScroll] = useState(false);
   const { Provider } = mainContext;
 
   return (

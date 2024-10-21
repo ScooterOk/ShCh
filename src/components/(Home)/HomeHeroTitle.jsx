@@ -54,7 +54,6 @@ const HomeHeroTitle = () => {
   useGSAP(
     () => {
       if (isLoaded) {
-        console.log('action', action.current);
         if (action.current) {
           gsap
             .timeline()

@@ -3,4 +3,75 @@
 .focus {
   height: 100dvh;
   background-color: $black;
+  position: relative;
+}
+
+.content {
+  position: absolute;
+  top: 120px;
+  left: 60px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  &__title {
+    color: $bg;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 30px; /* 150% */
+  }
+  &__breadcrumbs {
+    border-left: 3px solid $bg;
+    max-width: 390px;
+    min-height: 133px;
+    padding-left: 20px;
+    & > * {
+      display: inline-block;
+      color: $bg;
+      font-size: 26px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 34px;
+      margin-right: 0.6rem;
+    }
+
+    &[data-active='0'] > *:nth-child(1),
+    &[data-active='2'] > *:nth-child(3) {
+      color: $red;
+    }
+    &[data-active='1'] > *:nth-child(2) {
+      color: $yellow;
+    }
+  }
+  &__list {
+    color: $bg;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 120% */
+  }
+}
+
+.click_hold {
+  position: absolute;
+  top: 35%;
+  right: 20%;
+  z-index: 1;
+  transform: translateX(50%);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 14px; /* 87.5% */
+  text-transform: capitalize;
+  color: $yellow;
+  &::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 0;
+    width: 14px;
+    height: 3px;
+    background-color: $yellow;
+  }
 }
