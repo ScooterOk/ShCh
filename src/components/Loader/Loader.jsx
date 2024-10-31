@@ -68,7 +68,8 @@ const Loader = ({ setIsLoaded }) => {
           from: 'random',
         },
       });
-      gsap.to(`.${styles.image}`, 1, {
+      gsap.to(`.${styles.image}`, {
+        duration: 1,
         scale: 1,
         ease: 'power3.inOut',
         onComplete: () =>

@@ -26,6 +26,7 @@ import React, {
   forwardRef,
   Suspense,
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -43,6 +44,7 @@ import gsap from 'gsap';
 import WebObjects from './WebObjects';
 import BrandObjects from './BrandObjects';
 import MotionObjects from './MotionObjects';
+import { mainContext } from '@/providers/MainProvider';
 
 extend({ LensDistortionEffect });
 
@@ -55,7 +57,7 @@ const distortion = {
 const LensDistortion = ({ isHolded }) => {
   const { gl, scene, camera } = useThree();
   const composer = useMemo(() => new EffectComposer(gl), [gl]);
-  const [distortionValue, setDistortionValue] = useState(0);
+  const { distortionValue, setDistortionValue } = useContext(mainContext);
   const distortionRef = useRef(0);
 
   // const { value } = useControls({
@@ -85,7 +87,7 @@ const LensDistortion = ({ isHolded }) => {
         onUpdate: () => setDistortionValue(distortionRef.current),
       });
     }
-  }, [isHolded]);
+  }, [isHolded, setDistortionValue]);
 
   const distortionEffect = useMemo(
     () =>
@@ -107,7 +109,7 @@ const LensDistortion = ({ isHolded }) => {
   useEffect(() => {
     composer.removeAllPasses();
     composer.addPass(new RenderPass(scene, camera));
-    if (isHolded) {
+    if (distortionValue !== 0) {
       composer.addPass(
         new EffectPass(camera, brightnessContrastEffect, distortionEffect)
       );
@@ -115,12 +117,12 @@ const LensDistortion = ({ isHolded }) => {
       composer.addPass(new EffectPass(camera, brightnessContrastEffect));
     }
   }, [
-    composer,
-    scene,
-    camera,
-    distortionEffect,
     brightnessContrastEffect,
-    isHolded,
+    camera,
+    composer,
+    distortionEffect,
+    distortionValue,
+    scene,
   ]);
 
   useFrame(() => composer.render(), 2);
@@ -128,9 +130,8 @@ const LensDistortion = ({ isHolded }) => {
   return null;
 };
 
-const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
+const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
   const modelRef = useRef();
-  const cubeRef = useRef();
   const holdTweenRef = useRef();
 
   const material_slide_1 = useVideoTexture('/video/CUBE_01_full.mp4', {
@@ -250,7 +251,7 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
   // }, [cameraRef, isHolded, material_slide_1.image, onProgress]);
 
   useEffect(() => {
-    console.log('isHolded', isHolded);
+    console.log('isHolded', material.currentTime);
 
     if (isHolded) {
       gsap.to(cameraRef.current.position, {
@@ -260,7 +261,7 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
       });
 
       // Material tween
-      holdTweenRef.current?.kill();
+      // holdTweenRef.current?.kill();
       gsap.set(material, { currentTime: 0 });
       holdTweenRef.current = gsap.to(material, {
         currentTime: material.duration,
@@ -272,7 +273,8 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
       });
     }
     if (isHolded === false) {
-      gsap.to(cameraRef.current.position, {
+      holdTweenRef.current?.kill();
+      gsap.to(cameraRef.current?.position, {
         z: 6,
         duration: 1,
         // ease: 'power3.out',
@@ -291,6 +293,7 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
       y: (Math.PI / 2) * currentSlide,
       duration: 1,
       ease: 'power3.inOut',
+      id: 'cube-rotation',
     });
   }, [currentSlide]);
 
@@ -388,9 +391,9 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
         <meshBasicMaterial transparent={true} opacity={0} />
       </mesh> */}
 
-      <Composer>
+      {/* <Composer>
         <LensDistortion isHolded={isHolded} />
-      </Composer>
+      </Composer> */}
     </group>
   );
 };
