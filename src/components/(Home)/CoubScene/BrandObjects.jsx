@@ -6,9 +6,10 @@ const BrandObjects = ({ isHolded }) => {
   // Fetch model and a separate texture
 
   // const model = useGLTF('/models/02_brand_objects.gltf');
-  const model = useGLTF('/models/test_pbr_02_brand_objects.gltf');
+  const model = useGLTF('/models/02_brand_objects.gltf');
 
   const { scene, animations, nodes } = model;
+
   // Extract animation actions
   const anim = useAnimations(animations);
   const { actions, names, ref } = anim;
@@ -50,7 +51,7 @@ const BrandObjects = ({ isHolded }) => {
     <group
       ref={ref}
       dispose={null}
-      position={[-1, -0.4, 0]}
+      position={[-2.8, -0.5, 0]}
       rotation={[0, -Math.PI, 0]}
     >
       <primitive object={scene} />

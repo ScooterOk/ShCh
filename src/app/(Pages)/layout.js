@@ -4,8 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import { ReactLenis } from 'lenis/react';
 import gsap from 'gsap';
 
-// gsap.ticker.fps(120);
-// gsap.ticker.lagSmoothing(500, 33);
+// gsap.ticker.fps(30);
 
 const Layout = ({ children }) => {
   const lenisRef = useRef();

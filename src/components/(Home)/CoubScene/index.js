@@ -133,11 +133,18 @@ const LensDistortion = ({ isHolded }) => {
 const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
   const modelRef = useRef();
   const holdTweenRef = useRef();
+  const videoTimeRef = useRef(0);
 
-  const material_slide_1 = useVideoTexture('/video/CUBE_01_full.mp4', {
+  const material_slide_1 = useVideoTexture('/video/CUBE_01_full_00.mp4', {
     start: false,
     loop: false,
+    controls: true,
   });
+  // const material_slide_1 = useVideoTexture('/video/CUBE_01_full.mp4', {
+  //   start: false,
+  //   loop: false,
+  //   controls: true,
+  // });
   const material_slide_2 = useVideoTexture('/video/CUBE_02_full.mp4', {
     start: false,
     loop: false,
@@ -251,8 +258,6 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
   // }, [cameraRef, isHolded, material_slide_1.image, onProgress]);
 
   useEffect(() => {
-    console.log('isHolded', material.currentTime);
-
     if (isHolded) {
       gsap.to(cameraRef.current.position, {
         z: 4.5,
@@ -261,30 +266,53 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
       });
 
       // Material tween
-      // holdTweenRef.current?.kill();
+      holdTweenRef.current?.kill();
+      console.log('holdTweenRef.current', material);
       gsap.set(material, { currentTime: 0 });
-      holdTweenRef.current = gsap.to(material, {
-        currentTime: material.duration,
-        duration: material.duration,
-        ease: 'none',
-        overwrite: 'auto',
-        onComplete: () => holdTweenRef.current.repeat(1).play(1.05),
-        onRepeat: () => holdTweenRef.current.repeat(1).play(1.05),
-      });
+      material.play();
+      holdTweenRef.current = gsap
+        .timeline()
+        .to(videoTimeRef, {
+          current: material.duration - 1,
+          duration: material.duration - 1,
+          ease: 'none',
+        })
+        .add(() => (material.currentTime = 1))
+        .set(videoTimeRef, { current: 1 })
+        .to(videoTimeRef, {
+          current: material.duration - 2,
+          duration: material.duration - 2,
+          ease: 'none',
+          repeat: -1,
+          onRepeat: () => (material.currentTime = 1),
+        });
+      // holdTweenRef.current = gsap.to(material, {
+      //   currentTime: material.duration,
+      //   duration: material.duration,
+      //   ease: 'none',
+      //   overwrite: 'auto',
+      //   onComplete: () => holdTweenRef.current.repeat(1).play(1.05),
+      //   onRepeat: () => holdTweenRef.current.repeat(1).play(1.05),
+      // });
     }
     if (isHolded === false) {
-      holdTweenRef.current?.kill();
+      holdTweenRef.current.kill();
+      const time =
+        material?.currentTime < 1
+          ? material.duration - material.currentTime
+          : 5;
+      material.currentTime = time;
       gsap.to(cameraRef.current?.position, {
         z: 6,
         duration: 1,
         // ease: 'power3.out',
       });
 
-      const time =
-        holdTweenRef.current?.time() < 1.02
-          ? holdTweenRef.current?.time()
-          : 1.02;
-      holdTweenRef.current?.pause().seek(time)?.reverse();
+      // const time =
+      //   holdTweenRef.current?.time() < 1.02
+      //     ? holdTweenRef.current?.time()
+      //     : 1.02;
+      // holdTweenRef.current?.pause().seek(time)?.reverse();
     }
   }, [cameraRef, isHolded, material]);
 

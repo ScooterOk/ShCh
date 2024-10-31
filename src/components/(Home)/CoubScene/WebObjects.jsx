@@ -65,7 +65,7 @@ const WebObjects = ({ isHolded }) => {
     <group
       ref={ref}
       dispose={null}
-      position={[0, -0.4, 3]}
+      position={[0, -0.5, 3]}
       rotation={[0, -Math.PI / 2, 0]}
     >
       <primitive object={scene} />
