@@ -29,8 +29,7 @@ const FocusOn = () => {
   const [currentSlideName, setCurrentSlideName] = useState('web');
 
   const {
-    distortionValue,
-    setDistortionValue,
+    setIsFocusEntered,
     setIsInit,
     currentFocusSlide,
     setCurrentFocusSlide,
@@ -64,6 +63,12 @@ const FocusOn = () => {
             `.${styles.content__list}[data-name=${currentSlideName}] span`,
           ]);
 
+          console.log(
+            'AAA',
+            `.${styles.content__list}[data-name=${currentSlideName}]`
+          );
+
+          setIsFocusEntered(true);
           gsap
             .timeline()
             .add(() => {
@@ -80,18 +85,6 @@ const FocusOn = () => {
               'start'
             )
             .from(
-              distortionRef,
-              {
-                current: -0.27,
-                duration: 2.5,
-                ease: 'power2.out',
-                onUpdate: () => {
-                  setDistortionValue(distortionRef.current);
-                },
-              },
-              'start'
-            )
-            .from(
               cubeRef.current?.rotation,
               {
                 y: Math.PI * 2,
@@ -101,13 +94,14 @@ const FocusOn = () => {
               'start'
             )
             .set(`.${styles.content}`, { autoAlpha: 1, delay: 1 }, '-=2')
-            .from(
+            .fromTo(
               targets,
+              { opacity: 0 },
               {
                 duration: 0.1,
-                opacity: 0,
+                opacity: 1,
                 stagger: {
-                  each: 0.15,
+                  each: 0.1,
                   grid: 'auto',
                   from: 'random',
                 },
@@ -122,7 +116,7 @@ const FocusOn = () => {
         },
       });
     },
-    { dependencies: [setDistortionValue] }
+    { dependencies: [setIsFocusEntered] }
   );
 
   useEffect(() => {

@@ -57,8 +57,32 @@ const distortion = {
 const LensDistortion = ({ isHolded }) => {
   const { gl, scene, camera } = useThree();
   const composer = useMemo(() => new EffectComposer(gl), [gl]);
-  const { distortionValue, setDistortionValue } = useContext(mainContext);
-  const distortionRef = useRef(0);
+  const { isFocusEntered } = useContext(mainContext);
+  const distortionEffectRef = useRef(
+    new LensDistortionEffect({
+      distortion: new THREE.Vector2(0, 0),
+      focalLength: new THREE.Vector2(
+        // 1 + distortionValue * 0.25,
+        // 1 + distortionValue * 0.25
+        1,
+        1
+      ),
+    })
+  );
+
+  const brightnessContrastEffect = useRef(
+    new BrightnessContrastEffect({ brightness: 0.1, contrast: 0.15 })
+  );
+
+  composer.removeAllPasses();
+  composer.addPass(new RenderPass(scene, camera));
+  composer.addPass(
+    new EffectPass(
+      camera,
+      brightnessContrastEffect.current,
+      distortionEffectRef.current
+    )
+  );
 
   // const { value } = useControls({
   //   Distortion: folder(
@@ -71,59 +95,77 @@ const LensDistortion = ({ isHolded }) => {
 
   useEffect(() => {
     if (isHolded) {
-      gsap.to(distortionRef, {
-        current: -0.25,
+      gsap.to(distortionEffectRef.current.distortion, {
+        x: -0.25,
+        y: -0.25,
         duration: 1,
-        // ease: 'power2.in',
-        onUpdate: () => {
-          setDistortionValue(distortionRef.current);
-        },
+      });
+      gsap.to(distortionEffectRef.current.focalLength, {
+        x: 0.9,
+        y: 0.9,
+        duration: 1,
       });
     } else {
-      gsap.to(distortionRef, {
-        current: 0,
+      gsap.to(distortionEffectRef.current.distortion, {
+        x: 0,
+        y: 0,
         duration: 1,
-        //ease: 'power3.out',
-        onUpdate: () => setDistortionValue(distortionRef.current),
+      });
+      gsap.to(distortionEffectRef.current.focalLength, {
+        x: 1,
+        y: 1,
+        duration: 1,
       });
     }
-  }, [isHolded, setDistortionValue]);
-
-  const distortionEffect = useMemo(
-    () =>
-      new LensDistortionEffect({
-        distortion: new THREE.Vector2(distortionValue, distortionValue),
-        focalLength: new THREE.Vector2(
-          1 + distortionValue * 0.25,
-          1 + distortionValue * 0.25
-        ),
-      }),
-    [distortionValue]
-  );
-
-  const brightnessContrastEffect = useMemo(
-    () => new BrightnessContrastEffect({ brightness: 0.1, contrast: 0.15 }),
-    []
-  );
+  }, [isHolded]);
 
   useEffect(() => {
-    composer.removeAllPasses();
-    composer.addPass(new RenderPass(scene, camera));
-    if (distortionValue !== 0) {
-      composer.addPass(
-        new EffectPass(camera, brightnessContrastEffect, distortionEffect)
-      );
-    } else {
-      composer.addPass(new EffectPass(camera, brightnessContrastEffect));
+    if (isFocusEntered) {
+      gsap.from(distortionEffectRef.current.distortion, {
+        x: -0.27,
+        y: -0.27,
+        duration: 2.5,
+        ease: 'power2.out',
+      });
+      gsap.from(distortionEffectRef.current.focalLength, {
+        x: 0.9,
+        y: 0.9,
+        duration: 2.5,
+        ease: 'power2.out',
+      });
     }
-  }, [
-    brightnessContrastEffect,
-    camera,
-    composer,
-    distortionEffect,
-    distortionValue,
-    scene,
-  ]);
+  }, [isFocusEntered]);
+
+  // const distortionEffect = useMemo(
+  //   () =>
+  //     new LensDistortionEffect({
+  //       distortion: new THREE.Vector2(distortionValue, distortionValue),
+  //       focalLength: new THREE.Vector2(
+  //         1 + distortionValue * 0.25,
+  //         1 + distortionValue * 0.25
+  //       ),
+  //     }),
+  //   [distortionValue]
+  // );
+
+  // const brightnessContrastEffect = useMemo(
+  //   () => new BrightnessContrastEffect({ brightness: 0.1, contrast: 0.15 }),
+  //   []
+  // );
+
+  // useEffect(() => {
+  //   composer.removeAllPasses();
+  //   composer.addPass(new RenderPass(scene, camera));
+  //   composer.addPass(new EffectPass(camera, distortionEffect));
+
+  //   // if (distortionValue !== 0) {
+  //   //   composer.addPass(
+  //   //     new EffectPass(camera, brightnessContrastEffect, distortionEffect)
+  //   //   );
+  //   // } else {
+  //   //   composer.addPass(new EffectPass(camera, brightnessContrastEffect));
+  //   // }
+  // }, [camera, composer, distortionEffect, distortionValue, scene]);
 
   useFrame(() => composer.render(), 2);
 
@@ -135,7 +177,7 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
   const holdTweenRef = useRef();
   const videoTimeRef = useRef(0);
 
-  const material_slide_1 = useVideoTexture('/video/CUBE_01_full_00.mp4', {
+  const material_slide_1 = useVideoTexture('/video/_CUBE_01_full.mp4', {
     start: false,
     loop: false,
     controls: true,
@@ -145,11 +187,11 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
   //   loop: false,
   //   controls: true,
   // });
-  const material_slide_2 = useVideoTexture('/video/CUBE_02_full.mp4', {
+  const material_slide_2 = useVideoTexture('/video/_CUBE_02_full.mp4', {
     start: false,
     loop: false,
   });
-  const material_slide_3 = useVideoTexture('/video/CUBE_03_full.mp4', {
+  const material_slide_3 = useVideoTexture('/video/_CUBE_03_full.mp4', {
     start: false,
     loop: false,
   });
@@ -267,7 +309,7 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
 
       // Material tween
       holdTweenRef.current?.kill();
-      console.log('holdTweenRef.current', material);
+
       gsap.set(material, { currentTime: 0 });
       material.play();
       holdTweenRef.current = gsap
@@ -419,6 +461,7 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
         <meshBasicMaterial transparent={true} opacity={0} />
       </mesh> */}
 
+      <LensDistortion isHolded={isHolded} />
       {/* <Composer>
         <LensDistortion isHolded={isHolded} />
       </Composer> */}
@@ -426,4 +469,4 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
   );
 };
 
-export default CoubScene;
+export default React.memo(CoubScene);

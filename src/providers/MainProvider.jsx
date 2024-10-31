@@ -7,7 +7,7 @@ export const mainContext = createContext();
 const MainProvider = ({ children }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [noScroll, setNoScroll] = useState(false);
-  const [distortionValue, setDistortionValue] = useState(0);
+  const [isFocusEntered, setIsFocusEntered] = useState(false);
   const [currentFocusSlide, setCurrentFocusSlide] = useState(-1);
   const [isInit, setIsInit] = useState(false);
   const { Provider } = mainContext;
@@ -20,8 +20,8 @@ const MainProvider = ({ children }) => {
           setIsLoaded,
           noScroll,
           setNoScroll,
-          distortionValue,
-          setDistortionValue,
+          isFocusEntered,
+          setIsFocusEntered,
           isInit,
           setIsInit,
           currentFocusSlide,
