@@ -45,6 +45,7 @@ import WebObjects from './WebObjects';
 import BrandObjects from './BrandObjects';
 import MotionObjects from './MotionObjects';
 import { mainContext } from '@/providers/MainProvider';
+import { useLenis } from 'lenis/react';
 
 extend({ LensDistortionEffect });
 
@@ -176,6 +177,7 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
   const modelRef = useRef();
   const holdTweenRef = useRef();
   const videoTimeRef = useRef(0);
+  const lenis = useLenis();
 
   const material_slide_1 = useVideoTexture('/video/_CUBE_01_full.mp4', {
     start: false,
@@ -204,6 +206,9 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
       material_slide_3.image,
       material_slide_4.image,
     ];
+    if (currentSlide < 0) return materials[0];
+    if (currentSlide > materials.length - 1)
+      return materials[materials.length - 1];
     return materials[currentSlide];
   }, [
     currentSlide,
@@ -342,8 +347,9 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
       const time =
         material?.currentTime < 1
           ? material.duration - material.currentTime
-          : 5;
+          : 5.5;
       material.currentTime = time;
+      material.play();
       gsap.to(cameraRef.current?.position, {
         z: 6,
         duration: 1,
@@ -359,11 +365,24 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
   }, [cameraRef, isHolded, material]);
 
   useEffect(() => {
+    if (currentSlide < 0 || currentSlide > 3) return;
     gsap.to(modelRef.current.rotation, {
       y: (Math.PI / 2) * currentSlide,
       duration: 1,
       ease: 'power3.inOut',
       id: 'cube-rotation',
+      onComplete: () => {
+        console.log(currentSlide, lenis);
+        if (currentSlide === 3) {
+          gsap.to(window, {
+            id: 'scrollTween',
+            duration: 1,
+            scrollTo: lenis.actualScroll + 50,
+            ease: 'power1.inOut',
+            onComplete: () => lenis.start(),
+          });
+        }
+      },
     });
   }, [currentSlide]);
 

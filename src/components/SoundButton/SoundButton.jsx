@@ -30,8 +30,6 @@ const SoundButton = ({
   const [amplitude, setAmplitude] = useState(initAmplitude.value);
   useGSAP(
     () => {
-      console.log('active', active);
-
       gsap.to(initAmplitude, {
         value: active ? 0.25 : 0,
         duration,

@@ -54,19 +54,14 @@ const FocusOn = () => {
         // pin: true,
         start: '-=10% 80%',
         end: 'bottom bottom', // just needs to be enough to not risk vibration where a user's fast-scroll shoots way past the end
-        onEnter: (self) => {
-          console.log('cubeRef', cubeRef);
-
+        onEnter: () => {
           let targets = gsap.utils.toArray([
             `.${styles.content__title} span`,
             `.${styles.content__breadcrumbs} span`,
             `.${styles.content__list}[data-name=${currentSlideName}] span`,
           ]);
 
-          console.log(
-            'AAA',
-            `.${styles.content__list}[data-name=${currentSlideName}]`
-          );
+          console.log('targets', targets);
 
           setIsFocusEntered(true);
           gsap
@@ -75,19 +70,21 @@ const FocusOn = () => {
               setIsInit(true);
               prevSlideRef.current = 0;
             })
-            .from(
+            .fromTo(
               cameraRef.current?.position,
+              { z: 4.3 },
               {
                 duration: 2.5,
-                z: 4.3,
+                z: 6,
                 ease: 'power2.out',
               },
               'start'
             )
-            .from(
+            .fromTo(
               cubeRef.current?.rotation,
+              { y: Math.PI * 2 },
               {
-                y: Math.PI * 2,
+                y: 0,
                 duration: 2.5,
                 ease: 'power2.out',
               },
@@ -141,6 +138,10 @@ const FocusOn = () => {
 
     console.log('current/next', currentSlide, currentFocusSlide, nextSlide);
 
+    if (!currentSlide) {
+      setCurrentSlideName(nextSlide);
+      return;
+    }
     gsap
       .timeline({
         onComplete: () => (prevSlideRef.current = currentFocusSlide),

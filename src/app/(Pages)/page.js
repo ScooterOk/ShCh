@@ -36,8 +36,6 @@ export default function Home() {
 
   const handleChangeSlide = useCallback(
     (index) => {
-      console.log('Down');
-
       // gsap.globalTimeline
       //   .getChildren()
       //   .forEach((tween) => console.log('tween', tween));
@@ -51,45 +49,48 @@ export default function Home() {
     () => {
       if (lenis) {
         let index = -1;
+        let scrollTweenActive = false;
         lenis.stop();
         scrollTrigger = ScrollTrigger.observe({
           type: 'wheel,touch',
           onUp: () => {
-            if (gsap.globalTimeline.getById('cube-rotation')) return;
+            if (index === -1 || gsap.globalTimeline.getById('cube-rotation'))
+              return;
             if (index === 0) {
               const isActive = scrollTween?.isActive();
               if (isActive) return;
-              setCurrentFocusSlide(-1);
-              index--;
               scrollTween = gsap.to(window, {
                 duration: 1,
                 scrollTo: 0,
                 ease: 'power1.inOut',
               });
             }
-            console.log('Up', index);
             index--;
             handleChangeSlide(index);
           },
           onDown: () => {
+            console.log('scrollTweenActive', scrollTweenActive, index);
+            if (scrollTweenActive) return;
             if (index === -1) {
-              const isActive = scrollTween?.isActive();
-              if (isActive) return;
+              scrollTweenActive = true;
               setCurrentFocusSlide(0);
               index++;
-              scrollTween = gsap.to(window, {
+              gsap.to(window, {
+                id: 'scrollTween',
                 duration: 1,
                 scrollTo: cubeRef.current,
                 ease: 'power1.inOut',
+                onComplete: () => (scrollTweenActive = false),
               });
             } else {
-              if (gsap.globalTimeline.getById('cube-rotation')) return;
+              if (gsap.globalTimeline.getById('cube-rotation') || index === 3)
+                return;
               index++;
               handleChangeSlide(index);
             }
           },
-          tolerance: 10,
-          preventDefault: true,
+          tolerance: 100,
+          // preventDefault: true,
         });
       }
     },
