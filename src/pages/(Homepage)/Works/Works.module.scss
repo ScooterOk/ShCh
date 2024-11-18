@@ -1,0 +1,61 @@
+@use '@/styles/vars' as *;
+
+.works {
+  height: 100vh;
+  min-height: 900px;
+  position: relative;
+  padding-top: 60px;
+  .title {
+    height: 17vw;
+  }
+}
+
+.koenigsegg {
+  display: flex;
+  gap: 60px;
+  margin-top: 120px;
+  padding-right: 60px;
+  .media {
+    width: 66.66%;
+    flex-shrink: 0;
+    height: auto;
+    aspect-ratio: 5/3;
+    background-color: #000;
+  }
+  .information {
+    flex-grow: 1;
+    color: $black;
+    &__title {
+      font-size: 26px;
+      line-height: 20px;
+      font-weight: 600;
+    }
+    &__description {
+      font-size: 18px;
+      line-height: 20px;
+      font-weight: 600;
+      margin-top: 1.5rem;
+    }
+    &__link {
+      margin-top: 60px;
+      border-top: 3px solid currentColor;
+      padding-top: 12px;
+      font-size: 16px;
+      line-height: 14px;
+      font-weight: 600;
+      a {
+        display: inline-flex;
+        align-items: center;
+        &::before {
+          content: '';
+          display: inline-block;
+          width: 20px;
+          height: 2px;
+          background-color: currentColor;
+          margin-right: 10px;
+          margin-bottom: -3px;
+        }
+      }
+    }
+  }
+}
