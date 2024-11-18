@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import HoverLink from '@/components/HoverLink';
 import React, { useRef } from 'react';
 
 const Koenigsegg = ({ styles }) => {
@@ -17,7 +17,7 @@ const Koenigsegg = ({ styles }) => {
         loop
         playsInline
       >
-        <source src="/video/ShowreelLoop_03.mp4" type="video/mp4" />
+        <source src="/video/works/koenigsegg_preview.mp4" type="video/mp4" />
       </video>
       <div className={styles.information}>
         <h3 className={styles.information__title}>Koenigsegg</h3>
@@ -25,7 +25,7 @@ const Koenigsegg = ({ styles }) => {
           Digital design concept for promo <br /> website Koenigsegg GEMERA
         </p>
         <div className={styles.information__link}>
-          <Link href="/works/koenigsegg">View Case</Link>
+          <HoverLink href="/works/koenigsegg">View Case</HoverLink>
         </div>
       </div>
     </div>
