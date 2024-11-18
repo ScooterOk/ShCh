@@ -19,7 +19,7 @@ const Skyrocket = ({ styles }) => {
         <div className={styles.media__video}>
           <video
             ref={mediaRef}
-            width="1980"
+            width="1280"
             height="769"
             preload="auto"
             autoPlay

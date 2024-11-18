@@ -9,7 +9,7 @@ const Koenigsegg = ({ styles }) => {
       <video
         className={styles.media}
         ref={mediaRef}
-        width="1980"
+        width="1280"
         height="769"
         preload="auto"
         autoPlay

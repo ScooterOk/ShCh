@@ -5,6 +5,8 @@ import HomeWorksTitle from '@/components/(Home)/HomeWorksTitle';
 import Koenigsegg from '@/components/(Home)/Works/Koenigsegg';
 
 import styles from './Works.module.scss';
+import Skyrocket from '@/components/(Home)/Works/Skyrocket';
+import AngleSparky from '@/components/(Home)/Works/AngleSparky';
 
 const Works = () => {
   return (
@@ -21,6 +23,8 @@ const Works = () => {
         </Canvas>
       </div>
       <Koenigsegg styles={styles} />
+      <Skyrocket styles={styles} />
+      <AngleSparky styles={styles} />
     </div>
   );
 };
