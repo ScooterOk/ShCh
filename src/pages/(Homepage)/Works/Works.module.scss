@@ -10,6 +10,27 @@
   }
 }
 
+.information {
+  margin-top: 60px;
+  &__title {
+    font-size: 26px;
+    line-height: 20px;
+    font-weight: 600;
+  }
+  &__description {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 600;
+    margin-top: 1.5rem;
+  }
+  &__link {
+    margin-top: 60px;
+    font-size: 16px;
+    line-height: 14px;
+    font-weight: 600;
+  }
+}
+
 .koenigsegg {
   display: flex;
   gap: 60px;
@@ -22,40 +43,110 @@
     aspect-ratio: 5/3;
     background-color: #000;
   }
-  .information {
-    flex-grow: 1;
-    color: $black;
-    &__title {
-      font-size: 26px;
-      line-height: 20px;
-      font-weight: 600;
+}
+
+.skyrocket {
+  margin-top: 320px;
+  padding-left: 60px;
+  .media {
+    display: flex;
+    align-items: flex-start;
+    gap: 60px;
+    &__logo {
+      width: 28%;
+      aspect-ratio: 1 / 1;
+      flex-shrink: 0;
+      background-color: $black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-    &__description {
-      font-size: 18px;
-      line-height: 20px;
-      font-weight: 600;
-      margin-top: 1.5rem;
-    }
-    &__link {
-      margin-top: 60px;
-      border-top: 3px solid currentColor;
-      padding-top: 12px;
-      font-size: 16px;
-      line-height: 14px;
-      font-weight: 600;
-      a {
-        display: inline-flex;
-        align-items: center;
-        &::before {
-          content: '';
-          display: inline-block;
-          width: 20px;
-          height: 2px;
-          background-color: currentColor;
-          margin-right: 10px;
-          margin-bottom: -3px;
-        }
+    &__video {
+      flex-grow: 1;
+      video {
+        width: 100%;
+        height: auto;
       }
+    }
+  }
+  .information {
+    width: 50%;
+  }
+}
+
+.angle_sparky {
+  margin-top: 320px;
+  display: flex;
+  gap: 60px;
+  justify-content: space-between;
+  align-items: flex-end;
+  .angle2 {
+    width: 50%;
+    flex-shrink: 0;
+    .media {
+      background-color: $black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      aspect-ratio: 1 / 1;
+      padding: 60px;
+      video {
+        width: 100%;
+        height: auto;
+      }
+    }
+    .information {
+      padding-left: 60px;
+      max-width: 65%;
+    }
+  }
+  .sparky {
+    width: 33%;
+    flex-shrink: 0;
+    .media {
+      background-color: $black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      aspect-ratio: 1 / 1;
+      padding: 60px;
+      video {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
+
+.mesmerized {
+  margin-top: 320px;
+  padding-left: 60px;
+  .media {
+    display: flex;
+    align-items: flex-start;
+    gap: 60px;
+    &__logo {
+      flex-grow: 1;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    &__video {
+      width: 28%;
+      aspect-ratio: 1 / 1;
+      flex-shrink: 0;
+      background-color: $black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      video {
+        width: 100%;
+        height: auto;
+      }
+    }
+    .information {
+      width: 50%;
     }
   }
 }

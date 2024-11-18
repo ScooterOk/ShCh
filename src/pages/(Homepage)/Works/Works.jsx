@@ -7,6 +7,7 @@ import Koenigsegg from '@/components/(Home)/Works/Koenigsegg';
 import styles from './Works.module.scss';
 import Skyrocket from '@/components/(Home)/Works/Skyrocket';
 import AngleSparky from '@/components/(Home)/Works/AngleSparky';
+import Mesmerized from '@/components/(Home)/Works/Mesmerized';
 
 const Works = () => {
   return (
@@ -25,6 +26,7 @@ const Works = () => {
       <Koenigsegg styles={styles} />
       <Skyrocket styles={styles} />
       <AngleSparky styles={styles} />
+      <Mesmerized styles={styles} />
     </div>
   );
 };
