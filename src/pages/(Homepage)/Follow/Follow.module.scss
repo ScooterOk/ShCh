@@ -11,6 +11,16 @@
     width: 53%;
     flex-shrink: 0;
     aspect-ratio: 5.55 / 1;
+    position: relative;
+    &__description {
+      color: $bg;
+      position: absolute;
+      left: 0;
+      top: 117%;
+      font-size: clamp(16px, 1.1vw, 20px);
+      line-height: 24px;
+      font-weight: 600;
+    }
   }
   .list {
     flex-grow: 1;

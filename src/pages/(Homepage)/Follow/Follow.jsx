@@ -52,6 +52,11 @@ const Follow = () => {
           />
           <OrbitControls /> */}
         </Canvas>
+        <div className={styles.title__description}>
+          and check my work in progress,
+          <br />
+          explorations, experimentations
+        </div>
       </div>
       <div className={styles.list}>
         <a href="/" target="_blank">
