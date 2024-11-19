@@ -7,7 +7,13 @@ import gsap from 'gsap';
 
 const random = Math.random();
 
-const HoverLink = ({ Component = Link, href = '', children, className }) => {
+const HoverLink = ({
+  Component = Link,
+  href = '',
+  children,
+  className,
+  line = true,
+}) => {
   const linkRef = useRef();
   const onMouseEnter = (e) => {
     const each = 0.5 / children?.length / 2;
@@ -37,7 +43,13 @@ const HoverLink = ({ Component = Link, href = '', children, className }) => {
   };
 
   return (
-    <div className={clsx(styles.link, className && className)}>
+    <div
+      className={clsx(
+        styles.link,
+        line && styles.withline,
+        className && className
+      )}
+    >
       <Component href={href} ref={linkRef} onMouseEnter={onMouseEnter}>
         {Array.from(children).map((l, i) => (
           <span key={`name-${random.toFixed(3) * 1000}-${l}-${i}-${l}`}>

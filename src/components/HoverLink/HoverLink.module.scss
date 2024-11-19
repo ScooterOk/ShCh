@@ -2,21 +2,7 @@
   display: block;
   padding-top: 12px;
   position: relative;
-  & > a {
-    display: inline-block;
-    color: currentColor;
-    vertical-align: middle;
-    &::before {
-      content: '';
-      display: inline-block;
-      flex-shrink: 0;
-      width: 20px;
-      height: 2px;
-      background-color: currentColor;
-      margin-right: 10px;
-      margin-top: -1px;
-      vertical-align: middle;
-    }
+  &.withline {
     &::after {
       content: '';
       display: block;
@@ -29,11 +15,27 @@
       transition: transform 0.5s ease-in-out;
       transform-origin: left;
     }
+    &::before {
+      content: '';
+      display: inline-block;
+      flex-shrink: 0;
+      width: 20px;
+      height: 2px;
+      background-color: currentColor;
+      margin-right: 10px;
+      margin-top: -1px;
+      vertical-align: middle;
+    }
     &:hover {
       &::after {
         transform: scaleX(0);
         transform-origin: right;
       }
     }
+  }
+  & > a {
+    display: inline-block;
+    color: currentColor;
+    vertical-align: middle;
   }
 }
