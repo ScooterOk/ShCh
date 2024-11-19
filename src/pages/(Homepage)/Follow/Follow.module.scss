@@ -1,0 +1,58 @@
+@use '@/styles/vars' as *;
+
+.follow {
+  margin-top: 320px;
+  background-color: $black;
+  padding: 25% 60px;
+  display: flex;
+  gap: 60px;
+  position: relative;
+  .title {
+    width: 53%;
+    flex-shrink: 0;
+    aspect-ratio: 5.55 / 1;
+  }
+  .list {
+    flex-grow: 1;
+    background-color: $bg;
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+  }
+  .silver {
+    position: absolute;
+    width: 16%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    top: calc(60px + 5%);
+    left: 8%;
+  }
+  .robo {
+    position: absolute;
+    width: 33%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    top: calc(60px + 18%);
+    left: 24%;
+  }
+  .astranaut {
+    position: absolute;
+    width: 16%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    top: calc(60px + 5%);
+    right: 8%;
+  }
+  .venera {
+    position: absolute;
+    width: 16%;
+    height: auto;
+    aspect-ratio: 16 / 8;
+    bottom: calc(60px + 17%);
+    right: 25%;
+  }
+}
