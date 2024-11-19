@@ -1,0 +1,35 @@
+.footer {
+  padding: 60px 60px 100px 60px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  .date {
+    width: 50%;
+    margin-left: auto;
+  }
+  .title {
+    margin-top: 120px;
+    width: 90%;
+    aspect-ratio: 1621 / 174;
+    position: relative;
+    &__description {
+      position: absolute;
+      top: -4px;
+      left: calc(100% + 16px);
+    }
+  }
+  .links {
+    width: 50%;
+    margin-top: 160px;
+    margin-left: auto;
+    &__email {
+      margin-bottom: 60px;
+    }
+  }
+  .copyright {
+    margin-top: 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
