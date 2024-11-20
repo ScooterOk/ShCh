@@ -40,20 +40,21 @@
     max-width: 330px;
   }
   .media {
-    clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
-  }
-  .media {
     width: 66.66%;
     flex-shrink: 0;
     height: auto;
     aspect-ratio: 5/3;
     background-color: #000;
+    clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
   }
 }
 
 .skyrocket {
   margin-top: 320px;
   padding-left: 60px;
+  .information__description {
+    max-width: 450px;
+  }
   .media {
     display: flex;
     align-items: flex-start;
@@ -66,12 +67,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
     }
     &__video {
       flex-grow: 1;
       video {
         width: 100%;
         height: auto;
+        clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
       }
     }
   }
