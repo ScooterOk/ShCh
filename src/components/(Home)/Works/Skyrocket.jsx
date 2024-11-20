@@ -19,7 +19,6 @@ const Skyrocket = ({ styles }) => {
             trigger: container.current,
             start: 'top 50%',
             end: 'bottom bottom',
-            markers: true,
           },
         })
         .add(() => mediaRef.current.play())

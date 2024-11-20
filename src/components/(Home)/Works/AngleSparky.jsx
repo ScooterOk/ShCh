@@ -1,20 +1,67 @@
 import HoverLink from '@/components/HoverLink';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 import Image from 'next/image';
 import React, { useRef } from 'react';
 
 const AngleSparky = ({ styles }) => {
-  const mediaRef = useRef();
+  const container = useRef();
+  const angle2Ref = useRef();
+  const sparkyRef = useRef();
+
+  useGSAP(
+    () => {
+      const words = container.current.querySelectorAll('[data-animation]');
+      const each = 0.05;
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: container.current,
+            start: 'top 50%',
+            end: 'bottom bottom',
+            markers: true,
+            toggleActions: 'restart none none none',
+          },
+        })
+        .add(() => {
+          angle2Ref.current.play();
+          sparkyRef.current.play();
+        })
+        .from(container.current, {
+          opacity: 0,
+          duration: 0.5,
+        })
+        .to(`.${styles.media}`, {
+          clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)',
+          duration: 1.5,
+          ease: 'power4.inOut',
+        })
+        .from(
+          words,
+          {
+            duration: 0.1,
+            opacity: 0,
+            stagger: {
+              each,
+              grid: 'auto',
+              from: 'random',
+            },
+          },
+          '-=0.5'
+        );
+    },
+    { dependencies: [] }
+  );
 
   return (
-    <div className={styles.angle_sparky}>
+    <div className={styles.angle_sparky} ref={container}>
       <div className={styles.angle2}>
         <div className={styles.media}>
           <video
-            ref={mediaRef}
+            ref={angle2Ref}
             width="840"
             height="434"
             preload="auto"
-            autoPlay
             muted
             loop
             playsInline
@@ -23,10 +70,21 @@ const AngleSparky = ({ styles }) => {
           </video>
         </div>
         <div className={styles.information}>
-          <h3 className={styles.information__title}>Angle2 Agency</h3>
+          <h3 className={styles.information__title}>
+            {Array.from('Angle2 Agency').map((l, i) => (
+              <span data-animation key={`name-${l}-${i}-${l}`}>
+                {l}
+              </span>
+            ))}
+          </h3>
           <p className={styles.information__description}>
-            Discription. Create digital experience that merge art <br />
-            diraction, branding, strategy.
+            {Array.from(
+              'Discription. Create digital experience that merge art diraction, branding, strategy.'
+            ).map((l, i) => (
+              <span data-animation key={`name-${l}-${i}-${l}`}>
+                {l}
+              </span>
+            ))}
           </p>
           <div className={styles.information__link}>
             <HoverLink href="/works/koenigsegg">View Case</HoverLink>
@@ -36,11 +94,10 @@ const AngleSparky = ({ styles }) => {
       <div className={styles.sparky}>
         <div className={styles.media}>
           <video
-            ref={mediaRef}
+            ref={sparkyRef}
             width="840"
             height="434"
             preload="auto"
-            autoPlay
             muted
             loop
             playsInline
@@ -49,10 +106,21 @@ const AngleSparky = ({ styles }) => {
           </video>
         </div>
         <div className={styles.information}>
-          <h3 className={styles.information__title}>Sparky.Us</h3>
+          <h3 className={styles.information__title}>
+            {Array.from('Sparky.Us').map((l, i) => (
+              <span data-animation key={`name-${l}-${i}-${l}`}>
+                {l}
+              </span>
+            ))}
+          </h3>
           <p className={styles.information__description}>
-            Discription. Create digital experience that merge art <br />
-            diraction, branding, strategy.
+            {Array.from(
+              'Discription. Create digital experience that merge art diraction, branding, strategy.'
+            ).map((l, i) => (
+              <span data-animation key={`name-${l}-${i}-${l}`}>
+                {l}
+              </span>
+            ))}
           </p>
           <div className={styles.information__link}>
             <HoverLink href="/works/koenigsegg">View Case</HoverLink>

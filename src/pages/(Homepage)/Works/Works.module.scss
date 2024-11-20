@@ -89,6 +89,9 @@
   gap: 60px;
   justify-content: space-between;
   align-items: flex-end;
+  .information__description {
+    max-width: 520px;
+  }
   .angle2 {
     width: 50%;
     flex-shrink: 0;
@@ -99,6 +102,7 @@
       align-items: center;
       aspect-ratio: 1 / 1;
       padding: 60px;
+      clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
       video {
         width: 100%;
         height: auto;
@@ -119,6 +123,7 @@
       align-items: center;
       aspect-ratio: 1 / 1;
       padding: 60px;
+      clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
       video {
         width: 100%;
         height: auto;
