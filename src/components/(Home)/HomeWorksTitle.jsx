@@ -7,7 +7,7 @@ import gsap from 'gsap';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
-const HomeWorksTitle = () => {
+const HomeWorksTitle = ({ container }) => {
   const { isLoaded } = useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
 
@@ -42,36 +42,41 @@ const HomeWorksTitle = () => {
 
   const { viewport } = three;
 
-  // useEffect(() => {
-  //   action.current = actions[names[0]];
-  //   if (action.current) {
-  //     action.current.reset();
-  //     action.current.paused = true;
-  //     action.current.play();
-  //   }
-  // }, [actions, names]);
+  useEffect(() => {
+    action.current = actions[names[0]];
+    if (action.current) {
+      action.current.reset();
+      action.current.paused = true;
+      action.current.play();
+      console.log('action.current', action.current);
+    }
+  }, [actions, names]);
 
-  // useGSAP(
-  //   () => {
-  //     if (isLoaded) {
-  //       if (action.current) {
-  //         gsap
-  //           .timeline()
-  //           .to(action.current, {
-  //             time: 1,
-  //             duration: 1,
-  //             ease: 'power3.inOut',
-  //           })
-  //           .to(action.current, {
-  //             time: 2,
-  //             duration: 1,
-  //             ease: 'power3.Out',
-  //           });
-  //       }
-  //     }
-  //   },
-  //   { dependencies: [isLoaded] }
-  // );
+  useGSAP(
+    () => {
+      if (isLoaded && action.current) {
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: container,
+              start: '-=10% 80%',
+              end: 'bottom bottom',
+            },
+          })
+          .to(action.current, {
+            time: 0.5,
+            duration: 1,
+            ease: 'power3.inOut',
+          })
+          .to(action.current, {
+            time: 1,
+            duration: 1,
+            ease: 'power3.Out',
+          });
+      }
+    },
+    { dependencies: [isLoaded] }
+  );
 
   useEffect(() => {
     if (ref.current) {
@@ -87,18 +92,10 @@ const HomeWorksTitle = () => {
     }
   }, [ref]);
 
-  // const viewportWidth = viewport.width;
-  // const modelWidthInViewport =
-  //   modelDimensions.width * (viewport.width / size.width);
-
   useEffect(() => {
-    const w = (viewport.width / modelDimensions.width) * 1.035;
+    const w = (viewport.width / modelDimensions.width) * 1.075;
     setWidthScale(w);
   }, [modelDimensions.width, viewport.width]);
-
-  // console.log('Viewport width:', viewportWidth);
-  // console.log('Model width in viewport:', modelWidthInViewport);
-  // console.log('size:', size);
 
   return (
     <primitive
