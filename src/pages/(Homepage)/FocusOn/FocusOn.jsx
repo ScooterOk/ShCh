@@ -44,24 +44,22 @@ const FocusOn = () => {
   //   setCurrentSlide((prev) => (prev < 4 ? prev + 1 : 0));
   // };
 
-  gsap.registerPlugin(ScrollTrigger);
-
   useGSAP(
     () => {
       ScrollTrigger.create({
         trigger: container.current,
-        markers: true,
+        // markers: true,
         // pin: true,
         start: '-=10% 80%',
         end: 'bottom bottom', // just needs to be enough to not risk vibration where a user's fast-scroll shoots way past the end
         onEnter: () => {
+          console.log('ENTER');
+
           let targets = gsap.utils.toArray([
             `.${styles.content__title} span`,
             `.${styles.content__breadcrumbs} span`,
             `.${styles.content__list}[data-name=${currentSlideName}] span`,
           ]);
-
-          console.log('targets', targets);
 
           setIsFocusEntered(true);
           gsap
@@ -107,6 +105,7 @@ const FocusOn = () => {
             );
         },
         onEnterBack: (self) => {
+          console.log('onEnterBack');
           // if (intentObserver.isEnabled) { return } // in case the native scroll jumped backward past the start and then we force it back to where it should be.
           // self.scroll(self.end - 1); // jump to one pixel before the end of this section so we can hold there.
           // intentObserver.enable(); // STOP native scrolling
@@ -119,8 +118,6 @@ const FocusOn = () => {
   useEffect(() => {
     if (prevSlideRef.current === null) return;
     const isDown = prevSlideRef.current < currentFocusSlide;
-
-    console.log('isDown', isDown);
 
     const slides = ['web', 'brand', 'motion'];
     const currentSlide = isDown
@@ -135,8 +132,6 @@ const FocusOn = () => {
       `.${styles.content__breadcrumbs} span`,
       `.${styles.content__list}[data-name=${nextSlide}] span`,
     ]);
-
-    console.log('current/next', currentSlide, currentFocusSlide, nextSlide);
 
     if (!currentSlide) {
       setCurrentSlideName(nextSlide);

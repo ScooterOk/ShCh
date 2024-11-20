@@ -1,8 +1,12 @@
 'use client';
 import Navigation from '@/components/(Home)/Navigation/Navigation';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { ReactLenis } from 'lenis/react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ScrollToPlugin from 'gsap/ScrollToPlugin';
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // gsap.ticker.fps(30);
 

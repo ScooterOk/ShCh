@@ -9,11 +9,12 @@ import FocusOn from '@/pages/(Homepage)/FocusOn/FocusOn';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import ScrollToPlugin from 'gsap/ScrollToPlugin';
-import { useLenis } from 'lenis/react';
-// import FocusOn from '@/pages/(Homepage)/FocusOn/FocusOn';
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+import { useLenis } from 'lenis/react';
+import Works from '@/pages/(Homepage)/Works/Works';
+import Follow from '@/pages/(Homepage)/Follow/Follow';
+import Footer from '@/components/Footer/Footer';
+// import FocusOn from '@/pages/(Homepage)/FocusOn/FocusOn';
 
 let scrollTrigger;
 let scrollTween;
@@ -48,6 +49,7 @@ export default function Home() {
   useGSAP(
     () => {
       if (lenis) {
+        return;
         let index = -1;
         let scrollTweenActive = false;
         lenis.stop();
@@ -102,7 +104,6 @@ export default function Home() {
       <button
         style={{ position: 'fixed', top: 0, left: 0, zIndex: 100 }}
         onClick={() => {
-          console.log('onClick');
           gsap.to(window, {
             duration: 1,
             scrollTo: cubeRef.current,
@@ -119,7 +120,9 @@ export default function Home() {
       <div ref={cubeRef}>
         <FocusOn />
       </div>
-      <div style={{ height: '100vh' }}></div>
+      <Works />
+      <Follow />
+      <Footer />
       {!isLoaded && (
         <Loader setIsLoaded={setIsLoaded} setNoScroll={setNoScroll} />
       )}
