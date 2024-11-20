@@ -92,7 +92,7 @@ const HomeHeroTitle = () => {
   //   modelDimensions.width * (viewport.width / size.width);
 
   useEffect(() => {
-    const w = (viewport.width / modelDimensions.width) * 1.035;
+    const w = (viewport.width / modelDimensions.width) * 1.069;
     setWidthScale(w);
   }, [modelDimensions.width, viewport.width]);
 
@@ -104,7 +104,7 @@ const HomeHeroTitle = () => {
     <primitive
       ref={ref}
       object={scene}
-      position={[0, -0.5, 0]}
+      position={[0.045, 0, 0]}
       scale={widthScale}
     />
   );

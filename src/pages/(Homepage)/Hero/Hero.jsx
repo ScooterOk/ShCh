@@ -26,47 +26,28 @@ const Hero = () => {
   return (
     <>
       <div className={styles.hero}>
-        <Canvas
-          ref={canvas}
-          camera={{ position: [0, 0, 1], orthographic: true }}
-          gl={{ stencil: true }}
-        >
-          {/* <ambientLight />
-        <spotLight
-          position={[10, 10, 10]}
-          angle={0.15}
-          penumbra={1}
-          intensity={1.5}
-          castShadow
-        />
-        <pointLight position={[-10, -10, -10]} />
-        <Environment preset="sunset" /> */}
-          {/* <Grid position={[0, 0, 0]} args={[2, 2]} cellSize={0.1} /> */}
-
-          {/* <HomeHeroLoopVideo /> */}
-
+        <div className={styles.hero__videos}>
           <Suspense fallback={null}>
-            <HomeHeroTitle />
-            {/* <HomeHeroScooterOk /> */}
+            <HomeHeroLoopVideo styles={styles} />
+            <HomeHeroVideoPlayer
+              styles={styles}
+              setShowVideoPlayer={setShowVideoPlayer}
+            />
+            <HomeHeroName styles={styles} />
           </Suspense>
-
-          {/* <OrbitControls /> */}
-        </Canvas>
-
-        <Suspense fallback={null}>
-          <HomeHeroVideoPlayer
-            styles={styles}
-            setShowVideoPlayer={setShowVideoPlayer}
-          />
-          <HomeHeroLoopVideo styles={styles} />
-        </Suspense>
-        <HomeHeroName styles={styles} />
-        <HomeHeroText styles={styles} />
-
-        {/* <Canvas shadows gl={{ stencil: true }}>
-        <HomeHeroLoopVideo />
-        <OrbitControls makeDefault />
-      </Canvas> */}
+        </div>
+        <div className={styles.hero__title}>
+          <Canvas
+            ref={canvas}
+            camera={{ position: [0, 0, 1], orthographic: true }}
+            gl={{ stencil: true }}
+          >
+            <Suspense fallback={null}>
+              <HomeHeroTitle />
+            </Suspense>
+          </Canvas>
+          <HomeHeroText styles={styles} />
+        </div>
       </div>
       <VideoPlayerModal
         show={showVideoPlayer}
