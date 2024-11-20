@@ -11,7 +11,7 @@ const Koenigsegg = ({ styles }) => {
 
   useGSAP(
     () => {
-      const words = document.querySelectorAll('[data-animation]');
+      const words = container.current.querySelectorAll('[data-animation]');
       const each = 0.05;
       gsap
         .timeline({
@@ -19,10 +19,9 @@ const Koenigsegg = ({ styles }) => {
             trigger: container.current,
             start: '-=10% 80%',
             end: 'bottom bottom',
-            markers: true,
-            toggleActions: 'restart none none none',
           },
         })
+        .add(() => mediaRef.current.play())
         .from(container.current, {
           opacity: 0,
           duration: 0.5,
@@ -57,7 +56,6 @@ const Koenigsegg = ({ styles }) => {
         width="1280"
         height="769"
         preload="auto"
-        autoPlay
         muted
         loop
         playsInline
