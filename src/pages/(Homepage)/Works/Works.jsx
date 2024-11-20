@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useRef } from 'react';
 
 import { Canvas } from '@react-three/fiber';
 import HomeWorksTitle from '@/components/(Home)/HomeWorksTitle';
@@ -10,15 +10,17 @@ import AngleSparky from '@/components/(Home)/Works/AngleSparky';
 import Mesmerized from '@/components/(Home)/Works/Mesmerized';
 
 const Works = () => {
+  const container = useRef();
+
   return (
     <div className={styles.works}>
-      <div className={styles.title}>
+      <div className={styles.title} ref={container}>
         <Canvas
           camera={{ position: [0, 0, 1], orthographic: true }}
           //   gl={{ stencil: true }}
         >
           <Suspense fallback={null}>
-            <HomeWorksTitle />
+            <HomeWorksTitle container={container.current} />
           </Suspense>
           {/* <OrbitControls /> */}
         </Canvas>
