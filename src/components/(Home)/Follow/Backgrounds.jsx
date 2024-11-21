@@ -1,4 +1,6 @@
-import React from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import React, { useRef } from 'react';
 
 const Backgrounds = ({ styles }) => {
   return (
@@ -8,7 +10,6 @@ const Backgrounds = ({ styles }) => {
         width="320"
         height="320"
         preload="auto"
-        autoPlay
         muted
         loop
         playsInline
@@ -20,7 +21,6 @@ const Backgrounds = ({ styles }) => {
         width="640"
         height="360"
         preload="auto"
-        autoPlay
         muted
         loop
         playsInline
@@ -32,7 +32,6 @@ const Backgrounds = ({ styles }) => {
         width="320"
         height="320"
         preload="auto"
-        autoPlay
         muted
         loop
         playsInline
@@ -44,7 +43,6 @@ const Backgrounds = ({ styles }) => {
         width="320"
         height="180"
         preload="auto"
-        autoPlay
         muted
         loop
         playsInline
