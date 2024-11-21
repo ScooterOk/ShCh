@@ -1,8 +1,8 @@
 .link {
   display: block;
-  padding-top: 12px;
   position: relative;
   &.withline {
+    padding-top: 12px;
     &::after {
       content: '';
       display: block;
