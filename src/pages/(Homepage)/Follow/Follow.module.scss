@@ -20,6 +20,7 @@
       font-size: clamp(16px, 1.1vw, 20px);
       line-height: 24px;
       font-weight: 600;
+      max-width: 310px;
     }
   }
   .list {
@@ -40,6 +41,7 @@
     aspect-ratio: 1 / 1;
     top: calc(60px + 5%);
     left: 8%;
+    clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
   }
   .robo {
     position: absolute;
@@ -48,6 +50,7 @@
     aspect-ratio: 16 / 9;
     top: calc(60px + 18%);
     left: 24%;
+    clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
   }
   .astranaut {
     position: absolute;
@@ -56,6 +59,7 @@
     aspect-ratio: 1 / 1;
     top: calc(60px + 5%);
     right: 8%;
+    clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
   }
   .venera {
     position: absolute;
@@ -64,5 +68,6 @@
     aspect-ratio: 16 / 8;
     bottom: calc(60px + 17%);
     right: 25%;
+    clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
   }
 }

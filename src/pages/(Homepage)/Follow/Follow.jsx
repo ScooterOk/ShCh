@@ -6,6 +6,9 @@ import { Canvas } from '@react-three/fiber';
 import { Grid, OrbitControls, useHelper } from '@react-three/drei';
 import { DirectionalLightHelper, SpotLightHelper } from 'three';
 import Backgrounds from '@/components/(Home)/Follow/Backgrounds';
+import HoverLink from '@/components/HoverLink';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 const Lights = () => {
   //   const lightRef = useRef();
@@ -27,44 +30,87 @@ const Lights = () => {
 };
 
 const Follow = () => {
+  const container = useRef();
+  const list = useRef();
+
+  useGSAP(() => {
+    const words = container.current.querySelectorAll('[data-animation]');
+    const each = 0.025;
+
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: container.current,
+          start: 'top 50%',
+          end: 'bottom bottom',
+        },
+      })
+      .from(list.current, {
+        scaleY: 0,
+        duration: 1,
+        ease: 'power3.inOut',
+      })
+      .from(words, {
+        duration: 0.1,
+        opacity: 0,
+        stagger: {
+          each,
+          grid: 'auto',
+          from: 'random',
+        },
+      })
+      .add(() => {
+        document.querySelector(`.${styles.silver}`).play();
+        document.querySelector(`.${styles.robo}`).play();
+        document.querySelector(`.${styles.astranaut}`).play();
+        document.querySelector(`.${styles.venera}`).play();
+      })
+      .to(
+        gsap.utils.toArray([
+          `.${styles.silver}`,
+          `.${styles.robo}`,
+          `.${styles.astranaut}`,
+          `.${styles.venera}`,
+        ]),
+        {
+          clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)',
+          duration: 1.5,
+          ease: 'power4.inOut',
+        }
+      );
+  });
+
   return (
-    <div className={styles.follow}>
-      <Backgrounds styles={styles} />
+    <div className={styles.follow} ref={container}>
+      <Backgrounds styles={styles} container={container.current} />
       <div className={styles.title}>
         <Canvas
           camera={{ position: [0, 0, 1], orthographic: true }}
           gl={{ stencil: true }}
         >
-          <ambientLight intensity={50} color={'#9b9b88'} />
-
+          <ambientLight color={'#9b9b88'} />
           <Lights />
-
           <Suspense fallback={null}>
-            <HomeFollowTitle />
+            <HomeFollowTitle container={container.current} />
           </Suspense>
-          {/* <Grid
-            position={[0, 0, 0]}
-            sectionSize={1}
-            sectionColor={'white'}
-            args={[10, 10]}
-            cellSize={0.1}
-            cellColor={'#ccc'}
-          />
-          <OrbitControls /> */}
         </Canvas>
         <div className={styles.title__description}>
-          and check my work in progress,
-          <br />
-          explorations, experimentations
+          {Array.from(
+            'and check my work in progress, explorations, experimentations'
+          ).map((l, i) => (
+            <span data-animation key={`name-${l}-${i}-${l}`}>
+              {l}
+            </span>
+          ))}
         </div>
       </div>
-      <div className={styles.list}>
-        <a href="/" target="_blank">
+      <div className={styles.list} ref={list}>
+        <HoverLink href="/" Component={'a'} line={false}>
           Instagram
-        </a>
-        <a href="/" target="_blank">
+        </HoverLink>
+        <HoverLink href="/" Component={'a'} line={false}>
           LinkedIn
-        </a>
+        </HoverLink>
       </div>
     </div>
   );
