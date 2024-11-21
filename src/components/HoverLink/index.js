@@ -52,7 +52,10 @@ const HoverLink = ({
     >
       <Component href={href} ref={linkRef} onMouseEnter={onMouseEnter}>
         {Array.from(children).map((l, i) => (
-          <span key={`name-${random.toFixed(3) * 1000}-${l}-${i}-${l}`}>
+          <span
+            data-animation
+            key={`name-${random.toFixed(3) * 1000}-${l}-${i}-${l}`}
+          >
             {l}
           </span>
         ))}

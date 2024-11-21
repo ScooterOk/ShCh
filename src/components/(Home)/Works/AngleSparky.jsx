@@ -1,5 +1,6 @@
 import HoverLink from '@/components/HoverLink';
 import { useGSAP } from '@gsap/react';
+import clsx from 'clsx';
 import gsap from 'gsap';
 import Image from 'next/image';
 import React, { useRef } from 'react';
@@ -19,8 +20,6 @@ const AngleSparky = ({ styles }) => {
             trigger: container.current,
             start: 'top 50%',
             end: 'bottom bottom',
-            markers: true,
-            toggleActions: 'restart none none none',
           },
         })
         .add(() => {
@@ -31,7 +30,7 @@ const AngleSparky = ({ styles }) => {
           opacity: 0,
           duration: 0.5,
         })
-        .to(`.${styles.media}`, {
+        .to('.angle2_sparky_media', {
           clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)',
           duration: 1.5,
           ease: 'power4.inOut',
@@ -56,7 +55,7 @@ const AngleSparky = ({ styles }) => {
   return (
     <div className={styles.angle_sparky} ref={container}>
       <div className={styles.angle2}>
-        <div className={styles.media}>
+        <div className={clsx(styles.media, 'angle2_sparky_media')}>
           <video
             ref={angle2Ref}
             width="840"
@@ -92,7 +91,7 @@ const AngleSparky = ({ styles }) => {
         </div>
       </div>
       <div className={styles.sparky}>
-        <div className={styles.media}>
+        <div className={clsx(styles.media, 'angle2_sparky_media')}>
           <video
             ref={sparkyRef}
             width="840"

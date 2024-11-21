@@ -372,7 +372,6 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
       ease: 'power3.inOut',
       id: 'cube-rotation',
       onComplete: () => {
-        console.log(currentSlide, lenis);
         if (currentSlide === 3) {
           gsap.to(window, {
             id: 'scrollTween',
