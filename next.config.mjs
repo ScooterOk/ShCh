@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // output: 'export',
-  transpilePackages: ['three'],
+  transpilePackages: ['three', 'gsap'],
   reactStrictMode: true,
   eslint: {
     // Warning: This allows production builds to successfully complete even if

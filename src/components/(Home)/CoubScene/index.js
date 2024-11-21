@@ -376,7 +376,7 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
           gsap.to(window, {
             id: 'scrollTween',
             duration: 1,
-            scrollTo: lenis.actualScroll + 50,
+            scrollTo: lenis.actualScroll + 75,
             ease: 'power1.inOut',
             onComplete: () => lenis.start(),
           });

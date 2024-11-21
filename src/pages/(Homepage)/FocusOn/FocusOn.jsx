@@ -23,10 +23,12 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import clsx from 'clsx';
 import { mainContext } from '@/providers/MainProvider';
+import { useLenis } from 'lenis/react';
 
 const FocusOn = () => {
   const [isHolded, setIsHolded] = useState(null);
   const [currentSlideName, setCurrentSlideName] = useState('web');
+  const lenis = useLenis();
 
   const {
     setIsFocusEntered,
@@ -46,73 +48,84 @@ const FocusOn = () => {
 
   useGSAP(
     () => {
-      ScrollTrigger.create({
-        trigger: container.current,
-        // markers: true,
-        // pin: true,
-        start: '-=10% 80%',
-        end: 'bottom bottom', // just needs to be enough to not risk vibration where a user's fast-scroll shoots way past the end
-        onEnter: () => {
-          console.log('ENTER');
+      if (lenis) {
+        ScrollTrigger.create({
+          trigger: container.current,
+          // markers: true,
+          // pin: true,
+          start: '-=10% 80%',
+          end: 'bottom 80%', // just needs to be enough to not risk vibration where a user's fast-scroll shoots way past the end
+          markers: true,
+          onEnter: () => {
+            console.log('ENTER');
 
-          let targets = gsap.utils.toArray([
-            `.${styles.content__title} span`,
-            `.${styles.content__breadcrumbs} span`,
-            `.${styles.content__list}[data-name=${currentSlideName}] span`,
-          ]);
+            let targets = gsap.utils.toArray([
+              `.${styles.content__title} span`,
+              `.${styles.content__breadcrumbs} span`,
+              `.${styles.content__list}[data-name=${currentSlideName}] span`,
+            ]);
 
-          setIsFocusEntered(true);
-          gsap
-            .timeline()
-            .add(() => {
-              setIsInit(true);
-              prevSlideRef.current = 0;
-            })
-            .fromTo(
-              cameraRef.current?.position,
-              { z: 4.3 },
-              {
-                duration: 2.5,
-                z: 6,
-                ease: 'power2.out',
-              },
-              'start'
-            )
-            .fromTo(
-              cubeRef.current?.rotation,
-              { y: Math.PI * 2 },
-              {
-                y: 0,
-                duration: 2.5,
-                ease: 'power2.out',
-              },
-              'start'
-            )
-            .set(`.${styles.content}`, { autoAlpha: 1, delay: 1 }, '-=2')
-            .fromTo(
-              targets,
-              { opacity: 0 },
-              {
-                duration: 0.1,
-                opacity: 1,
-                stagger: {
-                  each: 0.1,
-                  grid: 'auto',
-                  from: 'random',
+            setIsFocusEntered(true);
+            gsap
+              .timeline()
+              .add(() => {
+                setIsInit(true);
+                prevSlideRef.current = 0;
+              })
+              .fromTo(
+                cameraRef.current?.position,
+                { z: 4.3 },
+                {
+                  duration: 2.5,
+                  z: 6,
+                  ease: 'power2.out',
                 },
-              },
-              '-=1'
-            );
-        },
-        onEnterBack: (self) => {
-          console.log('onEnterBack');
-          // if (intentObserver.isEnabled) { return } // in case the native scroll jumped backward past the start and then we force it back to where it should be.
-          // self.scroll(self.end - 1); // jump to one pixel before the end of this section so we can hold there.
-          // intentObserver.enable(); // STOP native scrolling
-        },
-      });
+                'start'
+              )
+              .fromTo(
+                cubeRef.current?.rotation,
+                { y: Math.PI * 2 },
+                {
+                  y: 0,
+                  duration: 2.5,
+                  ease: 'power2.out',
+                },
+                'start'
+              )
+              .set(`.${styles.content}`, { autoAlpha: 1, delay: 1 }, '-=2')
+              .fromTo(
+                targets,
+                { opacity: 0 },
+                {
+                  duration: 0.1,
+                  opacity: 1,
+                  stagger: {
+                    each: 0.1,
+                    grid: 'auto',
+                    from: 'random',
+                  },
+                },
+                '-=1'
+              );
+          },
+          onEnterBack: (self) => {
+            console.log('onEnterBack', lenis);
+            lenis.stop();
+            gsap.to(window, {
+              id: 'scrollTween',
+              duration: 1,
+              scrollTo: container.current,
+              ease: 'power2.out',
+              // onComplete: () => (scrollTweenActive = false),
+            });
+            // if (intentObserver.isEnabled) { return } // in case the native scroll jumped backward past the start and then we force it back to where it should be.
+            // self.scroll(self.end - 1); // jump to one pixel before the end of this section so we can hold there.
+            // intentObserver.enable(); // STOP native scrolling
+          },
+        });
+      }
     },
-    { dependencies: [setIsFocusEntered] }
+    { dependencies: [setIsFocusEntered, lenis] }
   );
 
   useEffect(() => {

@@ -20,6 +20,8 @@ let scrollTrigger;
 let scrollTween;
 let cubeRotationTween;
 
+let cubeRotationActive = false;
+
 export default function Home() {
   const {
     isLoaded,
@@ -49,15 +51,15 @@ export default function Home() {
   useGSAP(
     () => {
       if (lenis) {
-        return;
+        console.log('lenis', lenis.isStopped);
+
         let index = -1;
         let scrollTweenActive = false;
         lenis.stop();
         scrollTrigger = ScrollTrigger.observe({
           type: 'wheel,touch',
           onUp: () => {
-            if (index === -1 || gsap.globalTimeline.getById('cube-rotation'))
-              return;
+            if (index === -1 || cubeRotationActive || !lenis.isStopped) return;
             if (index === 0) {
               const isActive = scrollTween?.isActive();
               if (isActive) return;
@@ -67,12 +69,13 @@ export default function Home() {
                 ease: 'power1.inOut',
               });
             }
+            cubeRotationActive = true;
+            setTimeout(() => (cubeRotationActive = false), 1000);
             index--;
             handleChangeSlide(index);
           },
           onDown: () => {
-            console.log('scrollTweenActive', scrollTweenActive, index);
-            if (scrollTweenActive) return;
+            if (scrollTweenActive || !lenis.isStopped) return;
             if (index === -1) {
               scrollTweenActive = true;
               setCurrentFocusSlide(0);
@@ -85,8 +88,9 @@ export default function Home() {
                 onComplete: () => (scrollTweenActive = false),
               });
             } else {
-              if (gsap.globalTimeline.getById('cube-rotation') || index === 3)
-                return;
+              if (cubeRotationActive || index === 3) return;
+              cubeRotationActive = true;
+              setTimeout(() => (cubeRotationActive = false), 1000);
               index++;
               handleChangeSlide(index);
             }
