@@ -25,8 +25,17 @@ import clsx from 'clsx';
 import { mainContext } from '@/providers/MainProvider';
 import { useLenis } from 'lenis/react';
 
+const position = {
+  x: 0,
+  y: 0,
+};
+
 const FocusOn = () => {
   const [isHolded, setIsHolded] = useState(null);
+  const [mousePosition, setMousePosition] = useState({
+    x: position.x,
+    y: position.y,
+  });
   const [currentSlideName, setCurrentSlideName] = useState('web');
   const lenis = useLenis();
 
@@ -39,7 +48,8 @@ const FocusOn = () => {
   const container = useRef();
   const cameraRef = useRef();
   const cubeRef = useRef();
-  const distortionRef = useRef(0);
+  const cursorRef = useRef();
+
   const prevSlideRef = useRef(null);
 
   // const handleTestSlide = () => {
@@ -51,11 +61,10 @@ const FocusOn = () => {
       if (lenis) {
         ScrollTrigger.create({
           trigger: container.current,
-          // markers: true,
           // pin: true,
           start: '-=10% 80%',
           end: 'bottom 80%', // just needs to be enough to not risk vibration where a user's fast-scroll shoots way past the end
-          markers: true,
+
           onEnter: () => {
             console.log('ENTER');
 
@@ -63,6 +72,7 @@ const FocusOn = () => {
               `.${styles.content__title} span`,
               `.${styles.content__breadcrumbs} span`,
               `.${styles.content__list}[data-name=${currentSlideName}] span`,
+              cursorRef.current.querySelectorAll('[data-animation]'),
             ]);
 
             setIsFocusEntered(true);
@@ -129,6 +139,35 @@ const FocusOn = () => {
   );
 
   useEffect(() => {
+    console.log('isHolded', isHolded);
+    gsap.to(cursorRef.current.querySelector(`.${styles.click_hold__line}`), {
+      scaleX: isHolded ? 7 : 1,
+      duration: 1,
+      ease: isHolded ? 'none' : 'power3.out',
+    });
+    gsap
+      .timeline()
+      .to(cursorRef.current.querySelectorAll('[data-animation]'), {
+        duration: 0.1,
+        opacity: 0,
+        stagger: {
+          each: 0.03,
+          grid: 'auto',
+          from: 'random',
+        },
+      })
+      .to(cursorRef.current.querySelectorAll('[data-animation]'), {
+        duration: 0.1,
+        opacity: 1,
+        stagger: {
+          each: 0.03,
+          grid: 'auto',
+          from: 'random',
+        },
+      });
+  }, [isHolded]);
+
+  useEffect(() => {
     if (prevSlideRef.current === null) return;
     const isDown = prevSlideRef.current < currentFocusSlide;
 
@@ -184,13 +223,41 @@ const FocusOn = () => {
     }
   }, []);
 
+  const handleMouseMove = (e) => {
+    gsap.to(position, {
+      x: e.clientX,
+      y: e.clientY,
+      duration: 1,
+      ease: 'power3.out',
+      onUpdate: () => {
+        setMousePosition({
+          x: position.x,
+          y: position.y,
+        });
+      },
+    });
+  };
+
   return (
     <div
       ref={container}
       className={styles.focus}
       onPointerDown={handleClickAndHold}
       onPointerUp={handleClickAndHold}
+      style={{
+        '--mouse-x': `${mousePosition.x}`,
+        '--mouse-y': `${mousePosition.y}`,
+      }}
+      onMouseMove={handleMouseMove}
     >
+      <div ref={cursorRef} className={styles.click_hold}>
+        <div className={styles.click_hold__line} />
+        {Array.from('Click&Hold').map((l, i) => (
+          <span data-animation key={`name-${l}-${i}-${l}`}>
+            {l}
+          </span>
+        ))}
+      </div>
       <div className={clsx(styles.content, styles[currentSlideName])}>
         <h2 className={styles.content__title}>
           {Array.from('Focus On').map((l, i) => (
@@ -290,8 +357,6 @@ const FocusOn = () => {
           </ul>
         </div>
       </div>
-      <div className={styles.click_hold}>Click&Hold</div>
-
       <Canvas shadows>
         <color attach="background" args={['#000000']} />
         <PerspectiveCamera ref={cameraRef} makeDefault position={[0, 0, 6]} />

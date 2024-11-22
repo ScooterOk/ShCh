@@ -2,7 +2,10 @@
 const nextConfig = {
   // output: 'export',
   transpilePackages: ['three', 'gsap'],
-  reactStrictMode: true,
+  images: {
+    unoptimized: true,
+  },
+  reactStrictMode: false,
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.

@@ -1,20 +1,20 @@
 'use client';
-import { useCallback, useContext, useRef } from 'react';
+import { useCallback, useContext, useEffect, useRef } from 'react';
 import styles from './page.module.scss';
 
 import Loader from '@/components/Loader/Loader';
 import { mainContext } from '@/providers/MainProvider';
-import Hero from '@/pages/(Homepage)/Hero/Hero';
-import FocusOn from '@/pages/(Homepage)/FocusOn/FocusOn';
+import Hero from '@/features/(Homepage)/Hero/Hero';
+import FocusOn from '@/features/(Homepage)/FocusOn/FocusOn';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { useLenis } from 'lenis/react';
-import Works from '@/pages/(Homepage)/Works/Works';
-import Follow from '@/pages/(Homepage)/Follow/Follow';
+import Works from '@/features/(Homepage)/Works/Works';
+import Follow from '@/features/(Homepage)/Follow/Follow';
 import Footer from '@/components/Footer/Footer';
-// import FocusOn from '@/pages/(Homepage)/FocusOn/FocusOn';
+// import FocusOn from '@/features/(Homepage)/FocusOn/FocusOn';
 
 let scrollTrigger;
 let scrollTween;
@@ -39,10 +39,6 @@ export default function Home() {
 
   const handleChangeSlide = useCallback(
     (index) => {
-      // gsap.globalTimeline
-      //   .getChildren()
-      //   .forEach((tween) => console.log('tween', tween));
-      if (gsap.globalTimeline.getById('scooterok')) return;
       setCurrentFocusSlide(index);
     },
     [setCurrentFocusSlide]
