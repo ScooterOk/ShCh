@@ -313,10 +313,7 @@ const CoubScene = ({
   // }, [cameraRef, isHolded, material_slide_1.image, onProgress]);
 
   useEffect(() => {
-    console.log('currentSlide', currentSlide);
-
     if (currentSlide > 2) return;
-
     if (isHolded) {
       gsap.to(cameraRef.current.position, {
         z: 4.5,

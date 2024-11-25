@@ -48,7 +48,6 @@ const HomeWorksTitle = ({ container }) => {
       action.current.reset();
       action.current.paused = true;
       action.current.play();
-      console.log('action.current', action.current);
     }
   }, [actions, names]);
 

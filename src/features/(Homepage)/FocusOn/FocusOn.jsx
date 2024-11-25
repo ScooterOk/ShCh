@@ -65,8 +65,6 @@ const FocusOn = () => {
           // pin: true,
           start: '-=10% 80%',
           end: 'bottom 100%-=250px', // just needs to be enough to not risk vibration where a user's fast-scroll shoots way past the end
-          markers: true,
-
           onEnter: () => {
             console.log('ENTER');
 
@@ -220,8 +218,6 @@ const FocusOn = () => {
       `.${styles.content__breadcrumbs} span`,
       `.${styles.content__list}[data-name=${nextSlide}] span`,
     ]);
-
-    console.log('currentSlide/nextSlide', currentSlide, nextSlide);
 
     const line = scrollRef.current.querySelector(
       `.${styles.scroll__line} span`
