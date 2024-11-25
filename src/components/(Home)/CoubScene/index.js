@@ -55,7 +55,7 @@ const distortion = {
   value: 0,
 };
 
-const LensDistortion = ({ isHolded }) => {
+const LensDistortion = ({ isHolded, currentSlide }) => {
   const { gl, scene, camera } = useThree();
   const composer = useMemo(() => new EffectComposer(gl), [gl]);
   const { isFocusEntered } = useContext(mainContext);
@@ -95,6 +95,7 @@ const LensDistortion = ({ isHolded }) => {
   // });
 
   useEffect(() => {
+    if (currentSlide > 2) return;
     if (isHolded) {
       gsap.to(distortionEffectRef.current.distortion, {
         x: -0.25,
@@ -173,7 +174,14 @@ const LensDistortion = ({ isHolded }) => {
   return null;
 };
 
-const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
+const CoubScene = ({
+  cameraRef,
+  cubeRef,
+  cursorRef,
+  currentSlide,
+  isHolded,
+  styles,
+}) => {
   const modelRef = useRef();
   const holdTweenRef = useRef();
   const videoTimeRef = useRef(0);
@@ -305,6 +313,10 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
   // }, [cameraRef, isHolded, material_slide_1.image, onProgress]);
 
   useEffect(() => {
+    console.log('currentSlide', currentSlide);
+
+    if (currentSlide > 2) return;
+
     if (isHolded) {
       gsap.to(cameraRef.current.position, {
         z: 4.5,
@@ -362,10 +374,10 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
       //     : 1.02;
       // holdTweenRef.current?.pause().seek(time)?.reverse();
     }
-  }, [cameraRef, isHolded, material]);
+  }, [cameraRef, isHolded, currentSlide, material]);
 
   useEffect(() => {
-    if (currentSlide < 0 || currentSlide > 3) return;
+    if (currentSlide < 0 || currentSlide > 3 || !lenis) return;
     gsap.to(modelRef.current.rotation, {
       y: (Math.PI / 2) * currentSlide,
       duration: 1,
@@ -375,56 +387,32 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
         if (currentSlide === 3) {
           gsap.to(window, {
             id: 'scrollTween',
-            duration: 1,
-            scrollTo: lenis.actualScroll + 75,
-            ease: 'power1.inOut',
+            duration: 1.5,
+            scrollTo: lenis.actualScroll + 251,
+            ease: 'power2.inOut',
             onComplete: () => lenis.start(),
           });
+          gsap.to(cursorRef.current.querySelectorAll('[data-animation]'), {
+            duration: 0.1,
+            opacity: 0,
+            stagger: {
+              each: 0.03,
+              grid: 'auto',
+              from: 'random',
+            },
+          });
+          gsap.to(
+            cursorRef.current.querySelector(`.${styles.click_hold__line}`),
+            {
+              scaleX: 0,
+              duration: 1,
+              ease: 'power1.out',
+            }
+          );
         }
       },
     });
-  }, [currentSlide]);
-
-  const handleClickAndHold = useCallback(
-    (e) => {
-      if (e.type === 'pointerdown') {
-        // Camera tween
-        gsap.to(cameraRef.current.position, {
-          z: 4.5,
-          duration: 1,
-          // ease: 'power2.out',
-        });
-
-        // Material tween
-        holdTweenRef.current?.kill();
-        gsap.set(material, { currentTime: 0 });
-        holdTweenRef.current = gsap.to(material, {
-          currentTime: material.duration,
-          duration: material.duration,
-          ease: 'none',
-          overwrite: 'auto',
-          onComplete: () => holdTweenRef.current.repeat(1).play(1.05),
-          onRepeat: () => holdTweenRef.current.repeat(1).play(1.05),
-        });
-        // setIsHolded(true);
-      }
-      if (e.type === 'pointerup') {
-        gsap.to(cameraRef.current.position, {
-          z: 6,
-          duration: 1,
-          // ease: 'power3.out',
-        });
-
-        const time =
-          holdTweenRef.current?.time() < 1.02
-            ? holdTweenRef.current?.time()
-            : 1.02;
-        holdTweenRef.current?.pause().seek(time)?.reverse();
-        // setIsHolded(false);
-      }
-    },
-    [cameraRef, material]
-  );
+  }, [currentSlide, cursorRef, lenis, styles.click_hold__line]);
 
   return (
     <group>
@@ -479,7 +467,7 @@ const CoubScene = ({ cameraRef, cubeRef, currentSlide, isHolded }) => {
         <meshBasicMaterial transparent={true} opacity={0} />
       </mesh> */}
 
-      <LensDistortion isHolded={isHolded} />
+      <LensDistortion isHolded={isHolded} currentSlide={currentSlide} />
       {/* <Composer>
         <LensDistortion isHolded={isHolded} />
       </Composer> */}

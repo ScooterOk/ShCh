@@ -49,6 +49,7 @@ const FocusOn = () => {
   const cameraRef = useRef();
   const cubeRef = useRef();
   const cursorRef = useRef();
+  const scrollRef = useRef();
 
   const prevSlideRef = useRef(null);
 
@@ -63,7 +64,8 @@ const FocusOn = () => {
           trigger: container.current,
           // pin: true,
           start: '-=10% 80%',
-          end: 'bottom 80%', // just needs to be enough to not risk vibration where a user's fast-scroll shoots way past the end
+          end: 'bottom 100%-=250px', // just needs to be enough to not risk vibration where a user's fast-scroll shoots way past the end
+          markers: true,
 
           onEnter: () => {
             console.log('ENTER');
@@ -116,18 +118,51 @@ const FocusOn = () => {
                   },
                 },
                 '-=1'
+              )
+              .fromTo(
+                cursorRef.current.querySelector(`.${styles.click_hold__line}`),
+                { scaleX: 0 },
+                {
+                  scaleX: 1,
+                  duration: 1,
+                  ease: 'power1.in',
+                },
+                '-=1'
               );
           },
           onEnterBack: (self) => {
-            console.log('onEnterBack', lenis);
+            console.log('onEnterBack', currentFocusSlide);
             lenis.stop();
-            gsap.to(window, {
-              id: 'scrollTween',
-              duration: 1,
-              scrollTo: container.current,
-              ease: 'power2.out',
-              // onComplete: () => (scrollTweenActive = false),
-            });
+            setCurrentFocusSlide(2);
+            setCurrentSlideName('motion');
+            lenis.slideindex = 2;
+            gsap
+              .timeline()
+              .to(window, {
+                id: 'scrollTween',
+                duration: 1,
+                scrollTo: container.current,
+                ease: 'power2.out',
+              })
+              .to(cursorRef.current.querySelectorAll('[data-animation]'), {
+                duration: 0.1,
+                opacity: 1,
+                stagger: {
+                  each: 0.03,
+                  grid: 'auto',
+                  from: 'random',
+                },
+              })
+              .to(
+                cursorRef.current.querySelector(`.${styles.click_hold__line}`),
+                {
+                  scaleX: 1,
+                  duration: 1,
+                  ease: 'power1.in',
+                },
+                '-=1'
+              );
+
             // if (intentObserver.isEnabled) { return } // in case the native scroll jumped backward past the start and then we force it back to where it should be.
             // self.scroll(self.end - 1); // jump to one pixel before the end of this section so we can hold there.
             // intentObserver.enable(); // STOP native scrolling
@@ -139,7 +174,7 @@ const FocusOn = () => {
   );
 
   useEffect(() => {
-    console.log('isHolded', isHolded);
+    if (currentFocusSlide > 2) return;
     gsap.to(cursorRef.current.querySelector(`.${styles.click_hold__line}`), {
       scaleX: isHolded ? 7 : 1,
       duration: 1,
@@ -165,10 +200,11 @@ const FocusOn = () => {
           from: 'random',
         },
       });
-  }, [isHolded]);
+  }, [isHolded, currentFocusSlide]);
 
   useEffect(() => {
     if (prevSlideRef.current === null) return;
+
     const isDown = prevSlideRef.current < currentFocusSlide;
 
     const slides = ['web', 'brand', 'motion'];
@@ -184,6 +220,52 @@ const FocusOn = () => {
       `.${styles.content__breadcrumbs} span`,
       `.${styles.content__list}[data-name=${nextSlide}] span`,
     ]);
+
+    console.log('currentSlide/nextSlide', currentSlide, nextSlide);
+
+    const line = scrollRef.current.querySelector(
+      `.${styles.scroll__line} span`
+    );
+    const scrollTargets =
+      scrollRef.current.querySelectorAll('[data-animation]');
+
+    if (nextSlide) {
+      gsap.getById('scrollLine')?.kill();
+      gsap
+        .timeline({
+          onComplete: () =>
+            gsap.set(scrollRef.current, { visibility: 'visible' }),
+        })
+        .to(scrollTargets, {
+          duration: 0.25,
+          opacity: 0,
+          stagger: {
+            each: 0.02,
+            grid: 'auto',
+            from: 'random',
+          },
+        })
+        .to(line, { y: -100, duration: 1, ease: 'power3.out' });
+    } else if (currentSlide !== 'web') {
+      gsap.fromTo(
+        scrollTargets,
+        { opacity: 0 },
+        {
+          duration: 0.25,
+          opacity: 1,
+          stagger: {
+            each: 0.02,
+            grid: 'auto',
+            from: 'random',
+          },
+        }
+      );
+      gsap
+        .timeline({ repeat: -1, delay: 1.1, id: 'scrollLine' })
+        .set(line, { y: -100 })
+        .to(line, { y: 0, duration: 1, ease: 'power3.out' })
+        .to(line, { y: 100, duration: 1, ease: 'power3.out' });
+    }
 
     if (!currentSlide) {
       setCurrentSlideName(nextSlide);
@@ -357,6 +439,18 @@ const FocusOn = () => {
           </ul>
         </div>
       </div>
+      <div className={styles.scroll} ref={scrollRef}>
+        <div className={styles.scroll__line}>
+          <span />
+        </div>
+        <p>
+          {Array.from('Scroll to discover').map((l, i) => (
+            <span data-animation key={`name-${l}-${i}-${l}`}>
+              {l}
+            </span>
+          ))}
+        </p>
+      </div>
       <Canvas shadows>
         <color attach="background" args={['#000000']} />
         <PerspectiveCamera ref={cameraRef} makeDefault position={[0, 0, 6]} />
@@ -375,8 +469,10 @@ const FocusOn = () => {
           <CoubScene
             cubeRef={cubeRef}
             cameraRef={cameraRef}
+            cursorRef={cursorRef}
             currentSlide={currentFocusSlide}
             isHolded={isHolded}
+            styles={styles}
           />
         </Suspense>
       </Canvas>

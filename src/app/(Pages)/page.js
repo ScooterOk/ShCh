@@ -47,16 +47,20 @@ export default function Home() {
   useGSAP(
     () => {
       if (lenis) {
-        console.log('lenis', lenis.isStopped);
-
-        let index = -1;
+        lenis.slideindex = -1;
         let scrollTweenActive = false;
         lenis.stop();
         scrollTrigger = ScrollTrigger.observe({
           type: 'wheel,touch',
           onUp: () => {
-            if (index === -1 || cubeRotationActive || !lenis.isStopped) return;
-            if (index === 0) {
+            if (
+              lenis.slideindex === -1 ||
+              cubeRotationActive ||
+              !lenis.isStopped ||
+              gsap.getById('scrollTween')
+            )
+              return;
+            if (lenis.slideindex === 0) {
               const isActive = scrollTween?.isActive();
               if (isActive) return;
               scrollTween = gsap.to(window, {
@@ -67,15 +71,15 @@ export default function Home() {
             }
             cubeRotationActive = true;
             setTimeout(() => (cubeRotationActive = false), 1000);
-            index--;
-            handleChangeSlide(index);
+            lenis.slideindex--;
+            handleChangeSlide(lenis.slideindex);
           },
           onDown: () => {
             if (scrollTweenActive || !lenis.isStopped) return;
-            if (index === -1) {
+            if (lenis.slideindex === -1) {
               scrollTweenActive = true;
               setCurrentFocusSlide(0);
-              index++;
+              lenis.slideindex++;
               gsap.to(window, {
                 id: 'scrollTween',
                 duration: 1,
@@ -84,11 +88,11 @@ export default function Home() {
                 onComplete: () => (scrollTweenActive = false),
               });
             } else {
-              if (cubeRotationActive || index === 3) return;
+              if (cubeRotationActive || lenis.slideindex === 3) return;
               cubeRotationActive = true;
               setTimeout(() => (cubeRotationActive = false), 1000);
-              index++;
-              handleChangeSlide(index);
+              lenis.slideindex++;
+              handleChangeSlide(lenis.slideindex);
             }
           },
           tolerance: 100,

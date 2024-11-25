@@ -94,6 +94,37 @@
   }
 }
 
+.scroll {
+  position: absolute;
+  bottom: 120px;
+  left: 60px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: $bg;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px; /* 150% */
+  visibility: hidden;
+  &__line {
+    width: 3px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100px;
+      background-color: $yellow;
+      // transform: translate3d(-100%);
+    }
+  }
+}
+
 .click_hold {
   position: absolute;
   top: 0;
