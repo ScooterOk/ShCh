@@ -1,6 +1,6 @@
 'use client';
 import Navigation from '@/components/(Home)/Navigation/Navigation';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ReactLenis } from 'lenis/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -8,10 +8,15 @@ import ScrollToPlugin from 'gsap/ScrollToPlugin';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-// gsap.ticker.fps(30);
-
 const Layout = ({ children }) => {
   const lenisRef = useRef();
+
+  // Remove autoscroll on refresh
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
 
   // useEffect(() => {
 
