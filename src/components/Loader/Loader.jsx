@@ -1,4 +1,4 @@
-import { useProgress } from '@react-three/drei';
+import { useGLTF, useProgress } from '@react-three/drei';
 import React, { useEffect, useRef, useState } from 'react';
 
 import styles from './Loader.module.scss';
@@ -22,9 +22,11 @@ const Loader = ({ setIsLoaded }) => {
   useGSAP(
     () => {
       gsap.to(progressCount, {
-        direction: 2,
+        duration: 2,
         value: progress,
         onUpdate: () => {
+          // console.log('progressCount.value', progressCount.value);
+
           setCount(Math.round(progressCount.value));
         },
         onComplete: () => {

@@ -105,18 +105,10 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <button
-        style={{ position: 'fixed', top: 0, left: 0, zIndex: 100 }}
-        onClick={() => {
-          gsap.to(window, {
-            duration: 1,
-            scrollTo: cubeRef.current,
-            ease: 'power1.inOut',
-          });
-        }}
-      >
-        Scroll To {currentFocusSlide}
-      </button>
+      {!isLoaded && (
+        <Loader setIsLoaded={setIsLoaded} setNoScroll={setNoScroll} />
+      )}
+
       <div ref={heroRef}>
         <Hero isLoaded={isLoaded} />
       </div>
@@ -127,9 +119,6 @@ export default function Home() {
       <Works />
       <Follow />
       <Footer />
-      {!isLoaded && (
-        <Loader setIsLoaded={setIsLoaded} setNoScroll={setNoScroll} />
-      )}
     </main>
   );
 }
