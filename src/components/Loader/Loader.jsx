@@ -1,37 +1,51 @@
-import { useGLTF, useProgress } from '@react-three/drei';
-import React, { useEffect, useRef, useState } from 'react';
+import { useProgress } from '@react-three/drei';
+import React, { useMemo, useRef, useState } from 'react';
 
-import styles from './Loader.module.scss';
 import Image from 'next/image';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import useVideo from '@/hooks/useVideo';
+
+import styles from './Loader.module.scss';
 
 let progressCount = { value: 0 };
 
+const list = [
+  '/video/Hero_head_video_01.mp4',
+  '/video/Hero_head_video_02.mp4',
+  '/video/_CUBE_01_full.mp4',
+  '/video/_CUBE_02_full.mp4',
+  '/video/_CUBE_03_full.mp4',
+  '/video/CUBE_04_loop.mp4',
+];
+
 const Loader = ({ setIsLoaded }) => {
-  const { progress, item, total } = useProgress();
+  const { progress: modelsProgress } = useProgress();
+  const { progress: videoProgress } = useVideo({
+    list,
+  });
 
   const [count, setCount] = useState(0);
 
   const container = useRef(null);
 
-  // useEffect(() => {
-  //   console.log('ITEM', total, item);
-  // }, [item, total]);
+  const progress = useMemo(
+    () => (modelsProgress + videoProgress) / 2,
+    [modelsProgress, videoProgress]
+  );
 
+  // Progress count animation
   useGSAP(
     () => {
       gsap.to(progressCount, {
-        duration: 2,
+        duration: 1,
         value: progress,
-        onUpdate: () => {
-          // console.log('progressCount.value', progressCount.value);
-
-          setCount(Math.round(progressCount.value));
-        },
+        overwrite: true,
+        onUpdate: () => setCount(Math.round(progressCount.value)),
         onComplete: () => {
-          if (progress === 100) {
-            gsap.to(document.querySelectorAll(`.${styles.name} span`), 0.5, {
+          if (videoProgress === 100) {
+            gsap.to(document.querySelectorAll(`.${styles.name} span`), {
+              duration: 0.5,
               opacity: 0,
               stagger: {
                 each: 0.05,
@@ -56,10 +70,9 @@ const Loader = ({ setIsLoaded }) => {
     { scope: container, dependencies: [progress] }
   );
 
+  // Init animation
   useGSAP(
     () => {
-      // gsap.from("img", 2, { scale: 0 });
-      // gsap.to("img", 2, { rotate: 360, repeat: -1, ease: "none" });
       gsap.set(`.${styles.count}`, { display: 'block' });
       gsap.to(document.querySelectorAll(`.${styles.name} span`), {
         duration: 0.5,
@@ -78,7 +91,7 @@ const Loader = ({ setIsLoaded }) => {
           gsap.set(`.${styles.image} img`, { display: 'block' }),
       });
     },
-    { scope: container, dependencies: [] }
+    { scope: container }
   );
 
   return (
