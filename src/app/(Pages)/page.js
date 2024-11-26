@@ -105,10 +105,6 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      {!isLoaded && (
-        <Loader setIsLoaded={setIsLoaded} setNoScroll={setNoScroll} />
-      )}
-
       <div ref={heroRef}>
         <Hero isLoaded={isLoaded} />
       </div>
@@ -119,6 +115,9 @@ export default function Home() {
       <Works />
       <Follow />
       <Footer />
+      {!isLoaded && (
+        <Loader setIsLoaded={setIsLoaded} setNoScroll={setNoScroll} />
+      )}
     </main>
   );
 }
