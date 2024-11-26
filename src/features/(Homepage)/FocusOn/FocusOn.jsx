@@ -40,6 +40,7 @@ const FocusOn = () => {
   const lenis = useLenis();
 
   const {
+    isLoaded,
     setIsFocusEntered,
     setIsInit,
     currentFocusSlide,
@@ -89,6 +90,7 @@ const FocusOn = () => {
                   duration: 2.5,
                   z: 6,
                   ease: 'power2.out',
+                  overwrite: true,
                 },
                 'start'
               )
@@ -99,6 +101,7 @@ const FocusOn = () => {
                   y: 0,
                   duration: 2.5,
                   ease: 'power2.out',
+                  overwrite: true,
                 },
                 'start'
               )
@@ -109,8 +112,9 @@ const FocusOn = () => {
                 {
                   duration: 0.1,
                   opacity: 1,
+                  overwrite: true,
                   stagger: {
-                    each: 0.1,
+                    each: 0.05,
                     grid: 'auto',
                     from: 'random',
                   },
@@ -124,6 +128,7 @@ const FocusOn = () => {
                   scaleX: 1,
                   duration: 1,
                   ease: 'power1.in',
+                  overwrite: true,
                 },
                 '-=1'
               );
@@ -172,7 +177,8 @@ const FocusOn = () => {
   );
 
   useEffect(() => {
-    if (currentFocusSlide > 2) return;
+    if (!isLoaded) return;
+    console.log('HOLD');
     gsap.to(cursorRef.current.querySelector(`.${styles.click_hold__line}`), {
       scaleX: isHolded ? 7 : 1,
       duration: 1,
@@ -198,7 +204,60 @@ const FocusOn = () => {
           from: 'random',
         },
       });
-  }, [isHolded, currentFocusSlide]);
+  }, [isHolded, isLoaded]);
+
+  useEffect(() => {
+    if (!isLoaded || currentFocusSlide > 3 || prevSlideRef.current === -1)
+      return;
+    console.log('ROTATION');
+
+    gsap
+      .timeline()
+      .to(
+        cursorRef.current.querySelectorAll('[data-animation]'),
+        {
+          duration: 0.1,
+          opacity: 0,
+          stagger: {
+            each: 0.03,
+            grid: 'auto',
+            from: 'random',
+          },
+        },
+        'start'
+      )
+      .to(
+        cursorRef.current.querySelector(`.${styles.click_hold__line}`),
+        {
+          scaleX: 0,
+          duration: 0.5,
+          ease: 'power2.in',
+        },
+        'start'
+      )
+      .to(
+        cursorRef.current.querySelectorAll('[data-animation]'),
+        {
+          duration: 0.1,
+          opacity: 1,
+          stagger: {
+            each: 0.03,
+            grid: 'auto',
+            from: 'random',
+          },
+        },
+        'finish'
+      )
+      .to(
+        cursorRef.current.querySelector(`.${styles.click_hold__line}`),
+        {
+          scaleX: 1,
+          duration: 0.5,
+          ease: 'power2.out',
+        },
+        'finish'
+      );
+  }, [currentFocusSlide, isLoaded]);
 
   useEffect(() => {
     if (prevSlideRef.current === null) return;
@@ -292,14 +351,18 @@ const FocusOn = () => {
       });
   }, [currentFocusSlide]);
 
-  const handleClickAndHold = useCallback((e) => {
-    if (e.type === 'pointerdown') {
-      setIsHolded(true);
-    }
-    if (e.type === 'pointerup') {
-      setIsHolded(false);
-    }
-  }, []);
+  const handleClickAndHold = useCallback(
+    (e) => {
+      if (currentFocusSlide > 2) return;
+      if (e.type === 'pointerdown') {
+        setIsHolded(true);
+      }
+      if (e.type === 'pointerup') {
+        setIsHolded(false);
+      }
+    },
+    [currentFocusSlide]
+  );
 
   const handleMouseMove = (e) => {
     gsap.to(position, {

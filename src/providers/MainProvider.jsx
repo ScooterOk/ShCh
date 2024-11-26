@@ -1,6 +1,6 @@
 'use client';
 import clsx from 'clsx';
-import React, { createContext, useRef, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
 export const mainContext = createContext();
 
@@ -12,8 +12,6 @@ const MainProvider = ({ children }) => {
   const [currentFocusSlide, setCurrentFocusSlide] = useState(-1);
   const [isInit, setIsInit] = useState(false);
   const { Provider } = mainContext;
-
-  console.log('loadedVideos', loadedVideos);
 
   return (
     <body className={clsx(noScroll && 'no-scroll')}>
