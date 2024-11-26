@@ -522,8 +522,8 @@ const FocusOn = () => {
           args={[10, 10]}
           cellSize={0.1}
           cellColor={'#ccc'}
-        /> */}
-        {/* <OrbitControls /> */}
+        />
+        <OrbitControls /> */}
         <Suspense fallback={null}>
           <CoubScene
             cubeRef={cubeRef}

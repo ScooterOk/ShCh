@@ -8,7 +8,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 const HomeHeroTitle = () => {
-  const { isLoaded } = useContext(mainContext);
+  const { isLoaded, setNoScroll } = useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
 
   const [modelDimensions, setModelDimensions] = useState({
@@ -56,7 +56,7 @@ const HomeHeroTitle = () => {
       if (isLoaded) {
         if (action.current) {
           gsap
-            .timeline()
+            .timeline({ onComplete: () => setNoScroll(false) })
             .to(action.current, {
               time: 1,
               duration: 1,

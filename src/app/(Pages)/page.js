@@ -1,6 +1,5 @@
 'use client';
-import { useCallback, useContext, useEffect, useRef } from 'react';
-import styles from './page.module.scss';
+import { useCallback, useContext, useRef } from 'react';
 
 import Loader from '@/components/Loader/Loader';
 import { mainContext } from '@/providers/MainProvider';
@@ -14,23 +13,17 @@ import { useLenis } from 'lenis/react';
 import Works from '@/features/(Homepage)/Works/Works';
 import Follow from '@/features/(Homepage)/Follow/Follow';
 import Footer from '@/components/Footer/Footer';
-// import FocusOn from '@/features/(Homepage)/FocusOn/FocusOn';
+
+import styles from './page.module.scss';
 
 let scrollTrigger;
 let scrollTween;
-let cubeRotationTween;
 
 let cubeRotationActive = false;
 
 export default function Home() {
-  const {
-    isLoaded,
-    setIsLoaded,
-    setNoScroll,
-    currentFocusSlide,
-    setCurrentFocusSlide,
-    isCubeRotating,
-  } = useContext(mainContext);
+  const { isLoaded, setIsLoaded, noScroll, setCurrentFocusSlide, setIsInit } =
+    useContext(mainContext);
 
   const heroRef = useRef();
   const cubeRef = useRef();
@@ -50,6 +43,7 @@ export default function Home() {
         lenis.slideindex = -1;
         let scrollTweenActive = false;
         lenis.stop();
+        if (noScroll) return;
         scrollTrigger = ScrollTrigger.observe({
           type: 'wheel,touch',
           onUp: () => {
@@ -63,6 +57,7 @@ export default function Home() {
             if (lenis.slideindex === 0) {
               const isActive = scrollTween?.isActive();
               if (isActive) return;
+              setIsInit(false);
               scrollTween = gsap.to(window, {
                 duration: 1,
                 scrollTo: 0,
@@ -75,7 +70,9 @@ export default function Home() {
             handleChangeSlide(lenis.slideindex);
           },
           onDown: () => {
-            if (scrollTweenActive || !lenis.isStopped) return;
+            console.log('noScroll', noScroll);
+
+            if (scrollTweenActive || !lenis.isStopped || noScroll) return;
             if (lenis.slideindex === -1) {
               scrollTweenActive = true;
               setCurrentFocusSlide(0);
@@ -100,7 +97,7 @@ export default function Home() {
         });
       }
     },
-    { dependencies: [lenis] }
+    { dependencies: [lenis, noScroll] }
   );
 
   return (
@@ -115,9 +112,7 @@ export default function Home() {
       <Works />
       <Follow />
       <Footer />
-      {!isLoaded && (
-        <Loader setIsLoaded={setIsLoaded} setNoScroll={setNoScroll} />
-      )}
+      {!isLoaded && <Loader setIsLoaded={setIsLoaded} />}
     </main>
   );
 }

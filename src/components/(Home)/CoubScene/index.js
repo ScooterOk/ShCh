@@ -118,7 +118,7 @@ const CoubScene = ({
   useEffect(() => {
     if (currentSlide < 0 || currentSlide > 3 || !lenis) return;
     gsap.to(modelRef.current.rotation, {
-      y: (Math.PI / 2) * currentSlide,
+      y: (-Math.PI / 2) * currentSlide,
       duration: 1,
       ease: 'power3.inOut',
       id: 'cube-rotation',

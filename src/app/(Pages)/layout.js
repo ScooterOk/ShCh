@@ -11,23 +11,6 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 const Layout = ({ children }) => {
   const lenisRef = useRef();
 
-  // Remove autoscroll on refresh
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.history.scrollRestoration = 'manual';
-    }
-  }, []);
-
-  // useEffect(() => {
-
-  //   function update(time) {
-  //     lenisRef.current?.lenis?.raf(time * 1000);
-  //   }
-  //   gsap.ticker.add(update);
-  //   return () => {
-  //     gsap.ticker.remove(update);
-  //   };
-  // });
   return (
     <ReactLenis
       root

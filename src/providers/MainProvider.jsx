@@ -7,33 +7,31 @@ export const mainContext = createContext();
 const MainProvider = ({ children }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [loadedVideos, setLoadedVideos] = useState({});
-  const [noScroll, setNoScroll] = useState(false);
+  const [noScroll, setNoScroll] = useState(true);
   const [isFocusEntered, setIsFocusEntered] = useState(false);
   const [currentFocusSlide, setCurrentFocusSlide] = useState(-1);
   const [isInit, setIsInit] = useState(false);
   const { Provider } = mainContext;
 
   return (
-    <body className={clsx(noScroll && 'no-scroll')}>
-      <Provider
-        value={{
-          isLoaded,
-          setIsLoaded,
-          loadedVideos,
-          setLoadedVideos,
-          noScroll,
-          setNoScroll,
-          isFocusEntered,
-          setIsFocusEntered,
-          isInit,
-          setIsInit,
-          currentFocusSlide,
-          setCurrentFocusSlide,
-        }}
-      >
-        {children}
-      </Provider>
-    </body>
+    <Provider
+      value={{
+        isLoaded,
+        setIsLoaded,
+        loadedVideos,
+        setLoadedVideos,
+        noScroll,
+        setNoScroll,
+        isFocusEntered,
+        setIsFocusEntered,
+        isInit,
+        setIsInit,
+        currentFocusSlide,
+        setCurrentFocusSlide,
+      }}
+    >
+      {children}
+    </Provider>
   );
 };
 

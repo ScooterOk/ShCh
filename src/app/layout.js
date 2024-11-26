@@ -1,6 +1,8 @@
 import { Inter } from 'next/font/google';
 import '../styles/globals.scss';
 import MainProvider from '@/providers/MainProvider';
+import Script from 'next/script';
+import Head from 'next/head';
 
 const inter = Inter({
   weight: ['400', '600'],
@@ -16,7 +18,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={inter.className}>
-      <MainProvider>{children}</MainProvider>
+      <body>
+        <MainProvider>{children}</MainProvider>
+        <Script
+          id="scroll-restoration"
+          dangerouslySetInnerHTML={{
+            __html: `history.scrollRestoration = "manual";`,
+          }}
+        />
+      </body>
     </html>
   );
 }
