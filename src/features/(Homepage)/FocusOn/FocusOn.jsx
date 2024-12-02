@@ -6,24 +6,17 @@ import React, {
   useRef,
   useState,
 } from 'react';
-
-import styles from './FocusOn.module.scss';
-import { Canvas, useFrame } from '@react-three/fiber';
-import {
-  Grid,
-  OrbitControls,
-  PerspectiveCamera,
-  useVideoTexture,
-} from '@react-three/drei';
-import CoubScene from '@/components/(Home)/CoubScene';
-import { CameraHelper } from 'three';
 import gsap from 'gsap';
-import * as THREE from 'three';
+import clsx from 'clsx';
+import { Canvas } from '@react-three/fiber';
+import { PerspectiveCamera } from '@react-three/drei';
+import CoubScene from '@/components/(Home)/CoubScene';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import clsx from 'clsx';
 import { mainContext } from '@/providers/MainProvider';
 import { useLenis } from 'lenis/react';
+
+import styles from './FocusOn.module.scss';
 
 const position = {
   x: 0,
@@ -54,21 +47,14 @@ const FocusOn = () => {
 
   const prevSlideRef = useRef(null);
 
-  // const handleTestSlide = () => {
-  //   setCurrentSlide((prev) => (prev < 4 ? prev + 1 : 0));
-  // };
-
   useGSAP(
     () => {
       if (lenis) {
         ScrollTrigger.create({
           trigger: container.current,
-          // pin: true,
           start: '-=10% 80%',
-          end: 'bottom 100%-=250px', // just needs to be enough to not risk vibration where a user's fast-scroll shoots way past the end
+          end: 'bottom 100%-=250px',
           onEnter: () => {
-            console.log('ENTER');
-
             let targets = gsap.utils.toArray([
               `.${styles.content__title} span`,
               `.${styles.content__breadcrumbs} span`,
@@ -85,10 +71,10 @@ const FocusOn = () => {
               })
               .fromTo(
                 cameraRef.current?.position,
-                { z: 4.3 },
+                { z: 3 },
                 {
                   duration: 2.5,
-                  z: 6,
+                  z: 4.5,
                   ease: 'power2.out',
                   overwrite: true,
                 },
@@ -133,8 +119,7 @@ const FocusOn = () => {
                 '-=1'
               );
           },
-          onEnterBack: (self) => {
-            console.log('onEnterBack', currentFocusSlide);
+          onEnterBack: () => {
             lenis.stop();
             setCurrentFocusSlide(2);
             setCurrentSlideName('motion');
@@ -165,10 +150,6 @@ const FocusOn = () => {
                 },
                 '-=1'
               );
-
-            // if (intentObserver.isEnabled) { return } // in case the native scroll jumped backward past the start and then we force it back to where it should be.
-            // self.scroll(self.end - 1); // jump to one pixel before the end of this section so we can hold there.
-            // intentObserver.enable(); // STOP native scrolling
           },
         });
       }
@@ -176,9 +157,9 @@ const FocusOn = () => {
     { dependencies: [setIsFocusEntered, lenis] }
   );
 
+  // OnHold cursor animation
   useEffect(() => {
     if (!isLoaded) return;
-    console.log('HOLD');
     gsap.to(cursorRef.current.querySelector(`.${styles.click_hold__line}`), {
       scaleX: isHolded ? 7 : 1,
       duration: 1,
@@ -206,10 +187,10 @@ const FocusOn = () => {
       });
   }, [isHolded, isLoaded]);
 
+  // OnLeave animation
   useEffect(() => {
     if (!isLoaded || currentFocusSlide > 3 || prevSlideRef.current === -1)
       return;
-    console.log('ROTATION');
 
     gsap
       .timeline()
@@ -259,6 +240,7 @@ const FocusOn = () => {
       );
   }, [currentFocusSlide, isLoaded]);
 
+  // Slide transitions animation
   useEffect(() => {
     if (prevSlideRef.current === null) return;
 
@@ -512,18 +494,13 @@ const FocusOn = () => {
       </div>
       <Canvas shadows>
         <color attach="background" args={['#000000']} />
-        <PerspectiveCamera ref={cameraRef} makeDefault position={[0, 0, 6]} />
-        <ambientLight intensity={2} />
-
-        {/* <Grid
-          position={[0, 0, 0]}
-          sectionSize={1}
-          sectionColor={'white'}
-          args={[10, 10]}
-          cellSize={0.1}
-          cellColor={'#ccc'}
+        <PerspectiveCamera
+          ref={cameraRef}
+          makeDefault
+          position={[0, 0.1, 4.5]}
         />
-        <OrbitControls /> */}
+        <ambientLight intensity={4} />
+        {/* <OrbitControls /> */}
         <Suspense fallback={null}>
           <CoubScene
             cubeRef={cubeRef}

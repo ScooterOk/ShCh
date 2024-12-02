@@ -16,6 +16,7 @@ import { mainContext } from '@/providers/MainProvider';
 import { useLenis } from 'lenis/react';
 import Coub from './Coub';
 import * as THREE from 'three';
+import { folder, useControls } from 'leva';
 
 extend({ LensDistortionEffect });
 
@@ -44,15 +45,6 @@ const PostProcessing = ({ isHolded, currentSlide }) => {
       distortionEffectRef.current
     )
   );
-
-  // const { value } = useControls({
-  //   Distortion: folder(
-  //     {
-  //       value: { value: 0, label: 'value', min: -1, max: 1, step: 0.01 },
-  //     },
-  //     { collapsed: true }
-  //   ),
-  // });
 
   useEffect(() => {
     if (currentSlide > 2) return;
@@ -117,7 +109,7 @@ const CoubScene = ({
 
   useEffect(() => {
     if (currentSlide < 0 || currentSlide > 3 || !lenis) return;
-    gsap.to(modelRef.current.rotation, {
+    gsap.to(cubeRef.current.rotation, {
       y: (-Math.PI / 2) * currentSlide,
       duration: 1,
       ease: 'power3.inOut',
@@ -178,16 +170,16 @@ const CoubScene = ({
       <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[10, 10]} rotateX={-Math.PI / 2} />
         <MeshReflectorMaterial
-          blur={[500, 50]}
+          blur={[850, 590]}
           resolution={1024}
-          mixBlur={1}
-          mixStrength={100}
-          roughness={1}
-          depthScale={1.2}
-          minDepthThreshold={0.4}
-          maxDepthThreshold={1.4}
-          color="#161616"
-          metalness={0.8}
+          mixBlur={4.2}
+          mixStrength={220}
+          roughness={0.21}
+          depthScale={1}
+          minDepthThreshold={0.7}
+          maxDepthThreshold={1.1}
+          color="#090909"
+          metalness={0.82}
         />
       </mesh>
       <PostProcessing isHolded={isHolded} currentSlide={currentSlide} />

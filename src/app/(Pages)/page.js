@@ -16,7 +16,6 @@ import Footer from '@/components/Footer/Footer';
 
 import styles from './page.module.scss';
 
-let scrollTrigger;
 let scrollTween;
 
 let cubeRotationActive = false;
@@ -44,7 +43,7 @@ export default function Home() {
         let scrollTweenActive = false;
         lenis.stop();
         if (noScroll) return;
-        scrollTrigger = ScrollTrigger.observe({
+        ScrollTrigger.observe({
           type: 'wheel,touch',
           onUp: () => {
             if (
@@ -70,8 +69,6 @@ export default function Home() {
             handleChangeSlide(lenis.slideindex);
           },
           onDown: () => {
-            console.log('noScroll', noScroll);
-
             if (scrollTweenActive || !lenis.isStopped || noScroll) return;
             if (lenis.slideindex === -1) {
               scrollTweenActive = true;

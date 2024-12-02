@@ -63,7 +63,7 @@ const Coub = forwardRef((props, ref) => {
     if (currentSlide > 2 || currentSlide < 0) return;
     if (isHolded) {
       gsap.to(cameraRef.current.position, {
-        z: 4.5,
+        z: 4,
         duration: 1,
         // ease: 'power2.out',
       });
@@ -99,7 +99,7 @@ const Coub = forwardRef((props, ref) => {
       material.currentTime = time;
       material.play();
       gsap.to(cameraRef.current?.position, {
-        z: 6,
+        z: 4.5,
         duration: 1,
         // ease: 'power3.out',
       });

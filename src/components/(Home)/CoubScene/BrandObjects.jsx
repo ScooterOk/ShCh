@@ -1,12 +1,14 @@
-import { useAnimations, useGLTF } from '@react-three/drei';
+import React, { useContext, useEffect } from 'react';
+import { mainContext } from '@/providers/MainProvider';
+import { CubeCamera, useAnimations, useGLTF } from '@react-three/drei';
 import gsap from 'gsap';
-import React, { useEffect, useState } from 'react';
+import { Color } from 'three';
 
 const BrandObjects = ({ isHolded }) => {
-  // Fetch model and a separate texture
+  const { currentFocusSlide } = useContext(mainContext);
 
-  // const model = useGLTF('/models/02_brand_objects.gltf');
-  const model = useGLTF('/models/02_brand_objects2.gltf');
+  // Fetch model and a separate texture
+  const model = useGLTF('/models/02_brand_objects_slow.gltf');
 
   const { scene, animations, nodes } = model;
 
@@ -19,52 +21,59 @@ const BrandObjects = ({ isHolded }) => {
     return () => actions?.[names[0]]?.stop();
   }, [actions, names]);
 
-  // Change animation when the index changes
-  // useEffect(() => {
-  //   if (isHolded) {
-  //     gsap.to(ref.current.scale, {
-  //       direction: 1,
-  //       x: 3,
-  //       y: 3,
-  //       z: 3,
-  //       //ease: 'power3.out',
-  //     });
-  //   } else {
-  //     gsap.to(ref.current.scale, {
-  //       direction: 1,
-  //       x: 1,
-  //       y: 1,
-  //       z: 1,
-  //       //ease: 'power3.out',
-  //     });
-  //   }
-
-  //   // actions[names[index]].reset().fadeIn(0.5).play();
-  //   // In the clean-up phase, fade it out
-  // }, [isHolded, ref]);
-
+  // Scroll trigger animation
   useEffect(() => {
-    if (isHolded !== null) {
+    if (isHolded !== null && currentFocusSlide === 1) {
       for (let i in nodes) {
+        if (i === 'Null3' || i === 'Null4') continue;
         gsap.to(nodes[i].scale, {
-          duration: 1,
+          duration: 0.5,
           x: isHolded ? 0 : 1,
           y: isHolded ? 0 : 1,
           z: isHolded ? 0 : 1,
-          // ease: 'power3.in',
+          // ease: isHolded ? 'power3.in' : 'power3.out',
         });
       }
     }
   }, [isHolded, nodes]);
 
+  // Slide transition animation
+  useEffect(() => {
+    for (let i in nodes) {
+      if (i === 'Null3' || i === 'Null4') continue;
+      gsap.to(nodes[i].scale, {
+        duration: 0.5,
+        delay: currentFocusSlide === 1 ? 0.5 : 0,
+        x: currentFocusSlide === 1 ? 1 : 0,
+        y: currentFocusSlide === 1 ? 1 : 0,
+        z: currentFocusSlide === 1 ? 1 : 0,
+        ease: currentFocusSlide === 1 ? 'power3.out' : 'power3.in',
+      });
+    }
+  }, [currentFocusSlide, nodes]);
+
   return (
     <group
       ref={ref}
+      position={[0, -0.45, 1.35]}
+      rotation={[0, -Math.PI / 2, 0]}
       dispose={null}
-      position={[2.8, -0.5, 0]}
-      rotation={[0, 0, 0]}
+      scale={1.1}
     >
-      <primitive object={scene} />
+      <CubeCamera resolution={512} frames={Infinity}>
+        {(texture) => {
+          scene.traverse((child) => {
+            if (child.isMesh) {
+              child.material.color = new Color(0, 0, 0);
+              child.material.envMap = texture;
+              child.material.metalness = 1;
+              child.material.roughness = 0.65;
+              child.material.needsUpdate = true;
+            }
+          });
+          return <primitive object={scene} />;
+        }}
+      </CubeCamera>
     </group>
   );
 };
