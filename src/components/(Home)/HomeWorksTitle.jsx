@@ -68,7 +68,7 @@ const HomeWorksTitle = ({ container }) => {
             ease: 'power3.inOut',
           })
           .to(action.current, {
-            time: 1,
+            time: 1.5,
             duration: 1,
             ease: 'power3.Out',
           });

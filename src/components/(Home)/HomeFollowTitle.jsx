@@ -17,24 +17,11 @@ const HomeFollowTitle = ({ container }) => {
     depth: 0,
   });
 
-  // const { value } = useControls({
-  //   lerpLookAt: folder(
-  //     {
-  //       value: { value: 0, label: "value", min: 0, max: 2 },
-  //     },
-  //     { collapsed: true }
-  //   ),
-  // });
-
   const action = useRef(null);
 
   const model = useGLTF('/models/follow.gltf');
 
-  const { scene, animations, nodes, materials } = model;
-
-  //   const gltf = useLoader(GLTFLoader, "/models/stacy.glb", "", (loader) => {
-  //     console.log("loader", loader);
-  //   });
+  const { scene, animations, materials } = model;
 
   const { actions, ref, names } = useAnimations(animations);
 
@@ -76,7 +63,7 @@ const HomeFollowTitle = ({ container }) => {
             ease: 'power3.inOut',
           })
           .to(action.current, {
-            time: 1,
+            time: 1.5,
             duration: 1,
             ease: 'power3.Out',
           });
