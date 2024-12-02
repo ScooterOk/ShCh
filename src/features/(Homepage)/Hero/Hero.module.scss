@@ -8,7 +8,7 @@
   flex-direction: column;
   padding-bottom: 40px;
   &__title {
-    margin-top: auto;
+    margin-top: 10px;
     height: 19.5vw;
     padding: 0 60px;
     position: relative;
@@ -22,7 +22,7 @@
   .loop_video {
     width: calc(100vw / 7.68);
     height: calc(100vw / 7.68);
-    margin-left: 10%;
+    margin-left: calc((((100vw - 120px) / 100) * 8.85) + 60px);
     background-color: $black;
     visibility: hidden;
     overflow: hidden;
@@ -91,7 +91,7 @@
   .name {
     position: absolute;
     bottom: 0;
-    left: 60px;
+    right: calc(100% - ((((100vw - 120px) / 100) * 8.85) + 60px));
     font-size: 20px;
     font-weight: 600;
     line-height: 1.2;
