@@ -45,7 +45,7 @@ const Loader = ({ setIsLoaded }) => {
         onComplete: () => {
           if (videoProgress === 100) {
             gsap.to(document.querySelectorAll(`.${styles.name} span`), {
-              duration: 0.5,
+              duration: 0.01,
               opacity: 0,
               stagger: {
                 each: 0.05,
@@ -75,7 +75,7 @@ const Loader = ({ setIsLoaded }) => {
     () => {
       gsap.set(`.${styles.count}`, { display: 'block' });
       gsap.to(document.querySelectorAll(`.${styles.name} span`), {
-        duration: 0.5,
+        duration: 0.01,
         opacity: 1,
         stagger: {
           each: 0.05,

@@ -14,10 +14,10 @@ const HomeHeroText = ({ styles }) => {
         gsap
           .timeline({ delay: 2 })
           .from(rootRef.current.querySelectorAll('span'), {
-            duration: 0.2,
+            duration: 0.01,
             autoAlpha: 0,
             stagger: {
-              amount: 1,
+              amount: 0.75,
               grid: 'auto',
               from: 'random',
             },

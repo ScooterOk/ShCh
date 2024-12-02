@@ -38,7 +38,7 @@ const AngleSparky = ({ styles }) => {
         .from(
           words,
           {
-            duration: 0.1,
+            duration: 0.01,
             opacity: 0,
             stagger: {
               each,

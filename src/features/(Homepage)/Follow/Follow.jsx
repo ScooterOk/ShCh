@@ -51,7 +51,7 @@ const Follow = () => {
         ease: 'power3.inOut',
       })
       .from(words, {
-        duration: 0.1,
+        duration: 0.01,
         opacity: 0,
         stagger: {
           each,

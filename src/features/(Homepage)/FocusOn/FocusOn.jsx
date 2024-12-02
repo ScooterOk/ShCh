@@ -96,7 +96,7 @@ const FocusOn = () => {
                 targets,
                 { opacity: 0 },
                 {
-                  duration: 0.1,
+                  duration: 0.01,
                   opacity: 1,
                   overwrite: true,
                   stagger: {
@@ -133,7 +133,7 @@ const FocusOn = () => {
                 ease: 'power2.out',
               })
               .to(cursorRef.current.querySelectorAll('[data-animation]'), {
-                duration: 0.1,
+                duration: 0.01,
                 opacity: 1,
                 stagger: {
                   each: 0.03,
@@ -168,7 +168,7 @@ const FocusOn = () => {
     gsap
       .timeline()
       .to(cursorRef.current.querySelectorAll('[data-animation]'), {
-        duration: 0.1,
+        duration: 0.01,
         opacity: 0,
         stagger: {
           each: 0.03,
@@ -177,7 +177,7 @@ const FocusOn = () => {
         },
       })
       .to(cursorRef.current.querySelectorAll('[data-animation]'), {
-        duration: 0.1,
+        duration: 0.01,
         opacity: 1,
         stagger: {
           each: 0.03,
@@ -197,7 +197,7 @@ const FocusOn = () => {
       .to(
         cursorRef.current.querySelectorAll('[data-animation]'),
         {
-          duration: 0.1,
+          duration: 0.01,
           opacity: 0,
           stagger: {
             each: 0.03,
@@ -219,7 +219,7 @@ const FocusOn = () => {
       .to(
         cursorRef.current.querySelectorAll('[data-animation]'),
         {
-          duration: 0.1,
+          duration: 0.01,
           opacity: 1,
           stagger: {
             each: 0.03,
@@ -274,10 +274,10 @@ const FocusOn = () => {
             gsap.set(scrollRef.current, { visibility: 'visible' }),
         })
         .to(scrollTargets, {
-          duration: 0.25,
+          duration: 0.01,
           opacity: 0,
           stagger: {
-            each: 0.02,
+            amount: 0.4,
             grid: 'auto',
             from: 'random',
           },
@@ -288,10 +288,10 @@ const FocusOn = () => {
         scrollTargets,
         { opacity: 0 },
         {
-          duration: 0.25,
+          duration: 0.01,
           opacity: 1,
           stagger: {
-            each: 0.02,
+            amount: 0.4,
             grid: 'auto',
             from: 'random',
           },
@@ -313,20 +313,20 @@ const FocusOn = () => {
         onComplete: () => (prevSlideRef.current = currentFocusSlide),
       })
       .to(currentTargets, {
-        duration: 0.1,
+        duration: 0.01,
         opacity: 0,
         stagger: {
-          each: 0.02,
+          amount: 0.4,
           grid: 'auto',
           from: 'random',
         },
       })
       .add(() => setCurrentSlideName(nextSlide))
       .to(nextTargets, {
-        duration: 0.1,
+        duration: 0.01,
         opacity: 1,
         stagger: {
-          each: 0.02,
+          amount: 0.4,
           grid: 'auto',
           from: 'random',
         },

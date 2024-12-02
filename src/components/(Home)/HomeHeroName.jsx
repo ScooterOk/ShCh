@@ -1,7 +1,7 @@
-import { mainContext } from "@/providers/MainProvider";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import React, { useContext, useRef } from "react";
+import { mainContext } from '@/providers/MainProvider';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import React, { useContext, useRef } from 'react';
 
 const HomeHeroName = ({ styles }) => {
   const { isLoaded } = useContext(mainContext);
@@ -11,13 +11,13 @@ const HomeHeroName = ({ styles }) => {
   useGSAP(
     () => {
       if (isLoaded) {
-        gsap.timeline().from(rootRef.current.querySelectorAll("span"), {
-          duration: 0.25,
+        gsap.timeline().from(rootRef.current.querySelectorAll('span'), {
+          duration: 0.01,
           autoAlpha: 0,
           stagger: {
-            amount: 2,
-            grid: "auto",
-            from: "random",
+            amount: 0.75,
+            grid: 'auto',
+            from: 'random',
           },
         });
       }
@@ -28,12 +28,12 @@ const HomeHeroName = ({ styles }) => {
   return (
     <div ref={rootRef} className={styles.name}>
       <p>
-        {Array.from("Serhii Churilov").map((l, i) => (
+        {Array.from('Serhii Churilov').map((l, i) => (
           <span key={`name-${l}-${i}-${l}`}>{l}</span>
         ))}
       </p>
       <p>
-        {Array.from("creates").map((l, i) => (
+        {Array.from('creates').map((l, i) => (
           <span key={`name-${l}-${i}-${l}`}>{l}</span>
         ))}
       </p>

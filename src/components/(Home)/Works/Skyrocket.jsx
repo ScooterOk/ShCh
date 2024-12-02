@@ -12,7 +12,7 @@ const Skyrocket = ({ styles }) => {
   useGSAP(
     () => {
       const words = container.current.querySelectorAll('[data-animation]');
-      const each = 0.05;
+      const each = 0.07;
       gsap
         .timeline({
           scrollTrigger: {
@@ -34,7 +34,7 @@ const Skyrocket = ({ styles }) => {
         .from(
           words,
           {
-            duration: 0.1,
+            duration: 0.01,
             opacity: 0,
             stagger: {
               each,
