@@ -69,7 +69,12 @@ const FocusOn = () => {
               .add(() => {
                 setIsInit(true);
                 prevSlideRef.current = 0;
+                setMousePosition({
+                  x: container.current.clientWidth / 2,
+                  y: container.current.clientHeight / 2,
+                });
               })
+              .set(`.${styles.content}`, { autoAlpha: 1 })
               .fromTo(
                 cameraRef.current?.position,
                 { z: 3 },
@@ -92,7 +97,13 @@ const FocusOn = () => {
                 },
                 'start'
               )
-              .set(`.${styles.content}`, { autoAlpha: 1, delay: 1 }, '-=2')
+              // .set(`.${styles.content}`, { autoAlpha: 1, delay: 1 }, '-=2')
+              .fromTo(
+                breadcrumbsLineRef.current,
+                { opacity: 0 },
+                { opacity: 1, duration: 0.01, overwrite: true },
+                '-=1'
+              )
               .fromTo(
                 targets,
                 { opacity: 0 },
@@ -327,6 +338,7 @@ const FocusOn = () => {
       setCurrentSlideName(nextSlide);
       return;
     }
+
     gsap
       .timeline({
         onComplete: () => (prevSlideRef.current = currentFocusSlide),
@@ -342,10 +354,12 @@ const FocusOn = () => {
         },
       })
       .add(() => setCurrentSlideName(nextSlide))
-      .set(breadcrumbsLineRef.current, { opacity: 1 })
+      .set(breadcrumbsLineRef.current, {
+        opacity: !nextSlide && currentSlide === 'web' ? 0 : 1,
+      })
       .to(nextTargets, {
         duration: 0.01,
-        opacity: 1,
+        opacity: !nextSlide && currentSlide === 'web' ? 0 : 1,
         stagger: {
           amount: 0.4,
           grid: 'auto',
