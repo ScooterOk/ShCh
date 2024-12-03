@@ -12,7 +12,6 @@ const Skyrocket = ({ styles }) => {
   useGSAP(
     () => {
       const words = container.current.querySelectorAll('[data-animation]');
-      const each = 0.07;
       gsap
         .timeline({
           scrollTrigger: {
@@ -26,18 +25,28 @@ const Skyrocket = ({ styles }) => {
           opacity: 0,
           duration: 0.5,
         })
-        .to(gsap.utils.toArray([imageRef.current, mediaRef.current]), {
-          clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)',
-          duration: 1.5,
-          ease: 'power4.inOut',
-        })
+        .to(
+          gsap.utils.toArray([imageRef.current, mediaRef.current]),
+          {
+            clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)',
+            duration: 1.5,
+            ease: 'power4.inOut',
+          },
+          'clip'
+        )
+        .fromTo(
+          `.${styles.information__link}`,
+          { scaleX: 0 },
+          { scaleX: 1, duration: 1.5, ease: 'power4.inOut' },
+          'clip'
+        )
         .from(
           words,
           {
             duration: 0.01,
             opacity: 0,
             stagger: {
-              each,
+              amount: 0.5,
               grid: 'auto',
               from: 'random',
             },

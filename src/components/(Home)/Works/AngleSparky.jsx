@@ -13,7 +13,6 @@ const AngleSparky = ({ styles }) => {
   useGSAP(
     () => {
       const words = container.current.querySelectorAll('[data-animation]');
-      const each = 0.05;
       gsap
         .timeline({
           scrollTrigger: {
@@ -30,18 +29,28 @@ const AngleSparky = ({ styles }) => {
           opacity: 0,
           duration: 0.5,
         })
-        .to('.angle2_sparky_media', {
-          clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)',
-          duration: 1.5,
-          ease: 'power4.inOut',
-        })
+        .to(
+          '.angle2_sparky_media',
+          {
+            clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)',
+            duration: 1.5,
+            ease: 'power4.inOut',
+          },
+          'clip'
+        )
+        .fromTo(
+          `.${styles.information__link}`,
+          { scaleX: 0 },
+          { scaleX: 1, duration: 1.5, ease: 'power4.inOut' },
+          'clip'
+        )
         .from(
           words,
           {
             duration: 0.01,
             opacity: 0,
             stagger: {
-              each,
+              amount: 0.5,
               grid: 'auto',
               from: 'random',
             },

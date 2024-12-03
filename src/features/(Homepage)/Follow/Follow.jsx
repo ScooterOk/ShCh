@@ -35,7 +35,6 @@ const Follow = () => {
 
   useGSAP(() => {
     const words = container.current.querySelectorAll('[data-animation]');
-    const each = 0.025;
 
     gsap
       .timeline({
@@ -50,21 +49,34 @@ const Follow = () => {
         duration: 1,
         ease: 'power3.inOut',
       })
-      .from(words, {
-        duration: 0.01,
-        opacity: 0,
-        stagger: {
-          each,
-          grid: 'auto',
-          from: 'random',
-        },
-      })
+      .fromTo(
+        list.current.querySelectorAll('a'),
+        { scaleX: 0 },
+        {
+          scaleX: 1,
+          duration: 1,
+          ease: 'power3.inOut',
+        }
+      )
       .add(() => {
         document.querySelector(`.${styles.silver}`).play();
         document.querySelector(`.${styles.robo}`).play();
         document.querySelector(`.${styles.astranaut}`).play();
         document.querySelector(`.${styles.venera}`).play();
       })
+      .from(
+        words,
+        {
+          duration: 0.01,
+          opacity: 0,
+          stagger: {
+            amount: 0.5,
+            grid: 'auto',
+            from: 'random',
+          },
+        },
+        'clip'
+      )
       .to(
         gsap.utils.toArray([
           `.${styles.silver}`,
@@ -76,7 +88,8 @@ const Follow = () => {
           clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)',
           duration: 1.5,
           ease: 'power4.inOut',
-        }
+        },
+        'clip'
       );
   });
 

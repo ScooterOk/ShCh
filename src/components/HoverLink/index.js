@@ -16,7 +16,6 @@ const HoverLink = ({
 }) => {
   const linkRef = useRef();
   const onMouseEnter = (e) => {
-    const each = 0.5 / children?.length / 2;
     const currentTargets = linkRef.current.querySelectorAll('span');
     if (e.type === 'mouseenter') {
       gsap
@@ -25,16 +24,16 @@ const HoverLink = ({
           duration: 0.1,
           opacity: 0,
           stagger: {
-            each,
+            amount: 0.3,
             grid: 'auto',
             from: 'random',
           },
         })
         .to(currentTargets, {
-          duration: 0.3,
+          duration: 0.01,
           opacity: 1,
           stagger: {
-            each,
+            amount: 0.3,
             grid: 'auto',
             from: 'random',
           },
@@ -49,8 +48,9 @@ const HoverLink = ({
         line && styles.withline,
         className && className
       )}
+      onMouseEnter={onMouseEnter}
     >
-      <Component href={href} ref={linkRef} onMouseEnter={onMouseEnter}>
+      <Component href={href} ref={linkRef}>
         {Array.from(children).map((l, i) => (
           <span
             data-animation
