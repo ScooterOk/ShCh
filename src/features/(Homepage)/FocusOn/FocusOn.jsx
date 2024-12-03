@@ -48,6 +48,7 @@ const FocusOn = () => {
 
   const prevSlideRef = useRef(null);
 
+  // ScrollTrigger init
   useGSAP(
     () => {
       if (lenis) {
@@ -396,6 +397,16 @@ const FocusOn = () => {
     });
   };
 
+  // Mousemove init
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    window.document.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
   return (
     <div
       ref={container}
@@ -406,7 +417,7 @@ const FocusOn = () => {
         '--mouse-x': `${mousePosition.x}`,
         '--mouse-y': `${mousePosition.y}`,
       }}
-      onMouseMove={handleMouseMove}
+      // onMouseMove={handleMouseMove}
     >
       <div ref={cursorRef} className={styles.click_hold}>
         <div className={styles.click_hold__line} />
