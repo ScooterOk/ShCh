@@ -8,7 +8,7 @@ const BrandObjects = ({ isHolded }) => {
   const { currentFocusSlide } = useContext(mainContext);
 
   // Fetch model and a separate texture
-  const model = useGLTF('/models/02_brand_objects_slow.gltf');
+  const model = useGLTF('/models/02_brand_objects.gltf');
 
   const { scene, animations, nodes } = model;
 
