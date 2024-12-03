@@ -23,10 +23,18 @@
     line-height: 30px; /* 150% */
   }
   &__breadcrumbs {
-    border-left: 3px solid $bg;
     max-width: 390px;
     min-height: 133px;
     padding-left: 20px;
+    position: relative;
+    &_line {
+      width: 3px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background-color: $bg;
+    }
     & > * {
       display: inline-block;
       color: $bg;
@@ -38,12 +46,12 @@
     }
     &_web,
     &_motion {
-      & > *:nth-child(1) {
+      & > p:nth-child(1) {
         color: $red;
       }
     }
     &_brand {
-      & > *:nth-child(1) {
+      & > p:nth-child(1) {
         color: $yellow;
       }
     }

@@ -44,6 +44,7 @@ const FocusOn = () => {
   const cubeRef = useRef();
   const cursorRef = useRef();
   const scrollRef = useRef();
+  const breadcrumbsLineRef = useRef();
 
   const prevSlideRef = useRef(null);
 
@@ -58,7 +59,7 @@ const FocusOn = () => {
             let targets = gsap.utils.toArray([
               `.${styles.content__title} span`,
               `.${styles.content__breadcrumbs} span`,
-              `.${styles.content__list}[data-name=${currentSlideName}] span`,
+              `.${styles.content__list}[data-name="web"] span`,
               cursorRef.current.querySelectorAll('[data-animation]'),
             ]);
 
@@ -124,6 +125,9 @@ const FocusOn = () => {
             setCurrentFocusSlide(2);
             setCurrentSlideName('motion');
             lenis.slideindex = 2;
+            let targets = gsap.utils.toArray([
+              `.${styles.content__list}[data-name="motion"] span`,
+            ]);
             gsap
               .timeline()
               .to(window, {
@@ -147,6 +151,21 @@ const FocusOn = () => {
                   scaleX: 1,
                   duration: 1,
                   ease: 'power1.in',
+                },
+                '-=1'
+              )
+              .fromTo(
+                targets,
+                { opacity: 0 },
+                {
+                  duration: 0.01,
+                  opacity: 1,
+                  overwrite: true,
+                  stagger: {
+                    amount: 0.5,
+                    grid: 'auto',
+                    from: 'random',
+                  },
                 },
                 '-=1'
               );
@@ -312,6 +331,7 @@ const FocusOn = () => {
       .timeline({
         onComplete: () => (prevSlideRef.current = currentFocusSlide),
       })
+      .set(breadcrumbsLineRef.current, { opacity: 0 })
       .to(currentTargets, {
         duration: 0.01,
         opacity: 0,
@@ -322,6 +342,7 @@ const FocusOn = () => {
         },
       })
       .add(() => setCurrentSlideName(nextSlide))
+      .set(breadcrumbsLineRef.current, { opacity: 1 })
       .to(nextTargets, {
         duration: 0.01,
         opacity: 1,
@@ -403,6 +424,10 @@ const FocusOn = () => {
               <span key={`name-${l}-${i}-${l}`}>{l}</span>
             ))}
           </p>
+          <div
+            className={styles.content__breadcrumbs_line}
+            ref={breadcrumbsLineRef}
+          />
         </div>
         <div className={styles.stack}>
           <ul className={clsx(styles.content__list)} data-name="web">
