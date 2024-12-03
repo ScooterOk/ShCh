@@ -13,7 +13,6 @@ const Mesmerized = ({ styles }) => {
   useGSAP(
     () => {
       const words = container.current.querySelectorAll('[data-animation]');
-      const each = 0.07;
       gsap
         .timeline({
           scrollTrigger: {
