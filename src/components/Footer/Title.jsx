@@ -47,7 +47,6 @@ const FooterTitle = ({ container }) => {
               trigger: container,
               start: 'top 80%',
               end: 'bottom bottom',
-              markers: true,
             },
           })
           .to(action.current, {
