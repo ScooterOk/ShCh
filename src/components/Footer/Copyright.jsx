@@ -5,9 +5,27 @@ import styles from './Footer.module.scss';
 const Copyright = () => {
   return (
     <div className={styles.copyright}>
-      <p>Development by Dmytro Oborskyi</p>
-      <p>Music by Dmitry Tkach</p>
-      <p>Design by Serhii Churilov</p>
+      <p>
+        {Array.from('Development by Dmytro Oborskyi').map((l, i) => (
+          <span data-animation key={`name-${l}-${i}-${l}`}>
+            {l}
+          </span>
+        ))}
+      </p>
+      <p>
+        {Array.from('Music by Dmitry Tkach').map((l, i) => (
+          <span data-animation key={`name-${l}-${i}-${l}`}>
+            {l}
+          </span>
+        ))}
+      </p>
+      <p>
+        {Array.from('Design by Serhii Churilov').map((l, i) => (
+          <span data-animation key={`name-${l}-${i}-${l}`}>
+            {l}
+          </span>
+        ))}
+      </p>
     </div>
   );
 };
