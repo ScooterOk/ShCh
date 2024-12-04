@@ -21,7 +21,7 @@ const useVideo = ({ list }) => {
           ) / list.length
         )?.toFixed(0)
       ),
-    [summary]
+    [list, summary]
   );
 
   useEffect(() => {
@@ -31,6 +31,7 @@ const useVideo = ({ list }) => {
     // Abort controllers
     const abortControllers = [];
     (async () => {
+      // eslint-disable-next-line no-undef
       const responses = await Promise.all(
         list.map((src) => {
           const controller = new AbortController();
@@ -40,6 +41,7 @@ const useVideo = ({ list }) => {
       );
 
       // Process responses
+      // eslint-disable-next-line no-undef
       const videos = await Promise.all(
         responses.map(async (response) => {
           // Get src from response
@@ -106,7 +108,7 @@ const useVideo = ({ list }) => {
     return () => {
       abortControllers.forEach((controller) => controller.abort());
     };
-  }, [list]);
+  }, [list, setLoadedVideos]);
 
   return {
     progress,

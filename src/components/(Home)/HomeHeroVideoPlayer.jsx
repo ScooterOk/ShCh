@@ -4,10 +4,12 @@ import gsap from 'gsap';
 import React, { useContext, useRef } from 'react';
 
 const HomeHeroVideoPlayer = ({ styles, setShowVideoPlayer }) => {
-  const { isLoaded } = useContext(mainContext);
+  const { isLoaded, loadedVideos } = useContext(mainContext);
   const rootRef = useRef();
   const previewRef = useRef();
   const button = useRef();
+
+  console.log('loadedVideos', loadedVideos?.['/video/SHOWREEL_loop.mp4']);
 
   useGSAP(
     () => {
@@ -29,17 +31,23 @@ const HomeHeroVideoPlayer = ({ styles, setShowVideoPlayer }) => {
 
   return (
     <div ref={rootRef} className={styles.player_preview}>
-      <video
-        ref={previewRef}
-        width="1920"
-        height="1080"
-        preload="auto"
-        muted
-        loop
-        playsInline
-      >
-        <source src="/video/ShowreelLoop_03.mp4" type="video/mp4" />
-      </video>
+      {loadedVideos?.['/video/SHOWREEL_loop.mp4'] && (
+        <video
+          ref={previewRef}
+          width="1920"
+          height="1080"
+          preload="auto"
+          muted
+          loop
+          playsInline
+        >
+          <source
+            src={loadedVideos?.['/video/SHOWREEL_loop.mp4']}
+            type="video/mp4"
+          />
+        </video>
+      )}
+
       <div className={styles.button}>
         <button ref={button} onClick={() => setShowVideoPlayer(true)} />
       </div>

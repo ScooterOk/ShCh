@@ -13,6 +13,7 @@ let progressCount = { value: 0 };
 const list = [
   '/video/Hero_head_video_01.mp4',
   '/video/Hero_head_video_02.mp4',
+  '/video/SHOWREEL_loop.mp4',
   '/video/_CUBE_01_full.mp4',
   '/video/_CUBE_02_full.mp4',
   '/video/_CUBE_03_full.mp4',
