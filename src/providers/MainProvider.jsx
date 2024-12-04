@@ -14,24 +14,26 @@ const MainProvider = ({ children }) => {
   const { Provider } = mainContext;
 
   return (
-    <Provider
-      value={{
-        isLoaded,
-        setIsLoaded,
-        loadedVideos,
-        setLoadedVideos,
-        noScroll,
-        setNoScroll,
-        isFocusEntered,
-        setIsFocusEntered,
-        isInit,
-        setIsInit,
-        currentFocusSlide,
-        setCurrentFocusSlide,
-      }}
-    >
-      {children}
-    </Provider>
+    <body className={clsx(!isLoaded && 'no-scroll')}>
+      <Provider
+        value={{
+          isLoaded,
+          setIsLoaded,
+          loadedVideos,
+          setLoadedVideos,
+          noScroll,
+          setNoScroll,
+          isFocusEntered,
+          setIsFocusEntered,
+          isInit,
+          setIsInit,
+          currentFocusSlide,
+          setCurrentFocusSlide,
+        }}
+      >
+        {children}
+      </Provider>
+    </body>
   );
 };
 
