@@ -8,7 +8,7 @@ const MotionObjects = ({ isHolded }) => {
   const { currentFocusSlide } = useContext(mainContext);
 
   // Fetch model and a separate texture
-  const model = useGLTF('/models/03_motion_objects_upd.gltf');
+  const model = useGLTF('/models/03_motion_objects.gltf');
   const { scene, animations, nodes } = model;
 
   // Extract animation actions
