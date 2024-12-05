@@ -53,7 +53,7 @@ const MotionObjects = ({ isHolded }) => {
   return (
     <group
       ref={ref}
-      position={[0, -0.19, 1.8]}
+      position={[0, -0.19, 2]}
       rotation={[0, -Math.PI / 2, 0]}
       dispose={null}
     >
