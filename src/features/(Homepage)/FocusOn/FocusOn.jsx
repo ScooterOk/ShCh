@@ -40,6 +40,7 @@ const FocusOn = () => {
     setCurrentFocusSlide,
   } = useContext(mainContext);
   const container = useRef();
+  const scrollBarTrigger = useRef();
   const cameraRef = useRef();
   const cubeRef = useRef();
   const cursorRef = useRef();
@@ -53,9 +54,20 @@ const FocusOn = () => {
     () => {
       if (lenis) {
         ScrollTrigger.create({
+          trigger: scrollBarTrigger.current,
+          start: 'top 50%',
+          end: 'bottom 50%',
+          toggleClass: {
+            targets: document.querySelector('[data-id="scrollbar"]'),
+            className: 'light',
+          },
+        });
+
+        ScrollTrigger.create({
           trigger: container.current,
           start: '-=10% 80%',
           end: 'bottom 100%-=250px',
+
           onEnter: () => {
             let targets = gsap.utils.toArray([
               `.${styles.content__title} span`,
@@ -408,160 +420,162 @@ const FocusOn = () => {
   }, []);
 
   return (
-    <div
-      ref={container}
-      className={styles.focus}
-      onPointerDown={handleClickAndHold}
-      onPointerUp={handleClickAndHold}
-      style={{
-        '--mouse-x': `${mousePosition.x}`,
-        '--mouse-y': `${mousePosition.y}`,
-      }}
-      // onMouseMove={handleMouseMove}
-    >
-      <div ref={cursorRef} className={styles.click_hold}>
-        <div className={styles.click_hold__line} />
-        {Array.from('Click&Hold').map((l, i) => (
-          <span data-animation key={`name-${l}-${i}-${l}`}>
-            {l}
-          </span>
-        ))}
-      </div>
-      <div className={clsx(styles.content, styles[currentSlideName])}>
-        <h2 className={styles.content__title}>
-          {Array.from('Focus On').map((l, i) => (
-            <span key={`name-${l}-${i}-${l}`}>{l}</span>
-          ))}
-        </h2>
-        <div className={clsx(styles.content__breadcrumbs)}>
-          <p>
-            {Array.from('Web Design/').map((l, i) => (
-              <span key={`name-${l}-${i}-${l}`}>{l}</span>
-            ))}
-          </p>
-          <p>
-            {Array.from('Brand Design/').map((l, i) => (
-              <span key={`name-${l}-${i}-${l}`}>{l}</span>
-            ))}
-          </p>
-          <p>
-            {Array.from('Motion Design/').map((l, i) => (
-              <span key={`name-${l}-${i}-${l}`}>{l}</span>
-            ))}
-          </p>
-          <div
-            className={styles.content__breadcrumbs_line}
-            ref={breadcrumbsLineRef}
-          />
-        </div>
-        <div className={styles.stack}>
-          <ul className={clsx(styles.content__list)} data-name="web">
-            <li>
-              {Array.from('UX Design').map((l, i) => (
-                <span key={`name-${l}-${i}-${l}`}>{l}</span>
-              ))}
-            </li>
-            <li>
-              {Array.from('UI Design').map((l, i) => (
-                <span key={`name-${l}-${i}-${l}`}>{l}</span>
-              ))}
-            </li>
-            <li>
-              {Array.from('Art Direction').map((l, i) => (
-                <span key={`name-${l}-${i}-${l}`}>{l}</span>
-              ))}
-            </li>
-          </ul>
-
-          <ul className={clsx(styles.content__list)} data-name="brand">
-            <li>
-              {Array.from('Logo Development').map((l, i) => (
-                <span key={`name-${l}-${i}-${l}`}>{l}</span>
-              ))}
-            </li>
-            <li>
-              {Array.from('Brand Guidelines').map((l, i) => (
-                <span key={`name-${l}-${i}-${l}`}>{l}</span>
-              ))}
-            </li>
-            <li>
-              {Array.from('Art Direction').map((l, i) => (
-                <span key={`name-${l}-${i}-${l}`}>{l}</span>
-              ))}
-            </li>
-            <li>
-              {Array.from('Illustration').map((l, i) => (
-                <span key={`name-${l}-${i}-${l}`}>{l}</span>
-              ))}
-            </li>
-            <li>
-              {Array.from('Typography').map((l, i) => (
-                <span key={`name-${l}-${i}-${l}`}>{l}</span>
-              ))}
-            </li>
-          </ul>
-
-          <ul className={clsx(styles.content__list)} data-name="motion">
-            <li>
-              {Array.from('Storyboarding').map((l, i) => (
-                <span key={`name-${l}-${i}-${l}`}>{l}</span>
-              ))}
-            </li>
-            <li>
-              {Array.from('2D Animation').map((l, i) => (
-                <span key={`name-${l}-${i}-${l}`}>{l}</span>
-              ))}
-            </li>
-            <li>
-              {Array.from('3D Animation').map((l, i) => (
-                <span key={`name-${l}-${i}-${l}`}>{l}</span>
-              ))}
-            </li>
-            <li>
-              {Array.from('Illustration').map((l, i) => (
-                <span key={`name-${l}-${i}-${l}`}>{l}</span>
-              ))}
-            </li>
-            <li>
-              {Array.from('Content Creation').map((l, i) => (
-                <span key={`name-${l}-${i}-${l}`}>{l}</span>
-              ))}
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className={styles.scroll} ref={scrollRef}>
-        <div className={styles.scroll__line}>
-          <span />
-        </div>
-        <p>
-          {Array.from('Scroll to discover').map((l, i) => (
+    <div ref={scrollBarTrigger}>
+      <div
+        ref={container}
+        className={styles.focus}
+        onPointerDown={handleClickAndHold}
+        onPointerUp={handleClickAndHold}
+        style={{
+          '--mouse-x': `${mousePosition.x}`,
+          '--mouse-y': `${mousePosition.y}`,
+        }}
+        // onMouseMove={handleMouseMove}
+      >
+        <div ref={cursorRef} className={styles.click_hold}>
+          <div className={styles.click_hold__line} />
+          {Array.from('Click&Hold').map((l, i) => (
             <span data-animation key={`name-${l}-${i}-${l}`}>
               {l}
             </span>
           ))}
-        </p>
-      </div>
-      <Canvas shadows>
-        <color attach="background" args={['#000000']} />
-        <PerspectiveCamera
-          ref={cameraRef}
-          makeDefault
-          position={[0, 0.1, 4.5]}
-        />
-        <ambientLight intensity={4} />
-        {/* <OrbitControls /> */}
-        <Suspense fallback={null}>
-          <CoubScene
-            cubeRef={cubeRef}
-            cameraRef={cameraRef}
-            cursorRef={cursorRef}
-            currentSlide={currentFocusSlide}
-            isHolded={isHolded}
-            styles={styles}
+        </div>
+        <div className={clsx(styles.content, styles[currentSlideName])}>
+          <h2 className={styles.content__title}>
+            {Array.from('Focus On').map((l, i) => (
+              <span key={`name-${l}-${i}-${l}`}>{l}</span>
+            ))}
+          </h2>
+          <div className={clsx(styles.content__breadcrumbs)}>
+            <p>
+              {Array.from('Web Design/').map((l, i) => (
+                <span key={`name-${l}-${i}-${l}`}>{l}</span>
+              ))}
+            </p>
+            <p>
+              {Array.from('Brand Design/').map((l, i) => (
+                <span key={`name-${l}-${i}-${l}`}>{l}</span>
+              ))}
+            </p>
+            <p>
+              {Array.from('Motion Design/').map((l, i) => (
+                <span key={`name-${l}-${i}-${l}`}>{l}</span>
+              ))}
+            </p>
+            <div
+              className={styles.content__breadcrumbs_line}
+              ref={breadcrumbsLineRef}
+            />
+          </div>
+          <div className={styles.stack}>
+            <ul className={clsx(styles.content__list)} data-name="web">
+              <li>
+                {Array.from('UX Design').map((l, i) => (
+                  <span key={`name-${l}-${i}-${l}`}>{l}</span>
+                ))}
+              </li>
+              <li>
+                {Array.from('UI Design').map((l, i) => (
+                  <span key={`name-${l}-${i}-${l}`}>{l}</span>
+                ))}
+              </li>
+              <li>
+                {Array.from('Art Direction').map((l, i) => (
+                  <span key={`name-${l}-${i}-${l}`}>{l}</span>
+                ))}
+              </li>
+            </ul>
+
+            <ul className={clsx(styles.content__list)} data-name="brand">
+              <li>
+                {Array.from('Logo Development').map((l, i) => (
+                  <span key={`name-${l}-${i}-${l}`}>{l}</span>
+                ))}
+              </li>
+              <li>
+                {Array.from('Brand Guidelines').map((l, i) => (
+                  <span key={`name-${l}-${i}-${l}`}>{l}</span>
+                ))}
+              </li>
+              <li>
+                {Array.from('Art Direction').map((l, i) => (
+                  <span key={`name-${l}-${i}-${l}`}>{l}</span>
+                ))}
+              </li>
+              <li>
+                {Array.from('Illustration').map((l, i) => (
+                  <span key={`name-${l}-${i}-${l}`}>{l}</span>
+                ))}
+              </li>
+              <li>
+                {Array.from('Typography').map((l, i) => (
+                  <span key={`name-${l}-${i}-${l}`}>{l}</span>
+                ))}
+              </li>
+            </ul>
+
+            <ul className={clsx(styles.content__list)} data-name="motion">
+              <li>
+                {Array.from('Storyboarding').map((l, i) => (
+                  <span key={`name-${l}-${i}-${l}`}>{l}</span>
+                ))}
+              </li>
+              <li>
+                {Array.from('2D Animation').map((l, i) => (
+                  <span key={`name-${l}-${i}-${l}`}>{l}</span>
+                ))}
+              </li>
+              <li>
+                {Array.from('3D Animation').map((l, i) => (
+                  <span key={`name-${l}-${i}-${l}`}>{l}</span>
+                ))}
+              </li>
+              <li>
+                {Array.from('Illustration').map((l, i) => (
+                  <span key={`name-${l}-${i}-${l}`}>{l}</span>
+                ))}
+              </li>
+              <li>
+                {Array.from('Content Creation').map((l, i) => (
+                  <span key={`name-${l}-${i}-${l}`}>{l}</span>
+                ))}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className={styles.scroll} ref={scrollRef}>
+          <div className={styles.scroll__line}>
+            <span />
+          </div>
+          <p>
+            {Array.from('Scroll to discover').map((l, i) => (
+              <span data-animation key={`name-${l}-${i}-${l}`}>
+                {l}
+              </span>
+            ))}
+          </p>
+        </div>
+        <Canvas shadows>
+          <color attach="background" args={['#000000']} />
+          <PerspectiveCamera
+            ref={cameraRef}
+            makeDefault
+            position={[0, 0.1, 4.5]}
           />
-        </Suspense>
-      </Canvas>
+          <ambientLight intensity={4} />
+          {/* <OrbitControls /> */}
+          <Suspense fallback={null}>
+            <CoubScene
+              cubeRef={cubeRef}
+              cameraRef={cameraRef}
+              cursorRef={cursorRef}
+              currentSlide={currentFocusSlide}
+              isHolded={isHolded}
+              styles={styles}
+            />
+          </Suspense>
+        </Canvas>
+      </div>
     </div>
   );
 };

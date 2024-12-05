@@ -1,6 +1,7 @@
 import HoverLink from '@/components/HoverLink';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import React, { useRef } from 'react';
 
@@ -11,6 +12,17 @@ const Skyrocket = ({ styles }) => {
 
   useGSAP(
     () => {
+      // Scroll Bar Color Trigger
+      ScrollTrigger.create({
+        trigger: mediaRef.current,
+        start: 'top 50%',
+        end: 'bottom 50%',
+        toggleClass: {
+          targets: document.querySelector('[data-id="scrollbar"]'),
+          className: 'light',
+        },
+      });
+
       const words = container.current.querySelectorAll('[data-animation]');
       gsap
         .timeline({

@@ -1,0 +1,35 @@
+@use '@/styles/vars' as *;
+
+.scrollbar {
+  width: 4px;
+  height: calc($scrollbar_height * 1px);
+  position: fixed;
+  right: 20px;
+  top: calc(50% - 160px);
+  background-color: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  z-index: 100;
+  transition: background-color 0.5s ease;
+  &:global(.light) {
+    background-color: rgba(155, 155, 136, 0.2);
+    .scrollbar__thumb {
+      background-color: $bg;
+    }
+  }
+  &__thumb {
+    width: 100%;
+    height: calc(var(--thumb-height) * 1px);
+    transform: translate3d(
+      0,
+      calc(
+        (
+            (($scrollbar_height - var(--thumb-height)) / 100) *
+              var(--thumb-offset)
+          ) * 1px
+      ),
+      0
+    );
+    background-color: $black;
+    transition: background-color 0.5s ease;
+  }
+}

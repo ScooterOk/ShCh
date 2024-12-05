@@ -1,14 +1,15 @@
 import React, { Suspense, useRef } from 'react';
 
-import styles from './Follow.module.scss';
 import HomeFollowTitle from '@/components/(Home)/HomeFollowTitle';
 import { Canvas } from '@react-three/fiber';
-import { Grid, OrbitControls, useHelper } from '@react-three/drei';
-import { DirectionalLightHelper, SpotLightHelper } from 'three';
+
 import Backgrounds from '@/components/(Home)/Follow/Backgrounds';
 import HoverLink from '@/components/HoverLink';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+import styles from './Follow.module.scss';
 
 const Lights = () => {
   //   const lightRef = useRef();
@@ -34,6 +35,17 @@ const Follow = () => {
   const list = useRef();
 
   useGSAP(() => {
+    // Scroll Bar Color Trigger
+    ScrollTrigger.create({
+      trigger: container.current,
+      start: 'top 50%',
+      end: 'bottom 50%',
+      toggleClass: {
+        targets: document.querySelector('[data-id="scrollbar"]'),
+        className: 'light',
+      },
+    });
+
     const words = container.current.querySelectorAll('[data-animation]');
 
     gsap

@@ -5,6 +5,7 @@ import { ReactLenis } from 'lenis/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ScrollToPlugin from 'gsap/ScrollToPlugin';
+import ScrollBar from '@/components/ScrollBar/ScrollBar';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -19,6 +20,7 @@ const Layout = ({ children }) => {
       options={{ duration: 1, syncTouch: true }}
     >
       <Navigation />
+      <ScrollBar />
       {children}
     </ReactLenis>
   );

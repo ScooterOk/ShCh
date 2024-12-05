@@ -1,17 +1,29 @@
-import HoverLink from '@/components/HoverLink';
+import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
-import Image from 'next/image';
-import React, { useRef } from 'react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import HoverLink from '@/components/HoverLink';
 
 const AngleSparky = ({ styles }) => {
   const container = useRef();
   const angle2Ref = useRef();
   const sparkyRef = useRef();
+  const scrollColorTriggerRef = useRef();
 
   useGSAP(
     () => {
+      // Scroll Bar Color Trigger
+      ScrollTrigger.create({
+        trigger: scrollColorTriggerRef.current,
+        start: 'top 50%',
+        end: 'bottom 50%',
+        toggleClass: {
+          targets: document.querySelector('[data-id="scrollbar"]'),
+          className: 'light',
+        },
+      });
+
       const words = container.current.querySelectorAll('[data-animation]');
       gsap
         .timeline({
@@ -100,19 +112,22 @@ const AngleSparky = ({ styles }) => {
         </div>
       </div>
       <div className={styles.sparky}>
-        <div className={clsx(styles.media, 'angle2_sparky_media')}>
-          <video
-            ref={sparkyRef}
-            width="840"
-            height="434"
-            preload="auto"
-            muted
-            loop
-            playsInline
-          >
-            <source src="/video/works/sparky_preview.mp4" type="video/mp4" />
-          </video>
+        <div ref={scrollColorTriggerRef}>
+          <div className={clsx(styles.media, 'angle2_sparky_media')}>
+            <video
+              ref={sparkyRef}
+              width="840"
+              height="434"
+              preload="auto"
+              muted
+              loop
+              playsInline
+            >
+              <source src="/video/works/sparky_preview.mp4" type="video/mp4" />
+            </video>
+          </div>
         </div>
+
         <div className={styles.information}>
           <h3 className={styles.information__title}>
             {Array.from('Sparky.Us').map((l, i) => (
