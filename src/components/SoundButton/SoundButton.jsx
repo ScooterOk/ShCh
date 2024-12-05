@@ -26,6 +26,7 @@ const SoundButton = ({
   duration = 1,
   active = true,
   handleClick,
+  color = '#f52b2b',
 }) => {
   const [amplitude, setAmplitude] = useState(initAmplitude.value);
   useGSAP(
@@ -47,13 +48,13 @@ const SoundButton = ({
         className={styles.canvas}
         camera={{ position: [0, 0, 3], orthographic: true }}
       >
-        <Wave amplitude={amplitude} />
+        <Wave amplitude={amplitude} color={color} />
       </Canvas>
     </button>
   );
 };
 
-const Wave = ({ amplitude }) => {
+const Wave = ({ amplitude, color }) => {
   const lineRef = useRef();
   const points = useRef(getInitPoints(amplitude));
 
@@ -70,7 +71,7 @@ const Wave = ({ amplitude }) => {
     <Line
       ref={lineRef}
       points={points.current}
-      color="#f52b2b"
+      color={color}
       lineWidth={3}
       dashed={false}
     />

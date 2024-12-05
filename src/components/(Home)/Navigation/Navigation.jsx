@@ -34,7 +34,7 @@ const Navigation = () => {
 
   return (
     <div ref={rootRef} className={styles.navigation}>
-      <SoundButton />
+      <SoundButton color="#9b9b88" />
       <ul>
         <li>
           <Link className={styles.active} href={'/'}>
