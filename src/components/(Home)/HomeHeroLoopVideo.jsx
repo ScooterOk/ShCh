@@ -15,9 +15,11 @@ const HomeHeroLoopVideo = ({ styles }) => {
       if (isLoaded) {
         gsap
           .timeline()
+          .set(rootRef.current, {
+            autoAlpha: 1,
+          })
           .from(rootRef.current, {
             duration: 1,
-            autoAlpha: 0,
             scaleY: 0,
             ease: 'power3.inOut',
           })
