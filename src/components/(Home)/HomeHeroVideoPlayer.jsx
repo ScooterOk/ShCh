@@ -9,8 +9,6 @@ const HomeHeroVideoPlayer = ({ styles, setShowVideoPlayer }) => {
   const previewRef = useRef();
   const button = useRef();
 
-  console.log('loadedVideos', loadedVideos?.['/video/SHOWREEL_loop.mp4']);
-
   useGSAP(
     () => {
       if (isLoaded) {
