@@ -99,7 +99,7 @@ const AngleSparky = ({ styles }) => {
           </h3>
           <p className={styles.information__description}>
             {Array.from(
-              'Discription. Create digital experience that merge art diraction, branding, strategy.'
+              'Branding and Web Design for the Digital Agency Angle2.'
             ).map((l, i) => (
               <span data-animation key={`name-${l}-${i}-${l}`}>
                 {l}
@@ -137,13 +137,13 @@ const AngleSparky = ({ styles }) => {
             ))}
           </h3>
           <p className={styles.information__description}>
-            {Array.from(
-              'Discription. Create digital experience that merge art diraction, branding, strategy.'
-            ).map((l, i) => (
-              <span data-animation key={`name-${l}-${i}-${l}`}>
-                {l}
-              </span>
-            ))}
+            {Array.from('Web Design for the Digital Agency Sparky.').map(
+              (l, i) => (
+                <span data-animation key={`name-${l}-${i}-${l}`}>
+                  {l}
+                </span>
+              )
+            )}
           </p>
           <div className={styles.information__link}>
             <HoverLink href="/works/koenigsegg">View Case</HoverLink>

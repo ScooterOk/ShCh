@@ -108,7 +108,7 @@ const Mesmerized = ({ styles }) => {
             </h3>
             <p className={styles.information__description}>
               {Array.from(
-                'Discription. Create digital experience that merge art diraction,branding, strategy.'
+                'Branding for the Ukrainian rock band Mesmerized'
               ).map((l, i) => (
                 <span data-animation key={`name-${l}-${i}-${l}`}>
                   {l}
