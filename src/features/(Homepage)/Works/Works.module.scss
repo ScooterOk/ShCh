@@ -10,6 +10,7 @@
 }
 
 .information {
+  margin-top: 60px;
   flex-grow: 1;
   &__title {
     font-size: 26px;
@@ -36,6 +37,9 @@
   gap: 60px;
   margin-top: 120px;
   padding-right: 60px;
+  .information {
+    margin-top: 0;
+  }
   .information__description {
     max-width: 330px;
   }
