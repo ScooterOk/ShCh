@@ -11,25 +11,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import styles from './Follow.module.scss';
 
-const Lights = () => {
-  //   const lightRef = useRef();
-  //   useHelper(lightRef, SpotLightHelper, 'red');
-  return (
-    // <directionalLight
-    //   ref={lightRef}
-    //   position={[0, 0, 10]}
-    //   intensity={0.075}
-    //   color={'#9b9b88'}
-    // />
-    <spotLight
-      position={[0, 0, 5]}
-      //   ref={lightRef}
-      intensity={1.7}
-      color={'#9b9b88'}
-    />
-  );
-};
-
 const Follow = () => {
   const container = useRef();
   const list = useRef();
@@ -113,8 +94,7 @@ const Follow = () => {
           camera={{ position: [0, 0, 1], orthographic: true }}
           gl={{ stencil: true }}
         >
-          <ambientLight color={'#9b9b88'} />
-          <Lights />
+          <ambientLight intensity={1} />
           <Suspense fallback={null}>
             <HomeFollowTitle container={container.current} />
           </Suspense>
