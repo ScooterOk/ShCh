@@ -7,6 +7,10 @@ import gsap from 'gsap';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
+import configs from '@/configs/titlesAnimation';
+const { duration, easeEnter, easeLeave } = configs;
+const animatingNodes = {};
+
 const HomeWorksTitle = ({ container }) => {
   const { isLoaded } = useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
@@ -30,7 +34,7 @@ const HomeWorksTitle = ({ container }) => {
 
   const model = useGLTF('/models/works.gltf');
 
-  const { scene, animations } = model;
+  const { scene, animations, nodes } = model;
 
   //   const gltf = useLoader(GLTFLoader, "/models/stacy.glb", "", (loader) => {
   //     console.log("loader", loader);
@@ -96,13 +100,112 @@ const HomeWorksTitle = ({ container }) => {
     setWidthScale(w);
   }, [modelDimensions.width, viewport.width]);
 
+  const handlePointerEnter = (e) => {
+    const target = e.eventObject.morphTargetInfluences;
+    const name = e.eventObject.name;
+    if (animatingNodes?.[name]?.isActive()) animatingNodes?.[name].kill();
+    animatingNodes[name] = gsap.to(target, {
+      [0]: 1,
+      duration,
+      ease: easeEnter,
+      overwrite: true,
+    });
+  };
+
+  const handlePointerLeave = (e) => {
+    const target = e.eventObject.morphTargetInfluences;
+    const name = e.eventObject.name;
+    if (!animatingNodes?.[name]?.isActive()) {
+      gsap.to(target, {
+        [0]: 0,
+        duration,
+        ease: 'power2.inOut',
+        overwrite: 'auto',
+      });
+    } else {
+      animatingNodes?.[name].eventCallback('onComplete', () => {
+        gsap.to(target, {
+          [0]: 0,
+          duration,
+          ease: easeLeave,
+        });
+      });
+    }
+  };
+
   return (
-    <primitive
-      ref={ref}
-      object={scene}
-      position={[0, 0, 0]}
-      scale={widthScale}
-    />
+    // <primitive
+    //   ref={ref}
+    //   object={scene}
+    //   position={[0, 0, 0]}
+    //   scale={widthScale}
+    // />
+    <group ref={ref} dispose={null} position={[0, 0, 0]} scale={widthScale}>
+      <group>
+        <group name="Layer_1" position={[0.114, 0.001, 0]} scale={0.055}>
+          <mesh
+            name="S"
+            castShadow
+            receiveShadow
+            geometry={nodes.S.geometry}
+            material={nodes.S.material}
+            morphTargetDictionary={nodes.S.morphTargetDictionary}
+            morphTargetInfluences={nodes.S.morphTargetInfluences}
+            position={[-24.633, -14.302, 0]}
+            onPointerEnter={handlePointerEnter}
+            onPointerLeave={handlePointerLeave}
+          />
+          <mesh
+            name="K"
+            castShadow
+            receiveShadow
+            geometry={nodes.K.geometry}
+            material={nodes.K.material}
+            morphTargetDictionary={nodes.K.morphTargetDictionary}
+            morphTargetInfluences={nodes.K.morphTargetInfluences}
+            position={[-24.633, -14.302, 0]}
+            onPointerEnter={handlePointerEnter}
+            onPointerLeave={handlePointerLeave}
+          />
+          <mesh
+            name="R"
+            castShadow
+            receiveShadow
+            geometry={nodes.R.geometry}
+            material={nodes.R.material}
+            morphTargetDictionary={nodes.R.morphTargetDictionary}
+            morphTargetInfluences={nodes.R.morphTargetInfluences}
+            position={[-24.633, -14.302, 0]}
+            onPointerEnter={handlePointerEnter}
+            onPointerLeave={handlePointerLeave}
+          />
+          <mesh
+            name="O"
+            castShadow
+            receiveShadow
+            geometry={nodes.O.geometry}
+            material={nodes.O.material}
+            morphTargetDictionary={nodes.O.morphTargetDictionary}
+            morphTargetInfluences={nodes.O.morphTargetInfluences}
+            position={[-24.633, -14.302, 0]}
+            onPointerEnter={handlePointerEnter}
+            onPointerLeave={handlePointerLeave}
+          />
+          <mesh
+            name="W"
+            castShadow
+            receiveShadow
+            geometry={nodes.W.geometry}
+            material={nodes.W.material}
+            morphTargetDictionary={nodes.W.morphTargetDictionary}
+            morphTargetInfluences={nodes.W.morphTargetInfluences}
+            position={[-24.633, -14.302, 0]}
+            onPointerEnter={handlePointerEnter}
+            onPointerLeave={handlePointerLeave}
+          />
+        </group>
+      </group>
+    </group>
   );
 };
 
