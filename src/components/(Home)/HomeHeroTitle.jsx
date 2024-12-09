@@ -25,7 +25,7 @@ const HomeHeroTitle = () => {
 
   const action = useRef(null);
 
-  const model = useGLTF('/models/Home_digital_3dtext_02_test.gltf');
+  const model = useGLTF('/models/home_hero_title.gltf');
 
   const { animations, nodes } = model;
 
@@ -83,12 +83,8 @@ const HomeHeroTitle = () => {
     }
   }, [ref]);
 
-  // const viewportWidth = viewport.width;
-  // const modelWidthInViewport =
-  //   modelDimensions.width * (viewport.width / size.width);
-
   useEffect(() => {
-    const w = (viewport.width / modelDimensions.width) * 1.069;
+    const w = (viewport.width / modelDimensions.width) * 1.058;
     setWidthScale(w);
   }, [modelDimensions.width, viewport.width]);
 
@@ -131,13 +127,7 @@ const HomeHeroTitle = () => {
   };
 
   return (
-    // <primitive
-    //   ref={ref}
-    //   object={scene}
-    //   position={[0.045, 0, 0]}
-    //   scale={widthScale}
-    // />
-    <group ref={ref} dispose={null} position={[0, 0, 0]} scale={widthScale}>
+    <group ref={ref} dispose={null} position={[0.055, 0, 0]} scale={widthScale}>
       <group>
         <group name="Null1">
           <group name="Null">

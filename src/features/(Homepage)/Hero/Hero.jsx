@@ -1,23 +1,14 @@
 'use client';
 import React, { Suspense, useRef, useState } from 'react';
-
 import { Canvas } from '@react-three/fiber';
-import { Grid, OrbitControls } from '@react-three/drei';
 import HomeHeroTitle from '@/components/(Home)/HomeHeroTitle';
 import HomeHeroLoopVideo from '@/components/(Home)/HomeHeroLoopVideo';
-
 import HomeHeroVideoPlayer from '@/components/(Home)/HomeHeroVideoPlayer';
 import HomeHeroName from '@/components/(Home)/HomeHeroName';
-
 import HomeHeroText from '@/components/(Home)/HomeHeroText';
+import VideoPlayerModal from '@/components/VideoPlayerModal';
 
 import styles from './Hero.module.scss';
-import VideoPlayerModal from '@/components/VideoPlayerModal';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import ScrollToPlugin from 'gsap/ScrollToPlugin';
-import { useLenis } from 'lenis/react';
 
 const Hero = () => {
   const [showVideoPlayer, setShowVideoPlayer] = useState(false);
