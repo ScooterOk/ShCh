@@ -52,6 +52,7 @@ const FooterTitle = ({ container }) => {
               start: 'top 80%',
               end: 'bottom bottom',
             },
+            id: 'footer-title-init',
           })
           .to(action.current, {
             time: 0.5,
@@ -88,6 +89,8 @@ const FooterTitle = ({ container }) => {
   }, [modelDimensions.width, viewport.width]);
 
   const handlePointerEnter = (e) => {
+    if (gsap.getById('footer-title-init')?.isActive()) return;
+
     const target = e.eventObject.morphTargetInfluences;
     const name = e.eventObject.name;
     if (animatingNodes?.[name]?.isActive()) animatingNodes?.[name].kill();
@@ -100,6 +103,8 @@ const FooterTitle = ({ container }) => {
   };
 
   const handlePointerLeave = (e) => {
+    if (gsap.getById('footer-title-init')?.isActive()) return;
+
     const target = e.eventObject.morphTargetInfluences;
     const name = e.eventObject.name;
     if (!animatingNodes?.[name]?.isActive()) {

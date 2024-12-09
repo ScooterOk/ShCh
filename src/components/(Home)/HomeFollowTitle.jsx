@@ -61,6 +61,7 @@ const HomeFollowTitle = ({ container }) => {
               start: 'top 50%',
               end: 'bottom bottom',
             },
+            id: 'follow-title-init',
           })
           .to(action.current, {
             time: 0.5,
@@ -97,6 +98,8 @@ const HomeFollowTitle = ({ container }) => {
   }, [modelDimensions.width, viewport.width]);
 
   const handlePointerEnter = (e) => {
+    if (gsap.getById('follow-title-init')?.isActive()) return;
+
     const target = e.eventObject.morphTargetInfluences;
     const name = e.eventObject.name;
     if (animatingNodes?.[name]?.isActive()) animatingNodes?.[name].kill();
@@ -109,6 +112,8 @@ const HomeFollowTitle = ({ container }) => {
   };
 
   const handlePointerLeave = (e) => {
+    if (gsap.getById('follow-title-init')?.isActive()) return;
+
     const target = e.eventObject.morphTargetInfluences;
     const name = e.eventObject.name;
     if (!animatingNodes?.[name]?.isActive()) {
@@ -130,12 +135,6 @@ const HomeFollowTitle = ({ container }) => {
   };
 
   return (
-    // <primitive
-    //   ref={ref}
-    //   object={scene}
-    //   position={[0, 0, 0]}
-    //   scale={widthScale}
-    // />
     <group ref={ref} dispose={null} position={[0, 0, 0]} scale={widthScale}>
       <group>
         <group name="Layer_1" position={[-0.109, -0.013, 0]} scale={0.067}>

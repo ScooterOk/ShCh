@@ -27,7 +27,7 @@ const HomeHeroTitle = () => {
 
   const model = useGLTF('/models/Home_digital_3dtext_02_test.gltf');
 
-  const { scene, animations, nodes } = model;
+  const { animations, nodes } = model;
 
   const { actions, ref, names } = useAnimations(animations);
 
@@ -49,7 +49,10 @@ const HomeHeroTitle = () => {
       if (isLoaded) {
         if (action.current) {
           gsap
-            .timeline({ onComplete: () => setNoScroll(false) })
+            .timeline({
+              onComplete: () => setNoScroll(false),
+              id: 'hero-title-init',
+            })
             .to(action.current, {
               time: 1,
               duration: 1,
@@ -90,6 +93,8 @@ const HomeHeroTitle = () => {
   }, [modelDimensions.width, viewport.width]);
 
   const handlePointerEnter = (e) => {
+    if (gsap.getById('hero-title-init')?.isActive()) return;
+
     const target = e.eventObject.morphTargetInfluences;
     const name = e.eventObject.name;
     if (animatingNodes?.[name]?.isActive()) animatingNodes?.[name].kill();
@@ -102,6 +107,8 @@ const HomeHeroTitle = () => {
   };
 
   const handlePointerLeave = (e) => {
+    if (gsap.getById('hero-title-init')?.isActive()) return;
+
     const target = e.eventObject.morphTargetInfluences;
     const name = e.eventObject.name;
     if (!animatingNodes?.[name]?.isActive()) {

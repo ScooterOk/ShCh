@@ -65,6 +65,7 @@ const HomeWorksTitle = ({ container }) => {
               start: '-=10% 80%',
               end: 'bottom bottom',
             },
+            id: 'works-title_init',
           })
           .to(action.current, {
             time: 0.5,
@@ -101,6 +102,8 @@ const HomeWorksTitle = ({ container }) => {
   }, [modelDimensions.width, viewport.width]);
 
   const handlePointerEnter = (e) => {
+    if (gsap.getById('works-title_init')?.isActive()) return;
+
     const target = e.eventObject.morphTargetInfluences;
     const name = e.eventObject.name;
     if (animatingNodes?.[name]?.isActive()) animatingNodes?.[name].kill();
@@ -113,6 +116,8 @@ const HomeWorksTitle = ({ container }) => {
   };
 
   const handlePointerLeave = (e) => {
+    if (gsap.getById('works-title_init')?.isActive()) return;
+
     const target = e.eventObject.morphTargetInfluences;
     const name = e.eventObject.name;
     if (!animatingNodes?.[name]?.isActive()) {
