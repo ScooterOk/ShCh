@@ -7,6 +7,7 @@ import SoundButton from '@/components/SoundButton/SoundButton';
 import { mainContext } from '@/providers/MainProvider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import Music from '@/components/Music';
 const Navigation = () => {
   const { isLoaded, setNoScroll } = useContext(mainContext);
   const rootRef = useRef();
@@ -15,7 +16,9 @@ const Navigation = () => {
     () => {
       if (isLoaded) {
         gsap
-          .timeline({ delay: 2 })
+          .timeline({
+            delay: 2,
+          })
           .from(rootRef.current, {
             duration: 1,
             autoAlpha: 0,
@@ -34,7 +37,7 @@ const Navigation = () => {
 
   return (
     <div ref={rootRef} className={styles.navigation}>
-      <SoundButton color="#9b9b88" />
+      <Music />
       <ul>
         <li>
           <Link className={styles.active} href={'/'}>

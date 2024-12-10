@@ -11,6 +11,7 @@ const MainProvider = ({ children }) => {
   const [isFocusEntered, setIsFocusEntered] = useState(false);
   const [currentFocusSlide, setCurrentFocusSlide] = useState(-1);
   const [isInit, setIsInit] = useState(false);
+  const [isHolded, setIsHolded] = useState(null);
   const { Provider } = mainContext;
 
   return (
@@ -29,6 +30,8 @@ const MainProvider = ({ children }) => {
           setIsInit,
           currentFocusSlide,
           setCurrentFocusSlide,
+          isHolded,
+          setIsHolded,
         }}
       >
         {children}

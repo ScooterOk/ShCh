@@ -24,7 +24,6 @@ const position = {
 };
 
 const FocusOn = () => {
-  const [isHolded, setIsHolded] = useState(null);
   const [mousePosition, setMousePosition] = useState({
     x: position.x,
     y: position.y,
@@ -38,6 +37,8 @@ const FocusOn = () => {
     setIsInit,
     currentFocusSlide,
     setCurrentFocusSlide,
+    isHolded,
+    setIsHolded,
   } = useContext(mainContext);
   const container = useRef();
   const scrollBarTrigger = useRef();

@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -17,10 +17,6 @@ const getInitPoints = (amplitude) => {
   return pts;
 };
 
-const initAmplitude = {
-  value: 0.25,
-};
-
 const SoundButton = ({
   className,
   duration = 1,
@@ -28,19 +24,19 @@ const SoundButton = ({
   handleClick,
   color = '#f52b2b',
 }) => {
-  const [amplitude, setAmplitude] = useState(initAmplitude.value);
-  useGSAP(
-    () => {
-      gsap.to(initAmplitude, {
-        value: active ? 0.25 : 0,
-        duration,
-        onUpdate: () => {
-          setAmplitude(initAmplitude.value);
-        },
-      });
-    },
-    { dependencies: [active] }
-  );
+  const [amplitude, setAmplitude] = useState(active ? 0.25 : 0);
+
+  const initAmplitude = useRef(0.25);
+
+  useEffect(() => {
+    gsap.to(initAmplitude, {
+      current: active ? 0.25 : 0,
+      duration,
+      onUpdate: () => {
+        setAmplitude(initAmplitude.current);
+      },
+    });
+  }, [active, duration]);
 
   return (
     <button className={clsx(styles.button, className)} onClick={handleClick}>
