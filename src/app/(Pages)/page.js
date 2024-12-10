@@ -94,7 +94,7 @@ export default function Home() {
             }
           },
           tolerance: 100,
-          preventDefault: true,
+          // preventDefault: true,
         });
       }
     },

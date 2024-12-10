@@ -18,6 +18,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={inter.className}>
       <MainProvider>{children}</MainProvider>
+      <Script
+        id="scrollRestoration"
+        dangerouslySetInnerHTML={{
+          __html: `history.scrollRestoration = "manual"; console.log(history.scrollRestoration);`,
+        }}
+      />
     </html>
   );
 }
