@@ -38,4 +38,25 @@
       }
     }
   }
+  @media screen and (max-width: 768px) {
+    height: 50px;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    & > ul {
+      gap: 24px;
+      padding-left: 20px;
+      padding-right: 20px;
+      & > li {
+        font-size: 14px;
+        a {
+          &.active {
+            &::before {
+              top: -4px;
+            }
+          }
+        }
+      }
+    }
+  }
 }

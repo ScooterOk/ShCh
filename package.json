@@ -20,11 +20,12 @@
     "next": "14.2.3",
     "postprocessing": "^6.35.5",
     "react": "^18.3.1",
-    "react-dom": "^18",    
+    "react-dom": "^18",
     "reset-css": "^5.0.2",
     "sass": "^1.77.3",
     "three": "^0.164.1",
-    "three-lens-distortion": "github:ycw/three-lens-distortion"
+    "three-lens-distortion": "github:ycw/three-lens-distortion",
+    "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
     "eslint": "^8",
