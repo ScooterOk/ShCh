@@ -4,6 +4,10 @@
   height: 100dvh;
   background-color: $black;
   position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  -webkit-touch-callout: none;
 }
 
 .content {

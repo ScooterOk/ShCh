@@ -80,35 +80,4 @@ const HomeHeroLoopVideo = ({ styles }) => {
   );
 };
 
-// const CircularMask = (props) => (
-//   <group {...props}>
-//     <PivotControls
-//       offset={[0, 0, 1]}
-//       activeAxes={[true, true, false]}
-//       disableRotations
-//       depthTest={false}
-//     >
-//       <Frame position={[0, 0, 0.1]} />
-//       <Mask id={1} position={[0, 0, 0.1]} rotation={[0, 0, -Math.PI / 4]}>
-//         <circleGeometry args={[0.5, 4]} />
-//       </Mask>
-//     </PivotControls>
-//   </group>
-// );
-
-// function VideoMaterial({ url }) {
-//   const size = useAspect(180, 100, 0.1);
-//   const texture = useVideoTexture(url, { loop: true });
-//   const stencil = useMask(1, false);
-//   console.log("stencil", stencil);
-
-//   return (
-//     <mesh>
-//       <planeGeometry args={size} />
-//       {/* <meshPhongMaterial color="#33BBFF" {...stencil} /> */}
-//       <meshBasicMaterial map={texture} toneMapped={false} {...stencil} />;
-//     </mesh>
-//   );
-// }
-
 export default HomeHeroLoopVideo;

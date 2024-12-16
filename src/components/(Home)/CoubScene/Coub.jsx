@@ -91,7 +91,7 @@ const Coub = forwardRef((props, ref) => {
         });
     }
     if (isHolded === false) {
-      holdTweenRef.current.kill();
+      holdTweenRef?.current?.kill();
       const time =
         material?.currentTime < 1
           ? material.duration - material.currentTime

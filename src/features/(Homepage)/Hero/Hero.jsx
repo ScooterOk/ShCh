@@ -7,11 +7,10 @@ import HomeHeroVideoPlayer from '@/components/(Home)/HomeHeroVideoPlayer';
 import HomeHeroName from '@/components/(Home)/HomeHeroName';
 import HomeHeroText from '@/components/(Home)/HomeHeroText';
 import VideoPlayerModal from '@/components/VideoPlayerModal';
+import HomeHeroTitleMobile from '@/components/(Home)/HomeHeroTitleMobile';
+import useMobile from '@/hooks/useMobile';
 
 import styles from './Hero.module.scss';
-import HomeHeroTitleMobile from '@/components/(Home)/HomeHeroTitleMobile';
-import { useMediaQuery } from 'usehooks-ts';
-import useMobile from '@/hooks/useMobile';
 
 const Hero = () => {
   const [showVideoPlayer, setShowVideoPlayer] = useState(false);

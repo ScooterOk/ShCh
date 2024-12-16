@@ -34,11 +34,7 @@ const HomeWorksTitle = ({ container }) => {
 
   const model = useGLTF('/models/works.gltf');
 
-  const { scene, animations, nodes } = model;
-
-  //   const gltf = useLoader(GLTFLoader, "/models/stacy.glb", "", (loader) => {
-  //     console.log("loader", loader);
-  //   });
+  const { animations, nodes } = model;
 
   const { actions, ref, names } = useAnimations(animations);
 

@@ -5,7 +5,9 @@
   min-height: 900px;
   position: relative;
   padding-bottom: 40px;
-  overflow: hidden;
+  @media screen and (max-width: 768px) {
+    height: auto;
+  }
   &__grid {
     display: flex;
     justify-content: space-between;
@@ -37,9 +39,6 @@
       margin-top: calc(40px - ((768px - 100vw) * 0.029));
       margin-left: calc((768px - 100vw) * -0.025);
       margin-bottom: 120px;
-    }
-    canvas {
-      background-color: antiquewhite;
     }
   }
 

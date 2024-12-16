@@ -8,9 +8,13 @@ import Links from './Links';
 import Copyright from './Copyright';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import FooterTitleMobile from './TitleMobile';
+import useMobile from '@/hooks/useMobile';
 
 const Footer = () => {
   const container = useRef();
+
+  const { isMobile } = useMobile();
 
   useGSAP(() => {
     const words = container.current.querySelectorAll('[data-animation]');
@@ -24,7 +28,7 @@ const Footer = () => {
         },
       })
       .fromTo(
-        `.${styles.links}`,
+        `.${styles.links__link}`,
         { scaleX: 0 },
         {
           scaleX: 1,
@@ -47,11 +51,19 @@ const Footer = () => {
     <div className={styles.footer} ref={container}>
       <Date />
       <div className={styles.title}>
-        <Canvas camera={{ position: [0, 0, 1], orthographic: true }}>
-          <Suspense fallback={null}>
-            <FooterTitle container={container.current} />
-          </Suspense>
-        </Canvas>
+        <div className={styles.title__canvas}>
+          <Canvas camera={{ position: [0, 0, 1], orthographic: true }}>
+            <Suspense fallback={null}>
+              <group scale={isMobile ? 0 : 1}>
+                <FooterTitle container={container.current} />
+              </group>
+              <group scale={isMobile ? 1 : 0}>
+                <FooterTitleMobile container={container.current} />
+              </group>
+            </Suspense>
+          </Canvas>
+        </div>
+
         <div className={styles.title__description}>
           {Array.from('extraordinary').map((l, i) => (
             <span data-animation key={`name-${l}-${i}-${l}`}>

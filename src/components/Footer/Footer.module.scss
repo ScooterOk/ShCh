@@ -1,8 +1,8 @@
 .footer {
   padding: 60px 60px 100px 60px;
-  font-size: 20px;
+  font-size: clamp(14px, 1.5vw, 20px);
   font-weight: 600;
-  line-height: 24px;
+  line-height: 1.2em;
   .date {
     width: 50%;
     margin-left: auto;
@@ -10,12 +10,16 @@
   .title {
     margin-top: 120px;
     width: 90%;
-    aspect-ratio: 1621 / 174;
     position: relative;
+    &__canvas {
+      // aspect-ratio: 1621 / 174;
+      height: 8.8vw;
+    }
     &__description {
       position: absolute;
       top: -4px;
       left: calc(100% + 16px);
+      line-height: 1.2em;
     }
   }
   .links {
@@ -23,8 +27,12 @@
     margin-top: 160px;
     margin-left: auto;
     transform-origin: left;
-    &__email {
-      margin-bottom: 60px;
+    &__link {
+      transform-origin: left;
+      &_email {
+        margin-bottom: 60px;
+        font-size: 20px;
+      }
     }
   }
   .copyright {
@@ -32,5 +40,40 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 60px 40px 120px 40px;
+    .date {
+      display: none;
+    }
+    .title {
+      margin-top: 0;
+      width: 100%;
+      &__canvas {
+        height: 31.3vw;
+        margin-top: calc(40px - ((768px - 100vw) * 0.029));
+        margin-left: calc((768px - 100vw) * -0.025);
+      }
+      &__description {
+        position: static;
+        margin-top: 20px;
+        width: 50%;
+        margin-left: auto;
+      }
+    }
+    .links {
+      margin-top: 20px;
+      width: 100%;
+      &__link {
+        width: 50%;
+        margin-left: auto;
+        &_email {
+          width: 100%;
+        }
+      }
+    }
+    .copyright {
+      margin-top: 60px;
+    }
   }
 }

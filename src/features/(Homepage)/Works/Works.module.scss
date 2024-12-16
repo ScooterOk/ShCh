@@ -7,6 +7,11 @@
     padding: 0 60px;
     height: 17vw;
   }
+  @media screen and (max-width: 768px) {
+    .title {
+      padding: 0 40px;
+    }
+  }
 }
 
 .information {
@@ -14,21 +19,35 @@
   flex-grow: 1;
   &__title {
     font-size: 26px;
-    line-height: 20px;
+    line-height: 1.12em;
     font-weight: 600;
   }
   &__description {
     font-size: 18px;
-    line-height: 20px;
+    line-height: 1.12em;
     font-weight: 600;
     margin-top: 1.5rem;
   }
   &__link {
     margin-top: 60px;
     font-size: 16px;
-    line-height: 14px;
+    line-height: 1em;
     font-weight: 600;
     transform-origin: left;
+  }
+  @media screen and (max-width: 768px) {
+    &__title {
+      font-size: clamp(20px, 1.5vw, 26px);
+    }
+    &__description {
+      font-size: clamp(14px, 1.5vw, 18px);
+
+      margin-top: 20px;
+    }
+    &__link {
+      margin-top: 40px;
+      font-size: clamp(14px, 1.5vw, 16px);
+    }
   }
 }
 
@@ -51,6 +70,18 @@
     background-color: #000;
     clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
     padding: 60px;
+  }
+  @media screen and (max-width: 768px) {
+    margin-top: 60px;
+    padding: 0;
+    flex-direction: column;
+    gap: 40px;
+    .media {
+      width: 100%;
+    }
+    .information {
+      padding: 0 40px;
+    }
   }
 }
 
@@ -88,6 +119,24 @@
   .information {
     width: 50%;
   }
+  @media screen and (max-width: 768px) {
+    margin-top: 60px;
+    padding-left: 0;
+    .media {
+      display: block;
+      &__logo {
+        display: none;
+      }
+    }
+    .information {
+      margin-top: 40px;
+      padding: 0 40px;
+      width: auto;
+      &__description {
+        max-width: 330px;
+      }
+    }
+  }
 }
 
 .angle_sparky {
@@ -118,6 +167,9 @@
     .information {
       padding-left: 60px;
       max-width: 65%;
+      &__description {
+        max-width: 330px;
+      }
     }
   }
   .sparky {
@@ -134,6 +186,26 @@
       video {
         width: 100%;
         height: auto;
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    margin-top: 60px;
+    flex-direction: column;
+    .angle2,
+    .sparky {
+      width: 100%;
+      .media {
+        aspect-ratio: initial;
+      }
+      .information {
+        margin-top: 40px;
+        padding: 0 40px;
+        width: auto;
+        max-width: initial;
+        &__description {
+          max-width: 330px;
+        }
       }
     }
   }
@@ -173,6 +245,31 @@
     }
     .information {
       width: 50%;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    margin-top: 60px;
+    padding-left: 0;
+    .media {
+      flex-direction: column;
+      gap: 40px;
+      &__logo {
+        width: 100%;
+        img {
+          display: none;
+        }
+      }
+      &__video {
+        width: 100%;
+      }
+      .information {
+        margin: 0;
+        padding: 0 40px;
+        width: 100%;
+        &__description {
+          max-width: 330px;
+        }
+      }
     }
   }
 }

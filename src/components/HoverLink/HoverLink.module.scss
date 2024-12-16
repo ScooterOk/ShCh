@@ -3,6 +3,9 @@
   position: relative;
   &.withline {
     padding-top: 12px;
+    @media screen and (max-width: 768px) {
+      padding-top: 8px;
+    }
     &::after {
       content: '';
       display: block;

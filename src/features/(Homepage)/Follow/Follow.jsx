@@ -90,15 +90,18 @@ const Follow = () => {
     <div className={styles.follow} ref={container}>
       <Backgrounds styles={styles} container={container.current} />
       <div className={styles.title}>
-        <Canvas
-          camera={{ position: [0, 0, 1], orthographic: true }}
-          gl={{ stencil: true }}
-        >
-          <ambientLight intensity={1} />
-          <Suspense fallback={null}>
-            <HomeFollowTitle container={container.current} />
-          </Suspense>
-        </Canvas>
+        <div className={styles.title__canvas}>
+          <Canvas
+            camera={{ position: [0, 0, 1], orthographic: true }}
+            gl={{ stencil: true }}
+          >
+            <ambientLight intensity={1} />
+            <Suspense fallback={null}>
+              <HomeFollowTitle container={container.current} />
+            </Suspense>
+          </Canvas>
+        </div>
+
         <div className={styles.title__description}>
           {Array.from(
             'and check my work in progress, explorations, experimentations'

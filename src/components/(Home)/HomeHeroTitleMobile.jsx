@@ -108,7 +108,6 @@ const HomeHeroTitleMobile = () => {
     const target = e.eventObject.morphTargetInfluences;
     const name = e.eventObject.name;
     if (!animatingNodes?.[name]?.isActive()) {
-      console.log('LEAVE');
       gsap.to(target, {
         [0]: 0,
         duration,

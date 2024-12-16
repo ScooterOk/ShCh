@@ -10,8 +10,10 @@
   .title {
     width: 53%;
     flex-shrink: 0;
-    aspect-ratio: 5.55 / 1;
     position: relative;
+    &__canvas {
+      aspect-ratio: 5.55 / 1;
+    }
     &__description {
       color: $bg;
       position: absolute;
@@ -73,5 +75,31 @@
     bottom: calc(60px + 17%);
     right: 25%;
     clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
+  }
+  @media screen and (max-width: 768px) {
+    margin-top: 120px;
+    flex-direction: column;
+    padding: 80px 40px 120px 40px;
+    .silver,
+    .venera,
+    .robo {
+      display: none;
+    }
+    .astranaut {
+      position: static;
+      width: 50%;
+    }
+    .title {
+      width: 100%;
+      &__description {
+        position: static;
+        margin-top: 20px;
+      }
+    }
+    .list {
+      width: 50%;
+      margin-left: auto;
+      aspect-ratio: 1 / 1;
+    }
   }
 }

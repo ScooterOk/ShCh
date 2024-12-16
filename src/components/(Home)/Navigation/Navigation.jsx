@@ -29,6 +29,7 @@ const Navigation = () => {
             duration: 1,
             opacity: 0,
           })
+          .set(rootRef.current, { clearProps: 'transform' })
           .add(() => setNoScroll(false));
       }
     },
