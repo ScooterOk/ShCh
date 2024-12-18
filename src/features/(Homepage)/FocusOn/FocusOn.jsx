@@ -17,6 +17,8 @@ import { mainContext } from '@/providers/MainProvider';
 import { useLenis } from 'lenis/react';
 
 import styles from './FocusOn.module.scss';
+import useMobile from '@/hooks/useMobile';
+import { Observer } from 'gsap/Observer';
 
 const position = {
   x: 0,
@@ -30,6 +32,8 @@ const FocusOn = () => {
   });
   const [currentSlideName, setCurrentSlideName] = useState('web');
   const lenis = useLenis();
+
+  const { isMobile } = useMobile();
 
   const {
     isLoaded,
@@ -54,7 +58,11 @@ const FocusOn = () => {
   useGSAP(
     () => {
       if (lenis) {
+        ScrollTrigger.getById('scroll-bar-trigger')?.kill();
+        ScrollTrigger.getById('focus-on-trigger')?.kill();
+
         ScrollTrigger.create({
+          id: 'scroll-bar-trigger',
           trigger: scrollBarTrigger.current,
           start: 'top 50%',
           end: 'bottom 50%',
@@ -65,9 +73,11 @@ const FocusOn = () => {
         });
 
         ScrollTrigger.create({
+          id: 'focus-on-trigger',
           trigger: container.current,
-          start: '-=10% 80%',
+          start: isMobile ? 'top 50%' : '-=10% 80%',
           end: 'bottom 100%-=250px',
+          markers: true,
 
           onEnter: () => {
             let targets = gsap.utils.toArray([
@@ -78,6 +88,23 @@ const FocusOn = () => {
             ]);
 
             setIsFocusEntered(true);
+            if (isMobile) {
+              gsap.to(window, {
+                id: 'scrollTween',
+                duration: 1,
+                scrollTo: container.current,
+                ease: 'power2.out',
+                overwrite: true,
+                onComplete: () => {
+                  const observer = Observer.getById('scroll-trigger-observe');
+                  observer.enable();
+                },
+              });
+              setCurrentFocusSlide(0);
+              lenis.slideindex = 0;
+              lenis.stop();
+            }
+
             gsap
               .timeline()
               .add(() => {
@@ -88,7 +115,7 @@ const FocusOn = () => {
                   y: container.current.clientHeight / 2,
                 });
               })
-              .set(`.${styles.content}`, { autoAlpha: 1 })
+              .set([`.${styles.content}`, cursorRef.current], { autoAlpha: 1 })
               .fromTo(
                 cameraRef.current?.position,
                 { z: 3 },
@@ -102,7 +129,7 @@ const FocusOn = () => {
               )
               .fromTo(
                 cubeRef.current?.rotation,
-                { y: Math.PI * 2 },
+                { y: Math.PI * 2 + Math.PI / 2 },
                 {
                   y: 0,
                   duration: 2.5,
@@ -111,7 +138,6 @@ const FocusOn = () => {
                 },
                 'start'
               )
-              // .set(`.${styles.content}`, { autoAlpha: 1, delay: 1 }, '-=2')
               .fromTo(
                 breadcrumbsLineRef.current,
                 { opacity: 0 },
@@ -156,7 +182,7 @@ const FocusOn = () => {
             gsap
               .timeline()
               .to(window, {
-                id: 'scrollTween',
+                // id: 'scrollTween',
                 duration: 1,
                 scrollTo: container.current,
                 ease: 'power2.out',
@@ -198,7 +224,7 @@ const FocusOn = () => {
         });
       }
     },
-    { dependencies: [setIsFocusEntered, lenis] }
+    { dependencies: [setIsFocusEntered, lenis, isMobile] }
   );
 
   // OnHold cursor animation
@@ -231,7 +257,7 @@ const FocusOn = () => {
       });
   }, [isHolded, isLoaded]);
 
-  // OnLeave animation
+  // Cursor animation
   useEffect(() => {
     if (!isLoaded || currentFocusSlide > 3 || prevSlideRef.current === -1)
       return;
@@ -384,7 +410,7 @@ const FocusOn = () => {
 
   const handleClickAndHold = useCallback(
     (e) => {
-      if (currentFocusSlide > 2) return;
+      if (currentFocusSlide < 0 || currentFocusSlide > 2) return;
       if (e.type === 'pointerdown') {
         setIsHolded(true);
       }
@@ -392,7 +418,7 @@ const FocusOn = () => {
         setIsHolded(false);
       }
     },
-    [currentFocusSlide]
+    [currentFocusSlide, setIsHolded]
   );
 
   const handleMouseMove = (e) => {

@@ -21,10 +21,10 @@
   visibility: hidden;
   &__title {
     color: $bg;
-    font-size: 20px;
+    font-size: clamp(14px, 2.5vw, 20px);
     font-style: normal;
     font-weight: 600;
-    line-height: 30px; /* 150% */
+    line-height: 1.3em;
   }
   &__breadcrumbs {
     max-width: 390px;
@@ -104,6 +104,17 @@
       color: $red;
     }
   }
+  @media screen and (max-width: 768px) {
+    top: 60px;
+    gap: 20px;
+    &__breadcrumbs {
+      max-width: 100%;
+      min-height: auto;
+    }
+    &__list {
+      visibility: hidden;
+    }
+  }
 }
 
 .scroll {
@@ -153,6 +164,7 @@
     calc((var(--mouse-y) * 1px) + 1rem),
     0
   );
+  visibility: hidden;
   &__line {
     position: absolute;
     top: -12px;

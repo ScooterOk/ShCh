@@ -108,7 +108,14 @@ const CoubScene = ({
   const { isLoaded } = useContext(mainContext);
 
   useEffect(() => {
-    if (currentSlide < 0 || currentSlide > 3 || !lenis) return;
+    if (
+      currentSlide < 0 ||
+      currentSlide > 3 ||
+      !lenis ||
+      gsap.getById('scrollTween')
+    )
+      return;
+
     gsap.to(cubeRef.current.rotation, {
       y: (-Math.PI / 2) * currentSlide,
       duration: 1,

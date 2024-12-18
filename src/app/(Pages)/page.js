@@ -64,6 +64,8 @@ export default function Home() {
             gsap.getById('scrollTween')
           )
             return;
+          console.log('handleUp');
+
           if (lenis.slideindex === 0) {
             setIsInit(false);
             scrollTweenActive = true;
@@ -128,9 +130,10 @@ export default function Home() {
     { dependencies: [lenis, noScroll] }
   );
 
+  // TODO: fix on mobile
   useEffect(() => {
     const observer = Observer.getById('scroll-trigger-observe');
-    if (lenis && observer) {
+    if (lenis && observer && currentFocusSlide === -1) {
       if (isMobile) {
         observer.disable();
         lenis.start();
@@ -140,7 +143,8 @@ export default function Home() {
         if (currentFocusSlide === -1) window.scrollTo(0, 0);
       }
     }
-  }, [isMobile, lenis, currentFocusSlide]);
+    // eslint-disable-next-line
+  }, [isMobile, lenis]);
 
   return (
     <main ref={mainContainerRef} className={styles.main}>

@@ -107,7 +107,11 @@ const Coub = forwardRef((props, ref) => {
   }, [cameraRef, isHolded, currentSlide, material]);
 
   return (
-    <mesh ref={ref} position={[0, 0.1, 0]}>
+    <mesh
+      ref={ref}
+      position={[0, 0.1, 0]}
+      rotation={[0, Math.PI * 2 + Math.PI / 2, 0]}
+    >
       <boxGeometry args={[2, 2, 2]} />
       <meshBasicMaterial attach={'material-0'} map={material_slide_2} />
       <meshBasicMaterial attach={'material-4'} map={material_slide_1} />
