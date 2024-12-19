@@ -1,19 +1,32 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HoverLink from '@/components/HoverLink';
+import useMobile from '@/hooks/useMobile';
 
 const AngleSparky = ({ styles }) => {
   const container = useRef();
   const angle2Ref = useRef();
   const sparkyRef = useRef();
   const scrollColorTriggerRef = useRef();
+  const scrollColorTriggerMobileRef = useRef();
+  const { isMobile } = useMobile();
 
   useGSAP(
     () => {
       // Scroll Bar Color Trigger
+      ScrollTrigger.create({
+        id: 'angle2Trigger',
+        trigger: scrollColorTriggerMobileRef.current,
+        start: 'top 50%',
+        end: 'bottom 50%',
+        toggleClass: {
+          targets: document.querySelector('[data-id="scrollbar"]'),
+          className: 'light',
+        },
+      });
       ScrollTrigger.create({
         trigger: scrollColorTriggerRef.current,
         start: 'top 50%',
@@ -77,10 +90,23 @@ const AngleSparky = ({ styles }) => {
     { dependencies: [] }
   );
 
+  // Enable/Disable ScrollTrigger on Mobile
+  useEffect(() => {
+    const trigger = ScrollTrigger.getById('angle2Trigger');
+    if (isMobile) {
+      trigger.enable();
+    } else {
+      trigger.disable();
+    }
+  }, [isMobile]);
+
   return (
     <div className={styles.angle_sparky} ref={container}>
       <div className={styles.angle2}>
-        <div className={clsx(styles.media, 'angle2_sparky_media')}>
+        <div
+          ref={scrollColorTriggerMobileRef}
+          className={clsx(styles.media, 'angle2_sparky_media')}
+        >
           <video
             ref={angle2Ref}
             width="840"
