@@ -56,7 +56,6 @@ const Music = () => {
   // );
 
   useEffect(() => {
-    console.log('filter', lowPassFilter);
     if (lowPassFilter) {
       gsap.to(scooterok, {
         value: isHolded ? 300 : 10000,
@@ -92,7 +91,7 @@ const Music = () => {
         active={!isMuted}
         handleClick={handleClick}
       />
-      <audio ref={audioRef} src="/Ishome_cut.mp3" />
+      <audio ref={audioRef} src="/C_6_M_Cinematic.wav" />
     </>
   );
 };

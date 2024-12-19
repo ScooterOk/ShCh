@@ -90,7 +90,7 @@ const FocusOn = () => {
             setIsFocusEntered(true);
             if (isMobile) {
               gsap.to(window, {
-                id: 'scrollTween',
+                id: 'scrollTweenOnEnter',
                 duration: 1,
                 scrollTo: container.current,
                 ease: 'power2.out',
@@ -182,7 +182,7 @@ const FocusOn = () => {
             gsap
               .timeline()
               .to(window, {
-                // id: 'scrollTween',
+                id: 'scrollTween',
                 duration: 1,
                 scrollTo: container.current,
                 ease: 'power2.out',
@@ -406,7 +406,7 @@ const FocusOn = () => {
           from: 'random',
         },
       });
-  }, [currentFocusSlide]);
+  }, [currentFocusSlide, setIsHolded]);
 
   const handleClickAndHold = useCallback(
     (e) => {

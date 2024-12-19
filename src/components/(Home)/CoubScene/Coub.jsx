@@ -60,7 +60,7 @@ const Coub = forwardRef((props, ref) => {
   ]);
 
   useEffect(() => {
-    if (currentSlide > 2 || currentSlide < 0) return;
+    // if (currentSlide > 2 || currentSlide < 0) return;
     if (isHolded) {
       gsap.to(cameraRef.current.position, {
         z: 4,

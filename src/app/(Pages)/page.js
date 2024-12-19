@@ -18,8 +18,6 @@ import styles from './page.module.scss';
 import { Observer } from 'gsap/Observer';
 import useMobile from '@/hooks/useMobile';
 
-let scrollTween;
-
 let cubeRotationActive = false;
 
 export default function Home() {
@@ -30,6 +28,7 @@ export default function Home() {
     currentFocusSlide,
     setCurrentFocusSlide,
     setIsInit,
+    setIsHolded,
   } = useContext(mainContext);
 
   const mainContainerRef = useRef();
@@ -47,6 +46,7 @@ export default function Home() {
     [setCurrentFocusSlide]
   );
 
+  // Scroll observer init hook
   useGSAP(
     () => {
       if (lenis) {
@@ -64,16 +64,23 @@ export default function Home() {
             gsap.getById('scrollTween')
           )
             return;
-          console.log('handleUp');
+
+          const scrollY = isMobile
+            ? cubeRef.current.offsetTop - window.innerHeight / 1.5
+            : 0;
 
           if (lenis.slideindex === 0) {
             setIsInit(false);
+            setIsHolded(false);
             scrollTweenActive = true;
-            scrollTween = gsap.to(window, {
+            gsap.to(window, {
               duration: 1,
-              scrollTo: 0,
+              scrollTo: scrollY,
               ease: 'power1.inOut',
-              onComplete: () => (scrollTweenActive = false),
+              onComplete: () => {
+                scrollTweenActive = false;
+                if (isMobile) lenis.start();
+              },
             });
           }
           cubeRotationActive = true;

@@ -47,7 +47,7 @@ const PostProcessing = ({ isHolded, currentSlide }) => {
   );
 
   useEffect(() => {
-    if (currentSlide > 2) return;
+    // if (currentSlide > 2) return;
     if (isHolded) {
       gsap.to(distortionEffectRef.current.distortion, {
         x: -0.25,
@@ -105,19 +105,24 @@ const CoubScene = ({
 }) => {
   const modelRef = useRef();
   const lenis = useLenis();
-  const { isLoaded } = useContext(mainContext);
+  const { isLoaded, setIsHolded } = useContext(mainContext);
 
   useEffect(() => {
     if (
-      currentSlide < 0 ||
+      !isLoaded ||
       currentSlide > 3 ||
       !lenis ||
-      gsap.getById('scrollTween')
+      gsap.getById('scrollTweenOnEnter')
     )
       return;
 
+    // Reset cube if slide is out of range
+    if (currentSlide === 3 || currentSlide === -1) {
+      setIsHolded(false);
+    }
+
     gsap.to(cubeRef.current.rotation, {
-      y: (-Math.PI / 2) * currentSlide,
+      y: currentSlide === -1 ? Math.PI / 2 : (-Math.PI / 2) * currentSlide,
       duration: 1,
       ease: 'power3.inOut',
       id: 'cube-rotation',
@@ -150,7 +155,14 @@ const CoubScene = ({
         }
       },
     });
-  }, [currentSlide, cursorRef, lenis, styles.click_hold__line]);
+  }, [
+    cubeRef,
+    currentSlide,
+    cursorRef,
+    lenis,
+    setIsHolded,
+    styles.click_hold__line,
+  ]);
 
   return (
     <group>
