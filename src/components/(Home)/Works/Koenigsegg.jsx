@@ -1,14 +1,30 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import HoverLink from '@/components/HoverLink';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import useMobile from '@/hooks/useMobile';
 
 const Koenigsegg = ({ styles }) => {
   const container = useRef();
   const mediaRef = useRef();
 
+  const { isMobile } = useMobile();
+
   useGSAP(
     () => {
+      // Scroll Bar Color Trigger
+      ScrollTrigger.create({
+        id: 'koenigseggTrigger',
+        trigger: mediaRef.current,
+        start: 'top 50%',
+        end: 'bottom 50%',
+        toggleClass: {
+          targets: document.querySelector('[data-id="scrollbar"]'),
+          className: 'light',
+        },
+      });
+
       const words = container.current.querySelectorAll(
         '#koenigsegg [data-animation]'
       );
@@ -60,6 +76,16 @@ const Koenigsegg = ({ styles }) => {
     },
     { dependencies: [] }
   );
+
+  // Enable/Disable ScrollTrigger on Mobile
+  useEffect(() => {
+    const trigger = ScrollTrigger.getById('koenigseggTrigger');
+    if (isMobile) {
+      trigger.enable();
+    } else {
+      trigger.disable();
+    }
+  }, [isMobile]);
 
   return (
     <div className={styles.koenigsegg} id="koenigsegg" ref={container}>
