@@ -43,6 +43,7 @@ const FocusOn = () => {
     setCurrentFocusSlide,
     isHolded,
     setIsHolded,
+    isTouched,
   } = useContext(mainContext);
   const container = useRef();
   const scrollBarTrigger = useRef();
@@ -422,6 +423,7 @@ const FocusOn = () => {
   );
 
   const handleMouseMove = (e) => {
+    if (isTouched) return;
     gsap.to(position, {
       x: e.clientX,
       y: e.clientY,
@@ -459,7 +461,10 @@ const FocusOn = () => {
         }}
         // onMouseMove={handleMouseMove}
       >
-        <div ref={cursorRef} className={styles.click_hold}>
+        <div
+          ref={cursorRef}
+          className={clsx(styles.click_hold, isTouched && styles.disabled)}
+        >
           <div className={styles.click_hold__line} />
           {Array.from('Click&Hold').map((l, i) => (
             <span data-animation key={`name-${l}-${i}-${l}`}>

@@ -165,6 +165,9 @@
     0
   );
   visibility: hidden;
+  &.disabled {
+    display: none !important;
+  }
   &__line {
     position: absolute;
     top: -12px;

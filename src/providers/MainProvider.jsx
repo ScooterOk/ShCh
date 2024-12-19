@@ -1,6 +1,6 @@
 'use client';
 import clsx from 'clsx';
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
 export const mainContext = createContext();
 
@@ -13,6 +13,19 @@ const MainProvider = ({ children }) => {
   const [isInit, setIsInit] = useState(false);
   const [isHolded, setIsHolded] = useState(null);
   const { Provider } = mainContext;
+  const [isTouched, setIsTouched] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleTouchStart = () => {
+        setIsTouched(true);
+      };
+      window.addEventListener('touchstart', handleTouchStart, { once: true });
+      return () => {
+        window.removeEventListener('touchstart', handleTouchStart);
+      };
+    }
+  }, []);
 
   return (
     <body className={clsx(!isLoaded && 'no-scroll')}>
@@ -32,6 +45,8 @@ const MainProvider = ({ children }) => {
           setCurrentFocusSlide,
           isHolded,
           setIsHolded,
+          isTouched,
+          setIsTouched,
         }}
       >
         {children}
