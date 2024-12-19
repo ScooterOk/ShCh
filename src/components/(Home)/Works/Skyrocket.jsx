@@ -24,6 +24,10 @@ const Skyrocket = ({ styles }) => {
       });
 
       const words = container.current.querySelectorAll('[data-animation]');
+      const link = container.current.querySelector(
+        `.${styles.information__link}`
+      );
+
       gsap
         .timeline({
           scrollTrigger: {
@@ -47,7 +51,7 @@ const Skyrocket = ({ styles }) => {
           'clip'
         )
         .fromTo(
-          `.${styles.information__link}`,
+          link,
           { scaleX: 0 },
           { scaleX: 1, duration: 1.5, ease: 'power4.inOut' },
           'clip'

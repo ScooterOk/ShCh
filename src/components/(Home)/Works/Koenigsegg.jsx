@@ -1,9 +1,7 @@
-import HoverLink from '@/components/HoverLink';
-import { mainContext } from '@/providers/MainProvider';
-import { useGSAP } from '@gsap/react';
+import React, { useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import React, { useContext, useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import HoverLink from '@/components/HoverLink';
 
 const Koenigsegg = ({ styles }) => {
   const container = useRef();
@@ -11,7 +9,12 @@ const Koenigsegg = ({ styles }) => {
 
   useGSAP(
     () => {
-      const words = container.current.querySelectorAll('[data-animation]');
+      const words = container.current.querySelectorAll(
+        '#koenigsegg [data-animation]'
+      );
+      const link = container.current.querySelector(
+        `.${styles.information__link}`
+      );
 
       gsap
         .timeline({
@@ -36,7 +39,7 @@ const Koenigsegg = ({ styles }) => {
           'clip'
         )
         .fromTo(
-          `.${styles.information__link}`,
+          link,
           { scaleX: 0 },
           { scaleX: 1, duration: 1.5, ease: 'power4.inOut' },
           'clip'
@@ -59,7 +62,7 @@ const Koenigsegg = ({ styles }) => {
   );
 
   return (
-    <div className={styles.koenigsegg} ref={container}>
+    <div className={styles.koenigsegg} id="koenigsegg" ref={container}>
       <video
         className={styles.media}
         ref={mediaRef}
