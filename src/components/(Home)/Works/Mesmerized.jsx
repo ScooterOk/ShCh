@@ -1,9 +1,10 @@
 import HoverLink from '@/components/HoverLink';
+import useMobile from '@/hooks/useMobile';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const Mesmerized = ({ styles }) => {
   const container = useRef();
@@ -11,9 +12,21 @@ const Mesmerized = ({ styles }) => {
   const mediaRef = useRef();
   const mediaBoxRef = useRef();
 
+  const { isMobile } = useMobile();
+
   useGSAP(
     () => {
       // Scroll Bar Color Trigger
+      ScrollTrigger.create({
+        id: 'videoTrigger',
+        trigger: mediaRef.current,
+        start: 'top 50%',
+        end: 'bottom 50%',
+        toggleClass: {
+          targets: document.querySelector('[data-id="scrollbar"]'),
+          className: 'light',
+        },
+      });
       ScrollTrigger.create({
         trigger: imageRef.current,
         start: 'top 50%',
@@ -73,6 +86,16 @@ const Mesmerized = ({ styles }) => {
     },
     { dependencies: [] }
   );
+
+  // Enable/Disable ScrollTrigger on Mobile
+  useEffect(() => {
+    const trigger = ScrollTrigger.getById('videoTrigger');
+    if (isMobile) {
+      trigger.enable();
+    } else {
+      trigger.disable();
+    }
+  }, [isMobile]);
 
   return (
     <div className={styles.mesmerized} ref={container}>

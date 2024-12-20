@@ -81,6 +81,7 @@ const FocusOn = () => {
           markers: true,
 
           onEnter: () => {
+            if (gsap.getById('scrollTween')) return;
             let targets = gsap.utils.toArray([
               `.${styles.content__title} span`,
               `.${styles.content__breadcrumbs} span`,
@@ -173,6 +174,7 @@ const FocusOn = () => {
               );
           },
           onEnterBack: () => {
+            if (gsap.getById('scrollTween')) return;
             lenis.stop();
             setCurrentFocusSlide(2);
             setCurrentSlideName('motion');
@@ -422,21 +424,24 @@ const FocusOn = () => {
     [currentFocusSlide, setIsHolded]
   );
 
-  const handleMouseMove = (e) => {
-    if (isTouched) return;
-    gsap.to(position, {
-      x: e.clientX,
-      y: e.clientY,
-      duration: 1,
-      ease: 'power3.out',
-      onUpdate: () => {
-        setMousePosition({
-          x: position.x,
-          y: position.y,
-        });
-      },
-    });
-  };
+  const handleMouseMove = useCallback(
+    (e) => {
+      if (isTouched) return;
+      gsap.to(position, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 1,
+        ease: 'power3.out',
+        onUpdate: () => {
+          setMousePosition({
+            x: position.x,
+            y: position.y,
+          });
+        },
+      });
+    },
+    [isTouched]
+  );
 
   // Mousemove init
   useEffect(() => {
@@ -446,7 +451,7 @@ const FocusOn = () => {
     return () => {
       window.document.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+  }, [handleMouseMove]);
 
   return (
     <div ref={scrollBarTrigger}>

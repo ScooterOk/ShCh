@@ -159,6 +159,7 @@ const CoubScene = ({
     cubeRef,
     currentSlide,
     cursorRef,
+    isLoaded,
     lenis,
     setIsHolded,
     styles.click_hold__line,

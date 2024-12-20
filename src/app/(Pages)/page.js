@@ -74,6 +74,7 @@ export default function Home() {
             setIsHolded(false);
             scrollTweenActive = true;
             gsap.to(window, {
+              id: 'scrollTween',
               duration: 1,
               scrollTo: scrollY,
               ease: 'power1.inOut',
