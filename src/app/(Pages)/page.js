@@ -231,8 +231,8 @@ export default function Home() {
         <FocusOn />
       </div>
       <Works />
-      {/*       <Follow />
-      <Footer /> */}
+      <Follow />
+      <Footer />
       {!isLoaded && <Loader setIsLoaded={setIsLoaded} />}
     </main>
   );
