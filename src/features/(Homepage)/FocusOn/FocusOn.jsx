@@ -55,179 +55,185 @@ const FocusOn = () => {
 
   const prevSlideRef = useRef(null);
 
+  const onEnter = useCallback(() => {
+    if (gsap.getById('scrollTweenMobile')) return;
+
+    let targets = gsap.utils.toArray([
+      `.${styles.content__title} span`,
+      `.${styles.content__breadcrumbs} span`,
+      `.${styles.content__list}[data-name="web"] span`,
+      cursorRef.current.querySelectorAll('[data-animation]'),
+    ]);
+
+    setIsFocusEntered(true);
+    if (isMobile) {
+      gsap.to(window, {
+        id: 'scrollTweenOnEnter',
+        duration: 1,
+        scrollTo: container.current,
+        ease: 'power2.out',
+        overwrite: true,
+      });
+    }
+
+    setCurrentFocusSlide(0);
+    lenis.slideindex = 0;
+    lenis.stop();
+
+    gsap
+      .timeline({
+        onComplete: () => {
+          const observer = Observer.getById('scroll-trigger-observe');
+          observer?.enable();
+        },
+      })
+      .add(() => {
+        setIsInit(true);
+        prevSlideRef.current = 0;
+        setMousePosition({
+          x: container.current.clientWidth / 2,
+          y: container.current.clientHeight / 2,
+        });
+      })
+      .set([`.${styles.content}`, cursorRef.current], { autoAlpha: 1 })
+      .fromTo(
+        cameraRef.current?.position,
+        { z: isMobile ? 4.5 : 3 },
+        {
+          duration: 2.5,
+          z: 4.5,
+          ease: 'power2.out',
+          overwrite: true,
+        },
+        'start'
+      )
+      .fromTo(
+        cubeRef.current?.rotation,
+        // { y: Math.PI * 2 + Math.PI / 2 },
+        { y: isMobile ? Math.PI / 2 : Math.PI * 2 },
+        {
+          id: 'cube-rotation',
+          y: 0,
+          duration: isMobile ? 1 : 2.5,
+          ease: isMobile ? 'power3.inOut' : 'power2.out',
+          overwrite: true,
+        },
+        'start'
+      )
+      .fromTo(
+        breadcrumbsLineRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.01, overwrite: true },
+        '-=1'
+      )
+      .fromTo(
+        targets,
+        { opacity: 0 },
+        {
+          duration: 0.01,
+          opacity: 1,
+          overwrite: true,
+          stagger: {
+            each: 0.05,
+            grid: 'auto',
+            from: 'random',
+          },
+        },
+        '-=1'
+      )
+      .fromTo(
+        cursorRef.current.querySelector(`.${styles.click_hold__line}`),
+        { scaleX: 0 },
+        {
+          scaleX: 1,
+          duration: 1,
+          ease: 'power1.in',
+          overwrite: true,
+        },
+        '-=1'
+      );
+  }, [isMobile, lenis, setCurrentFocusSlide, setIsFocusEntered, setIsInit]);
+
+  const onEnterBack = useCallback(() => {
+    if (gsap.getById('scrollTween')) return;
+    lenis.stop();
+    setCurrentFocusSlide(2);
+    setCurrentSlideName('motion');
+    lenis.slideindex = 2;
+    let targets = gsap.utils.toArray([
+      `.${styles.content__list}[data-name="motion"] span`,
+    ]);
+    gsap
+      .timeline()
+      .to(window, {
+        id: 'scrollTween',
+        duration: 1,
+        scrollTo: container.current,
+        ease: 'power2.out',
+      })
+      .to(cursorRef.current.querySelectorAll('[data-animation]'), {
+        duration: 0.01,
+        opacity: 1,
+        stagger: {
+          each: 0.03,
+          grid: 'auto',
+          from: 'random',
+        },
+      })
+      .to(
+        cursorRef.current.querySelector(`.${styles.click_hold__line}`),
+        {
+          scaleX: 1,
+          duration: 1,
+          ease: 'power1.in',
+        },
+        '-=1'
+      )
+      .fromTo(
+        targets,
+        { opacity: 0 },
+        {
+          duration: 0.01,
+          opacity: 1,
+          overwrite: true,
+          stagger: {
+            amount: 0.5,
+            grid: 'auto',
+            from: 'random',
+          },
+        },
+        '-=1'
+      );
+  }, [lenis, setCurrentFocusSlide]);
+
   // ScrollTrigger init
   useGSAP(
     () => {
       if (lenis) {
-        ScrollTrigger.getById('scroll-bar-trigger')?.kill();
-        ScrollTrigger.getById('focus-on-trigger')?.kill();
-
-        ScrollTrigger.create({
-          id: 'scroll-bar-trigger',
-          trigger: scrollBarTrigger.current,
-          start: 'top 50%',
-          end: 'bottom 50%',
-          toggleClass: {
-            targets: document.querySelector('[data-id="scrollbar"]'),
-            className: 'light',
-          },
-        });
+        // ScrollTrigger.create({
+        //   id: 'scroll-bar-trigger',
+        //   trigger: scrollBarTrigger.current,
+        //   start: 'top 50%',
+        //   end: 'bottom 50%',
+        //   toggleClass: {
+        //     targets: document.querySelector('[data-id="scrollbar"]'),
+        //     className: 'light',
+        //   },
+        // });
 
         ScrollTrigger.create({
           id: 'focus-on-trigger',
           trigger: container.current,
-          start: isMobile ? 'top 50%' : '-=10% 80%',
+          start: isMobile ? 'top 250px' : '-=10% 80%',
           end: 'bottom 100%-=250px',
           markers: true,
 
-          onEnter: () => {
-            if (gsap.getById('scrollTween')) return;
-            let targets = gsap.utils.toArray([
-              `.${styles.content__title} span`,
-              `.${styles.content__breadcrumbs} span`,
-              `.${styles.content__list}[data-name="web"] span`,
-              cursorRef.current.querySelectorAll('[data-animation]'),
-            ]);
-
-            setIsFocusEntered(true);
-            if (isMobile) {
-              gsap.to(window, {
-                id: 'scrollTweenOnEnter',
-                duration: 1,
-                scrollTo: container.current,
-                ease: 'power2.out',
-                overwrite: true,
-                onComplete: () => {
-                  const observer = Observer.getById('scroll-trigger-observe');
-                  observer.enable();
-                },
-              });
-              setCurrentFocusSlide(0);
-              lenis.slideindex = 0;
-              lenis.stop();
-            }
-
-            gsap
-              .timeline()
-              .add(() => {
-                setIsInit(true);
-                prevSlideRef.current = 0;
-                setMousePosition({
-                  x: container.current.clientWidth / 2,
-                  y: container.current.clientHeight / 2,
-                });
-              })
-              .set([`.${styles.content}`, cursorRef.current], { autoAlpha: 1 })
-              .fromTo(
-                cameraRef.current?.position,
-                { z: 3 },
-                {
-                  duration: 2.5,
-                  z: 4.5,
-                  ease: 'power2.out',
-                  overwrite: true,
-                },
-                'start'
-              )
-              .fromTo(
-                cubeRef.current?.rotation,
-                { y: Math.PI * 2 + Math.PI / 2 },
-                {
-                  y: 0,
-                  duration: 2.5,
-                  ease: 'power2.out',
-                  overwrite: true,
-                },
-                'start'
-              )
-              .fromTo(
-                breadcrumbsLineRef.current,
-                { opacity: 0 },
-                { opacity: 1, duration: 0.01, overwrite: true },
-                '-=1'
-              )
-              .fromTo(
-                targets,
-                { opacity: 0 },
-                {
-                  duration: 0.01,
-                  opacity: 1,
-                  overwrite: true,
-                  stagger: {
-                    each: 0.05,
-                    grid: 'auto',
-                    from: 'random',
-                  },
-                },
-                '-=1'
-              )
-              .fromTo(
-                cursorRef.current.querySelector(`.${styles.click_hold__line}`),
-                { scaleX: 0 },
-                {
-                  scaleX: 1,
-                  duration: 1,
-                  ease: 'power1.in',
-                  overwrite: true,
-                },
-                '-=1'
-              );
-          },
-          onEnterBack: () => {
-            if (gsap.getById('scrollTween')) return;
-            lenis.stop();
-            setCurrentFocusSlide(2);
-            setCurrentSlideName('motion');
-            lenis.slideindex = 2;
-            let targets = gsap.utils.toArray([
-              `.${styles.content__list}[data-name="motion"] span`,
-            ]);
-            gsap
-              .timeline()
-              .to(window, {
-                id: 'scrollTween',
-                duration: 1,
-                scrollTo: container.current,
-                ease: 'power2.out',
-              })
-              .to(cursorRef.current.querySelectorAll('[data-animation]'), {
-                duration: 0.01,
-                opacity: 1,
-                stagger: {
-                  each: 0.03,
-                  grid: 'auto',
-                  from: 'random',
-                },
-              })
-              .to(
-                cursorRef.current.querySelector(`.${styles.click_hold__line}`),
-                {
-                  scaleX: 1,
-                  duration: 1,
-                  ease: 'power1.in',
-                },
-                '-=1'
-              )
-              .fromTo(
-                targets,
-                { opacity: 0 },
-                {
-                  duration: 0.01,
-                  opacity: 1,
-                  overwrite: true,
-                  stagger: {
-                    amount: 0.5,
-                    grid: 'auto',
-                    from: 'random',
-                  },
-                },
-                '-=1'
-              );
-          },
+          onEnter,
+          onEnterBack,
         });
       }
     },
-    { dependencies: [setIsFocusEntered, lenis, isMobile] }
+    { dependencies: [setIsFocusEntered, lenis] }
   );
 
   // OnHold cursor animation

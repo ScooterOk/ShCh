@@ -16,12 +16,14 @@ import { mainContext } from '@/providers/MainProvider';
 import { useLenis } from 'lenis/react';
 import Coub from './Coub';
 import * as THREE from 'three';
-import { folder, useControls } from 'leva';
+
+import useMobile from '@/hooks/useMobile';
 
 extend({ LensDistortionEffect });
 
 // Post processing
 const PostProcessing = ({ isHolded, currentSlide }) => {
+  const { isMobile } = useMobile();
   const { gl, scene, camera } = useThree();
   const composer = useMemo(() => new EffectComposer(gl), [gl]);
   const { isFocusEntered } = useContext(mainContext);
@@ -74,7 +76,7 @@ const PostProcessing = ({ isHolded, currentSlide }) => {
   }, [isHolded]);
 
   useEffect(() => {
-    if (isFocusEntered) {
+    if (isFocusEntered && !isMobile) {
       gsap.from(distortionEffectRef.current.distortion, {
         x: -0.27,
         y: -0.27,
@@ -88,7 +90,7 @@ const PostProcessing = ({ isHolded, currentSlide }) => {
         ease: 'power2.out',
       });
     }
-  }, [isFocusEntered]);
+  }, [isFocusEntered, isMobile]);
 
   useFrame(() => composer.render(), 2);
 

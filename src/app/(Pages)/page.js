@@ -19,6 +19,7 @@ import { Observer } from 'gsap/Observer';
 import useMobile from '@/hooks/useMobile';
 
 let cubeRotationActive = false;
+let scrollTweenActive = false;
 
 export default function Home() {
   const {
@@ -46,72 +47,138 @@ export default function Home() {
     [setCurrentFocusSlide]
   );
 
+  const handleUp = useCallback(() => {
+    if (
+      lenis.slideindex === -1 ||
+      cubeRotationActive ||
+      !lenis.isStopped ||
+      scrollTweenActive ||
+      gsap.getById('scrollTween')
+    )
+      return;
+
+    console.log('handleUp');
+
+    const scrollY = isMobile ? cubeRef.current.offsetTop - 251 : 0;
+
+    if (lenis.slideindex === 0) {
+      setIsInit(false);
+      setIsHolded(false);
+      scrollTweenActive = true;
+      gsap.to(window, {
+        id: isMobile ? 'scrollTweenMobile' : 'scrollTween',
+        duration: 1,
+        scrollTo: scrollY,
+        ease: 'power1.inOut',
+        onComplete: () => {
+          scrollTweenActive = false;
+          if (isMobile) lenis.start();
+        },
+      });
+    }
+    cubeRotationActive = true;
+    setTimeout(() => (cubeRotationActive = false), 1000);
+    lenis.slideindex--;
+    handleChangeSlide(lenis.slideindex);
+  }, [handleChangeSlide, isMobile, lenis, setIsHolded, setIsInit]);
+
+  const handleDown = useCallback(() => {
+    if (
+      !lenis.isStopped ||
+      noScroll ||
+      scrollTweenActive ||
+      gsap.getById('scrollTweenOnEnter')
+    )
+      return;
+    console.log('handleDown');
+    if (lenis.slideindex === -1) {
+      scrollTweenActive = true;
+      setCurrentFocusSlide(0);
+      lenis.slideindex++;
+      gsap
+        .timeline()
+        .to(window, {
+          id: 'scrollTween',
+          duration: 1,
+          scrollTo: cubeRef.current,
+          ease: 'power1.inOut',
+        })
+        .add(() => (scrollTweenActive = false), '+=1');
+    } else {
+      if (cubeRotationActive || lenis.slideindex === 3) return;
+      cubeRotationActive = true;
+      setTimeout(() => (cubeRotationActive = false), 1000);
+      lenis.slideindex++;
+      handleChangeSlide(lenis.slideindex);
+    }
+  }, [handleChangeSlide, lenis, noScroll, setCurrentFocusSlide]);
+
   // Scroll observer init hook
   useGSAP(
     () => {
       if (lenis) {
         lenis.slideindex = -1;
-        let scrollTweenActive = false;
+        // let scrollTweenActive = false;
         lenis.stop();
         if (noScroll) return;
 
-        const handleUp = () => {
-          if (
-            lenis.slideindex === -1 ||
-            cubeRotationActive ||
-            !lenis.isStopped ||
-            scrollTweenActive ||
-            gsap.getById('scrollTween')
-          )
-            return;
+        // const handleUp = () => {
+        //   if (
+        //     lenis.slideindex === -1 ||
+        //     cubeRotationActive ||
+        //     !lenis.isStopped ||
+        //     scrollTweenActive ||
+        //     gsap.getById('scrollTween')
+        //   )
+        //     return;
 
-          const scrollY = isMobile
-            ? cubeRef.current.offsetTop - window.innerHeight / 1.5
-            : 0;
+        //   const scrollY = isMobile
+        //     ? cubeRef.current.offsetTop - window.innerHeight / 1.5
+        //     : 0;
 
-          if (lenis.slideindex === 0) {
-            setIsInit(false);
-            setIsHolded(false);
-            scrollTweenActive = true;
-            gsap.to(window, {
-              id: 'scrollTween',
-              duration: 1,
-              scrollTo: scrollY,
-              ease: 'power1.inOut',
-              onComplete: () => {
-                scrollTweenActive = false;
-                if (isMobile) lenis.start();
-              },
-            });
-          }
-          cubeRotationActive = true;
-          setTimeout(() => (cubeRotationActive = false), 1000);
-          lenis.slideindex--;
-          handleChangeSlide(lenis.slideindex);
-        };
-        const handleDown = () => {
-          if (scrollTweenActive || !lenis.isStopped || noScroll) return;
-          if (lenis.slideindex === -1) {
-            scrollTweenActive = true;
-            setCurrentFocusSlide(0);
-            lenis.slideindex++;
-            gsap
-              .timeline()
-              .to(window, {
-                id: 'scrollTween',
-                duration: 1,
-                scrollTo: cubeRef.current,
-                ease: 'power1.inOut',
-              })
-              .add(() => (scrollTweenActive = false), '+=1');
-          } else {
-            if (cubeRotationActive || lenis.slideindex === 3) return;
-            cubeRotationActive = true;
-            setTimeout(() => (cubeRotationActive = false), 1000);
-            lenis.slideindex++;
-            handleChangeSlide(lenis.slideindex);
-          }
-        };
+        //   if (lenis.slideindex === 0) {
+        //     setIsInit(false);
+        //     setIsHolded(false);
+        //     scrollTweenActive = true;
+        //     gsap.to(window, {
+        //       id: 'scrollTween',
+        //       duration: 1,
+        //       scrollTo: scrollY,
+        //       ease: 'power1.inOut',
+        //       onComplete: () => {
+        //         scrollTweenActive = false;
+        //         if (isMobile) lenis.start();
+        //       },
+        //     });
+        //   }
+        //   cubeRotationActive = true;
+        //   setTimeout(() => (cubeRotationActive = false), 1000);
+        //   lenis.slideindex--;
+        //   handleChangeSlide(lenis.slideindex);
+        // };
+        // const handleDown = () => {
+        //   if (scrollTweenActive || !lenis.isStopped || noScroll) return;
+        //   if (lenis.slideindex === -1) {
+        //     scrollTweenActive = true;
+        //     setCurrentFocusSlide(0);
+        //     lenis.slideindex++;
+        //     gsap
+        //       .timeline()
+        //       .to(window, {
+        //         id: 'scrollTween',
+        //         duration: 1,
+        //         scrollTo: cubeRef.current,
+        //         ease: 'power1.inOut',
+        //       })
+        //       .add(() => (scrollTweenActive = false), '+=1');
+        //   } else {
+        //     if (cubeRotationActive || lenis.slideindex === 3) return;
+        //     cubeRotationActive = true;
+        //     setTimeout(() => (cubeRotationActive = false), 1000);
+        //     lenis.slideindex++;
+        //     handleChangeSlide(lenis.slideindex);
+        //   }
+        // };
 
         ScrollTrigger.observe({
           type: 'wheel,touch',
@@ -128,8 +195,8 @@ export default function Home() {
           // preventDefault: true,
         });
 
+        const observer = Observer.getById('scroll-trigger-observe');
         if (isMobile) {
-          const observer = Observer.getById('scroll-trigger-observe');
           observer.disable();
           lenis.start();
         }
@@ -164,8 +231,8 @@ export default function Home() {
         <FocusOn />
       </div>
       <Works />
-      <Follow />
-      <Footer />
+      {/*       <Follow />
+      <Footer /> */}
       {!isLoaded && <Loader setIsLoaded={setIsLoaded} />}
     </main>
   );
