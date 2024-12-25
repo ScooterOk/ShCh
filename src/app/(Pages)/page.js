@@ -53,11 +53,10 @@ export default function Home() {
       cubeRotationActive ||
       !lenis.isStopped ||
       scrollTweenActive ||
-      gsap.getById('scrollTween')
+      gsap.getById('scrollTween') ||
+      gsap.getById('cubeTweenOnEnter')
     )
       return;
-
-    console.log('handleUp');
 
     const scrollY = isMobile ? cubeRef.current.offsetTop - 251 : 0;
 
@@ -87,14 +86,15 @@ export default function Home() {
       !lenis.isStopped ||
       noScroll ||
       scrollTweenActive ||
-      gsap.getById('scrollTweenOnEnter')
+      gsap.getById('scrollTweenOnEnter') ||
+      gsap.getById('cubeTweenOnEnter')
     )
       return;
-    console.log('handleDown');
+
     if (lenis.slideindex === -1) {
       scrollTweenActive = true;
-      setCurrentFocusSlide(0);
-      lenis.slideindex++;
+      // setCurrentFocusSlide(0);
+      //lenis.slideindex++;
       gsap
         .timeline()
         .to(window, {
@@ -111,7 +111,7 @@ export default function Home() {
       lenis.slideindex++;
       handleChangeSlide(lenis.slideindex);
     }
-  }, [handleChangeSlide, lenis, noScroll, setCurrentFocusSlide]);
+  }, [handleChangeSlide, lenis, noScroll]);
 
   // Scroll observer init hook
   useGSAP(
@@ -121,7 +121,6 @@ export default function Home() {
         // let scrollTweenActive = false;
         lenis.stop();
         if (noScroll) return;
-
         // const handleUp = () => {
         //   if (
         //     lenis.slideindex === -1 ||
@@ -195,9 +194,8 @@ export default function Home() {
           // preventDefault: true,
         });
 
-        const observer = Observer.getById('scroll-trigger-observe');
         if (isMobile) {
-          observer.disable();
+          Observer.getById('scroll-trigger-observe').disable();
           lenis.start();
         }
       }
@@ -207,8 +205,35 @@ export default function Home() {
 
   // TODO: fix on mobile
   useEffect(() => {
-    const observer = Observer.getById('scroll-trigger-observe');
-    if (lenis && observer && currentFocusSlide === -1) {
+    // Remove observer if exists
+    if (Observer.getById('scroll-trigger-observe') && lenis) {
+      Observer.getById('scroll-trigger-observe').kill();
+
+      const observer = ScrollTrigger.observe({
+        type: 'wheel,touch',
+        id: 'scroll-trigger-observe',
+        onUp: (e) => {
+          if (e.event.type === 'wheel') handleUp();
+          if (e.event.type === 'touchmove') handleDown();
+        },
+        onDown: (e) => {
+          if (e.event.type === 'wheel') handleDown();
+          if (e.event.type === 'touchmove') handleUp();
+        },
+        tolerance: 100,
+        // preventDefault: true,
+      });
+
+      if (currentFocusSlide > -1 && currentFocusSlide < 3) {
+        gsap.set(window, {
+          // duration: 1,
+          scrollTo: cubeRef.current,
+          // ease: 'power3.inOut',
+        });
+      }
+
+      if (currentFocusSlide > -1) return;
+
       if (isMobile) {
         observer.disable();
         lenis.start();
@@ -218,6 +243,7 @@ export default function Home() {
         if (currentFocusSlide === -1) window.scrollTo(0, 0);
       }
     }
+
     // eslint-disable-next-line
   }, [isMobile, lenis]);
 

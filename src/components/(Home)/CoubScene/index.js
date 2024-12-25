@@ -114,7 +114,8 @@ const CoubScene = ({
       !isLoaded ||
       currentSlide > 3 ||
       !lenis ||
-      gsap.getById('scrollTweenOnEnter')
+      gsap.getById('scrollTweenOnEnter') ||
+      gsap.getById('cubeTweenOnEnter')
     )
       return;
 

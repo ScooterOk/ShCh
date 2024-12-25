@@ -56,7 +56,7 @@ const FocusOn = () => {
   const prevSlideRef = useRef(null);
 
   const onEnter = useCallback(() => {
-    if (gsap.getById('scrollTweenMobile')) return;
+    if (lenis.slideindex > -1 || gsap.getById('scrollTweenMobile')) return;
 
     let targets = gsap.utils.toArray([
       `.${styles.content__title} span`,
@@ -86,6 +86,7 @@ const FocusOn = () => {
           const observer = Observer.getById('scroll-trigger-observe');
           observer?.enable();
         },
+        id: 'cubeTweenOnEnter',
       })
       .add(() => {
         setIsInit(true);
@@ -155,7 +156,8 @@ const FocusOn = () => {
   }, [isMobile, lenis, setCurrentFocusSlide, setIsFocusEntered, setIsInit]);
 
   const onEnterBack = useCallback(() => {
-    if (gsap.getById('scrollTween')) return;
+    if (lenis.slideindex < 3 || gsap.getById('scrollTween')) return;
+
     lenis.stop();
     setCurrentFocusSlide(2);
     setCurrentSlideName('motion');
@@ -206,20 +208,12 @@ const FocusOn = () => {
       );
   }, [lenis, setCurrentFocusSlide]);
 
-  // ScrollTrigger init
+  // ScrollTrigger FocusOn init
   useGSAP(
     () => {
       if (lenis) {
-        // ScrollTrigger.create({
-        //   id: 'scroll-bar-trigger',
-        //   trigger: scrollBarTrigger.current,
-        //   start: 'top 50%',
-        //   end: 'bottom 50%',
-        //   toggleClass: {
-        //     targets: document.querySelector('[data-id="scrollbar"]'),
-        //     className: 'light',
-        //   },
-        // });
+        const trigger = ScrollTrigger.getById('focus-on-trigger');
+        if (trigger) trigger.kill();
 
         ScrollTrigger.create({
           id: 'focus-on-trigger',
@@ -233,7 +227,26 @@ const FocusOn = () => {
         });
       }
     },
-    { dependencies: [setIsFocusEntered, lenis] }
+    { dependencies: [lenis, isMobile] }
+  );
+
+  // ScrollTrigger ScrollBar init
+  useGSAP(
+    () => {
+      if (lenis) {
+        ScrollTrigger.create({
+          id: 'scroll-bar-trigger',
+          trigger: scrollBarTrigger.current,
+          start: 'top 50%',
+          end: 'bottom 50%',
+          toggleClass: {
+            targets: document.querySelector('[data-id="scrollbar"]'),
+            className: 'light',
+          },
+        });
+      }
+    },
+    { dependencies: [lenis] }
   );
 
   // OnHold cursor animation
