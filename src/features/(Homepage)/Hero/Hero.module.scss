@@ -5,7 +5,7 @@
   min-height: 900px;
   position: relative;
   padding-bottom: 40px;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: $breakpoint_tablet) {
     height: auto;
   }
   &__grid {
@@ -20,9 +20,13 @@
     display: flex;
     align-items: center;
     order: 1;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $breakpoint_tablet) {
       padding: 40px 40px 0 40px;
       width: 100%;
+    }
+    @media screen and (max-width: $breakpoint_mobile) {
+      padding-left: 10px;
+      padding-right: 10px;
     }
   }
   &__title {
@@ -32,13 +36,20 @@
     position: relative;
     width: 100%;
     order: 3;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $breakpoint_tablet) {
       padding: 0 40px;
       height: 40.4vw;
       order: 2;
-      margin-top: calc(40px - ((768px - 100vw) * 0.029));
-      margin-left: calc((768px - 100vw) * -0.025);
+      margin-top: calc(40px - (($breakpoint_tablet - 100vw) * 0.029));
+      margin-left: calc(($breakpoint_tablet - 100vw) * -0.025);
       margin-bottom: 120px;
+    }
+    @media screen and (max-width: $breakpoint_mobile) {
+      margin-top: calc(20px - (($breakpoint_mobile - 100vw) * 0.029));
+      margin-left: calc(($breakpoint_mobile - 100vw) * -0.012);
+      padding: 0 10px;
+      height: 43.4vw;
+      margin-bottom: 100px;
     }
   }
 
@@ -51,11 +62,14 @@
     overflow: hidden;
     line-height: 0;
     font-size: 0;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $breakpoint_tablet) {
       width: 35%;
       height: auto;
       aspect-ratio: 1 / 1;
       margin-left: 50%;
+    }
+    @media screen and (max-width: $breakpoint_mobile) {
+      width: 50%;
     }
     video {
       position: absolute;
@@ -116,11 +130,15 @@
         transform: translate(-50%, -50%) scale(1.15);
       }
     }
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $breakpoint_tablet) {
       order: 3;
       width: 100%;
       margin-left: 40px;
       margin-right: 40px;
+    }
+    @media screen and (max-width: $breakpoint_mobile) {
+      margin-left: 10px;
+      margin-right: 10px;
     }
   }
 
@@ -136,10 +154,13 @@
     span {
       visibility: hidden;
     }
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $breakpoint_tablet) {
       right: auto;
       left: 40px;
       text-align: left;
+    }
+    @media screen and (max-width: $breakpoint_mobile) {
+      left: 10px;
     }
   }
   .text {
@@ -154,10 +175,14 @@
     span {
       visibility: hidden;
     }
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $breakpoint_tablet) {
       max-width: 150px;
       top: calc(100% + 40px);
       left: 50%;
+    }
+    @media screen and (max-width: $breakpoint_mobile) {
+      top: calc(100% + 20px);
+      max-width: initial;
     }
   }
 }
