@@ -1,9 +1,11 @@
+@use '@/styles/vars' as *;
+
 .link {
   display: block;
   position: relative;
   &.withline {
     padding-top: 12px;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $breakpoint_tablet) {
       padding-top: 8px;
     }
     &::after {

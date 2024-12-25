@@ -104,7 +104,7 @@
       color: $red;
     }
   }
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: $breakpoint_tablet) {
     top: 60px;
     gap: 20px;
     &__breadcrumbs {

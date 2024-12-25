@@ -220,8 +220,6 @@ const FocusOn = () => {
           trigger: container.current,
           start: isMobile ? 'top 250px' : '-=10% 80%',
           end: 'bottom 100%-=250px',
-          markers: true,
-
           onEnter,
           onEnterBack,
         });

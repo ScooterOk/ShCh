@@ -1,3 +1,5 @@
+@use '@/styles/vars' as *;
+
 .footer {
   padding: 60px 60px 100px 60px;
   font-size: clamp(14px, 1.5vw, 20px);
@@ -41,7 +43,7 @@
     flex-direction: column;
     gap: 8px;
   }
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: $breakpoint_tablet) {
     padding: 60px 40px 120px 40px;
     .date {
       display: none;
