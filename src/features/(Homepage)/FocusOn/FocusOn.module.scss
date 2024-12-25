@@ -115,6 +115,15 @@
       visibility: hidden;
     }
   }
+  @media screen and (max-width: $breakpoint_mobile) {
+    left: 10px;
+    &__breadcrumbs {
+      & > * {
+        font-size: 20px;
+        line-height: 26px;
+      }
+    }
+  }
 }
 
 .scroll {

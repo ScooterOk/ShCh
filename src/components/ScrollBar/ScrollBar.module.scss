@@ -32,4 +32,8 @@
     background-color: $black;
     transition: background-color 0.5s ease;
   }
+  @media screen and (max-width: $breakpoint_mobile) {
+    width: 2px;
+    right: 4px;
+  }
 }

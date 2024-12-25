@@ -1,4 +1,11 @@
-import React, { Suspense, useContext, useEffect, useMemo, useRef } from 'react';
+import React, {
+  Suspense,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { MeshReflectorMaterial } from '@react-three/drei';
 import { useThree, extend, useFrame } from '@react-three/fiber';
 import {
@@ -106,8 +113,21 @@ const CoubScene = ({
   styles,
 }) => {
   const modelRef = useRef();
+
   const lenis = useLenis();
   const { isLoaded, setIsHolded } = useContext(mainContext);
+
+  const three = useThree();
+
+  const { viewport } = three;
+
+  const modelScale = useMemo(() => {
+    if (viewport.aspect < 1) {
+      return viewport.aspect < 0.7 ? 0.7 : viewport.aspect;
+    } else {
+      return 1;
+    }
+  }, [viewport]);
 
   useEffect(() => {
     if (
@@ -169,7 +189,7 @@ const CoubScene = ({
   ]);
 
   return (
-    <group>
+    <group scale={modelScale}>
       <group ref={modelRef} rotation={[0, 0, 0]}>
         {isLoaded && (
           <Coub
