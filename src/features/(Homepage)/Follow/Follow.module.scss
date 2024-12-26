@@ -102,4 +102,8 @@
       aspect-ratio: 1 / 1;
     }
   }
+  @media screen and (max-width: $breakpoint_mobile) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
