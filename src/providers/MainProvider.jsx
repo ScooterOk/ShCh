@@ -14,6 +14,8 @@ const MainProvider = ({ children }) => {
   const [isHolded, setIsHolded] = useState(null);
   const { Provider } = mainContext;
   const [isTouched, setIsTouched] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [isMisucInit, setIsMisucInit] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -47,6 +49,8 @@ const MainProvider = ({ children }) => {
           setIsHolded,
           isTouched,
           setIsTouched,
+          isMuted,
+          setIsMuted,
         }}
       >
         {children}

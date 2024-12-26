@@ -1,17 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import styles from './VideoPlayerModal.module.scss';
 import gsap from 'gsap';
 
 import { IconClose, IconPause, IconPlay } from '../icons';
 import SoundButton from '../SoundButton/SoundButton';
+import { mainContext } from '@/providers/MainProvider';
 
 const position = {
   x: 0,
   y: 0,
 };
 
+let isPlayed;
+
 const VideoPlayerModal = ({ show, onClose }) => {
+  const { setIsMuted } = useContext(mainContext);
   const [currentTime, setCurrentTime] = useState('00:00:00');
   const [isPlay, setIsPlay] = useState(true);
   const [isMute, setIsMute] = useState(false);
@@ -21,8 +25,11 @@ const VideoPlayerModal = ({ show, onClose }) => {
   });
   const modalRef = useRef();
   const videoRef = useRef();
+
   useEffect(() => {
+    const music = document.querySelector('#background-song');
     if (show) {
+      setIsMuted(true);
       videoRef.current.currentTime = 0;
       gsap.to(modalRef.current, {
         visibility: 'visible',
@@ -30,15 +37,21 @@ const VideoPlayerModal = ({ show, onClose }) => {
         duration: 0.75,
         ease: 'power4.inOut',
         onComplete: () => {
+          isPlayed = !music.paused;
           videoRef.current.play();
           setIsPlay(true);
+          setIsMuted(true);
         },
       });
     } else {
       videoRef.current.pause();
       setIsPlay(false);
       gsap
-        .timeline()
+        .timeline({
+          onComplete: () => {
+            if (isPlayed) setIsMuted(false);
+          },
+        })
         .to(modalRef.current, {
           clipPath: 'polygon(0 50%, 100% 50%, 100% 50%, 0 50%)',
           duration: 0.75,
@@ -46,7 +59,7 @@ const VideoPlayerModal = ({ show, onClose }) => {
         })
         .set(modalRef.current, { visibility: 'hidden' });
     }
-  }, [show]);
+  }, [setIsMuted, show]);
 
   useEffect(() => {
     const video = videoRef.current;
