@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
 
 import { Line } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';

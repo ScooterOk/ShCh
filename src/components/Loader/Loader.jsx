@@ -8,7 +8,6 @@ import useVideo from '@/hooks/useVideo';
 
 import styles from './Loader.module.scss';
 import SoundButton from '../SoundButton/SoundButton';
-import useMobile from '@/hooks/useMobile';
 
 let progressCount = { value: 0 };
 
@@ -29,8 +28,6 @@ const Loader = ({ setIsLoaded }) => {
   });
 
   const [count, setCount] = useState(0);
-
-  const { isMobile } = useMobile();
 
   const container = useRef(null);
 
