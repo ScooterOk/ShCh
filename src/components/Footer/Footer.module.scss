@@ -53,8 +53,8 @@
       width: 100%;
       &__canvas {
         height: 31.3vw;
-        margin-top: calc(40px - ((768px - 100vw) * 0.029));
-        margin-left: calc((768px - 100vw) * -0.025);
+        margin-top: calc(40px - (($breakpoint_tablet - 100vw) * 0.029));
+        margin-left: calc(($breakpoint_tablet - 100vw) * -0.025);
       }
       &__description {
         position: static;
@@ -76,6 +76,24 @@
     }
     .copyright {
       margin-top: 60px;
+    }
+  }
+  @media screen and (max-width: $breakpoint_mobile) {
+    padding: 40px 10px 120px 10px;
+    .title {
+      margin-top: 0;
+      width: 100%;
+      &__canvas {
+        height: 34vw;
+        margin-top: calc((($breakpoint_mobile - 100vw) * 0.029));
+        margin-left: calc(($breakpoint_mobile - 100vw) * -0.005);
+      }
+      // &__description {
+      //   position: static;
+      //   margin-top: 20px;
+      //   width: 50%;
+      //   margin-left: auto;
+      // }
     }
   }
 }
