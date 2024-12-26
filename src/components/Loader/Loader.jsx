@@ -7,6 +7,8 @@ import gsap from 'gsap';
 import useVideo from '@/hooks/useVideo';
 
 import styles from './Loader.module.scss';
+import SoundButton from '../SoundButton/SoundButton';
+import useMobile from '@/hooks/useMobile';
 
 let progressCount = { value: 0 };
 
@@ -28,6 +30,8 @@ const Loader = ({ setIsLoaded }) => {
 
   const [count, setCount] = useState(0);
 
+  const { isMobile } = useMobile();
+
   const container = useRef(null);
 
   const progress = useMemo(
@@ -45,20 +49,30 @@ const Loader = ({ setIsLoaded }) => {
         onUpdate: () => setCount(Math.round(progressCount.value)),
         onComplete: () => {
           if (videoProgress === 100) {
-            gsap.to(document.querySelectorAll(`.${styles.name} span`), {
-              duration: 0.01,
+            gsap.to(
+              [
+                document.querySelectorAll(`.${styles.name} span`),
+                document.querySelectorAll(`.${styles.sound} span`),
+              ],
+              {
+                duration: 0.01,
+                opacity: 0,
+                stagger: {
+                  each: 0.05,
+                  grid: 'auto',
+                  from: 'random',
+                },
+                onComplete: () => {
+                  gsap.set(`.${styles.count}`, {
+                    opacity: 0,
+                  });
+                  setIsLoaded(true);
+                },
+              }
+            );
+            gsap.to(`.${styles.sound__wave}`, {
+              duration: 1,
               opacity: 0,
-              stagger: {
-                each: 0.05,
-                grid: 'auto',
-                from: 'random',
-              },
-              onComplete: () => {
-                gsap.set(`.${styles.count}`, {
-                  opacity: 0,
-                });
-                setIsLoaded(true);
-              },
             });
             gsap.set(`.${styles.image}`, {
               opacity: 0,
@@ -75,21 +89,32 @@ const Loader = ({ setIsLoaded }) => {
   useGSAP(
     () => {
       gsap.set(`.${styles.count}`, { display: 'block' });
-      gsap.to(document.querySelectorAll(`.${styles.name} span`), {
-        duration: 0.01,
-        opacity: 1,
-        stagger: {
-          each: 0.05,
-          grid: 'auto',
-          from: 'random',
-        },
-      });
+      gsap.to(
+        [
+          document.querySelectorAll(`.${styles.name} span`),
+          document.querySelectorAll(`.${styles.sound} span`),
+        ],
+        {
+          duration: 0.01,
+          opacity: 1,
+          stagger: {
+            each: 0.05,
+            grid: 'auto',
+            from: 'random',
+          },
+        }
+      );
       gsap.to(`.${styles.image}`, {
         duration: 1,
         scale: 1,
         ease: 'power3.inOut',
         onComplete: () =>
           gsap.set(`.${styles.image} img`, { display: 'block' }),
+      });
+      gsap.to(`.${styles.sound__wave}`, {
+        delay: 0.5,
+        duration: 1,
+        opacity: 1,
       });
     },
     { scope: container }
@@ -122,6 +147,21 @@ const Loader = ({ setIsLoaded }) => {
           />
         </div>
         <div className={styles.count}>{count}%</div>
+      </div>
+      <div className={styles.sound}>
+        <p>
+          {Array.from('Click to enable').map((letter, index) => (
+            <span key={`name-${letter}-${index}`}>{letter}</span>
+          ))}
+        </p>
+        <p className={styles.sound__wave}>
+          <SoundButton color="#000000" transparent />
+        </p>
+        <p>
+          {Array.from('sound').map((letter, index) => (
+            <span key={`name-${letter}-${index}`}>{letter}</span>
+          ))}
+        </p>
       </div>
     </div>
   );

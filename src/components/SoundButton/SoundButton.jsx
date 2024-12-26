@@ -23,6 +23,7 @@ const SoundButton = ({
   active = true,
   handleClick,
   color = '#f52b2b',
+  transparent = false,
 }) => {
   const [amplitude, setAmplitude] = useState(active ? 0.25 : 0);
 
@@ -39,7 +40,14 @@ const SoundButton = ({
   }, [active, duration]);
 
   return (
-    <button className={clsx(styles.button, className)} onClick={handleClick}>
+    <button
+      className={clsx(
+        styles.button,
+        transparent && styles.transparent,
+        className
+      )}
+      onClick={handleClick}
+    >
       <Canvas
         className={styles.canvas}
         camera={{ position: [0, 0, 3], orthographic: true }}

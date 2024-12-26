@@ -15,7 +15,6 @@ const MainProvider = ({ children }) => {
   const { Provider } = mainContext;
   const [isTouched, setIsTouched] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  const [isMisucInit, setIsMisucInit] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {

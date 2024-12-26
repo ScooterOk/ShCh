@@ -6,6 +6,9 @@
   border: none;
   outline: none;
   cursor: pointer;
+  &.transparent {
+    background-color: transparent;
+  }
 }
 .canvas {
   aspect-ratio: 1 / 1;

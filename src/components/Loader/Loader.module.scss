@@ -4,9 +4,13 @@
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: $bg;
+  & * {
+    cursor: default;
+  }
 }
 .grid {
   display: grid;
@@ -33,4 +37,26 @@
 }
 .count {
   display: none;
+}
+.sound {
+  margin-top: 15vh;
+  font-size: 20px;
+  font-weight: 600;
+  & > * {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  & span {
+    opacity: 0;
+  }
+  &__wave {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    opacity: 0;
+    margin: 0 -6px;
+  }
+  @media screen and (max-width: $breakpoint_tablet) {
+    display: none;
+  }
 }

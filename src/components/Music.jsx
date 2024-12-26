@@ -5,6 +5,7 @@ import { mainContext } from '@/providers/MainProvider';
 
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import useMobile from '@/hooks/useMobile';
 
 let audioContext;
 let lowPassFilter;
@@ -16,12 +17,15 @@ let filter = {
 const Music = () => {
   const { isLoaded, isHolded, isMuted, setIsMuted } = useContext(mainContext);
   const audioRef = useRef();
+
+  const { isMobile } = useMobile();
+
   useGSAP(
     () => {
       if (isLoaded) {
         document.addEventListener(
           'click',
-          (e) => {
+          () => {
             audioContext = new (window.AudioContext ||
               window.webkitAudioContext)();
             const track = audioContext.createMediaElementSource(
@@ -32,18 +36,20 @@ const Music = () => {
             lowPassFilter.frequency.value = 20000;
             track.connect(lowPassFilter).connect(audioContext.destination);
             audioContext.resume();
-            gsap.fromTo(
-              audioRef.current,
-              { volume: 0 },
-              {
-                volume: 1,
-                duration: 10,
-                onStart: () => {
-                  audioRef.current.play();
-                  setIsMuted(false);
-                },
-              }
-            );
+            if (!isMobile) {
+              gsap.fromTo(
+                audioRef.current,
+                { volume: 0 },
+                {
+                  volume: 1,
+                  duration: 10,
+                  onStart: () => {
+                    audioRef.current.play();
+                    setIsMuted(false);
+                  },
+                }
+              );
+            }
           },
           { once: true }
         );
