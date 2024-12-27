@@ -14,7 +14,7 @@ const position = {
 
 let isPlayed;
 
-const VideoPlayerModal = ({ show, onClose }) => {
+const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
   const { setIsMuted } = useContext(mainContext);
   const [currentTime, setCurrentTime] = useState('00:00:00');
   const [isPlay, setIsPlay] = useState(true);
@@ -29,6 +29,9 @@ const VideoPlayerModal = ({ show, onClose }) => {
   useEffect(() => {
     const music = document.querySelector('#background-song');
     if (show) {
+      position.x = initMousePosition.x;
+      position.y = initMousePosition.y;
+      setMousePosition(initMousePosition);
       setIsMuted(true);
       videoRef.current.currentTime = 0;
       gsap.to(modalRef.current, {
@@ -59,7 +62,7 @@ const VideoPlayerModal = ({ show, onClose }) => {
         })
         .set(modalRef.current, { visibility: 'hidden' });
     }
-  }, [setIsMuted, show]);
+  }, [setIsMuted, show, initMousePosition]);
 
   useEffect(() => {
     const video = videoRef.current;

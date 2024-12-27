@@ -1,9 +1,13 @@
 import { mainContext } from '@/providers/MainProvider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 
-const HomeHeroVideoPlayer = ({ styles, setShowVideoPlayer }) => {
+const HomeHeroVideoPlayer = ({
+  styles,
+  setShowVideoPlayer,
+  setInitMousePosition,
+}) => {
   const { isLoaded, loadedVideos } = useContext(mainContext);
   const rootRef = useRef();
   const previewRef = useRef();
@@ -27,6 +31,14 @@ const HomeHeroVideoPlayer = ({ styles, setShowVideoPlayer }) => {
     { dependencies: [isLoaded] }
   );
 
+  const handleplayVideo = (e) => {
+    setInitMousePosition({
+      x: e.clientX,
+      y: e.clientY,
+    });
+    setShowVideoPlayer(true);
+  };
+
   return (
     <div ref={rootRef} className={styles.player_preview}>
       {loadedVideos?.['/video/SHOWREEL_loop.mp4'] && (
@@ -47,7 +59,7 @@ const HomeHeroVideoPlayer = ({ styles, setShowVideoPlayer }) => {
       )}
 
       <div className={styles.button}>
-        <button ref={button} onClick={() => setShowVideoPlayer(true)} />
+        <button ref={button} onClick={handleplayVideo} />
       </div>
     </div>
   );

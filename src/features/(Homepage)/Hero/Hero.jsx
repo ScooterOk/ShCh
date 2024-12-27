@@ -13,6 +13,10 @@ import useMobile from '@/hooks/useMobile';
 import styles from './Hero.module.scss';
 
 const Hero = () => {
+  const [initMousePosition, setInitMousePosition] = useState({
+    x: 0,
+    y: 0,
+  });
   const [showVideoPlayer, setShowVideoPlayer] = useState(false);
   const canvas = useRef();
 
@@ -29,6 +33,7 @@ const Hero = () => {
           <HomeHeroVideoPlayer
             styles={styles}
             setShowVideoPlayer={setShowVideoPlayer}
+            setInitMousePosition={setInitMousePosition}
           />
 
           <div className={styles.hero__title}>
@@ -53,6 +58,7 @@ const Hero = () => {
       <VideoPlayerModal
         show={showVideoPlayer}
         onClose={() => setShowVideoPlayer(false)}
+        initMousePosition={initMousePosition}
       />
     </>
   );
