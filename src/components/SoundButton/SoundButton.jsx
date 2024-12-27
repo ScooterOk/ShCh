@@ -23,6 +23,7 @@ const SoundButton = ({
   handleClick,
   color = '#f52b2b',
   transparent = false,
+  handleHover,
 }) => {
   const [amplitude, setAmplitude] = useState(active ? 0.25 : 0);
 
@@ -46,6 +47,10 @@ const SoundButton = ({
         className
       )}
       onClick={handleClick}
+      {...(handleHover && {
+        onMouseEnter: handleHover,
+        onMouseLeave: handleHover,
+      })}
     >
       <Canvas
         className={styles.canvas}

@@ -12,6 +12,10 @@ const position = {
   y: 0,
 };
 
+let params = {
+  color: '#f52b2b',
+};
+
 let isPlayed;
 
 const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
@@ -23,6 +27,7 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
     x: position.x,
     y: position.y,
   });
+  const [color, setColor] = useState(params.color);
   const modalRef = useRef();
   const videoRef = useRef();
 
@@ -138,6 +143,28 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
     setIsMute(!isMute);
   };
 
+  const handleHover = (e) => {
+    if (e.type === 'mouseenter') {
+      gsap.to(params, {
+        color: '#000000',
+        duration: 0.75,
+        ease: 'power4.Out',
+        onUpdate: () => {
+          setColor(params.color);
+        },
+      });
+    } else {
+      gsap.to(params, {
+        color: '#f52b2b',
+        duration: 1,
+        ease: 'power4.inOut',
+        onUpdate: () => {
+          setColor(params.color);
+        },
+      });
+    }
+  };
+
   return (
     <div
       className={styles.modal}
@@ -164,7 +191,14 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
         <button className={styles.controls__action} onClick={handleClickPlay}>
           {isPlay ? <IconPause /> : <IconPlay />}
         </button>
-        <SoundButton active={!isMute} handleClick={handleClickSound} />
+        <div className={styles.controls__sound}>
+          <SoundButton
+            active={!isMute}
+            color={color}
+            handleClick={handleClickSound}
+            handleHover={handleHover}
+          />
+        </div>
         <div className={styles.controls__timer}>{currentTime}</div>
       </div>
       <span className={styles.modal__cursor}>{isPlay ? 'Pause' : 'Play'}</span>

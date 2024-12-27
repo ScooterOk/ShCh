@@ -1,5 +1,5 @@
 'use client';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import SoundButton from './SoundButton/SoundButton';
 import { mainContext } from '@/providers/MainProvider';
 
@@ -14,7 +14,12 @@ let filter = {
   value: 10000,
 };
 
+let params = {
+  color: '#9b9b88',
+};
+
 const Music = () => {
+  const [color, setColor] = useState(params.color);
   const { isLoaded, isHolded, isMuted, setIsMuted } = useContext(mainContext);
   const audioRef = useRef();
 
@@ -90,12 +95,35 @@ const Music = () => {
     setIsMuted((prev) => !prev);
   };
 
+  const handleHover = (e) => {
+    if (e.type === 'mouseenter') {
+      gsap.to(params, {
+        color: '#000000',
+        duration: 0.75,
+        ease: 'power4.Out',
+        onUpdate: () => {
+          setColor(params.color);
+        },
+      });
+    } else {
+      gsap.to(params, {
+        color: '#9b9b88',
+        duration: 1,
+        ease: 'power4.inOut',
+        onUpdate: () => {
+          setColor(params.color);
+        },
+      });
+    }
+  };
+
   return (
     <>
       <SoundButton
-        color="#9b9b88"
+        color={color}
         active={!isMuted}
         handleClick={handleClick}
+        handleHover={handleHover}
       />
       <audio
         id="background-song"
