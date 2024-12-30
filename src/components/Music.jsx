@@ -28,6 +28,7 @@ const Music = () => {
   useGSAP(
     () => {
       if (isLoaded) {
+        audioRef.current.volume = 0;
         document.addEventListener(
           'click',
           () => {
@@ -42,18 +43,14 @@ const Music = () => {
             track.connect(lowPassFilter).connect(audioContext.destination);
             audioContext.resume();
             if (!isMobile) {
-              gsap.fromTo(
-                audioRef.current,
-                { volume: 0 },
-                {
-                  volume: 1,
-                  duration: 10,
-                  onStart: () => {
-                    audioRef.current.play();
-                    setIsMuted(false);
-                  },
-                }
-              );
+              gsap.to(audioRef.current, {
+                volume: 1,
+                duration: 10,
+                onStart: () => {
+                  // audioRef.current.play();
+                  setIsMuted(false);
+                },
+              });
             }
           },
           { once: true }
@@ -64,10 +61,9 @@ const Music = () => {
   );
 
   useEffect(() => {
-    if (!audioContext) return;
     gsap.to(audioRef.current, {
       volume: isMuted ? 0 : 1,
-      duration: 1,
+      duration: 3,
       overwrite: true,
       onStart: () => {
         if (!isMuted) audioRef.current.play();

@@ -45,15 +45,10 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
       gsap.to(modalRef.current, {
         visibility: 'visible',
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)',
-        duration: 0.75,
+        duration: 0.5,
         ease: 'power4.inOut',
-        onStart: () => {
-          isPlayed = !music.paused;
-          console.log('onStart', isPlayed);
-        },
         onComplete: () => {
           isPlayed = !music.paused;
-          console.log('onComplete', isPlayed);
           videoRef.current.play();
           setIsMuted(true);
         },
@@ -145,9 +140,6 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
     const nextTargets = !isPlay
       ? cursorPauseRef.current.querySelectorAll('span')
       : cursorPlayRef.current.querySelectorAll('span');
-
-    console.log('currentTargets', currentTargets);
-    console.log('nextTargets', nextTargets);
 
     gsap
       .timeline()
