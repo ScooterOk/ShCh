@@ -20,6 +20,11 @@
       calc((var(--mouse-y) * 1px) + 1rem),
       0
     );
+    &_inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   }
   &__close {
     position: absolute;

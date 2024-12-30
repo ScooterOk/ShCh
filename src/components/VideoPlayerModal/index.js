@@ -30,6 +30,8 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
   const [color, setColor] = useState(params.color);
   const modalRef = useRef();
   const videoRef = useRef();
+  const cursorPauseRef = useRef();
+  const cursorPlayRef = useRef();
 
   useEffect(() => {
     const music = document.querySelector('#background-song');
@@ -38,16 +40,21 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
       position.y = initMousePosition.y;
       setMousePosition(initMousePosition);
       setIsMuted(true);
+      setIsPlay(true);
       videoRef.current.currentTime = 0;
       gsap.to(modalRef.current, {
         visibility: 'visible',
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)',
         duration: 0.75,
         ease: 'power4.inOut',
+        onStart: () => {
+          isPlayed = !music.paused;
+          console.log('onStart', isPlayed);
+        },
         onComplete: () => {
           isPlayed = !music.paused;
+          console.log('onComplete', isPlayed);
           videoRef.current.play();
-          setIsPlay(true);
           setIsMuted(true);
         },
       });
@@ -132,7 +139,45 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
   const handleClickPlay = () => {
     if (isPlay) videoRef.current.pause();
     if (!isPlay) videoRef.current.play();
-    setIsPlay(!isPlay);
+    const currentTargets = isPlay
+      ? cursorPauseRef.current.querySelectorAll('span')
+      : cursorPlayRef.current.querySelectorAll('span');
+    const nextTargets = !isPlay
+      ? cursorPauseRef.current.querySelectorAll('span')
+      : cursorPlayRef.current.querySelectorAll('span');
+
+    console.log('currentTargets', currentTargets);
+    console.log('nextTargets', nextTargets);
+
+    gsap
+      .timeline()
+      .to(currentTargets, {
+        duration: 0.1,
+        opacity: 0,
+        stagger: {
+          amount: 0.25,
+          grid: 'auto',
+          from: 'random',
+        },
+        overwrite: true,
+      })
+      .add(() => setIsPlay(!isPlay))
+      .fromTo(
+        nextTargets,
+        {
+          opacity: 0,
+        },
+        {
+          duration: 0.1,
+          opacity: 1,
+          stagger: {
+            amount: 0.25,
+            grid: 'auto',
+            from: 'random',
+          },
+          overwrite: true,
+        }
+      );
   };
 
   const handleClickSound = () => {
@@ -143,7 +188,8 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
     setIsMute(!isMute);
   };
 
-  const handleHover = (e) => {
+  const handleSoundHover = (e) => {
+    handleCursorOnHover(e);
     if (e.type === 'mouseenter') {
       gsap.to(params, {
         color: '#000000',
@@ -165,6 +211,35 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
     }
   };
 
+  const handleCursorOnHover = (e) => {
+    const currentTargets = isPlay
+      ? cursorPauseRef.current.querySelectorAll('span')
+      : cursorPlayRef.current.querySelectorAll('span');
+    if (e.type === 'mouseenter') {
+      gsap.to(currentTargets, {
+        duration: 0.1,
+        opacity: 0,
+        stagger: {
+          amount: 0.25,
+          grid: 'auto',
+          from: 'random',
+        },
+        overwrite: true,
+      });
+    } else {
+      gsap.to(currentTargets, {
+        duration: 0.1,
+        opacity: 1,
+        stagger: {
+          amount: 0.3,
+          grid: 'auto',
+          from: 'random',
+        },
+        overwrite: true,
+      });
+    }
+  };
+
   return (
     <div
       className={styles.modal}
@@ -174,7 +249,12 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
         '--mouse-y': `${mousePosition.y}`,
       }}
     >
-      <button className={styles.modal__close} onClick={onClose}>
+      <button
+        className={styles.modal__close}
+        onClick={onClose}
+        onMouseEnter={handleCursorOnHover}
+        onMouseLeave={handleCursorOnHover}
+      >
         <IconClose />
       </button>
       <video
@@ -188,7 +268,12 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
         <source src="/video/showreel_churilov.mp4" type="video/mp4" />
       </video>
       <div className={styles.controls}>
-        <button className={styles.controls__action} onClick={handleClickPlay}>
+        <button
+          className={styles.controls__action}
+          onClick={handleClickPlay}
+          onMouseEnter={handleCursorOnHover}
+          onMouseLeave={handleCursorOnHover}
+        >
           {isPlay ? <IconPause /> : <IconPlay />}
         </button>
         <div className={styles.controls__sound}>
@@ -196,12 +281,31 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
             active={!isMute}
             color={color}
             handleClick={handleClickSound}
-            handleHover={handleHover}
+            handleHover={handleSoundHover}
           />
         </div>
         <div className={styles.controls__timer}>{currentTime}</div>
       </div>
-      <span className={styles.modal__cursor}>{isPlay ? 'Pause' : 'Play'}</span>
+      <div className={styles.modal__cursor}>
+        <div
+          ref={cursorPauseRef}
+          className={styles.modal__cursor_inner}
+          style={{ display: isPlay ? 'block' : 'none' }}
+        >
+          {Array.from('Pause').map((l, i) => (
+            <span key={`name-${l}-${i}-${l}`}>{l}</span>
+          ))}
+        </div>
+        <div
+          ref={cursorPlayRef}
+          className={styles.modal__cursor_inner}
+          style={{ display: !isPlay ? 'block' : 'none' }}
+        >
+          {Array.from('Play').map((l, i) => (
+            <span key={`name-${l}-${i}-${l}`}>{l}</span>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
