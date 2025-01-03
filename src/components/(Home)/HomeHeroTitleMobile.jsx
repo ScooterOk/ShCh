@@ -7,12 +7,6 @@ import gsap from 'gsap';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
-import configs from '@/configs/titlesAnimation';
-
-const { duration, easeEnter, easeLeave } = configs;
-
-const animatingNodes = {};
-
 const HomeHeroTitleMobile = () => {
   const { isLoaded, setNoScroll } = useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
@@ -88,42 +82,42 @@ const HomeHeroTitleMobile = () => {
     setWidthScale(w);
   }, [modelDimensions.width, viewport.width]);
 
-  const handlePointerEnter = (e) => {
-    if (gsap.getById('hero-title-init')?.isActive()) return;
+  // const handlePointerEnter = (e) => {
+  //   if (gsap.getById('hero-title-init')?.isActive()) return;
 
-    const target = e.eventObject.morphTargetInfluences;
-    const name = e.eventObject.name;
-    if (animatingNodes?.[name]?.isActive()) animatingNodes?.[name].kill();
-    animatingNodes[name] = gsap.to(target, {
-      [0]: 1,
-      duration,
-      ease: easeEnter,
-      overwrite: true,
-    });
-  };
+  //   const target = e.eventObject.morphTargetInfluences;
+  //   const name = e.eventObject.name;
+  //   if (animatingNodes?.[name]?.isActive()) animatingNodes?.[name].kill();
+  //   animatingNodes[name] = gsap.to(target, {
+  //     [0]: 1,
+  //     duration,
+  //     ease: easeEnter,
+  //     overwrite: true,
+  //   });
+  // };
 
-  const handlePointerLeave = (e) => {
-    if (gsap.getById('hero-title-init')?.isActive()) return;
+  // const handlePointerLeave = (e) => {
+  //   if (gsap.getById('hero-title-init')?.isActive()) return;
 
-    const target = e.eventObject.morphTargetInfluences;
-    const name = e.eventObject.name;
-    if (!animatingNodes?.[name]?.isActive()) {
-      gsap.to(target, {
-        [0]: 0,
-        duration,
-        ease: 'power2.inOut',
-        overwrite: 'auto',
-      });
-    } else {
-      animatingNodes?.[name].eventCallback('onComplete', () => {
-        gsap.to(target, {
-          [0]: 0,
-          duration,
-          ease: easeLeave,
-        });
-      });
-    }
-  };
+  //   const target = e.eventObject.morphTargetInfluences;
+  //   const name = e.eventObject.name;
+  //   if (!animatingNodes?.[name]?.isActive()) {
+  //     gsap.to(target, {
+  //       [0]: 0,
+  //       duration,
+  //       ease: 'power2.inOut',
+  //       overwrite: 'auto',
+  //     });
+  //   } else {
+  //     animatingNodes?.[name].eventCallback('onComplete', () => {
+  //       gsap.to(target, {
+  //         [0]: 0,
+  //         duration,
+  //         ease: easeLeave,
+  //       });
+  //     });
+  //   }
+  // };
 
   return (
     <group

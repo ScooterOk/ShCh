@@ -1,11 +1,4 @@
-import React, {
-  Suspense,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { Suspense, useContext, useEffect, useMemo, useRef } from 'react';
 import { MeshReflectorMaterial } from '@react-three/drei';
 import { useThree, extend, useFrame } from '@react-three/fiber';
 import {
@@ -29,7 +22,7 @@ import useMobile from '@/hooks/useMobile';
 extend({ LensDistortionEffect });
 
 // Post processing
-const PostProcessing = ({ isHolded, currentSlide }) => {
+const PostProcessing = ({ isHolded }) => {
   const { isMobile } = useMobile();
   const { gl, scene, camera } = useThree();
   const composer = useMemo(() => new EffectComposer(gl), [gl]);

@@ -1,14 +1,15 @@
 'use client';
 import React, { useContext, useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+
+import Link from 'next/link';
+
+import { mainContext } from '@/providers/MainProvider';
+import Music from '@/components/Music';
 
 import styles from './Navigation.module.scss';
-import Link from 'next/link';
-import SoundButton from '@/components/SoundButton/SoundButton';
-import { mainContext } from '@/providers/MainProvider';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import Music from '@/components/Music';
-import HoverLink from '../HoverLink';
+
 const Navigation = () => {
   const { isLoaded, setNoScroll } = useContext(mainContext);
   const rootRef = useRef();

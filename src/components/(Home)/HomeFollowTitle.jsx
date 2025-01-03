@@ -26,7 +26,7 @@ const HomeFollowTitle = ({ container }) => {
 
   const model = useGLTF('/models/follow.gltf');
 
-  const { scene, animations, materials, nodes } = model;
+  const { animations, materials, nodes } = model;
 
   const { actions, ref, names } = useAnimations(animations);
 

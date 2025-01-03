@@ -1,7 +1,7 @@
 import { mainContext } from '@/providers/MainProvider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef } from 'react';
 
 const HomeHeroVideoPlayer = ({
   styles,

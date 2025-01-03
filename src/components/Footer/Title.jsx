@@ -25,7 +25,7 @@ const FooterTitle = ({ container }) => {
 
   const model = useGLTF('/models/lets.gltf');
 
-  const { scene, animations, nodes } = model;
+  const { animations, nodes } = model;
 
   const { actions, ref, names } = useAnimations(animations);
 

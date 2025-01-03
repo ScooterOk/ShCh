@@ -35,6 +35,7 @@ const BrandObjects = ({ isHolded }) => {
         });
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isHolded, nodes]);
 
   // Slide transition animation
