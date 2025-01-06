@@ -3,15 +3,15 @@ import { useCallback, useContext, useEffect, useRef } from 'react';
 
 import Loader from '@/components/Loader/Loader';
 import { mainContext } from '@/providers/MainProvider';
-import Hero from '@/features/(Homepage)/Hero/Hero';
-import FocusOn from '@/features/(Homepage)/FocusOn/FocusOn';
+import Hero from '@/features/Homepage/Hero/Hero';
+import FocusOn from '@/features/Homepage/FocusOn/FocusOn';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { useLenis } from 'lenis/react';
-import Works from '@/features/(Homepage)/Works/Works';
-import Follow from '@/features/(Homepage)/Follow/Follow';
+import Works from '@/features/Homepage/Works/Works';
+import Follow from '@/features/Homepage/Follow/Follow';
 import Footer from '@/components/Footer/Footer';
 
 import styles from './page.module.scss';
@@ -20,6 +20,16 @@ import useMobile from '@/hooks/useMobile';
 
 let cubeRotationActive = false;
 let scrollTweenActive = false;
+
+const videolist = [
+  '/video/Hero_head_video_01.mp4',
+  '/video/Hero_head_video_02.mp4',
+  '/video/SHOWREEL_loop.mp4',
+  '/video/_CUBE_01_full.mp4',
+  '/video/_CUBE_02_full.mp4',
+  '/video/_CUBE_03_full.mp4',
+  '/video/CUBE_04_loop.mp4',
+];
 
 export default function Home() {
   const {
@@ -259,7 +269,7 @@ export default function Home() {
       <Works />
       <Follow />
       <Footer />
-      {!isLoaded && <Loader setIsLoaded={setIsLoaded} />}
+      {!isLoaded && <Loader videolist={videolist} />}
     </main>
   );
 }
