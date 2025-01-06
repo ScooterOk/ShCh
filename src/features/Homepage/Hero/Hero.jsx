@@ -1,13 +1,13 @@
 'use client';
 import React, { Suspense, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import HomeHeroTitle from '@/components/(Home)/HomeHeroTitle';
-import HomeHeroLoopVideo from '@/components/(Home)/HomeHeroLoopVideo';
-import HomeHeroVideoPlayer from '@/components/(Home)/HomeHeroVideoPlayer';
-import HomeHeroName from '@/components/(Home)/HomeHeroName';
-import HomeHeroText from '@/components/(Home)/HomeHeroText';
+import HomeHeroTitle from '@/components/Home/HomeHeroTitle';
+import HomeHeroLoopVideo from '@/components/Home/HomeHeroLoopVideo';
+import HomeHeroVideoPlayer from '@/components/Home/HomeHeroVideoPlayer';
+import HomeHeroName from '@/components/Home/HomeHeroName';
+import HomeHeroText from '@/components/Home/HomeHeroText';
 import VideoPlayerModal from '@/components/VideoPlayerModal';
-import HomeHeroTitleMobile from '@/components/(Home)/HomeHeroTitleMobile';
+import HomeHeroTitleMobile from '@/components/Home/HomeHeroTitleMobile';
 import useMobile from '@/hooks/useMobile';
 
 import styles from './Hero.module.scss';

@@ -10,7 +10,7 @@ import gsap from 'gsap';
 import clsx from 'clsx';
 import { Canvas } from '@react-three/fiber';
 import { PerspectiveCamera } from '@react-three/drei';
-import CoubScene from '@/components/(Home)/CoubScene';
+import CoubScene from '@/components/Home/CoubScene';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { mainContext } from '@/providers/MainProvider';

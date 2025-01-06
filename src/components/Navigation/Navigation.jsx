@@ -67,7 +67,8 @@ const Navigation = () => {
 
   return (
     <div ref={rootRef} className={styles.navigation}>
-      <Music />
+      {/* TODO: Turn on music */}
+      {/* <Music /> */}
       <ul>
         <li>
           <Link className={styles.active} href={'/'}>
@@ -79,7 +80,7 @@ const Navigation = () => {
           </Link>
         </li>
         <li>
-          <TransitionLink href={'/about'} onMouseEnter={onMouseEnter}>
+          <TransitionLink href={'/works'} onMouseEnter={onMouseEnter}>
             {Array.from('Work').map((l, i) => (
               <span data-animation key={`name-${l}-${i}-${l}`}>
                 {l}
@@ -88,7 +89,7 @@ const Navigation = () => {
           </TransitionLink>
         </li>
         <li>
-          <Link href={'/'} onMouseEnter={onMouseEnter}>
+          <Link href={'/about'} onMouseEnter={onMouseEnter}>
             {Array.from('About').map((l, i) => (
               <span data-animation key={`name-${l}-${i}-${l}`}>
                 {l}

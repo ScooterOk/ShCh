@@ -1,9 +1,9 @@
 import React, { Suspense, useRef } from 'react';
 
-import HomeFollowTitle from '@/components/(Home)/HomeFollowTitle';
+import HomeFollowTitle from '@/components/Home/HomeFollowTitle';
 import { Canvas } from '@react-three/fiber';
 
-import Backgrounds from '@/components/(Home)/Follow/Backgrounds';
+import Backgrounds from '@/components/Home/Follow/Backgrounds';
 import HoverLink from '@/components/HoverLink/HoverLink';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';

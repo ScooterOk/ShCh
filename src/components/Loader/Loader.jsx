@@ -1,5 +1,5 @@
 import { useProgress } from '@react-three/drei';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useContext, useMemo, useRef, useState } from 'react';
 
 import Image from 'next/image';
 import { useGSAP } from '@gsap/react';
@@ -8,20 +8,12 @@ import useVideo from '@/hooks/useVideo';
 
 import styles from './Loader.module.scss';
 import SoundButton from '../SoundButton/SoundButton';
+import { mainContext } from '@/providers/MainProvider';
 
 let progressCount = { value: 0 };
 
-const list = [
-  '/video/Hero_head_video_01.mp4',
-  '/video/Hero_head_video_02.mp4',
-  '/video/SHOWREEL_loop.mp4',
-  '/video/_CUBE_01_full.mp4',
-  '/video/_CUBE_02_full.mp4',
-  '/video/_CUBE_03_full.mp4',
-  '/video/CUBE_04_loop.mp4',
-];
-
-const Loader = ({ setIsLoaded }) => {
+const Loader = ({ videolist: list }) => {
+  const { setIsLoaded } = useContext(mainContext);
   const { progress: modelsProgress } = useProgress();
   const { progress: videoProgress } = useVideo({
     list,

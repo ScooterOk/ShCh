@@ -1,13 +1,13 @@
 import React, { Suspense, useRef } from 'react';
 
 import { Canvas } from '@react-three/fiber';
-import HomeWorksTitle from '@/components/(Home)/HomeWorksTitle';
-import Koenigsegg from '@/components/(Home)/Works/Koenigsegg';
+import HomeWorksTitle from '@/components/Home/HomeWorksTitle';
+import Koenigsegg from '@/components/Home/Works/Koenigsegg';
 
 import styles from './Works.module.scss';
-import Skyrocket from '@/components/(Home)/Works/Skyrocket';
-import AngleSparky from '@/components/(Home)/Works/AngleSparky';
-import Mesmerized from '@/components/(Home)/Works/Mesmerized';
+import Skyrocket from '@/components/Home/Works/Skyrocket';
+import AngleSparky from '@/components/Home/Works/AngleSparky';
+import Mesmerized from '@/components/Home/Works/Mesmerized';
 
 const Works = () => {
   const container = useRef();
