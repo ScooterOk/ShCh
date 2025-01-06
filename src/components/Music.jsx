@@ -124,8 +124,9 @@ const Music = () => {
       <audio
         id="background-song"
         ref={audioRef}
+        loop="true"
         preload="true"
-        src="/C_6_M_Cinematic.wav"
+        src="/song_V2.mp3"
       />
     </>
   );
