@@ -1,0 +1,26 @@
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  &__row {
+    display: grid;
+    & > div {
+      background-color: red;
+      transform: scaleX(0.95);
+    }
+    &:nth-child(1) {
+      grid-template-columns: var(--row-1);
+    }
+    &:nth-child(2) {
+      grid-template-columns: var(--row-2);
+    }
+    &:nth-child(3) {
+      grid-template-columns: var(--row-3);
+    }
+    &:nth-child(4) {
+      grid-template-columns: var(--row-4);
+    }
+  }
+}

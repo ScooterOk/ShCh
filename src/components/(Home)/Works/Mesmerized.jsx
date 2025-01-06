@@ -1,4 +1,4 @@
-import HoverLink from '@/components/HoverLink';
+import HoverLink from '@/components/HoverLink/HoverLink';
 import useMobile from '@/hooks/useMobile';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';

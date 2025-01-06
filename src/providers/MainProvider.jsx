@@ -15,6 +15,7 @@ const MainProvider = ({ children }) => {
   const { Provider } = mainContext;
   const [isTouched, setIsTouched] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const [isTransition, setIsTransition] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -50,6 +51,8 @@ const MainProvider = ({ children }) => {
           setIsTouched,
           isMuted,
           setIsMuted,
+          isTransition,
+          setIsTransition,
         }}
       >
         {children}

@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ScrollToPlugin from 'gsap/ScrollToPlugin';
 import ScrollBar from '@/components/ScrollBar/ScrollBar';
+import TransitionAnimation from '@/components/TransitionAnimation/TransitionAnimation';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -27,6 +28,7 @@ const Layout = ({ children }) => {
       autoRaf={false}
       options={{ duration: 1, syncTouch: true }}
     >
+      <TransitionAnimation />
       <Navigation />
       <ScrollBar />
       {children}

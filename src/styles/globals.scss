@@ -1,6 +1,17 @@
 @use 'vars' as *;
 @import 'reset-css';
 
+:root {
+  --row-1: 0.7fr 0.66fr 1.55fr 1.41fr 0.55fr 1.7fr 0.77fr 0.68fr 0.6fr 0.73fr
+    1.66fr;
+  --row-2: 1.27fr 0.91fr 0.65fr 0.91fr 1.31fr 0.95fr 1.35fr 1.29fr 0.54fr 1.27fr
+    0.54fr;
+  --row-3: 0.83fr 1.26fr 1.4fr 0.65fr 1.4fr 0.87fr 1.39fr 0.38fr 1.09fr 0.86fr
+    0.87fr;
+  --row-4: 1.33fr 1.53fr 0.69fr 1.03fr 1.48fr 0.42fr 1.08fr 1.4fr 0.59fr 0.78fr
+    0.66fr;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;

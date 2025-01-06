@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './Footer.module.scss';
-import HoverLink from '../HoverLink';
+import HoverLink from '../HoverLink/HoverLink';
 import clsx from 'clsx';
 
 const Links = () => {

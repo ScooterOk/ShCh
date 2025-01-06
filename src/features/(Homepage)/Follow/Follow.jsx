@@ -4,7 +4,7 @@ import HomeFollowTitle from '@/components/(Home)/HomeFollowTitle';
 import { Canvas } from '@react-three/fiber';
 
 import Backgrounds from '@/components/(Home)/Follow/Backgrounds';
-import HoverLink from '@/components/HoverLink';
+import HoverLink from '@/components/HoverLink/HoverLink';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';

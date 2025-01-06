@@ -9,6 +9,7 @@ import { mainContext } from '@/providers/MainProvider';
 import Music from '@/components/Music';
 
 import styles from './Navigation.module.scss';
+import TransitionLink from '../TransitionLink/TransitionLink';
 
 const Navigation = () => {
   const { isLoaded, setNoScroll } = useContext(mainContext);
@@ -78,13 +79,13 @@ const Navigation = () => {
           </Link>
         </li>
         <li>
-          <Link href={'/'} onMouseEnter={onMouseEnter}>
+          <TransitionLink href={'/about'} onMouseEnter={onMouseEnter}>
             {Array.from('Work').map((l, i) => (
               <span data-animation key={`name-${l}-${i}-${l}`}>
                 {l}
               </span>
             ))}
-          </Link>
+          </TransitionLink>
         </li>
         <li>
           <Link href={'/'} onMouseEnter={onMouseEnter}>
