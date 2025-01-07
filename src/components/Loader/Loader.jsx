@@ -9,10 +9,15 @@ import useVideo from '@/hooks/useVideo';
 import styles from './Loader.module.scss';
 import SoundButton from '../SoundButton/SoundButton';
 import { mainContext } from '@/providers/MainProvider';
+import clsx from 'clsx';
+
+import colors from '@/configs/colors';
+
+const { bg, black } = colors;
 
 let progressCount = { value: 0 };
 
-const Loader = ({ videolist: list }) => {
+const Loader = ({ videolist: list, theme = 'light' }) => {
   const { setIsLoaded } = useContext(mainContext);
   const { progress: modelsProgress } = useProgress();
   const { progress: videoProgress } = useVideo({
@@ -94,7 +99,7 @@ const Loader = ({ videolist: list }) => {
         }
       );
       gsap.to(`.${styles.image}`, {
-        duration: 1,
+        duration: theme === 'light' ? 1 : 0.1,
         scale: 1,
         ease: 'power3.inOut',
         onComplete: () =>
@@ -110,7 +115,7 @@ const Loader = ({ videolist: list }) => {
   );
 
   return (
-    <div ref={container} className={styles.loader}>
+    <div ref={container} className={clsx(styles.loader, styles[theme])}>
       <div className={styles.grid}>
         <div />
         <div className={styles.name}>
@@ -144,7 +149,7 @@ const Loader = ({ videolist: list }) => {
           ))}
         </p>
         <p className={styles.sound__wave}>
-          <SoundButton color="#000000" transparent />
+          <SoundButton color={theme === 'light' ? black : bg} transparent />
         </p>
         <p>
           {Array.from('sound').map((letter, index) => (

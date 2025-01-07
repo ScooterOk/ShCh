@@ -15,7 +15,7 @@ const About = () => {
   return (
     <main ref={mainContainerRef} className={styles.about}>
       <Hero />
-      {!isLoaded && <Loader videolist={videolist} />}
+      {!isLoaded && <Loader videolist={videolist} theme="dark" />}
     </main>
   );
 };

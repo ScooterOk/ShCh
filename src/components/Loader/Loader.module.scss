@@ -7,7 +7,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: $bg;
+  &.light {
+    background-color: $bg;
+    color: $black;
+  }
+  &.dark {
+    background-color: $black;
+    color: $bg;
+  }
   & * {
     cursor: default;
   }
