@@ -28,6 +28,11 @@
   .title {
     margin-top: auto;
     position: relative;
+    font-size: clamp(14px, 1.3vw, 20px);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.3em;
+    color: $bg;
     &__video {
       position: absolute;
       right: 50%;
@@ -43,11 +48,11 @@
       position: absolute;
       right: calc(50% + 35vw + 40px);
       text-align: right;
-      font-size: clamp(14px, 2.5vw, 20px);
-      font-style: normal;
-      font-weight: 600;
-      line-height: 1.3em;
-      color: $bg;
+    }
+    &__director {
+      position: absolute;
+      top: 34.5%;
+      left: 81.6%;
     }
     &__canvas {
       height: 29vw;

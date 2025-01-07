@@ -84,6 +84,13 @@ const Hero = () => {
             ))}
           </p>
         </div>
+        <div className={styles.title__director}>
+          {Array.from('Director &').map((l, i) => (
+            <span data-animation key={`name-${l}-${i}-${l}`}>
+              {l}
+            </span>
+          ))}
+        </div>
         <div className={styles.title__canvas}>
           <Canvas
             ref={canvas}
