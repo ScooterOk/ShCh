@@ -1,4 +1,4 @@
-import React, { Suspense, useContext, useEffect, useRef } from 'react';
+import React, { Suspense, useContext, useRef } from 'react';
 import styles from './Hero.module.scss';
 import { Canvas } from '@react-three/fiber';
 import AboutHeroTitle from '@/components/About/AboutHeroTitle';
@@ -10,10 +10,6 @@ const Hero = () => {
   const { isLoaded, loadedVideos } = useContext(mainContext);
   const videoRef = useRef();
   const canvas = useRef();
-
-  //   useEffect(() => {
-  //     if (isLoaded) videoRef.current.play();
-  //   }, [isLoaded]);
 
   useGSAP(
     () => {

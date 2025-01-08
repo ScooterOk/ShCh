@@ -26,7 +26,6 @@ const Recognition = () => {
               trigger: container.current,
               start: '-=10% 60%',
               end: 'bottom bottom',
-              markers: true,
             },
             id: 'about-recognition-init',
           })
