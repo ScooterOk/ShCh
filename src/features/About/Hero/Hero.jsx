@@ -21,7 +21,6 @@ const Hero = () => {
         const words = document.querySelectorAll(
           `.${styles.hero} [data-animation]`
         );
-        console.log('words', words);
 
         gsap
           .timeline({ delay: 1 })

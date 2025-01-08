@@ -8,8 +8,6 @@ const TransitionAnimation = () => {
   const { isTransition } = useContext(mainContext);
   const backgroundRef = useRef();
 
-  console.log('isTransition', isTransition);
-
   useEffect(() => {
     if (isTransition) {
       const row0 = backgroundRef.current.querySelectorAll(
@@ -66,7 +64,6 @@ const TransitionAnimation = () => {
           },
           '-=0.85'
         );
-      console.log('backgroundRef');
     }
   }, [isTransition]);
 

@@ -18,7 +18,6 @@ const Description = () => {
     () => {
       if (isLoaded && action.current) {
         const words = container.current.querySelectorAll('[data-animation]');
-        console.log('words', words);
 
         gsap
           .timeline({
@@ -26,7 +25,6 @@ const Description = () => {
               trigger: container.current,
               start: '-=10% 70%',
               end: 'bottom bottom',
-              markers: true,
             },
             id: 'about-description-title-init',
           })
