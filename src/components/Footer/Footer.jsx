@@ -10,8 +10,9 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import FooterTitleMobile from './TitleMobile';
 import useMobile from '@/hooks/useMobile';
+import clsx from 'clsx';
 
-const Footer = () => {
+const Footer = ({ className }) => {
   const container = useRef();
 
   const { isMobile } = useMobile();
@@ -48,7 +49,10 @@ const Footer = () => {
   });
 
   return (
-    <div className={styles.footer} ref={container}>
+    <div
+      className={clsx(styles.footer, className && className)}
+      ref={container}
+    >
       <Date />
       <div className={styles.title}>
         <div className={styles.title__canvas}>

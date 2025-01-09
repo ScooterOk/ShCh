@@ -5,8 +5,10 @@ import Loader from '@/components/Loader/Loader';
 import Hero from '@/features/About/Hero/Hero';
 import Description from '@/features/About/Description/Description';
 
-import styles from './page.module.scss';
 import Recognition from '@/features/About/Recognition/Recognition';
+import Footer from '@/components/Footer/Footer';
+
+import styles from './page.module.scss';
 
 const videolist = ['/video/hero_head_video_full.mp4'];
 
@@ -19,6 +21,7 @@ const About = () => {
       <Hero />
       <Description />
       <Recognition />
+      <Footer className={styles.footer} />
       {!isLoaded && <Loader videolist={videolist} theme="dark" />}
     </main>
   );
