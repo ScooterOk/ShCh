@@ -14,7 +14,8 @@ const { duration, easeEnter, easeLeave } = configs;
 const animatingNodes = {};
 
 const HomeHeroTitle = () => {
-  const { isLoaded, setNoScroll } = useContext(mainContext);
+  const { isLoaded, setNoScroll, setIsNavigationReady } =
+    useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
 
   const [modelDimensions, setModelDimensions] = useState({
@@ -50,7 +51,10 @@ const HomeHeroTitle = () => {
         if (action.current) {
           gsap
             .timeline({
-              onComplete: () => setNoScroll(false),
+              onComplete: () => {
+                setNoScroll(false);
+                setIsNavigationReady(true);
+              },
               id: 'hero-title-init',
             })
             .to(action.current, {

@@ -7,7 +7,8 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 
 const Hero = () => {
-  const { isLoaded, loadedVideos } = useContext(mainContext);
+  const { isLoaded, loadedVideos, setNoScroll, setIsNavigationReady } =
+    useContext(mainContext);
   const videoRef = useRef();
   const canvas = useRef();
 
@@ -29,6 +30,10 @@ const Hero = () => {
               grid: 'auto',
               from: 'random',
             },
+          })
+          .add(() => {
+            setNoScroll(false);
+            setIsNavigationReady(true);
           });
       }
     },

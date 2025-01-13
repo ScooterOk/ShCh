@@ -12,16 +12,14 @@ import styles from './Navigation.module.scss';
 import TransitionLink from '../TransitionLink/TransitionLink';
 
 const Navigation = () => {
-  const { isLoaded, setNoScroll } = useContext(mainContext);
+  const { isNavigationReady, setNoScroll } = useContext(mainContext);
   const rootRef = useRef();
 
   useGSAP(
     () => {
-      if (isLoaded) {
+      if (isNavigationReady) {
         gsap
-          .timeline({
-            delay: 2,
-          })
+          .timeline()
           .from(rootRef.current, {
             duration: 1,
             autoAlpha: 0,
@@ -36,7 +34,7 @@ const Navigation = () => {
           .add(() => setNoScroll(false));
       }
     },
-    { dependencies: [isLoaded] }
+    { dependencies: [isNavigationReady] }
   );
 
   const onMouseEnter = (e) => {

@@ -6,6 +6,7 @@ export const mainContext = createContext();
 
 const MainProvider = ({ children }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isNavigationReady, setIsNavigationReady] = useState(false);
   const [loadedVideos, setLoadedVideos] = useState({});
   const [noScroll, setNoScroll] = useState(true);
   const [isFocusEntered, setIsFocusEntered] = useState(false);
@@ -35,6 +36,8 @@ const MainProvider = ({ children }) => {
         value={{
           isLoaded,
           setIsLoaded,
+          isNavigationReady,
+          setIsNavigationReady,
           loadedVideos,
           setLoadedVideos,
           noScroll,

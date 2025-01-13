@@ -1,0 +1,124 @@
+@use '@/styles/vars' as *;
+
+.focus {
+  height: 100dvh;
+  background-color: $black;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  -webkit-touch-callout: none;
+}
+
+.content {
+  position: absolute;
+  top: 120px;
+  left: 60px;
+  z-index: 1;
+  visibility: hidden;
+  max-width: 350px;
+  font-size: clamp(14px, 1.3vw, 20px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.3em;
+  color: $bg;
+  & > p {
+    display: none;
+    & > span {
+      opacity: 0;
+    }
+  }
+  &.creativence {
+    & > p[data-name='creativence'] {
+      display: block;
+    }
+  }
+  &.innovis {
+    & > p[data-name='innovis'] {
+      display: block;
+    }
+  }
+
+  @media screen and (max-width: $breakpoint_tablet) {
+    top: 60px;
+    gap: 20px;
+    &__breadcrumbs {
+      max-width: 100%;
+      min-height: auto;
+    }
+    &__list {
+      visibility: hidden;
+    }
+  }
+  @media screen and (max-width: $breakpoint_mobile) {
+    left: 10px;
+    &__breadcrumbs {
+      & > * {
+        font-size: 20px;
+        line-height: 26px;
+      }
+    }
+  }
+}
+
+.scroll {
+  position: absolute;
+  bottom: 120px;
+  left: 60px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: $bg;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px; /* 150% */
+  visibility: hidden;
+  &__line {
+    width: 3px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100px;
+      background-color: $bg;
+      // transform: translate3d(-100%);
+    }
+  }
+}
+
+.click_hold {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 14px; /* 87.5% */
+  color: $yellow;
+  pointer-events: none;
+  transform: translate3D(
+    calc((var(--mouse-x) * 1px) + 1rem),
+    calc((var(--mouse-y) * 1px) + 1rem),
+    0
+  );
+  visibility: hidden;
+  &.disabled {
+    display: none !important;
+  }
+  &__line {
+    position: absolute;
+    top: -12px;
+    left: 0;
+    width: 14px;
+    height: 3px;
+    background-color: $yellow;
+    transform-origin: left;
+  }
+}
