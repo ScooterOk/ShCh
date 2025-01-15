@@ -44,6 +44,7 @@ const FocusOn = () => {
     isHolded,
     setIsHolded,
     isTouched,
+    isTransition,
   } = useContext(mainContext);
   const container = useRef();
   const scrollBarTrigger = useRef();
@@ -211,6 +212,7 @@ const FocusOn = () => {
   // ScrollTrigger FocusOn init
   useGSAP(
     () => {
+      window.scrollTo(0, 0);
       if (lenis) {
         const trigger = ScrollTrigger.getById('focus-on-trigger');
         if (trigger) trigger.kill();

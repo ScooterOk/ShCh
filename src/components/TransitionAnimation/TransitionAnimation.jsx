@@ -3,10 +3,13 @@ import React, { useContext, useEffect, useRef } from 'react';
 
 import styles from './TransitionAnimation.module.scss';
 import gsap from 'gsap';
+import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 
 const TransitionAnimation = () => {
-  const { isTransition } = useContext(mainContext);
+  const { isTransition, setIsLoaded } = useContext(mainContext);
   const backgroundRef = useRef();
+  const router = useRouter();
 
   useEffect(() => {
     if (isTransition) {
@@ -24,7 +27,11 @@ const TransitionAnimation = () => {
       );
 
       gsap
-        .timeline()
+        .timeline({
+          onComplete: () => {
+            router.push(isTransition?.href);
+          },
+        })
         .fromTo(
           row3,
           { scaleX: 0 },
@@ -65,12 +72,15 @@ const TransitionAnimation = () => {
           '-=0.85'
         );
     }
-  }, [isTransition]);
+  }, [isTransition, router, setIsLoaded]);
 
   if (!isTransition) return null;
 
   return (
-    <div ref={backgroundRef} className={styles.background}>
+    <div
+      ref={backgroundRef}
+      className={clsx(styles.background, styles[isTransition?.theme])}
+    >
       <div data-row="0" className={styles.background__row}>
         {Array.from({ length: 11 }).map((_, i) => (
           <div key={`row-0-item-${i}`} />

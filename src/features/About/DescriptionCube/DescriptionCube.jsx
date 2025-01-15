@@ -43,11 +43,12 @@ const DescriptionCube = () => {
     isLoaded,
     setIsFocusEntered,
     setIsInit,
-    currentFocusSlide,
-    setCurrentFocusSlide,
+    currentDescriptionSlide,
+    setCurrentDescriptionSlide,
     isHolded,
     setIsHolded,
     isTouched,
+    isTransition,
   } = useContext(mainContext);
   const container = useRef();
   const scrollBarTrigger = useRef();
@@ -75,7 +76,7 @@ const DescriptionCube = () => {
       overwrite: true,
     });
 
-    setCurrentFocusSlide(0);
+    setCurrentDescriptionSlide(0);
     lenis.slideindex = 0;
     lenis.stop();
     gsap
@@ -132,13 +133,13 @@ const DescriptionCube = () => {
         },
         'finish'
       );
-  }, [lenis, setCurrentFocusSlide, setIsFocusEntered, setIsInit]);
+  }, [lenis, setCurrentDescriptionSlide, setIsFocusEntered, setIsInit]);
 
   const onEnterBack = useCallback(() => {
     if (lenis.slideindex < 2 || gsap.getById('scrollTween')) return;
 
     lenis.stop();
-    setCurrentFocusSlide(1);
+    setCurrentDescriptionSlide(1);
     setCurrentSlideName('motion');
     lenis.slideindex = 1;
     let targets = gsap.utils.toArray([
@@ -191,18 +192,17 @@ const DescriptionCube = () => {
         },
         '-=1'
       );
-  }, [lenis, setCurrentFocusSlide]);
+  }, [lenis, setCurrentDescriptionSlide]);
 
   // ScrollTrigger FocusOn init
   useGSAP(
     () => {
       if (lenis) {
-        const trigger = ScrollTrigger.getById('focus-on-trigger');
-
+        const trigger = ScrollTrigger.getById('description-cube-trigger');
         if (trigger) trigger.kill();
 
         ScrollTrigger.create({
-          id: 'focus-on-trigger',
+          id: 'description-cube-trigger',
           trigger: container.current,
           start: 'top 250px',
           end: 'bottom 100%-=250px',
@@ -212,25 +212,6 @@ const DescriptionCube = () => {
       }
     },
     { dependencies: [lenis, isMobile] }
-  );
-
-  // ScrollTrigger ScrollBar init
-  useGSAP(
-    () => {
-      if (lenis) {
-        ScrollTrigger.create({
-          id: 'scroll-bar-trigger',
-          trigger: scrollBarTrigger.current,
-          start: 'top 50%',
-          end: 'bottom 50%',
-          toggleClass: {
-            targets: document.querySelector('[data-id="scrollbar"]'),
-            className: 'light',
-          },
-        });
-      }
-    },
-    { dependencies: [lenis] }
   );
 
   // OnHold cursor animation
@@ -267,7 +248,7 @@ const DescriptionCube = () => {
   useEffect(() => {
     if (
       !isLoaded ||
-      currentFocusSlide > 2 ||
+      currentDescriptionSlide > 2 ||
       gsap.getById('cubeTweenOnEnter') ||
       prevSlideRef.current === -1
     )
@@ -298,7 +279,7 @@ const DescriptionCube = () => {
         'start'
       );
 
-    if (currentFocusSlide > -1 && currentFocusSlide < 2) {
+    if (currentDescriptionSlide > -1 && currentDescriptionSlide < 2) {
       timeline
         .to(
           cursorRef.current.querySelectorAll('[data-animation]'),
@@ -323,19 +304,19 @@ const DescriptionCube = () => {
           'finish'
         );
     }
-  }, [currentFocusSlide, isLoaded]);
+  }, [currentDescriptionSlide, isLoaded]);
 
   // Slide transitions animation
   useEffect(() => {
     if (prevSlideRef.current === null || gsap.getById('cubeTweenOnEnter'))
       return;
 
-    const isDown = prevSlideRef.current < currentFocusSlide;
+    const isDown = prevSlideRef.current < currentDescriptionSlide;
 
     const currentSlide = isDown
-      ? slides[currentFocusSlide - 1]
-      : slides[currentFocusSlide + 1];
-    const nextSlide = slides[currentFocusSlide];
+      ? slides[currentDescriptionSlide - 1]
+      : slides[currentDescriptionSlide + 1];
+    const nextSlide = slides[currentDescriptionSlide];
 
     const currentTargets = `.${styles.content} > p[data-name=${currentSlide}] span`;
     const nextTargets = `.${styles.content} > p[data-name=${nextSlide}] span`;
@@ -391,7 +372,7 @@ const DescriptionCube = () => {
 
     gsap
       .timeline({
-        onComplete: () => (prevSlideRef.current = currentFocusSlide),
+        onComplete: () => (prevSlideRef.current = currentDescriptionSlide),
       })
       .to(currentTargets, {
         duration: 0.01,
@@ -417,11 +398,11 @@ const DescriptionCube = () => {
         },
       });
     }
-  }, [currentFocusSlide, setIsHolded]);
+  }, [currentDescriptionSlide, setIsHolded]);
 
   const handleClickAndHold = useCallback(
     (e) => {
-      if (currentFocusSlide < 0 || currentFocusSlide > 2) return;
+      if (currentDescriptionSlide < 0 || currentDescriptionSlide > 2) return;
       if (e.type === 'pointerdown') {
         setIsHolded(true);
       }
@@ -429,7 +410,7 @@ const DescriptionCube = () => {
         setIsHolded(false);
       }
     },
-    [currentFocusSlide, setIsHolded]
+    [currentDescriptionSlide, setIsHolded]
   );
 
   const handleMouseMove = useCallback(
@@ -527,7 +508,7 @@ const DescriptionCube = () => {
               cubeRef={cubeRef}
               cameraRef={cameraRef}
               cursorRef={cursorRef}
-              currentSlide={currentFocusSlide}
+              currentSlide={currentDescriptionSlide}
               isHolded={isHolded}
               styles={styles}
             />

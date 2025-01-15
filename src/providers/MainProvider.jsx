@@ -1,6 +1,6 @@
 'use client';
 import clsx from 'clsx';
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useState } from 'react';
 
 export const mainContext = createContext();
 
@@ -11,12 +11,14 @@ const MainProvider = ({ children }) => {
   const [noScroll, setNoScroll] = useState(true);
   const [isFocusEntered, setIsFocusEntered] = useState(false);
   const [currentFocusSlide, setCurrentFocusSlide] = useState(-1);
+  const [currentDescriptionSlide, setCurrentDescriptionSlide] = useState(-1);
   const [isInit, setIsInit] = useState(false);
   const [isHolded, setIsHolded] = useState(null);
-  const { Provider } = mainContext;
   const [isTouched, setIsTouched] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  const [isTransition, setIsTransition] = useState(false);
+  const [isTransition, setIsTransition] = useState(null);
+
+  const { Provider } = mainContext;
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -30,10 +32,23 @@ const MainProvider = ({ children }) => {
     }
   }, []);
 
+  const resetMainProviderData = useCallback(() => {
+    setCurrentFocusSlide(-1);
+    setCurrentDescriptionSlide(-1);
+    setIsLoaded(false);
+    // setIsNavigationReady(false);
+    setNoScroll(true);
+    setIsFocusEntered(false);
+    setIsInit(false);
+    setIsHolded(null);
+    setIsTransition(null);
+  }, []);
+
   return (
     <body className={clsx(!isLoaded && 'no-scroll')}>
       <Provider
         value={{
+          resetMainProviderData,
           isLoaded,
           setIsLoaded,
           isNavigationReady,
@@ -48,6 +63,8 @@ const MainProvider = ({ children }) => {
           setIsInit,
           currentFocusSlide,
           setCurrentFocusSlide,
+          currentDescriptionSlide,
+          setCurrentDescriptionSlide,
           isHolded,
           setIsHolded,
           isTouched,

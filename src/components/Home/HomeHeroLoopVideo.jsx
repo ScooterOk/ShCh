@@ -26,7 +26,7 @@ const HomeHeroLoopVideo = ({ styles }) => {
           .call(() => {
             initVideoRef.current.play();
           });
-        initVideoRef.current.addEventListener(
+        initVideoRef?.current?.addEventListener(
           'ended',
           () => {
             gsap.set(initVideoRef.current, { autoAlpha: 0 });

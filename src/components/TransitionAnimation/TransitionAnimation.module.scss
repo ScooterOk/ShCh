@@ -1,9 +1,25 @@
+@use '@/styles/vars' as *;
+
 .background {
   position: fixed;
   inset: 0;
   z-index: 100;
   display: grid;
   grid-template-rows: repeat(4, 1fr);
+  &.light {
+    .background__row {
+      & > div {
+        background-color: $bg;
+      }
+    }
+  }
+  &.dark {
+    .background__row {
+      & > div {
+        background-color: $black;
+      }
+    }
+  }
   &__row {
     display: grid;
     & > div {

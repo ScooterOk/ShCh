@@ -3,13 +3,12 @@ import React, { useContext, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
-import Link from 'next/link';
-
 import { mainContext } from '@/providers/MainProvider';
 import Music from '@/components/Music';
 
 import styles from './Navigation.module.scss';
 import TransitionLink from '../TransitionLink/TransitionLink';
+import Link from 'next/link';
 
 const Navigation = () => {
   const { isNavigationReady, setNoScroll } = useContext(mainContext);
@@ -69,13 +68,18 @@ const Navigation = () => {
       {/* <Music /> */}
       <ul>
         <li>
-          <Link className={styles.active} href={'/'}>
+          <TransitionLink
+            className={styles.active}
+            href={'/'}
+            theme="light"
+            onMouseEnter={onMouseEnter}
+          >
             {Array.from('Home').map((l, i) => (
               <span data-animation key={`name-${l}-${i}-${l}`}>
                 {l}
               </span>
             ))}
-          </Link>
+          </TransitionLink>
         </li>
         <li>
           <TransitionLink href={'/works'} onMouseEnter={onMouseEnter}>
@@ -87,13 +91,17 @@ const Navigation = () => {
           </TransitionLink>
         </li>
         <li>
-          <Link href={'/about'} onMouseEnter={onMouseEnter}>
+          <TransitionLink
+            href={'/about'}
+            theme="dark"
+            onMouseEnter={onMouseEnter}
+          >
             {Array.from('About').map((l, i) => (
               <span data-animation key={`name-${l}-${i}-${l}`}>
                 {l}
               </span>
             ))}
-          </Link>
+          </TransitionLink>
         </li>
         <li>
           <Link href={'/'} onMouseEnter={onMouseEnter}>

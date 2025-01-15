@@ -1,5 +1,5 @@
 'use client';
-import React, { useCallback, useContext, useRef } from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { mainContext } from '@/providers/MainProvider';
 import Loader from '@/components/Loader/Loader';
 import Hero from '@/features/About/Hero/Hero';
@@ -32,17 +32,29 @@ let scrollTweenActive = false;
 const About = () => {
   const cubeRef = useRef();
   const mainContainerRef = useRef();
-  const { isLoaded, noScroll, setCurrentFocusSlide, setIsInit, setIsHolded } =
-    useContext(mainContext);
+  const scrollBarTrigger = useRef();
+
+  const {
+    isLoaded,
+    noScroll,
+    setCurrentDescriptionSlide,
+    setIsInit,
+    setIsHolded,
+    resetMainProviderData,
+  } = useContext(mainContext);
   const lenis = useLenis();
 
   const { isMobile } = useMobile();
 
+  useEffect(() => {
+    return () => resetMainProviderData();
+  }, [resetMainProviderData, setCurrentDescriptionSlide]);
+
   const handleChangeSlide = useCallback(
     (index) => {
-      setCurrentFocusSlide(index);
+      setCurrentDescriptionSlide(index);
     },
-    [setCurrentFocusSlide]
+    [setCurrentDescriptionSlide]
   );
 
   const handleUp = useCallback(() => {
@@ -111,10 +123,30 @@ const About = () => {
     }
   }, [handleChangeSlide, lenis, noScroll]);
 
+  // Scrollbar trigger init
+  useGSAP(
+    () => {
+      if (lenis) {
+        ScrollTrigger.create({
+          id: 'scroll-bar-trigger',
+          trigger: scrollBarTrigger.current,
+          start: 'top 50%',
+          end: 'bottom 50%',
+          toggleClass: {
+            targets: document.querySelector('[data-id="scrollbar"]'),
+            className: 'light',
+          },
+        });
+      }
+    },
+    { dependencies: [lenis] }
+  );
+
   // Scroll observer init hook
   useGSAP(
     () => {
       if (lenis) {
+        Observer.getById('scroll-trigger-observe')?.kill();
         lenis.slideindex = -1;
         // let scrollTweenActive = false;
         lenis.stop();
@@ -144,12 +176,14 @@ const About = () => {
 
   return (
     <main ref={mainContainerRef} className={styles.about}>
-      <Hero />
-      <Description />
-      <div ref={cubeRef}>
-        <DescriptionCube />
+      <div ref={scrollBarTrigger}>
+        <Hero />
+        <Description />
+        <div ref={cubeRef}>
+          <DescriptionCube />
+        </div>
+        <Recognition />
       </div>
-      <Recognition />
       <Footer className={styles.footer} />
       {!isLoaded && <Loader videolist={videolist} theme="dark" />}
     </main>

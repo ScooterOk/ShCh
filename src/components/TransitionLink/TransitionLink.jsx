@@ -3,16 +3,16 @@ import React, { useContext } from 'react';
 
 import { mainContext } from '@/providers/MainProvider';
 
-const TransitionLink = ({ href, children }) => {
+const TransitionLink = ({ href, children, theme = 'light', ...props }) => {
   const { setIsTransition } = useContext(mainContext);
 
   const handleClick = (e) => {
     e.preventDefault();
-    setIsTransition(true);
+    setIsTransition({ href, theme });
   };
 
   return (
-    <Link href={href} onClick={handleClick}>
+    <Link href={href} onClick={handleClick} {...props}>
       {children}
     </Link>
   );

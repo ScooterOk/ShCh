@@ -6,7 +6,7 @@ import { CubeCamera, useAnimations, useGLTF } from '@react-three/drei';
 
 const CreativenceObjects = ({ isHolded }) => {
   // Fetch model and a separate texture
-  const { isInit, currentFocusSlide } = useContext(mainContext);
+  const { isInit, currentDescriptionSlide } = useContext(mainContext);
   const model = useGLTF('/models/about_creativence.gltf');
 
   const { scene, animations, nodes } = model;
@@ -22,7 +22,7 @@ const CreativenceObjects = ({ isHolded }) => {
 
   // Scroll trigger animation
   useEffect(() => {
-    if (isHolded !== null && currentFocusSlide === 0) {
+    if (isHolded !== null && currentDescriptionSlide === 0) {
       for (let i in nodes) {
         if (
           i === 'sceneWEB' ||
@@ -57,14 +57,14 @@ const CreativenceObjects = ({ isHolded }) => {
         continue;
       gsap.to(nodes[i].scale, {
         duration: 0.5,
-        delay: currentFocusSlide === 0 ? 0.5 : 0,
-        x: currentFocusSlide === 0 ? 1 : 0,
-        y: currentFocusSlide === 0 ? 1 : 0,
-        z: currentFocusSlide === 0 ? 1 : 0,
-        ease: currentFocusSlide === 0 ? 'power3.out' : 'power3.in',
+        delay: currentDescriptionSlide === 0 ? 0.5 : 0,
+        x: currentDescriptionSlide === 0 ? 1 : 0,
+        y: currentDescriptionSlide === 0 ? 1 : 0,
+        z: currentDescriptionSlide === 0 ? 1 : 0,
+        ease: currentDescriptionSlide === 0 ? 'power3.out' : 'power3.in',
       });
     }
-  }, [currentFocusSlide, nodes]);
+  }, [currentDescriptionSlide, nodes]);
 
   // Init animation
   // useEffect(() => {

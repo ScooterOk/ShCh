@@ -5,7 +5,7 @@ import { mainContext } from '@/providers/MainProvider';
 import { CubeCamera, useAnimations, useGLTF } from '@react-three/drei';
 
 const MotionObjects = ({ isHolded }) => {
-  const { currentFocusSlide } = useContext(mainContext);
+  const { currentDescriptionSlide } = useContext(mainContext);
 
   // Fetch model and a separate texture
   const model = useGLTF('/models/03_motion_objects.gltf');
@@ -22,7 +22,7 @@ const MotionObjects = ({ isHolded }) => {
 
   // Scroll trigger animation
   useEffect(() => {
-    if (isHolded !== null && currentFocusSlide === 2) {
+    if (isHolded !== null && currentDescriptionSlide === 2) {
       for (let i in nodes) {
         if (i === 'Null' || i === 'Null1') continue;
         gsap.to(nodes[i].scale, {
@@ -42,14 +42,14 @@ const MotionObjects = ({ isHolded }) => {
       if (i === 'Null' || i === 'Null1') continue;
       gsap.to(nodes[i].scale, {
         duration: 0.5,
-        delay: currentFocusSlide === 2 ? 0.5 : 0,
-        x: currentFocusSlide === 2 ? 1 : 0,
-        y: currentFocusSlide === 2 ? 1 : 0,
-        z: currentFocusSlide === 2 ? 1 : 0,
-        ease: currentFocusSlide === 2 ? 'power3.out' : 'power3.in',
+        delay: currentDescriptionSlide === 2 ? 0.5 : 0,
+        x: currentDescriptionSlide === 2 ? 1 : 0,
+        y: currentDescriptionSlide === 2 ? 1 : 0,
+        z: currentDescriptionSlide === 2 ? 1 : 0,
+        ease: currentDescriptionSlide === 2 ? 'power3.out' : 'power3.in',
       });
     }
-  }, [currentFocusSlide, nodes]);
+  }, [currentDescriptionSlide, nodes]);
 
   return (
     <group

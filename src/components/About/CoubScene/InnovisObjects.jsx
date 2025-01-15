@@ -5,7 +5,7 @@ import gsap from 'gsap';
 import { Color } from 'three';
 
 const InnovisObjects = ({ isHolded }) => {
-  const { currentFocusSlide } = useContext(mainContext);
+  const { currentDescriptionSlide } = useContext(mainContext);
 
   // Fetch model and a separate texture
   const model = useGLTF('/models/about_innovis.gltf');
@@ -23,7 +23,7 @@ const InnovisObjects = ({ isHolded }) => {
 
   // Scroll trigger animation
   useEffect(() => {
-    if (isHolded !== null && currentFocusSlide === 1) {
+    if (isHolded !== null && currentDescriptionSlide === 1) {
       for (let i in nodes) {
         if (i === 'Null3' || i === 'Null4') continue;
         gsap.to(nodes[i].scale, {
@@ -44,14 +44,14 @@ const InnovisObjects = ({ isHolded }) => {
       if (i === 'Null3' || i === 'Null4') continue;
       gsap.to(nodes[i].scale, {
         duration: 0.5,
-        delay: currentFocusSlide === 1 ? 0.5 : 0,
-        x: currentFocusSlide === 1 ? 1 : 0,
-        y: currentFocusSlide === 1 ? 1 : 0,
-        z: currentFocusSlide === 1 ? 1 : 0,
-        ease: currentFocusSlide === 1 ? 'power3.out' : 'power3.in',
+        delay: currentDescriptionSlide === 1 ? 0.5 : 0,
+        x: currentDescriptionSlide === 1 ? 1 : 0,
+        y: currentDescriptionSlide === 1 ? 1 : 0,
+        z: currentDescriptionSlide === 1 ? 1 : 0,
+        ease: currentDescriptionSlide === 1 ? 'power3.out' : 'power3.in',
       });
     }
-  }, [currentFocusSlide, nodes]);
+  }, [currentDescriptionSlide, nodes]);
 
   return (
     <group
