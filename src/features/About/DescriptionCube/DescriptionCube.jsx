@@ -48,7 +48,6 @@ const DescriptionCube = () => {
     isHolded,
     setIsHolded,
     isTouched,
-    isTransition,
   } = useContext(mainContext);
   const container = useRef();
   const scrollBarTrigger = useRef();
@@ -261,6 +260,7 @@ const DescriptionCube = () => {
         {
           duration: 0.01,
           opacity: 0,
+          overwrite: true,
           stagger: {
             each: 0.03,
             grid: 'auto',
@@ -275,6 +275,7 @@ const DescriptionCube = () => {
           scaleX: 0,
           duration: 0.5,
           ease: 'power2.in',
+          overwrite: true,
         },
         'start'
       );
@@ -402,7 +403,7 @@ const DescriptionCube = () => {
 
   const handleClickAndHold = useCallback(
     (e) => {
-      if (currentDescriptionSlide < 0 || currentDescriptionSlide > 2) return;
+      if (currentDescriptionSlide < 0 || currentDescriptionSlide > 1) return;
       if (e.type === 'pointerdown') {
         setIsHolded(true);
       }
