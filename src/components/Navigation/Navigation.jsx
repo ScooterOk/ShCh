@@ -8,11 +8,16 @@ import Music from '@/components/Music';
 
 import styles from './Navigation.module.scss';
 import TransitionLink from '../TransitionLink/TransitionLink';
-import Link from 'next/link';
+
+import { usePathname } from 'next/navigation';
+import routerConfig from '@/configs/router';
+import clsx from 'clsx';
 
 const Navigation = () => {
   const { isNavigationReady, setNoScroll } = useContext(mainContext);
   const rootRef = useRef();
+
+  const pathname = usePathname();
 
   useGSAP(
     () => {
@@ -67,51 +72,22 @@ const Navigation = () => {
       {/* TODO: Turn on music */}
       {/* <Music /> */}
       <ul>
-        <li>
-          <TransitionLink
-            className={styles.active}
-            href={'/'}
-            theme="light"
-            onMouseEnter={onMouseEnter}
-          >
-            {Array.from('Home').map((l, i) => (
-              <span data-animation key={`name-${l}-${i}-${l}`}>
-                {l}
-              </span>
-            ))}
-          </TransitionLink>
-        </li>
-        <li>
-          <TransitionLink href={'/works'} onMouseEnter={onMouseEnter}>
-            {Array.from('Work').map((l, i) => (
-              <span data-animation key={`name-${l}-${i}-${l}`}>
-                {l}
-              </span>
-            ))}
-          </TransitionLink>
-        </li>
-        <li>
-          <TransitionLink
-            href={'/about'}
-            theme="dark"
-            onMouseEnter={onMouseEnter}
-          >
-            {Array.from('About').map((l, i) => (
-              <span data-animation key={`name-${l}-${i}-${l}`}>
-                {l}
-              </span>
-            ))}
-          </TransitionLink>
-        </li>
-        <li>
-          <Link href={'/'} onMouseEnter={onMouseEnter}>
-            {Array.from('Contact').map((l, i) => (
-              <span data-animation key={`name-${l}-${i}-${l}`}>
-                {l}
-              </span>
-            ))}
-          </Link>
-        </li>
+        {Object.values(routerConfig).map((route) => (
+          <li key={`navigation-${route.id}`}>
+            <TransitionLink
+              className={clsx(route.href === pathname && styles.active)}
+              href={route.href}
+              theme={route.theme}
+              onMouseEnter={onMouseEnter}
+            >
+              {Array.from(route.title).map((l, i) => (
+                <span data-animation key={`name-${l}-${i}-${l}`}>
+                  {l}
+                </span>
+              ))}
+            </TransitionLink>
+          </li>
+        ))}
       </ul>
     </div>
   );
