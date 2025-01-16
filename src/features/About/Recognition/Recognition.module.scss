@@ -66,4 +66,19 @@
       }
     }
   }
+
+  // Tablet styles
+  @media screen and (max-width: $breakpoint_tablet) {
+    padding: 40px;
+    .gallery {
+      margin-top: 80px;
+      gap: 40px;
+      &__images {
+        width: 45%;
+      }
+      &__list {
+        width: 55%;
+      }
+    }
+  }
 }
