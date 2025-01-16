@@ -37,4 +37,11 @@
       background-color: $bg;
     }
   }
+  @media screen and (max-width: $breakpoint_tablet) {
+    padding: 40px;
+    .text {
+      padding-left: 15px;
+      width: 50%;
+    }
+  }
 }
