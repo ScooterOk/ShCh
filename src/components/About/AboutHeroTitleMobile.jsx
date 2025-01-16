@@ -12,7 +12,7 @@ const animatingNodes = {};
 
 const { duration, easeEnter, easeLeave } = configs;
 
-const AboutHeroTitle = () => {
+const AboutHeroTitleMobile = () => {
   const [widthScale, setWidthScale] = useState(1);
   const [modelDimensions, setModelDimensions] = useState({
     width: 0,
@@ -24,7 +24,7 @@ const AboutHeroTitle = () => {
 
   const action = useRef(null);
 
-  const model = useGLTF('/models/about_digital_art_director.gltf');
+  const model = useGLTF('/models/about_digital_art_director_mob.gltf');
 
   const { animations, nodes } = model;
   const material = new THREE.MeshBasicMaterial({ color: 0x9b9b88 });
@@ -84,7 +84,7 @@ const AboutHeroTitle = () => {
   }, [ref]);
 
   useEffect(() => {
-    const w = (viewport.width / modelDimensions.width) * 1.096;
+    const w = (viewport.width / modelDimensions.width) * 1.165;
     setWidthScale(w);
   }, [modelDimensions.width, viewport.width]);
 
@@ -126,9 +126,9 @@ const AboutHeroTitle = () => {
   };
 
   return (
-    <group ref={ref} dispose={null} position={[0, 0, 0]} scale={widthScale}>
+    <group ref={ref} dispose={null} position={[1, 0, 0]} scale={widthScale}>
       <group>
-        <group position={[0.09, -0.012, 0]} scale={0.047}>
+        <group name="Null" position={[0.09, -0.012, 0]} scale={0.047}>
           <mesh
             name="r"
             castShadow
@@ -138,8 +138,6 @@ const AboutHeroTitle = () => {
             morphTargetDictionary={nodes.r.morphTargetDictionary}
             morphTargetInfluences={nodes.r.morphTargetInfluences}
             position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
           />
           <mesh
             name="e"
@@ -150,8 +148,6 @@ const AboutHeroTitle = () => {
             morphTargetDictionary={nodes.e.morphTargetDictionary}
             morphTargetInfluences={nodes.e.morphTargetInfluences}
             position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
           />
           <mesh
             name="n"
@@ -162,8 +158,6 @@ const AboutHeroTitle = () => {
             morphTargetDictionary={nodes.n.morphTargetDictionary}
             morphTargetInfluences={nodes.n.morphTargetInfluences}
             position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
           />
           <mesh
             name="g"
@@ -174,8 +168,6 @@ const AboutHeroTitle = () => {
             morphTargetDictionary={nodes.g.morphTargetDictionary}
             morphTargetInfluences={nodes.g.morphTargetInfluences}
             position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
           />
           <mesh
             name="i"
@@ -186,8 +178,6 @@ const AboutHeroTitle = () => {
             morphTargetDictionary={nodes.i.morphTargetDictionary}
             morphTargetInfluences={nodes.i.morphTargetInfluences}
             position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
           />
           <mesh
             name="s"
@@ -198,8 +188,6 @@ const AboutHeroTitle = () => {
             morphTargetDictionary={nodes.s.morphTargetDictionary}
             morphTargetInfluences={nodes.s.morphTargetInfluences}
             position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
           />
           <mesh
             name="e_1"
@@ -210,8 +198,6 @@ const AboutHeroTitle = () => {
             morphTargetDictionary={nodes.e_1.morphTargetDictionary}
             morphTargetInfluences={nodes.e_1.morphTargetInfluences}
             position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
           />
           <mesh
             name="d"
@@ -222,8 +208,6 @@ const AboutHeroTitle = () => {
             morphTargetDictionary={nodes.d.morphTargetDictionary}
             morphTargetInfluences={nodes.d.morphTargetInfluences}
             position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
           />
           <mesh
             name="t"
@@ -233,9 +217,7 @@ const AboutHeroTitle = () => {
             material={material}
             morphTargetDictionary={nodes.t.morphTargetDictionary}
             morphTargetInfluences={nodes.t.morphTargetInfluences}
-            position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-44.509, -14.116, 0]}
           />
           <mesh
             name="r_1"
@@ -245,9 +227,7 @@ const AboutHeroTitle = () => {
             material={material}
             morphTargetDictionary={nodes.r_1.morphTargetDictionary}
             morphTargetInfluences={nodes.r_1.morphTargetInfluences}
-            position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-44.509, -14.116, 0]}
           />
           <mesh
             name="a"
@@ -257,9 +237,7 @@ const AboutHeroTitle = () => {
             material={material}
             morphTargetDictionary={nodes.a.morphTargetDictionary}
             morphTargetInfluences={nodes.a.morphTargetInfluences}
-            position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-44.509, -14.116, 0]}
           />
           <mesh
             name="l"
@@ -269,9 +247,7 @@ const AboutHeroTitle = () => {
             material={material}
             morphTargetDictionary={nodes.l.morphTargetDictionary}
             morphTargetInfluences={nodes.l.morphTargetInfluences}
-            position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-49.056, -14.116, 0]}
           />
           <mesh
             name="a_1"
@@ -281,9 +257,7 @@ const AboutHeroTitle = () => {
             material={material}
             morphTargetDictionary={nodes.a_1.morphTargetDictionary}
             morphTargetInfluences={nodes.a_1.morphTargetInfluences}
-            position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-49.056, -14.116, 0]}
           />
           <mesh
             name="t_1"
@@ -293,9 +267,7 @@ const AboutHeroTitle = () => {
             material={material}
             morphTargetDictionary={nodes.t_1.morphTargetDictionary}
             morphTargetInfluences={nodes.t_1.morphTargetInfluences}
-            position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-49.056, -14.116, 0]}
           />
           <mesh
             name="i_1"
@@ -305,9 +277,7 @@ const AboutHeroTitle = () => {
             material={material}
             morphTargetDictionary={nodes.i_1.morphTargetDictionary}
             morphTargetInfluences={nodes.i_1.morphTargetInfluences}
-            position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-49.056, -14.116, 0]}
           />
           <mesh
             name="g_1"
@@ -317,9 +287,7 @@ const AboutHeroTitle = () => {
             material={material}
             morphTargetDictionary={nodes.g_1.morphTargetDictionary}
             morphTargetInfluences={nodes.g_1.morphTargetInfluences}
-            position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-49.056, -14.116, 0]}
           />
           <mesh
             name="i_2"
@@ -329,9 +297,7 @@ const AboutHeroTitle = () => {
             material={material}
             morphTargetDictionary={nodes.i_2.morphTargetDictionary}
             morphTargetInfluences={nodes.i_2.morphTargetInfluences}
-            position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-49.056, -14.116, 0]}
           />
           <mesh
             name="d_1"
@@ -341,9 +307,7 @@ const AboutHeroTitle = () => {
             material={material}
             morphTargetDictionary={nodes.d_1.morphTargetDictionary}
             morphTargetInfluences={nodes.d_1.morphTargetInfluences}
-            position={[-24.947, -14.116, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-49.056, -14.116, 0]}
           />
         </group>
       </group>
@@ -351,4 +315,4 @@ const AboutHeroTitle = () => {
   );
 };
 
-export default AboutHeroTitle;
+export default AboutHeroTitleMobile;

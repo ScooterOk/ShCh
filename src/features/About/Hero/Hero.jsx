@@ -5,12 +5,16 @@ import AboutHeroTitle from '@/components/About/AboutHeroTitle';
 import { mainContext } from '@/providers/MainProvider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import useMobile from '@/hooks/useMobile';
+import AboutHeroTitleMobile from '@/components/About/AboutHeroTitleMobile';
 
 const Hero = () => {
   const { isLoaded, loadedVideos, setNoScroll, setIsNavigationReady } =
     useContext(mainContext);
   const videoRef = useRef();
   const canvas = useRef();
+
+  const { isMobile } = useMobile();
 
   useGSAP(
     () => {
@@ -39,6 +43,8 @@ const Hero = () => {
     },
     { dependencies: [isLoaded] }
   );
+
+  console.log('isMobile', isMobile);
 
   return (
     <div className={styles.hero}>
@@ -69,20 +75,29 @@ const Hero = () => {
           )}
         </div>
         <div className={styles.title__name}>
-          <p>
-            {Array.from('Serhii Churilov').map((l, i) => (
+          <div className={styles.title__name_text}>
+            <p>
+              {Array.from('Serhii Churilov').map((l, i) => (
+                <span data-animation key={`name-${l}-${i}-${l}`}>
+                  {l}
+                </span>
+              ))}
+            </p>
+            <p>
+              {Array.from('is a freelance').map((l, i) => (
+                <span data-animation key={`name-${l}-${i}-${l}`}>
+                  {l}
+                </span>
+              ))}
+            </p>
+          </div>
+          <div className={styles.open}>
+            {Array.from('Open to work').map((l, i) => (
               <span data-animation key={`name-${l}-${i}-${l}`}>
                 {l}
               </span>
             ))}
-          </p>
-          <p>
-            {Array.from('is a freelance').map((l, i) => (
-              <span data-animation key={`name-${l}-${i}-${l}`}>
-                {l}
-              </span>
-            ))}
-          </p>
+          </div>
         </div>
         <div className={styles.title__director}>
           {Array.from('Director &').map((l, i) => (
@@ -98,7 +113,12 @@ const Hero = () => {
             gl={{ stencil: true }}
           >
             <Suspense fallback={null}>
-              <AboutHeroTitle />
+              <group scale={isMobile ? 0 : 1}>
+                <AboutHeroTitle />
+              </group>
+              <group scale={isMobile ? 1 : 0}>
+                <AboutHeroTitleMobile />
+              </group>
             </Suspense>
           </Canvas>
         </div>
