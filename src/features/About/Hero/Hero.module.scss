@@ -93,6 +93,11 @@
           }
         }
       }
+      &__director {
+        top: auto;
+        bottom: 18.5%;
+        left: 65.8%;
+      }
       &__canvas {
         height: 46.5vw;
         margin-top: calc(40px - (($breakpoint_tablet - 100vw) * 0.029));
