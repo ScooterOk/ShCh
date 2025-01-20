@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import clsx from 'clsx';
 import gsap from 'gsap';
@@ -6,31 +6,100 @@ import gsap from 'gsap';
 import certificates from '@/configs/certificates';
 
 import styles from './Recognition.module.scss';
+import { useMediaQuery } from 'usehooks-ts';
+import { useGSAP } from '@gsap/react';
+import { useLenis } from 'lenis/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const Gallery = ({ imagesListRef, lineRef }) => {
   const [activeList, setActiveList] = useState(certificates.map(() => false));
 
-  const handleHover = (e) => {
-    const isEnter = e.type === 'pointerenter';
-    const index = Number(e.currentTarget.dataset.index);
-    const image = imagesListRef.current.querySelector(
-      `[data-index="${index}"]`
-    );
+  const listRef = useRef();
 
-    setActiveList((prev) => {
-      const list = [...prev];
-      list[index] = isEnter;
-      return list;
-    });
-    gsap.to(image, {
-      duration: 1,
-      clipPath: isEnter
-        ? 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)'
-        : 'polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%)',
-      ease: 'power2.inOut',
-      overwrite: true,
-    });
-  };
+  const lenis = useLenis();
+
+  const isMobile = useMediaQuery('(max-width: 576px)');
+
+  useGSAP(
+    () => {
+      if (lenis) {
+        const list = listRef.current.querySelectorAll('li[data-index]');
+        list.forEach((item, index) => {
+          const trigger = ScrollTrigger.getById(
+            `mobile-gallery-trigger-${index}`
+          );
+          console.log('trigger', trigger);
+          if (trigger) {
+            if (isMobile) {
+              trigger.enable();
+            } else {
+              trigger.disable();
+            }
+          } else {
+            if (!isMobile) return;
+            ScrollTrigger.create({
+              id: `mobile-gallery-trigger-${index}`,
+              trigger: item,
+              start: 'top 50%',
+              end: 'bottom 50%',
+              disable: true,
+              toggleClass: {
+                targets: item,
+                className: 'active',
+              },
+              onToggle: (self) => {
+                const isEnter = self.isActive;
+                const image = imagesListRef.current.querySelector(
+                  `[data-index="${index}"]`
+                );
+
+                setActiveList((prev) => {
+                  const list = [...prev];
+                  list[index] = isEnter;
+                  return list;
+                });
+                gsap.to(image, {
+                  duration: 1,
+                  clipPath: isEnter
+                    ? 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)'
+                    : 'polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%)',
+                  ease: 'power2.inOut',
+                  overwrite: true,
+                });
+              },
+            });
+          }
+        });
+      }
+    },
+    { dependencies: [lenis, isMobile] }
+  );
+
+  const handleHover = useCallback(
+    (e) => {
+      if (isMobile) return;
+      const isEnter = e.type === 'pointerenter';
+      const index = Number(e.currentTarget.dataset.index);
+      const image = imagesListRef.current.querySelector(
+        `[data-index="${index}"]`
+      );
+
+      setActiveList((prev) => {
+        const list = [...prev];
+        list[index] = isEnter;
+        return list;
+      });
+      gsap.to(image, {
+        duration: 1,
+        clipPath: isEnter
+          ? 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)'
+          : 'polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%)',
+        ease: 'power2.inOut',
+        overwrite: true,
+      });
+    },
+    [imagesListRef, isMobile]
+  );
 
   return (
     <div className={styles.gallery}>
@@ -64,7 +133,7 @@ const Gallery = ({ imagesListRef, lineRef }) => {
             ))}
           </p>
         </div>
-        <ul className={styles.gallery__list_items}>
+        <ul className={styles.gallery__list_items} ref={listRef}>
           {certificates.map((item, i) => (
             <li
               key={item.img}
