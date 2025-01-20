@@ -28,7 +28,6 @@ const Gallery = ({ imagesListRef, lineRef }) => {
           const trigger = ScrollTrigger.getById(
             `mobile-gallery-trigger-${index}`
           );
-          console.log('trigger', trigger);
           if (trigger) {
             if (isMobile) {
               trigger.enable();

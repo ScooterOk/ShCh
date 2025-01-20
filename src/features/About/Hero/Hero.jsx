@@ -44,8 +44,6 @@ const Hero = () => {
     { dependencies: [isLoaded] }
   );
 
-  console.log('isMobile', isMobile);
-
   return (
     <div className={styles.hero}>
       <div className={styles.open}>
