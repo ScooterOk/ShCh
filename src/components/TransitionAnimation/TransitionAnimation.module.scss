@@ -38,5 +38,19 @@
     &:nth-child(4) {
       grid-template-columns: var(--row-4);
     }
+    @media screen and (max-width: $breakpoint_tablet) {
+      &:nth-child(1) {
+        grid-template-columns: var(--row-mobile-1);
+      }
+      &:nth-child(2) {
+        grid-template-columns: var(--row-mobile-2);
+      }
+      &:nth-child(3) {
+        grid-template-columns: var(--row-mobile-3);
+      }
+      &:nth-child(4) {
+        grid-template-columns: var(--row-mobile-4);
+      }
+    }
   }
 }
