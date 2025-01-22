@@ -17,6 +17,7 @@ import Footer from '@/components/Footer/Footer';
 import styles from './page.module.scss';
 import { Observer } from 'gsap/Observer';
 import useMobile from '@/hooks/useMobile';
+import AllWorks from '@/features/Homepage/AllWorks/AllWorks';
 
 let cubeRotationActive = false;
 let scrollTweenActive = false;
@@ -29,6 +30,7 @@ const videolist = [
   '/video/_CUBE_02_full.mp4',
   '/video/_CUBE_03_full.mp4',
   '/video/CUBE_04_loop.mp4',
+  '/video/allworks.mp4',
 ];
 
 export default function Home() {
@@ -217,6 +219,7 @@ export default function Home() {
         <FocusOn />
       </div>
       <Works />
+      <AllWorks />
       <Follow />
       <Footer />
       {!isLoaded && <Loader videolist={videolist} />}
