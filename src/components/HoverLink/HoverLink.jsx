@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import styles from './HoverLink.module.scss';
 import clsx from 'clsx';
 import gsap from 'gsap';
+import { handleHoverSound } from '@/services';
 
 const random = Math.random();
 
@@ -15,8 +16,13 @@ const HoverLink = ({
   line = true,
 }) => {
   const linkRef = useRef();
+
   const onMouseEnter = (e) => {
     const currentTargets = linkRef.current.querySelectorAll('span');
+
+    // Play hover sound
+    handleHoverSound();
+
     if (e.type === 'mouseenter') {
       gsap
         .timeline()

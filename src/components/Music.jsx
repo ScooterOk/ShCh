@@ -6,6 +6,7 @@ import { mainContext } from '@/providers/MainProvider';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import useMobile from '@/hooks/useMobile';
+import { handleHoverSound } from '@/services';
 
 const defaultVolume = 0.5;
 
@@ -47,7 +48,7 @@ const Music = () => {
             audioContext.resume();
             if (!isMobile) {
               gsap.to(audioRef.current, {
-                volume: 1,
+                volume: defaultVolume,
                 duration: 10,
                 onStart: () => {
                   // audioRef.current.play();
@@ -66,7 +67,7 @@ const Music = () => {
 
   useEffect(() => {
     gsap.to(audioRef.current, {
-      volume: isMuted ? 0 : 1,
+      volume: isMuted ? 0 : defaultVolume,
       duration: 3,
       overwrite: true,
       onStart: () => {
@@ -97,6 +98,9 @@ const Music = () => {
 
   const handleHover = (e) => {
     if (e.type === 'mouseenter') {
+      // Play hover sound
+      handleHoverSound();
+
       gsap.to(params, {
         color: '#000000',
         duration: 0.75,

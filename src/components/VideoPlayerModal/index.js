@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import { IconClose, IconPause, IconPlay } from '../icons';
 import SoundButton from '../SoundButton/SoundButton';
 import { mainContext } from '@/providers/MainProvider';
+import { handleHoverSound } from '@/services';
 
 const position = {
   x: 0,
@@ -208,6 +209,9 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
       ? cursorPauseRef.current.querySelectorAll('span')
       : cursorPlayRef.current.querySelectorAll('span');
     if (e.type === 'mouseenter') {
+      // Play hover sound
+      handleHoverSound();
+
       gsap.to(currentTargets, {
         duration: 0.1,
         opacity: 0,

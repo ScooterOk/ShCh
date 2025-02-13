@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ScrollToPlugin from 'gsap/ScrollToPlugin';
 import ScrollBar from '@/components/ScrollBar/ScrollBar';
 import TransitionAnimation from '@/components/TransitionAnimation/TransitionAnimation';
+import HoverSound from '@/components/HoverSound';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -31,6 +32,7 @@ const Layout = ({ children }) => {
       <TransitionAnimation />
       <Navigation />
       <ScrollBar />
+      <HoverSound />
       {children}
     </ReactLenis>
   );

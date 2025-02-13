@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import clsx from 'clsx';
 import gsap from 'gsap';
@@ -10,6 +10,7 @@ import { useMediaQuery } from 'usehooks-ts';
 import { useGSAP } from '@gsap/react';
 import { useLenis } from 'lenis/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { handleHoverSound } from '@/services';
 
 const Gallery = ({ imagesListRef, lineRef }) => {
   const [activeList, setActiveList] = useState(certificates.map(() => false));
@@ -82,6 +83,9 @@ const Gallery = ({ imagesListRef, lineRef }) => {
       const image = imagesListRef.current.querySelector(
         `[data-index="${index}"]`
       );
+
+      // Play hover sound
+      handleHoverSound();
 
       setActiveList((prev) => {
         const list = [...prev];

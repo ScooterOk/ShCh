@@ -12,6 +12,7 @@ import TransitionLink from '../TransitionLink/TransitionLink';
 import { usePathname } from 'next/navigation';
 import routerConfig from '@/configs/router';
 import clsx from 'clsx';
+import { handleHoverSound } from '@/services';
 
 const Navigation = () => {
   const { isNavigationReady, setNoScroll } = useContext(mainContext);
@@ -43,6 +44,10 @@ const Navigation = () => {
 
   const onMouseEnter = (e) => {
     const currentTargets = e.currentTarget.querySelectorAll('span');
+
+    // Play hover sound
+    handleHoverSound();
+
     if (e.type === 'mouseenter') {
       gsap
         .timeline()

@@ -31,6 +31,7 @@ const videolist = [
   '/video/_CUBE_03_full.mp4',
   '/video/CUBE_04_loop.mp4',
   '/video/allworks.mp4',
+  '/video/audio_hover.mp3',
 ];
 
 export default function Home() {
