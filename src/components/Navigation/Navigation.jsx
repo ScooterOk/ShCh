@@ -70,7 +70,7 @@ const Navigation = () => {
   return (
     <div ref={rootRef} className={styles.navigation}>
       {/* TODO: Turn on music */}
-      {/* <Music /> */}
+      <Music />
       <ul>
         {Object.values(routerConfig).map((route) => (
           <li key={`navigation-${route.id}`}>

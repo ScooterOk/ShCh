@@ -7,6 +7,8 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import useMobile from '@/hooks/useMobile';
 
+const defaultVolume = 0.5;
+
 let audioContext;
 let lowPassFilter;
 
@@ -21,13 +23,14 @@ let params = {
 const Music = () => {
   const [color, setColor] = useState(params.color);
   const { isLoaded, isHolded, isMuted, setIsMuted } = useContext(mainContext);
+  const [isMusicInit, setIsMusicInit] = useState(false);
   const audioRef = useRef();
 
   const { isMobile } = useMobile();
 
   useGSAP(
     () => {
-      if (isLoaded) {
+      if (isLoaded && !isMusicInit) {
         audioRef.current.volume = 0;
         document.addEventListener(
           'click',
@@ -52,12 +55,13 @@ const Music = () => {
                 },
               });
             }
+            setIsMusicInit(true);
           },
           { once: true }
         );
       }
     },
-    { dependencies: [isLoaded] }
+    { dependencies: [isLoaded, isMusicInit] }
   );
 
   useEffect(() => {
@@ -124,7 +128,7 @@ const Music = () => {
       <audio
         id="background-song"
         ref={audioRef}
-        loop="true"
+        loop={true}
         preload="true"
         src="/song_V2.mp3"
       />
