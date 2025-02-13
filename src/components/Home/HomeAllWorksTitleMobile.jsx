@@ -12,7 +12,7 @@ import configs from '@/configs/titlesAnimation';
 const { duration, easeEnter, easeLeave } = configs;
 const animatingNodes = {};
 
-const HomeAllWorksTitle = ({ container }) => {
+const HomeAllWorksTitleMobile = ({ container }) => {
   const { isLoaded, loadedVideos } = useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
 
@@ -33,7 +33,7 @@ const HomeAllWorksTitle = ({ container }) => {
 
   const action = useRef(null);
 
-  const model = useGLTF('/models/viewall.gltf');
+  const model = useGLTF('/models/viewall_mobile.gltf');
 
   const { animations, nodes } = model;
 
@@ -103,7 +103,7 @@ const HomeAllWorksTitle = ({ container }) => {
   }, [ref]);
 
   useEffect(() => {
-    const w = (viewport.width / modelDimensions.width) * 1.055;
+    const w = (viewport.width / modelDimensions.width) * 1.08;
     setWidthScale(w);
   }, [modelDimensions.width, viewport.width]);
 
@@ -148,7 +148,7 @@ const HomeAllWorksTitle = ({ container }) => {
     <group
       ref={ref}
       dispose={null}
-      position={[0.16, -0.005, 0]}
+      position={[0.925, 0.215, 0]}
       scale={widthScale}
     >
       <group>
@@ -161,9 +161,7 @@ const HomeAllWorksTitle = ({ container }) => {
             material={nodes.s.material}
             morphTargetDictionary={nodes.s.morphTargetDictionary}
             morphTargetInfluences={nodes.s.morphTargetInfluences}
-            position={[-21.096, -12.474, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-35.555, -16.394, 0]}
           />
           <mesh
             name="k"
@@ -173,9 +171,7 @@ const HomeAllWorksTitle = ({ container }) => {
             material={nodes.k.material}
             morphTargetDictionary={nodes.k.morphTargetDictionary}
             morphTargetInfluences={nodes.k.morphTargetInfluences}
-            position={[-21.096, -12.474, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-35.555, -16.394, 0]}
           />
           <mesh
             name="r"
@@ -185,9 +181,7 @@ const HomeAllWorksTitle = ({ container }) => {
             material={nodes.r.material}
             morphTargetDictionary={nodes.r.morphTargetDictionary}
             morphTargetInfluences={nodes.r.morphTargetInfluences}
-            position={[-21.096, -12.474, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-35.555, -16.394, 0]}
           />
           <mesh
             name="o"
@@ -197,9 +191,7 @@ const HomeAllWorksTitle = ({ container }) => {
             material={nodes.o.material}
             morphTargetDictionary={nodes.o.morphTargetDictionary}
             morphTargetInfluences={nodes.o.morphTargetInfluences}
-            position={[-21.096, -12.474, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-35.555, -16.394, 0]}
           />
           <mesh
             name="w"
@@ -209,9 +201,7 @@ const HomeAllWorksTitle = ({ container }) => {
             material={nodes.w.material}
             morphTargetDictionary={nodes.w.morphTargetDictionary}
             morphTargetInfluences={nodes.w.morphTargetInfluences}
-            position={[-21.096, -12.474, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-35.555, -16.394, 0]}
           />
           <mesh
             name="l"
@@ -221,9 +211,7 @@ const HomeAllWorksTitle = ({ container }) => {
             material={nodes.l.material}
             morphTargetDictionary={nodes.l.morphTargetDictionary}
             morphTargetInfluences={nodes.l.morphTargetInfluences}
-            position={[-21.096, -12.474, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-34.224, -17.106, 0]}
           />
           <mesh
             name="l_1"
@@ -233,9 +221,7 @@ const HomeAllWorksTitle = ({ container }) => {
             material={nodes.l_1.material}
             morphTargetDictionary={nodes.l_1.morphTargetDictionary}
             morphTargetInfluences={nodes.l_1.morphTargetInfluences}
-            position={[-21.096, -12.474, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-34.224, -17.106, 0]}
           />
           <mesh
             name="a"
@@ -245,9 +231,7 @@ const HomeAllWorksTitle = ({ container }) => {
             material={nodes.a.material}
             morphTargetDictionary={nodes.a.morphTargetDictionary}
             morphTargetInfluences={nodes.a.morphTargetInfluences}
-            position={[-21.096, -12.474, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
+            position={[-34.224, -17.106, 0]}
           />
           <mesh
             name="Fill"
@@ -257,7 +241,7 @@ const HomeAllWorksTitle = ({ container }) => {
             material={fillMaterial}
             morphTargetDictionary={nodes.Fill.morphTargetDictionary}
             morphTargetInfluences={nodes.Fill.morphTargetInfluences}
-            position={[-9.797, -3.729, 0]}
+            position={[-22.925, -8.362, 0]}
           />
           <mesh
             name="w_1"
@@ -268,8 +252,6 @@ const HomeAllWorksTitle = ({ container }) => {
             morphTargetDictionary={nodes.w_1.morphTargetDictionary}
             morphTargetInfluences={nodes.w_1.morphTargetInfluences}
             position={[-23.077, -12.474, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
           />
           <mesh
             name="e"
@@ -280,8 +262,6 @@ const HomeAllWorksTitle = ({ container }) => {
             morphTargetDictionary={nodes.e.morphTargetDictionary}
             morphTargetInfluences={nodes.e.morphTargetInfluences}
             position={[-23.077, -12.474, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
           />
           <mesh
             name="i"
@@ -292,8 +272,6 @@ const HomeAllWorksTitle = ({ container }) => {
             morphTargetDictionary={nodes.i.morphTargetDictionary}
             morphTargetInfluences={nodes.i.morphTargetInfluences}
             position={[-23.077, -12.474, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
           />
           <mesh
             name="v"
@@ -304,8 +282,6 @@ const HomeAllWorksTitle = ({ container }) => {
             morphTargetDictionary={nodes.v.morphTargetDictionary}
             morphTargetInfluences={nodes.v.morphTargetInfluences}
             position={[-23.077, -12.474, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
           />
         </group>
       </group>
@@ -313,4 +289,4 @@ const HomeAllWorksTitle = ({ container }) => {
   );
 };
 
-export default HomeAllWorksTitle;
+export default HomeAllWorksTitleMobile;

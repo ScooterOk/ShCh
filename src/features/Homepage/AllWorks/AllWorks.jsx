@@ -1,11 +1,19 @@
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useContext, useRef } from 'react';
 
 import styles from './AllWorks.module.scss';
 import { Canvas } from '@react-three/fiber';
 import HomeAllWorksTitle from '@/components/Home/HomeAllWorksTitle';
+import useMobile from '@/hooks/useMobile';
+import HomeAllWorksTitleMobile from '@/components/Home/HomeAllWorksTitleMobile';
+import { mainContext } from '@/providers/MainProvider';
 
 const AllWorks = () => {
+  const { loadedVideos } = useContext(mainContext);
   const container = useRef();
+
+  const { isMobile } = useMobile();
+
+  if (!loadedVideos?.['/video/allworks.mp4']) return null;
 
   return (
     <div className={styles.allworks} ref={container}>
@@ -15,7 +23,12 @@ const AllWorks = () => {
           //   gl={{ stencil: true }}
         >
           <Suspense fallback={null}>
-            <HomeAllWorksTitle container={container.current} />
+            <group scale={isMobile ? 0 : 1}>
+              <HomeAllWorksTitle />
+            </group>
+            <group scale={isMobile ? 1 : 0}>
+              <HomeAllWorksTitleMobile />
+            </group>
           </Suspense>
           {/* <OrbitControls /> */}
         </Canvas>
