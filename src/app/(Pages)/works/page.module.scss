@@ -1,0 +1,14 @@
+@use '@/styles/vars' as *;
+
+.works {
+}
+.title {
+  padding: 40px 60px;
+  &__canvas {
+    aspect-ratio: 8.7;
+  }
+}
+.footer {
+  background: $black;
+  color: $bg;
+}
