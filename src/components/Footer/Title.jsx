@@ -11,9 +11,13 @@ import configs from '@/configs/titlesAnimation';
 const { duration, easeEnter, easeLeave } = configs;
 const animatingNodes = {};
 
-const FooterTitle = ({ container }) => {
+const FooterTitle = ({ container, titleColor }) => {
   const { isLoaded } = useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
+
+  const material = titleColor
+    ? new THREE.MeshBasicMaterial({ color: titleColor })
+    : null;
 
   const [modelDimensions, setModelDimensions] = useState({
     width: 0,
@@ -140,7 +144,7 @@ const FooterTitle = ({ container }) => {
             castShadow
             receiveShadow
             geometry={nodes.Fill.geometry}
-            material={nodes.Fill.material}
+            material={material ? material : nodes.Fill.material}
             morphTargetDictionary={nodes.Fill.morphTargetDictionary}
             morphTargetInfluences={nodes.Fill.morphTargetInfluences}
             position={[-23.21, -13.025, 0]}
@@ -152,7 +156,7 @@ const FooterTitle = ({ container }) => {
             castShadow
             receiveShadow
             geometry={nodes.Fill_1.geometry}
-            material={nodes.Fill_1.material}
+            material={material ? material : nodes.Fill_1.material}
             morphTargetDictionary={nodes.Fill_1.morphTargetDictionary}
             morphTargetInfluences={nodes.Fill_1.morphTargetInfluences}
             position={[-23.21, -13.025, 0]}
@@ -164,7 +168,7 @@ const FooterTitle = ({ container }) => {
             castShadow
             receiveShadow
             geometry={nodes.Fill_2.geometry}
-            material={nodes.Fill_2.material}
+            material={material ? material : nodes.Fill_2.material}
             morphTargetDictionary={nodes.Fill_2.morphTargetDictionary}
             morphTargetInfluences={nodes.Fill_2.morphTargetInfluences}
             position={[-23.21, -13.025, 0]}
@@ -176,7 +180,7 @@ const FooterTitle = ({ container }) => {
             castShadow
             receiveShadow
             geometry={nodes.Fill_3.geometry}
-            material={nodes.Fill_3.material}
+            material={material ? material : nodes.Fill_3.material}
             morphTargetDictionary={nodes.Fill_3.morphTargetDictionary}
             morphTargetInfluences={nodes.Fill_3.morphTargetInfluences}
             position={[-23.21, -13.025, 0]}
@@ -188,7 +192,7 @@ const FooterTitle = ({ container }) => {
             castShadow
             receiveShadow
             geometry={nodes.Fill_4.geometry}
-            material={nodes.Fill_4.material}
+            material={material ? material : nodes.Fill_4.material}
             morphTargetDictionary={nodes.Fill_4.morphTargetDictionary}
             morphTargetInfluences={nodes.Fill_4.morphTargetInfluences}
             position={[-23.21, -13.025, 0]}
@@ -200,7 +204,7 @@ const FooterTitle = ({ container }) => {
             castShadow
             receiveShadow
             geometry={nodes.Fill_5.geometry}
-            material={nodes.Fill_5.material}
+            material={material ? material : nodes.Fill_5.material}
             morphTargetDictionary={nodes.Fill_5.morphTargetDictionary}
             morphTargetInfluences={nodes.Fill_5.morphTargetInfluences}
             position={[-23.21, -13.025, 0]}
@@ -212,7 +216,7 @@ const FooterTitle = ({ container }) => {
             castShadow
             receiveShadow
             geometry={nodes.Fill_6.geometry}
-            material={nodes.Fill_6.material}
+            material={material ? material : nodes.Fill_6.material}
             morphTargetDictionary={nodes.Fill_6.morphTargetDictionary}
             morphTargetInfluences={nodes.Fill_6.morphTargetInfluences}
             position={[-23.21, -13.025, 0]}
@@ -224,7 +228,7 @@ const FooterTitle = ({ container }) => {
             castShadow
             receiveShadow
             geometry={nodes.Fill_7.geometry}
-            material={nodes.Fill_7.material}
+            material={material ? material : nodes.Fill_7.material}
             morphTargetDictionary={nodes.Fill_7.morphTargetDictionary}
             morphTargetInfluences={nodes.Fill_7.morphTargetInfluences}
             position={[-23.21, -13.025, 0]}
@@ -236,7 +240,7 @@ const FooterTitle = ({ container }) => {
             castShadow
             receiveShadow
             geometry={nodes.Fill_8.geometry}
-            material={nodes.Fill_8.material}
+            material={material ? material : nodes.Fill_8.material}
             morphTargetDictionary={nodes.Fill_8.morphTargetDictionary}
             morphTargetInfluences={nodes.Fill_8.morphTargetInfluences}
             position={[-23.21, -13.025, 0]}
@@ -248,7 +252,7 @@ const FooterTitle = ({ container }) => {
             castShadow
             receiveShadow
             geometry={nodes.Fill_9.geometry}
-            material={nodes.Fill_9.material}
+            material={material ? material : nodes.Fill_9.material}
             morphTargetDictionary={nodes.Fill_9.morphTargetDictionary}
             morphTargetInfluences={nodes.Fill_9.morphTargetInfluences}
             position={[-23.21, -13.025, 0]}
@@ -260,7 +264,7 @@ const FooterTitle = ({ container }) => {
             castShadow
             receiveShadow
             geometry={nodes.Fill_10.geometry}
-            material={nodes.Fill_10.material}
+            material={material ? material : nodes.Fill_10.material}
             morphTargetDictionary={nodes.Fill_10.morphTargetDictionary}
             morphTargetInfluences={nodes.Fill_10.morphTargetInfluences}
             position={[-23.21, -13.025, 0]}

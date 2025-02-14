@@ -12,7 +12,7 @@ import FooterTitleMobile from './TitleMobile';
 import useMobile from '@/hooks/useMobile';
 import clsx from 'clsx';
 
-const Footer = ({ className }) => {
+const Footer = ({ className, titleColor }) => {
   const container = useRef();
 
   const { isMobile } = useMobile();
@@ -59,10 +59,16 @@ const Footer = ({ className }) => {
           <Canvas camera={{ position: [0, 0, 1], orthographic: true }}>
             <Suspense fallback={null}>
               <group scale={isMobile ? 0 : 1}>
-                <FooterTitle container={container.current} />
+                <FooterTitle
+                  container={container.current}
+                  titleColor={titleColor}
+                />
               </group>
               <group scale={isMobile ? 1 : 0}>
-                <FooterTitleMobile container={container.current} />
+                <FooterTitleMobile
+                  container={container.current}
+                  titleColor={titleColor}
+                />
               </group>
             </Suspense>
           </Canvas>
