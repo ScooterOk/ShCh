@@ -1,0 +1,76 @@
+@use '@/styles/vars' as *;
+
+.works {
+  margin-top: 160px;
+  margin-bottom: 165px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  &:not(.disabled) {
+    .works__item {
+      &:hover {
+        color: $bg;
+        &::before {
+          transform: scaleY(1);
+        }
+      }
+    }
+  }
+  &__item {
+    font-size: clamp(14px, 1.5vw, 20px);
+    font-weight: 600;
+    line-height: 1.2em;
+    padding: 0 60px;
+    position: relative;
+    transition: color 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+    .link {
+      display: flex;
+      gap: 3px;
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: $black;
+      z-index: -1;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+    &_info {
+      flex-grow: 1;
+      display: flex;
+      position: relative;
+      .line {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background-color: $black;
+        transform-origin: left;
+      }
+      .name {
+        flex-basis: 23vw;
+        padding: 14px 0;
+      }
+      .tags {
+        flex-grow: 1;
+        padding: 14px 0;
+      }
+    }
+    &_gallery {
+      display: flex;
+      gap: 3px;
+      img,
+      video {
+        width: auto;
+        height: 165px;
+        clip-path: polygon(50% 0, 50% 0, 50% 100%, 50% 100%);
+      }
+    }
+  }
+}

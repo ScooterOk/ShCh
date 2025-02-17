@@ -1,13 +1,11 @@
 import { useAnimations, useGLTF } from '@react-three/drei';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import * as THREE from 'three';
 
 import { useThree } from '@react-three/fiber';
 import configs from '@/configs/titlesAnimation';
 import gsap from 'gsap';
-
-const material = new THREE.MeshBasicMaterial({ color: 0x000000 });
 
 const animatingNodes = {};
 

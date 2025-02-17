@@ -1,30 +1,21 @@
 'use client';
-import React, {
-  Suspense,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-} from 'react';
-import { mainContext } from '@/providers/MainProvider';
-import Loader from '@/components/Loader/Loader';
-import Hero from '@/features/About/Hero/Hero';
-import Description from '@/features/About/Description/Description';
+import React, { Suspense, useContext, useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
-import Recognition from '@/features/About/Recognition/Recognition';
-import Footer from '@/components/Footer/Footer';
-
-import styles from './page.module.scss';
-import DescriptionCube from '@/features/About/DescriptionCube/DescriptionCube';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Observer } from 'gsap/Observer';
-
 import { useLenis } from 'lenis/react';
 import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import useMobile from '@/hooks/useMobile';
 import { Canvas } from '@react-three/fiber';
+
+import Footer from '@/components/Footer/Footer';
+import Loader from '@/components/Loader/Loader';
 import WorksTitle from '@/components/Works/WorksTitle';
+
+import WorksList from '@/features/Works/WorksList/WorksList';
+
+import { mainContext } from '@/providers/MainProvider';
+
+import styles from './page.module.scss';
 
 const videolist = [
   '/video/hero_head_video_full.mp4',
@@ -35,35 +26,44 @@ const videolist = [
   '/video/audio_hover.mp3',
 ];
 
-let cubeRotationActive = false;
-let scrollTweenActive = false;
-
 const About = () => {
-  const cubeRef = useRef();
   const mainContainerRef = useRef();
-  const scrollBarTrigger = useRef();
-
+  const footer = useRef();
   const titleAction = useRef(null);
 
-  const {
-    isLoaded,
-    noScroll,
-    setCurrentDescriptionSlide,
-    setIsInit,
-    setIsHolded,
-    resetMainProviderData,
-  } = useContext(mainContext);
-  const lenis = useLenis();
+  const { isLoaded, setCurrentDescriptionSlide, resetMainProviderData } =
+    useContext(mainContext);
 
-  const { isMobile } = useMobile();
+  const lenis = useLenis();
 
   useEffect(() => {
     return () => resetMainProviderData();
   }, [resetMainProviderData, setCurrentDescriptionSlide]);
 
+  // Scrollbar trigger init
   useGSAP(
     () => {
-      if (isLoaded) {
+      if (lenis) {
+        lenis.stop();
+        ScrollTrigger.create({
+          id: 'scroll-bar-trigger',
+          trigger: footer.current,
+          start: 'top 50%',
+          end: 'bottom 50%',
+          toggleClass: {
+            targets: document.querySelector('[data-id="scrollbar"]'),
+            className: 'light',
+          },
+        });
+      }
+    },
+    { dependencies: [lenis] }
+  );
+
+  useGSAP(
+    () => {
+      if (isLoaded && lenis) {
+        lenis.start();
         if (titleAction.current) {
           gsap
             .timeline({
@@ -83,7 +83,7 @@ const About = () => {
         }
       }
     },
-    { dependencies: [isLoaded] }
+    { dependencies: [isLoaded, lenis] }
   );
 
   return (
@@ -100,7 +100,11 @@ const About = () => {
           </Canvas>
         </div>
       </div>
-      <Footer className={styles.footer} titleColor={'#9b9b88'} />
+      <WorksList />
+      <div ref={footer}>
+        <Footer className={styles.footer} titleColor={'#9b9b88'} />
+      </div>
+
       {!isLoaded && <Loader videolist={videolist} />}
     </main>
   );
