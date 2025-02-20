@@ -7,6 +7,12 @@
   &__canvas {
     aspect-ratio: 8.7;
   }
+  @media screen and (max-width: $breakpoint_tablet) {
+    padding: 40px;
+  }
+  @media screen and (max-width: $breakpoint_mobile) {
+    padding: 40px 10px;
+  }
 }
 .footer {
   background: $black;

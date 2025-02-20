@@ -193,6 +193,7 @@ const WorksList = () => {
                 );
               })}
             </div>
+            <div className={styles.works__item_right} />
           </Link>
         </div>
       ))}
