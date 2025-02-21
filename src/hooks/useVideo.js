@@ -1,6 +1,8 @@
 import { mainContext } from '@/providers/MainProvider';
 import { useContext, useEffect, useMemo, useState } from 'react';
 
+let prevSummary = [];
+
 const useVideo = ({ list }) => {
   const [summary, setSummary] = useState(
     list.map((src) => ({
@@ -27,6 +29,11 @@ const useVideo = ({ list }) => {
   useEffect(() => {
     // If list is empty, return
     if (!list || list.length === 0) return;
+
+    prevSummary = list.map((src) => ({
+      src,
+      progress: 0,
+    }));
 
     // Abort controllers
     const abortControllers = [];
@@ -73,11 +80,21 @@ const useVideo = ({ list }) => {
                     ? Number(((loaded / total) * 100).toFixed(0))
                     : 0;
 
-                  setSummary((prev) =>
-                    prev.map((item) =>
+                  const prevResult = prevSummary.find(
+                    (item) => item.src === src
+                  ).progress;
+
+                  if (prevResult !== result) {
+                    setSummary((prev) =>
+                      prev.map((item) =>
+                        item.src === src ? { ...item, progress: result } : item
+                      )
+                    );
+                    prevSummary = prevSummary.map((item) =>
                       item.src === src ? { ...item, progress: result } : item
-                    )
-                  );
+                    );
+                  }
+
                   controller.enqueue(value);
                   push();
                 } catch (err) {
