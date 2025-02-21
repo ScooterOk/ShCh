@@ -1,19 +1,20 @@
 @use '@/styles/vars' as *;
 
 .works {
+  .title {
+    padding: 40px 60px;
+    &__canvas {
+      aspect-ratio: 8.7;
+    }
+    @media screen and (max-width: $breakpoint_tablet) {
+      padding: 40px;
+    }
+    @media screen and (max-width: $breakpoint_mobile) {
+      padding: 40px 10px;
+    }
+  }
 }
-.title {
-  padding: 40px 60px;
-  &__canvas {
-    aspect-ratio: 8.7;
-  }
-  @media screen and (max-width: $breakpoint_tablet) {
-    padding: 40px;
-  }
-  @media screen and (max-width: $breakpoint_mobile) {
-    padding: 40px 10px;
-  }
-}
+
 .footer {
   background: $black;
   color: $bg;
