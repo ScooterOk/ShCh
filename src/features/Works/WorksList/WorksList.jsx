@@ -85,7 +85,6 @@ const WorksList = () => {
           tlItems.push(tl);
         });
 
-        console.log('tlItems', tlItems);
         tlItems.forEach((item) => mainTimeline.add(item, '<+=0.25'));
 
         const words = document.querySelectorAll(

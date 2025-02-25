@@ -1,5 +1,11 @@
 'use client';
-import React, { Suspense, useContext, useEffect, useRef } from 'react';
+import React, {
+  Suspense,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import gsap from 'gsap';
 
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -18,11 +24,8 @@ import { mainContext } from '@/providers/MainProvider';
 import styles from './page.module.scss';
 
 const videolist = [
-  '/video/hero_head_video_full.mp4',
-  '/video/_CUBE_01_full.mp4',
-  '/video/_CUBE_02_full.mp4',
-  '/video/_CUBE_03_full.mp4',
-  '/video/CUBE_04_loop.mp4',
+  '/models/all_works.gltf',
+  '/models/lets.gltf',
   '/video/audio_hover.mp3',
 ];
 
@@ -31,8 +34,18 @@ const About = () => {
   const footer = useRef();
   const titleAction = useRef(null);
 
-  const { isLoaded, setCurrentDescriptionSlide, resetMainProviderData } =
-    useContext(mainContext);
+  const [action, setAction] = useState(null);
+
+  // useEffect(() => {
+  //   gsap.set(titleAction.current, { visibility: 'hidden' });
+  // }, []);
+
+  const {
+    isLoaded,
+    setCurrentDescriptionSlide,
+    resetMainProviderData,
+    loadedVideos,
+  } = useContext(mainContext);
 
   const lenis = useLenis();
 
@@ -62,40 +75,40 @@ const About = () => {
 
   useGSAP(
     () => {
-      if (isLoaded && lenis) {
+      if (isLoaded && lenis && action) {
         lenis.start();
-        if (titleAction.current) {
-          gsap
-            .timeline({
-              //   onComplete: () => setNoScroll(false),
-              id: 'hero-title-init',
-            })
-            .to(titleAction.current, {
-              time: 0.5,
-              duration: 1,
-              ease: 'power3.inOut',
-            })
-            .to(titleAction.current, {
-              time: 1.5,
-              duration: 1,
-              ease: 'power3.Out',
-            });
-        }
+        gsap
+          .timeline({
+            //   onComplete: () => setNoScroll(false),
+            id: 'hero-title-init',
+          })
+          .to(action, {
+            time: 0.5,
+            duration: 1,
+            ease: 'power3.inOut',
+          })
+          .to(action, {
+            time: 1.5,
+            duration: 1,
+            ease: 'power3.Out',
+          });
       }
     },
-    { dependencies: [isLoaded, lenis] }
+    { dependencies: [isLoaded, lenis, action] }
   );
 
   return (
     <main ref={mainContainerRef} className={styles.works}>
       <div className={styles.title}>
-        <div className={styles.title__canvas}>
+        <div ref={titleAction} className={styles.title__canvas}>
           <Canvas
             camera={{ position: [0, 0, 1], orthographic: true }}
             gl={{ stencil: true }}
           >
             <Suspense fallback={null}>
-              <WorksTitle action={titleAction} />
+              {loadedVideos?.['/models/all_works.gltf'] && (
+                <WorksTitle action={action} setAction={setAction} />
+              )}
             </Suspense>
           </Canvas>
         </div>

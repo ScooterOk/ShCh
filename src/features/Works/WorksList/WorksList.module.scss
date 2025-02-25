@@ -79,8 +79,8 @@
       max-width: 100%;
       overflow-x: auto;
       &::-webkit-scrollbar {
-        width: 4px;
-        height: 4px;
+        width: 0px;
+        height: 0px;
       }
 
       &::-webkit-scrollbar-track {

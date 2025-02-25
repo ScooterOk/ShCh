@@ -1,5 +1,5 @@
 import { useProgress } from '@react-three/drei';
-import React, { useContext, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 
 import Image from 'next/image';
 import { useGSAP } from '@gsap/react';
@@ -20,7 +20,7 @@ let progressCount = { value: 0 };
 const Loader = ({ videolist: list, theme = 'light' }) => {
   const { setIsLoaded } = useContext(mainContext);
   const { progress: modelsProgress } = useProgress();
-  const { progress: videoProgress } = useVideo({
+  const { progress: videoProgress, isVideoListReady } = useVideo({
     list,
   });
 
@@ -32,6 +32,10 @@ const Loader = ({ videolist: list, theme = 'light' }) => {
     () => (modelsProgress + videoProgress) / 2,
     [modelsProgress, videoProgress]
   );
+
+  useEffect(() => {
+    if (isVideoListReady) setIsLoaded(true);
+  }, [setIsLoaded]);
 
   // Progress count animation
   useGSAP(
