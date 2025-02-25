@@ -1,4 +1,4 @@
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useContext, useRef } from 'react';
 
 import styles from './Footer.module.scss';
 import Date from './Date';
@@ -11,9 +11,12 @@ import gsap from 'gsap';
 import FooterTitleMobile from './TitleMobile';
 import useMobile from '@/hooks/useMobile';
 import clsx from 'clsx';
+import { mainContext } from '@/providers/MainProvider';
 
 const Footer = ({ className, titleColor }) => {
   const container = useRef();
+
+  const { loadedVideos } = useContext(mainContext);
 
   const { isMobile } = useMobile();
 
@@ -59,16 +62,20 @@ const Footer = ({ className, titleColor }) => {
           <Canvas camera={{ position: [0, 0, 1], orthographic: true }}>
             <Suspense fallback={null}>
               <group scale={isMobile ? 0 : 1}>
-                <FooterTitle
-                  container={container.current}
-                  titleColor={titleColor}
-                />
+                {loadedVideos?.['/models/lets.gltf'] && (
+                  <FooterTitle
+                    container={container.current}
+                    titleColor={titleColor}
+                  />
+                )}
               </group>
               <group scale={isMobile ? 1 : 0}>
-                <FooterTitleMobile
-                  container={container.current}
-                  titleColor={titleColor}
-                />
+                {loadedVideos?.['/models/lets.gltf'] && (
+                  <FooterTitleMobile
+                    container={container.current}
+                    titleColor={titleColor}
+                  />
+                )}
               </group>
             </Suspense>
           </Canvas>

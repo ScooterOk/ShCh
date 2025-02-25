@@ -12,7 +12,7 @@ const { duration, easeEnter, easeLeave } = configs;
 const animatingNodes = {};
 
 const FooterTitle = ({ container, titleColor }) => {
-  const { isLoaded } = useContext(mainContext);
+  const { isLoaded, loadedVideos } = useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
 
   const material = titleColor
@@ -25,9 +25,9 @@ const FooterTitle = ({ container, titleColor }) => {
     depth: 0,
   });
 
-  const action = useRef(null);
+  const [action, setAction] = useState(null);
 
-  const model = useGLTF('/models/lets.gltf');
+  const model = useGLTF(loadedVideos?.['/models/lets.gltf']);
 
   const { animations, nodes } = model;
 
@@ -38,17 +38,21 @@ const FooterTitle = ({ container, titleColor }) => {
   const { viewport } = three;
 
   useEffect(() => {
-    action.current = actions[names[0]];
-    if (action.current) {
-      action.current.reset();
-      action.current.paused = true;
-      action.current.play();
-    }
+    const a = actions[names[0]];
+    a.reset();
+    a.paused = true;
+    a.play();
+    setAction(a);
+    // if (action.current) {
+    //   action.current.reset();
+    //   action.current.paused = true;
+    //   action.current.play();
+    // }
   }, [actions, names]);
 
   useGSAP(
     () => {
-      if (isLoaded && action.current) {
+      if (isLoaded && action) {
         gsap
           .timeline({
             scrollTrigger: {
@@ -58,19 +62,19 @@ const FooterTitle = ({ container, titleColor }) => {
             },
             id: 'footer-title-init',
           })
-          .to(action.current, {
+          .to(action, {
             time: 0.5,
             duration: 1,
             ease: 'power3.inOut',
           })
-          .to(action.current, {
+          .to(action, {
             time: 1.5,
             duration: 1,
             ease: 'power3.Out',
           });
       }
     },
-    { dependencies: [isLoaded] }
+    { dependencies: [isLoaded, action] }
   );
 
   useEffect(() => {
