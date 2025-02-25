@@ -41,7 +41,7 @@ const HomeHeroVideoPlayer = ({
 
   return (
     <div ref={rootRef} className={styles.player_preview}>
-      {loadedVideos?.['/video/SHOWREEL_loop.mp4'] && (
+      {loadedVideos?.['/video/showreel_preview.mp4'] && (
         <video
           ref={previewRef}
           width="1920"
@@ -52,7 +52,7 @@ const HomeHeroVideoPlayer = ({
           playsInline
         >
           <source
-            src={loadedVideos?.['/video/SHOWREEL_loop.mp4']}
+            src={loadedVideos?.['/video/showreel_preview.mp4']}
             type="video/mp4"
           />
         </video>

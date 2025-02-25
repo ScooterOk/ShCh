@@ -16,28 +16,21 @@ const Coub = forwardRef((props, ref) => {
   const { loadedVideos } = useContext(mainContext);
 
   const material_slide_1 = useVideoTexture(
-    loadedVideos?.['/video/_CUBE_01_full.mp4'],
+    loadedVideos?.['/video/CUBE_01_full.mp4'],
     {
       start: false,
       loop: false,
     }
   );
   const material_slide_2 = useVideoTexture(
-    loadedVideos?.['/video/_CUBE_02_full.mp4'],
-    {
-      start: false,
-      loop: false,
-    }
-  );
-  const material_slide_3 = useVideoTexture(
-    loadedVideos?.['/video/_CUBE_03_full.mp4'],
+    loadedVideos?.['/video/CUBE_02_full.mp4'],
     {
       start: false,
       loop: false,
     }
   );
   const material_slide_4 = useVideoTexture(
-    loadedVideos?.['/video/CUBE_04_loop.mp4']
+    loadedVideos?.['/video/CUBE_04_full.mp4']
   );
 
   const material = useMemo(() => {

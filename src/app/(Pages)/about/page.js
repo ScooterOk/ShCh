@@ -20,10 +20,10 @@ import useMobile from '@/hooks/useMobile';
 
 const videolist = [
   '/video/hero_head_video_full.mp4',
-  '/video/_CUBE_01_full.mp4',
-  '/video/_CUBE_02_full.mp4',
-  '/video/_CUBE_03_full.mp4',
-  '/video/CUBE_04_loop.mp4',
+  '/video/CUBE_01_full.mp4',
+  '/video/CUBE_02_full.mp4',
+  '/video/CUBE_03_full.mp4',
+  '/video/CUBE_04_full.mp4',
   '/video/audio_hover.mp3',
 ];
 

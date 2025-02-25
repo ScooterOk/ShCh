@@ -25,11 +25,11 @@ let scrollTweenActive = false;
 const videolist = [
   '/video/Hero_head_video_01.mp4',
   '/video/Hero_head_video_02.mp4',
-  '/video/SHOWREEL_loop.mp4',
-  '/video/_CUBE_01_full.mp4',
-  '/video/_CUBE_02_full.mp4',
-  '/video/_CUBE_03_full.mp4',
-  '/video/CUBE_04_loop.mp4',
+  '/video/showreel_preview.mp4',
+  '/video/CUBE_01_full.mp4',
+  '/video/CUBE_02_full.mp4',
+  '/video/CUBE_03_full.mp4',
+  '/video/CUBE_04_full.mp4',
   '/video/allworks.mp4',
   '/video/audio_hover.mp3',
 ];
