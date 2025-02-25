@@ -59,7 +59,12 @@ const useVideo = ({ list }) => {
       const videos = await Promise.all(
         responses.map(async (response) => {
           // Get src from response
-          const src = response.url.slice(response.url.indexOf('/video'));
+
+          const isVideo = response.url.includes('video');
+
+          const src = isVideo
+            ? response.url.slice(response.url.indexOf('/video'))
+            : response.url.slice(response.url.indexOf('/models'));
 
           // Get content length
           const contentLength = response.headers.get('Content-Length');
@@ -78,6 +83,13 @@ const useVideo = ({ list }) => {
                 const { done, value } = await reader.read();
                 try {
                   if (done) {
+                    if (!contentLength) {
+                      setSummary((prev) =>
+                        prev.map((item) =>
+                          item.src === src ? { ...item, progress: 100 } : item
+                        )
+                      );
+                    }
                     controller.close();
                     return;
                   }
