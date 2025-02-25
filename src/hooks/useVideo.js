@@ -10,7 +10,7 @@ const useVideo = ({ list }) => {
       progress: 0,
     }))
   );
-  const { setLoadedVideos } = useContext(mainContext);
+  const { loadedVideos, setLoadedVideos } = useContext(mainContext);
 
   const progress = useMemo(
     () =>
@@ -20,10 +20,15 @@ const useVideo = ({ list }) => {
             (previousValue, currentValue) =>
               previousValue + currentValue.progress,
             0
-          ) / list.length
+          ) / list.filter((src) => !loadedVideos[src])?.length
         )?.toFixed(0)
-      ),
+      ) || 100,
     [list, summary]
+  );
+
+  const isVideoListReady = useMemo(
+    () => list.every((item) => loadedVideos?.[item]),
+    [list, loadedVideos]
   );
 
   useEffect(() => {
@@ -40,11 +45,13 @@ const useVideo = ({ list }) => {
     (async () => {
       // eslint-disable-next-line no-undef
       const responses = await Promise.all(
-        list.map((src) => {
-          const controller = new AbortController();
-          abortControllers.push(controller);
-          return fetch(src, { signal: controller.signal });
-        })
+        list
+          .filter((src) => !loadedVideos[src])
+          .map((src) => {
+            const controller = new AbortController();
+            abortControllers.push(controller);
+            return fetch(src, { signal: controller.signal });
+          })
       );
 
       // Process responses
@@ -82,7 +89,7 @@ const useVideo = ({ list }) => {
 
                   const prevResult = prevSummary.find(
                     (item) => item.src === src
-                  ).progress;
+                  )?.progress;
 
                   if (prevResult !== result) {
                     setSummary((prev) =>
@@ -107,6 +114,7 @@ const useVideo = ({ list }) => {
           });
 
           const videoBlob = await new Response(stream).blob();
+
           return {
             src,
             blobSrc: URL.createObjectURL(videoBlob),
@@ -118,7 +126,13 @@ const useVideo = ({ list }) => {
       videos.forEach(({ src, blobSrc }) => {
         videoData[src] = blobSrc;
       });
-      setLoadedVideos(videoData);
+      setLoadedVideos((prev) => {
+        const result = { ...prev };
+        for (let key in videoData) {
+          result[key] = videoData[key];
+        }
+        return result;
+      });
     })();
 
     // Cleanup controllers
@@ -129,6 +143,7 @@ const useVideo = ({ list }) => {
 
   return {
     progress,
+    isVideoListReady,
   };
 };
 
