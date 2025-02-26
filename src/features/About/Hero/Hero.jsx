@@ -112,10 +112,14 @@ const Hero = () => {
           >
             <Suspense fallback={null}>
               <group scale={isMobile ? 0 : 1}>
-                <AboutHeroTitle />
+                {loadedVideos?.['/models/about_digital_art_director.gltf'] && (
+                  <AboutHeroTitle />
+                )}
               </group>
               <group scale={isMobile ? 1 : 0}>
-                <AboutHeroTitleMobile />
+                {loadedVideos?.[
+                  '/models/about_digital_art_director_mob.gltf'
+                ] && <AboutHeroTitleMobile />}
               </group>
             </Suspense>
           </Canvas>

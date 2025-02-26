@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import * as THREE from 'three';
 
@@ -6,19 +6,21 @@ import { useAnimations, useGLTF } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 
 import configs from '@/configs/titlesAnimation';
+import { mainContext } from '@/providers/MainProvider';
 
 const { duration, easeEnter, easeLeave } = configs;
 const animatingNodes = {};
 
-const AboutDescriptionTitle = ({ action }) => {
+const AboutDescriptionTitle = ({ setAction }) => {
   const [widthScale, setWidthScale] = useState(1);
   const [modelDimensions, setModelDimensions] = useState({
     width: 0,
     height: 0,
     depth: 0,
   });
+  const { loadedVideos } = useContext(mainContext);
 
-  const model = useGLTF('/models/10.gltf');
+  const model = useGLTF(loadedVideos['/models/10.gltf']);
 
   const { animations, nodes } = model;
 
@@ -30,13 +32,12 @@ const AboutDescriptionTitle = ({ action }) => {
   const { viewport } = three;
 
   useEffect(() => {
-    action.current = actions[names[0]];
-    if (action.current) {
-      action.current.reset();
-      action.current.paused = true;
-      action.current.play();
-    }
-  }, [actions, names, action]);
+    const action = actions[names[0]];
+    action.reset();
+    action.paused = true;
+    action.play();
+    setAction(action);
+  }, [actions, names, setAction]);
 
   useEffect(() => {
     if (ref.current) {

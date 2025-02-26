@@ -20,11 +20,13 @@ const AboutHeroTitle = () => {
     depth: 0,
   });
 
-  const { isLoaded } = useContext(mainContext);
+  const [action, setAction] = useState(null);
 
-  const action = useRef(null);
+  const { isLoaded, loadedVideos } = useContext(mainContext);
 
-  const model = useGLTF('/models/about_digital_art_director.gltf');
+  const model = useGLTF(
+    loadedVideos['/models/about_digital_art_director.gltf']
+  );
 
   const { animations, nodes } = model;
   const material = new THREE.MeshBasicMaterial({ color: 0x9b9b88 });
@@ -36,37 +38,34 @@ const AboutHeroTitle = () => {
   const { viewport } = three;
 
   useEffect(() => {
-    action.current = actions[names[0]];
-    if (action.current) {
-      action.current.reset();
-      action.current.paused = true;
-      action.current.play();
-    }
+    const a = actions[names[0]];
+    a.reset();
+    a.paused = true;
+    a.play();
+    setAction(a);
   }, [actions, names]);
 
   useGSAP(
     () => {
-      if (isLoaded) {
-        if (action.current) {
-          gsap
-            .timeline({
-              //   onComplete: () => setNoScroll(false),
-              id: 'hero-title-init',
-            })
-            .to(action.current, {
-              time: 0.5,
-              duration: 1,
-              ease: 'power3.inOut',
-            })
-            .to(action.current, {
-              time: 1.5,
-              duration: 1,
-              ease: 'power3.Out',
-            });
-        }
+      if (isLoaded && action) {
+        gsap
+          .timeline({
+            //   onComplete: () => setNoScroll(false),
+            id: 'hero-title-init',
+          })
+          .to(action, {
+            time: 0.5,
+            duration: 1,
+            ease: 'power3.inOut',
+          })
+          .to(action, {
+            time: 1.5,
+            duration: 1,
+            ease: 'power3.Out',
+          });
       }
     },
-    { dependencies: [isLoaded] }
+    { dependencies: [isLoaded, action] }
   );
 
   useEffect(() => {

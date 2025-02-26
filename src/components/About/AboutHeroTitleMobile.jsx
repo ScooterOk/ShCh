@@ -20,11 +20,13 @@ const AboutHeroTitleMobile = () => {
     depth: 0,
   });
 
-  const { isLoaded } = useContext(mainContext);
+  const [action, setAction] = useState(null);
 
-  const action = useRef(null);
+  const { isLoaded, loadedVideos } = useContext(mainContext);
 
-  const model = useGLTF('/models/about_digital_art_director_mob.gltf');
+  const model = useGLTF(
+    loadedVideos['/models/about_digital_art_director_mob.gltf']
+  );
 
   const { animations, nodes } = model;
   const material = new THREE.MeshBasicMaterial({ color: 0x9b9b88 });
@@ -36,37 +38,34 @@ const AboutHeroTitleMobile = () => {
   const { viewport } = three;
 
   useEffect(() => {
-    action.current = actions[names[0]];
-    if (action.current) {
-      action.current.reset();
-      action.current.paused = true;
-      action.current.play();
-    }
+    const a = actions[names[0]];
+    a.reset();
+    a.paused = true;
+    a.play();
+    setAction(a);
   }, [actions, names]);
 
   useGSAP(
     () => {
-      if (isLoaded) {
-        if (action.current) {
-          gsap
-            .timeline({
-              //   onComplete: () => setNoScroll(false),
-              id: 'hero-title-init',
-            })
-            .to(action.current, {
-              time: 0.5,
-              duration: 1,
-              ease: 'power3.inOut',
-            })
-            .to(action.current, {
-              time: 1.5,
-              duration: 1,
-              ease: 'power3.Out',
-            });
-        }
+      if (isLoaded && action) {
+        gsap
+          .timeline({
+            //   onComplete: () => setNoScroll(false),
+            id: 'hero-title-init',
+          })
+          .to(action, {
+            time: 0.5,
+            duration: 1,
+            ease: 'power3.inOut',
+          })
+          .to(action, {
+            time: 1.5,
+            duration: 1,
+            ease: 'power3.Out',
+          });
       }
     },
-    { dependencies: [isLoaded] }
+    { dependencies: [isLoaded, action] }
   );
 
   useEffect(() => {
@@ -87,43 +86,6 @@ const AboutHeroTitleMobile = () => {
     const w = (viewport.width / modelDimensions.width) * 1.165;
     setWidthScale(w);
   }, [modelDimensions.width, viewport.width]);
-
-  const handlePointerEnter = (e) => {
-    if (gsap.getById('hero-title-init')?.isActive()) return;
-
-    const target = e.eventObject.morphTargetInfluences;
-    const name = e.eventObject.name;
-    if (animatingNodes?.[name]?.isActive()) animatingNodes?.[name].kill();
-    animatingNodes[name] = gsap.to(target, {
-      [0]: 1,
-      duration,
-      ease: easeEnter,
-      overwrite: true,
-    });
-  };
-
-  const handlePointerLeave = (e) => {
-    if (gsap.getById('hero-title-init')?.isActive()) return;
-
-    const target = e.eventObject.morphTargetInfluences;
-    const name = e.eventObject.name;
-    if (!animatingNodes?.[name]?.isActive()) {
-      gsap.to(target, {
-        [0]: 0,
-        duration,
-        ease: 'power2.inOut',
-        overwrite: 'auto',
-      });
-    } else {
-      animatingNodes?.[name].eventCallback('onComplete', () => {
-        gsap.to(target, {
-          [0]: 0,
-          duration,
-          ease: easeLeave,
-        });
-      });
-    }
-  };
 
   return (
     <group ref={ref} dispose={null} position={[1, 0, 0]} scale={widthScale}>

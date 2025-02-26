@@ -24,7 +24,12 @@ const videolist = [
   '/video/CUBE_02_full.mp4',
   '/video/CUBE_03_full.mp4',
   '/video/CUBE_04_full.mp4',
+  '/models/about_digital_art_director.gltf',
+  '/models/about_digital_art_director_mob.gltf',
+  '/models/10.gltf',
+  '/models/recognition.gltf',
   '/video/audio_hover.mp3',
+  '/models/lets.gltf',
 ];
 
 let cubeRotationActive = false;

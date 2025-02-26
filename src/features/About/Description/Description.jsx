@@ -1,4 +1,4 @@
-import React, { Suspense, useContext, useRef } from 'react';
+import React, { Suspense, useContext, useRef, useState } from 'react';
 
 import styles from './Description.module.scss';
 import { Canvas } from '@react-three/fiber';
@@ -10,13 +10,13 @@ import gsap from 'gsap';
 const Description = () => {
   const container = useRef();
   const line = useRef();
-  const action = useRef(null);
+  const [action, setAction] = useState(null);
 
-  const { isLoaded } = useContext(mainContext);
+  const { isLoaded, loadedVideos } = useContext(mainContext);
 
   useGSAP(
     () => {
-      if (isLoaded && action.current) {
+      if (isLoaded && action) {
         const words = container.current.querySelectorAll('[data-animation]');
 
         gsap
@@ -29,7 +29,7 @@ const Description = () => {
             id: 'about-description-title-init',
           })
           .to(
-            action.current,
+            action,
             {
               time: 0.5,
               duration: 1,
@@ -43,7 +43,7 @@ const Description = () => {
             'start'
           )
           .to(
-            action.current,
+            action,
             {
               time: 1.5,
               duration: 1,
@@ -66,7 +66,7 @@ const Description = () => {
           );
       }
     },
-    { dependencies: [isLoaded] }
+    { dependencies: [isLoaded, action] }
   );
 
   return (
@@ -94,7 +94,9 @@ const Description = () => {
             gl={{ stencil: true }}
           >
             <Suspense fallback={null}>
-              <AboutDescriptionTitle action={action} />
+              {loadedVideos?.['/models/10.gltf'] && (
+                <AboutDescriptionTitle setAction={setAction} />
+              )}
             </Suspense>
           </Canvas>
         </div>

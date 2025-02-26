@@ -1,4 +1,4 @@
-import React, { Suspense, useContext, useRef } from 'react';
+import React, { Suspense, useContext, useRef, useState } from 'react';
 
 import styles from './Recognition.module.scss';
 import { Canvas } from '@react-three/fiber';
@@ -9,16 +9,16 @@ import gsap from 'gsap';
 import Gallery from './Gallery';
 
 const Recognition = () => {
+  const [action, setAction] = useState(null);
   const container = useRef(null);
-  const action = useRef(null);
   const imagesListRef = useRef();
   const lineRef = useRef();
 
-  const { isLoaded } = useContext(mainContext);
+  const { isLoaded, loadedVideos } = useContext(mainContext);
 
   useGSAP(
     () => {
-      if (isLoaded && action.current) {
+      if (isLoaded && action) {
         const words = container.current.querySelectorAll('[data-animation]');
         gsap
           .timeline({
@@ -30,7 +30,7 @@ const Recognition = () => {
             id: 'about-recognition-init',
           })
           .to(
-            action.current,
+            action,
             {
               time: 0.5,
               duration: 1,
@@ -49,7 +49,7 @@ const Recognition = () => {
             'start'
           )
           .to(
-            action.current,
+            action,
             {
               time: 1.5,
               duration: 1,
@@ -72,7 +72,7 @@ const Recognition = () => {
           );
       }
     },
-    { dependencies: [isLoaded] }
+    { dependencies: [isLoaded, action] }
   );
 
   return (
@@ -83,7 +83,9 @@ const Recognition = () => {
           gl={{ stencil: true }}
         >
           <Suspense fallback={null}>
-            <AboutRecognitionTitle action={action} />
+            {loadedVideos?.['/models/recognition.gltf'] && (
+              <AboutRecognitionTitle setAction={setAction} />
+            )}
           </Suspense>
         </Canvas>
       </div>
