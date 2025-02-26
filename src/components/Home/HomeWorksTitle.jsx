@@ -12,7 +12,7 @@ const { duration, easeEnter, easeLeave } = configs;
 const animatingNodes = {};
 
 const HomeWorksTitle = ({ container }) => {
-  const { isLoaded, loadedVideos } = useContext(mainContext);
+  const { isLoaded, loadedMedia } = useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
 
   const [modelDimensions, setModelDimensions] = useState({
@@ -32,7 +32,7 @@ const HomeWorksTitle = ({ container }) => {
 
   const [action, setAction] = useState(null);
 
-  const model = useGLTF(loadedVideos['/models/works.gltf']);
+  const model = useGLTF(loadedMedia['/models/works.gltf']);
 
   const { animations, nodes } = model;
 

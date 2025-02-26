@@ -22,10 +22,10 @@ const AboutHeroTitleMobile = () => {
 
   const [action, setAction] = useState(null);
 
-  const { isLoaded, loadedVideos } = useContext(mainContext);
+  const { isLoaded, loadedMedia } = useContext(mainContext);
 
   const model = useGLTF(
-    loadedVideos['/models/about_digital_art_director_mob.gltf']
+    loadedMedia['/models/about_digital_art_director_mob.gltf']
   );
 
   const { animations, nodes } = model;

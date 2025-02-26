@@ -20,9 +20,9 @@ const WorksTitle = ({ setAction }) => {
     depth: 0,
   });
 
-  const { loadedVideos } = useContext(mainContext);
+  const { loadedMedia } = useContext(mainContext);
 
-  const model = useGLTF(loadedVideos['/models/all_works.gltf']);
+  const model = useGLTF(loadedMedia['/models/all_works.gltf']);
 
   const { animations, nodes } = model;
 

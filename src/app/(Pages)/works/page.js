@@ -23,7 +23,7 @@ import { mainContext } from '@/providers/MainProvider';
 
 import styles from './page.module.scss';
 
-const videolist = [
+const medialist = [
   '/models/all_works.gltf',
   '/models/lets.gltf',
   '/video/audio_hover.mp3',
@@ -44,7 +44,7 @@ const About = () => {
     isLoaded,
     setCurrentDescriptionSlide,
     resetMainProviderData,
-    loadedVideos,
+    loadedMedia,
   } = useContext(mainContext);
 
   const lenis = useLenis();
@@ -106,7 +106,7 @@ const About = () => {
             gl={{ stencil: true }}
           >
             <Suspense fallback={null}>
-              {loadedVideos?.['/models/all_works.gltf'] && (
+              {loadedMedia?.['/models/all_works.gltf'] && (
                 <WorksTitle action={action} setAction={setAction} />
               )}
             </Suspense>
@@ -118,7 +118,7 @@ const About = () => {
         <Footer className={styles.footer} titleColor={'#9b9b88'} />
       </div>
 
-      {!isLoaded && <Loader videolist={videolist} />}
+      {!isLoaded && <Loader medialist={medialist} />}
     </main>
   );
 };

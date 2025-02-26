@@ -14,7 +14,7 @@ const Recognition = () => {
   const imagesListRef = useRef();
   const lineRef = useRef();
 
-  const { isLoaded, loadedVideos } = useContext(mainContext);
+  const { isLoaded, loadedMedia } = useContext(mainContext);
 
   useGSAP(
     () => {
@@ -83,7 +83,7 @@ const Recognition = () => {
           gl={{ stencil: true }}
         >
           <Suspense fallback={null}>
-            {loadedVideos?.['/models/recognition.gltf'] && (
+            {loadedMedia?.['/models/recognition.gltf'] && (
               <AboutRecognitionTitle setAction={setAction} />
             )}
           </Suspense>

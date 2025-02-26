@@ -23,7 +23,7 @@ const Hero = () => {
 
   const { isMobile } = useMobile();
 
-  const { loadedVideos } = useContext(mainContext);
+  const { loadedMedia } = useContext(mainContext);
 
   return (
     <>
@@ -47,12 +47,12 @@ const Hero = () => {
             >
               <Suspense fallback={null}>
                 <group scale={isMobile ? 0 : 1}>
-                  {loadedVideos?.['/models/home_hero_title.gltf'] && (
+                  {loadedMedia?.['/models/home_hero_title.gltf'] && (
                     <HomeHeroTitle />
                   )}
                 </group>
                 <group scale={isMobile ? 1 : 0}>
-                  {loadedVideos?.['/models/home_hero_title_mobile.gltf'] && (
+                  {loadedMedia?.['/models/home_hero_title_mobile.gltf'] && (
                     <HomeHeroTitleMobile />
                   )}
                 </group>

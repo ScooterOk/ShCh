@@ -8,12 +8,12 @@ import HomeAllWorksTitleMobile from '@/components/Home/HomeAllWorksTitleMobile';
 import { mainContext } from '@/providers/MainProvider';
 
 const AllWorks = () => {
-  const { loadedVideos } = useContext(mainContext);
+  const { loadedMedia } = useContext(mainContext);
   const container = useRef();
 
   const { isMobile } = useMobile();
 
-  if (!loadedVideos?.['/video/allworks.mp4']) return null;
+  if (!loadedMedia?.['/video/allworks.mp4']) return null;
 
   return (
     <div className={styles.allworks} ref={container}>
@@ -24,12 +24,12 @@ const AllWorks = () => {
         >
           <Suspense fallback={null}>
             <group scale={isMobile ? 0 : 1}>
-              {loadedVideos?.['/models/viewall.gltf'] && (
+              {loadedMedia?.['/models/viewall.gltf'] && (
                 <HomeAllWorksTitle container={container.current} />
               )}
             </group>
             <group scale={isMobile ? 1 : 0}>
-              {loadedVideos?.['/models/viewall_mobile.gltf'] && (
+              {loadedMedia?.['/models/viewall_mobile.gltf'] && (
                 <HomeAllWorksTitleMobile container={container.current} />
               )}
             </group>

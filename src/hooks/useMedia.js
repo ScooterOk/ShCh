@@ -3,14 +3,14 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 
 let prevSummary = [];
 
-const useVideo = ({ list }) => {
+const useMedia = ({ list }) => {
   const [summary, setSummary] = useState(
     list.map((src) => ({
       src,
       progress: 0,
     }))
   );
-  const { loadedVideos, setLoadedVideos } = useContext(mainContext);
+  const { loadedMedia, setLoadedMedia } = useContext(mainContext);
 
   const progress = useMemo(
     () =>
@@ -20,15 +20,15 @@ const useVideo = ({ list }) => {
             (previousValue, currentValue) =>
               previousValue + currentValue.progress,
             0
-          ) / list.filter((src) => !loadedVideos[src])?.length
+          ) / list.filter((src) => !loadedMedia[src])?.length
         )?.toFixed(0)
       ) || 100,
     [list, summary]
   );
 
-  const isVideoListReady = useMemo(
-    () => list.every((item) => loadedVideos?.[item]),
-    [list, loadedVideos]
+  const isMediaListReady = useMemo(
+    () => list.every((item) => loadedMedia?.[item]),
+    [list, loadedMedia]
   );
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const useVideo = ({ list }) => {
       // eslint-disable-next-line no-undef
       const responses = await Promise.all(
         list
-          .filter((src) => !loadedVideos[src])
+          .filter((src) => !loadedMedia[src])
           .map((src) => {
             const controller = new AbortController();
             abortControllers.push(controller);
@@ -138,7 +138,7 @@ const useVideo = ({ list }) => {
       videos.forEach(({ src, blobSrc }) => {
         videoData[src] = blobSrc;
       });
-      setLoadedVideos((prev) => {
+      setLoadedMedia((prev) => {
         const result = { ...prev };
         for (let key in videoData) {
           result[key] = videoData[key];
@@ -151,12 +151,12 @@ const useVideo = ({ list }) => {
     return () => {
       abortControllers.forEach((controller) => controller.abort());
     };
-  }, [list, setLoadedVideos]);
+  }, [list, setLoadedMedia]);
 
   return {
     progress,
-    isVideoListReady,
+    isMediaListReady,
   };
 };
 
-export default useVideo;
+export default useMedia;

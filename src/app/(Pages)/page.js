@@ -22,7 +22,7 @@ import AllWorks from '@/features/Homepage/AllWorks/AllWorks';
 let cubeRotationActive = false;
 let scrollTweenActive = false;
 
-const videolist = [
+const medialist = [
   '/video/Hero_head_video_01.mp4',
   '/video/Hero_head_video_02.mp4',
   '/video/showreel_preview.mp4',
@@ -230,7 +230,7 @@ export default function Home() {
       <AllWorks />
       <Follow />
       <Footer />
-      {!isLoaded && <Loader videolist={videolist} />}
+      {!isLoaded && <Loader medialist={medialist} />}
     </main>
   );
 }

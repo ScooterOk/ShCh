@@ -7,7 +7,7 @@ export const mainContext = createContext();
 const MainProvider = ({ children }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isNavigationReady, setIsNavigationReady] = useState(false);
-  const [loadedVideos, setLoadedVideos] = useState({});
+  const [loadedMedia, setLoadedMedia] = useState({});
   const [noScroll, setNoScroll] = useState(true);
   const [isFocusEntered, setIsFocusEntered] = useState(false);
   const [currentFocusSlide, setCurrentFocusSlide] = useState(-1);
@@ -53,8 +53,8 @@ const MainProvider = ({ children }) => {
           setIsLoaded,
           isNavigationReady,
           setIsNavigationReady,
-          loadedVideos,
-          setLoadedVideos,
+          loadedMedia,
+          setLoadedMedia,
           noScroll,
           setNoScroll,
           isFocusEntered,

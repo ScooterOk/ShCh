@@ -22,11 +22,9 @@ const AboutHeroTitle = () => {
 
   const [action, setAction] = useState(null);
 
-  const { isLoaded, loadedVideos } = useContext(mainContext);
+  const { isLoaded, loadedMedia } = useContext(mainContext);
 
-  const model = useGLTF(
-    loadedVideos['/models/about_digital_art_director.gltf']
-  );
+  const model = useGLTF(loadedMedia['/models/about_digital_art_director.gltf']);
 
   const { animations, nodes } = model;
   const material = new THREE.MeshBasicMaterial({ color: 0x9b9b88 });

@@ -16,7 +16,7 @@ import { mainContext } from '@/providers/MainProvider';
 const Footer = ({ className, titleColor }) => {
   const container = useRef();
 
-  const { loadedVideos } = useContext(mainContext);
+  const { loadedMedia } = useContext(mainContext);
 
   const { isMobile } = useMobile();
 
@@ -62,7 +62,7 @@ const Footer = ({ className, titleColor }) => {
           <Canvas camera={{ position: [0, 0, 1], orthographic: true }}>
             <Suspense fallback={null}>
               <group scale={isMobile ? 0 : 1}>
-                {loadedVideos?.['/models/lets.gltf'] && (
+                {loadedMedia?.['/models/lets.gltf'] && (
                   <FooterTitle
                     container={container.current}
                     titleColor={titleColor}
@@ -70,7 +70,7 @@ const Footer = ({ className, titleColor }) => {
                 )}
               </group>
               <group scale={isMobile ? 1 : 0}>
-                {loadedVideos?.['/models/lets.gltf'] && (
+                {loadedMedia?.['/models/lets.gltf'] && (
                   <FooterTitleMobile
                     container={container.current}
                     titleColor={titleColor}

@@ -12,7 +12,7 @@ const Description = () => {
   const line = useRef();
   const [action, setAction] = useState(null);
 
-  const { isLoaded, loadedVideos } = useContext(mainContext);
+  const { isLoaded, loadedMedia } = useContext(mainContext);
 
   useGSAP(
     () => {
@@ -94,7 +94,7 @@ const Description = () => {
             gl={{ stencil: true }}
           >
             <Suspense fallback={null}>
-              {loadedVideos?.['/models/10.gltf'] && (
+              {loadedMedia?.['/models/10.gltf'] && (
                 <AboutDescriptionTitle setAction={setAction} />
               )}
             </Suspense>

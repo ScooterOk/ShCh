@@ -8,7 +8,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import * as THREE from 'three';
 
 const HomeHeroTitleMobile = () => {
-  const { isLoaded, setNoScroll, setIsNavigationReady, loadedVideos } =
+  const { isLoaded, setNoScroll, setIsNavigationReady, loadedMedia } =
     useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
 
@@ -20,7 +20,7 @@ const HomeHeroTitleMobile = () => {
 
   const [action, setAction] = useState(null);
 
-  const model = useGLTF(loadedVideos['/models/home_hero_title_mobile.gltf']);
+  const model = useGLTF(loadedMedia['/models/home_hero_title_mobile.gltf']);
 
   const { animations, nodes } = model;
 

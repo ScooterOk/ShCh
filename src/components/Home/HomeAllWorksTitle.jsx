@@ -13,7 +13,7 @@ const { duration, easeEnter, easeLeave } = configs;
 const animatingNodes = {};
 
 const HomeAllWorksTitle = ({ container }) => {
-  const { isLoaded, loadedVideos } = useContext(mainContext);
+  const { isLoaded, loadedMedia } = useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
 
   const [modelDimensions, setModelDimensions] = useState({
@@ -24,7 +24,7 @@ const HomeAllWorksTitle = ({ container }) => {
 
   const [action, setAction] = useState(null);
 
-  const model = useGLTF(loadedVideos['/models/viewall.gltf']);
+  const model = useGLTF(loadedMedia['/models/viewall.gltf']);
 
   const { animations, nodes } = model;
 
@@ -34,7 +34,7 @@ const HomeAllWorksTitle = ({ container }) => {
 
   const { viewport } = three;
 
-  const videoMaterial = useVideoTexture(loadedVideos?.['/video/allworks.mp4'], {
+  const videoMaterial = useVideoTexture(loadedMedia?.['/video/allworks.mp4'], {
     start: true,
     // loop: true,
   });

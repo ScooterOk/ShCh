@@ -8,7 +8,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 const FooterTitleMobile = ({ container, titleColor }) => {
-  const { isLoaded, loadedVideos } = useContext(mainContext);
+  const { isLoaded, loadedMedia } = useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
 
   const material = titleColor
@@ -23,7 +23,7 @@ const FooterTitleMobile = ({ container, titleColor }) => {
 
   const [action, setAction] = useState(null);
 
-  const model = useGLTF(loadedVideos?.['/models/lets.gltf']);
+  const model = useGLTF(loadedMedia?.['/models/lets.gltf']);
 
   const { animations, nodes } = model;
 

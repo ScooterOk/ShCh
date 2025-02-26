@@ -22,9 +22,9 @@ const AboutRecognitionTitle = ({ setAction }) => {
     depth: 0,
   });
 
-  const { loadedVideos } = useContext(mainContext);
+  const { loadedMedia } = useContext(mainContext);
 
-  const model = useGLTF(loadedVideos['/models/recognition.gltf']);
+  const model = useGLTF(loadedMedia['/models/recognition.gltf']);
 
   const { animations, nodes } = model;
 
