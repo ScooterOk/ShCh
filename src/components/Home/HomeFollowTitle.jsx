@@ -59,7 +59,6 @@ const HomeFollowTitle = ({ container }) => {
               trigger: container,
               start: 'top 50%',
               end: 'bottom bottom',
-              markers: true,
             },
             id: 'follow-title-init',
           })
