@@ -24,10 +24,14 @@ const AllWorks = () => {
         >
           <Suspense fallback={null}>
             <group scale={isMobile ? 0 : 1}>
-              <HomeAllWorksTitle />
+              {loadedVideos?.['/models/viewall.gltf'] && (
+                <HomeAllWorksTitle container={container.current} />
+              )}
             </group>
             <group scale={isMobile ? 1 : 0}>
-              <HomeAllWorksTitleMobile />
+              {loadedVideos?.['/models/viewall_mobile.gltf'] && (
+                <HomeAllWorksTitleMobile container={container.current} />
+              )}
             </group>
           </Suspense>
           {/* <OrbitControls /> */}

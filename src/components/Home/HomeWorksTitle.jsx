@@ -4,7 +4,7 @@ import { useAnimations, useGLTF } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import gsap from 'gsap';
 
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as THREE from 'three';
 
 import configs from '@/configs/titlesAnimation';
@@ -12,7 +12,7 @@ const { duration, easeEnter, easeLeave } = configs;
 const animatingNodes = {};
 
 const HomeWorksTitle = ({ container }) => {
-  const { isLoaded } = useContext(mainContext);
+  const { isLoaded, loadedVideos } = useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
 
   const [modelDimensions, setModelDimensions] = useState({
@@ -30,9 +30,9 @@ const HomeWorksTitle = ({ container }) => {
   //   ),
   // });
 
-  const action = useRef(null);
+  const [action, setAction] = useState(null);
 
-  const model = useGLTF('/models/works.gltf');
+  const model = useGLTF(loadedVideos['/models/works.gltf']);
 
   const { animations, nodes } = model;
 
@@ -43,17 +43,16 @@ const HomeWorksTitle = ({ container }) => {
   const { viewport } = three;
 
   useEffect(() => {
-    action.current = actions[names[0]];
-    if (action.current) {
-      action.current.reset();
-      action.current.paused = true;
-      action.current.play();
-    }
+    const a = actions[names[0]];
+    a.reset();
+    a.paused = true;
+    a.play();
+    setAction(a);
   }, [actions, names]);
 
   useGSAP(
     () => {
-      if (isLoaded && action.current) {
+      if (isLoaded && action) {
         gsap
           .timeline({
             scrollTrigger: {
@@ -63,19 +62,19 @@ const HomeWorksTitle = ({ container }) => {
             },
             id: 'works-title_init',
           })
-          .to(action.current, {
+          .to(action, {
             time: 0.5,
             duration: 1,
             ease: 'power3.inOut',
           })
-          .to(action.current, {
+          .to(action, {
             time: 1.5,
             duration: 1,
             ease: 'power3.Out',
           });
       }
     },
-    { dependencies: [isLoaded] }
+    { dependencies: [isLoaded, action] }
   );
 
   useEffect(() => {

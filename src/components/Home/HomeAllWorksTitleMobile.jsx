@@ -4,13 +4,8 @@ import { useAnimations, useGLTF, useVideoTexture } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import gsap from 'gsap';
 
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as THREE from 'three';
-
-import configs from '@/configs/titlesAnimation';
-
-const { duration, easeEnter, easeLeave } = configs;
-const animatingNodes = {};
 
 const HomeAllWorksTitleMobile = ({ container }) => {
   const { isLoaded, loadedVideos } = useContext(mainContext);
@@ -22,18 +17,9 @@ const HomeAllWorksTitleMobile = ({ container }) => {
     depth: 0,
   });
 
-  // const { value } = useControls({
-  //   lerpLookAt: folder(
-  //     {
-  //       value: { value: 0, label: "value", min: 0, max: 2 },
-  //     },
-  //     { collapsed: true }
-  //   ),
-  // });
+  const [action, setAction] = useState(null);
 
-  const action = useRef(null);
-
-  const model = useGLTF('/models/viewall_mobile.gltf');
+  const model = useGLTF(loadedVideos['/models/viewall_mobile.gltf']);
 
   const { animations, nodes } = model;
 
@@ -53,17 +39,16 @@ const HomeAllWorksTitleMobile = ({ container }) => {
   });
 
   useEffect(() => {
-    action.current = actions[names[0]];
-    if (action.current) {
-      action.current.reset();
-      action.current.paused = true;
-      action.current.play();
-    }
+    const a = actions[names[0]];
+    a.reset();
+    a.paused = true;
+    a.play();
+    setAction(a);
   }, [actions, names]);
 
   useGSAP(
     () => {
-      if (isLoaded && action.current) {
+      if (isLoaded && action) {
         gsap
           .timeline({
             scrollTrigger: {
@@ -73,19 +58,19 @@ const HomeAllWorksTitleMobile = ({ container }) => {
             },
             id: 'allworks-title_init',
           })
-          .to(action.current, {
+          .to(action, {
             time: 0.5,
             duration: 1,
             ease: 'power3.inOut',
           })
-          .to(action.current, {
+          .to(action, {
             time: 1.5,
             duration: 1,
             ease: 'power3.Out',
           });
       }
     },
-    { dependencies: [isLoaded] }
+    { dependencies: [isLoaded, action] }
   );
 
   useEffect(() => {
@@ -106,43 +91,6 @@ const HomeAllWorksTitleMobile = ({ container }) => {
     const w = (viewport.width / modelDimensions.width) * 1.08;
     setWidthScale(w);
   }, [modelDimensions.width, viewport.width]);
-
-  const handlePointerEnter = (e) => {
-    if (gsap.getById('works-title_init')?.isActive()) return;
-
-    const target = e.eventObject.morphTargetInfluences;
-    const name = e.eventObject.name;
-    if (animatingNodes?.[name]?.isActive()) animatingNodes?.[name].kill();
-    animatingNodes[name] = gsap.to(target, {
-      [0]: 1,
-      duration,
-      ease: easeEnter,
-      overwrite: true,
-    });
-  };
-
-  const handlePointerLeave = (e) => {
-    if (gsap.getById('works-title_init')?.isActive()) return;
-
-    const target = e.eventObject.morphTargetInfluences;
-    const name = e.eventObject.name;
-    if (!animatingNodes?.[name]?.isActive()) {
-      gsap.to(target, {
-        [0]: 0,
-        duration,
-        ease: 'power2.inOut',
-        overwrite: 'auto',
-      });
-    } else {
-      animatingNodes?.[name].eventCallback('onComplete', () => {
-        gsap.to(target, {
-          [0]: 0,
-          duration,
-          ease: easeLeave,
-        });
-      });
-    }
-  };
 
   return (
     <group

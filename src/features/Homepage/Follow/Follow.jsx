@@ -1,4 +1,4 @@
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useContext, useRef } from 'react';
 
 import HomeFollowTitle from '@/components/Home/HomeFollowTitle';
 import { Canvas } from '@react-three/fiber';
@@ -10,10 +10,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import styles from './Follow.module.scss';
+import { mainContext } from '@/providers/MainProvider';
 
 const Follow = () => {
   const container = useRef();
   const list = useRef();
+  const { loadedVideos } = useContext(mainContext);
 
   useGSAP(() => {
     // Scroll Bar Color Trigger
@@ -97,7 +99,9 @@ const Follow = () => {
           >
             <ambientLight intensity={1} />
             <Suspense fallback={null}>
-              <HomeFollowTitle container={container.current} />
+              {loadedVideos?.['/models/follow.gltf'] && (
+                <HomeFollowTitle container={container.current} />
+              )}
             </Suspense>
           </Canvas>
         </div>

@@ -1,5 +1,5 @@
 'use client';
-import React, { Suspense, useRef, useState } from 'react';
+import React, { Suspense, useContext, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import HomeHeroTitle from '@/components/Home/HomeHeroTitle';
 import HomeHeroLoopVideo from '@/components/Home/HomeHeroLoopVideo';
@@ -11,6 +11,7 @@ import HomeHeroTitleMobile from '@/components/Home/HomeHeroTitleMobile';
 import useMobile from '@/hooks/useMobile';
 
 import styles from './Hero.module.scss';
+import { mainContext } from '@/providers/MainProvider';
 
 const Hero = () => {
   const [initMousePosition, setInitMousePosition] = useState({
@@ -21,6 +22,8 @@ const Hero = () => {
   const canvas = useRef();
 
   const { isMobile } = useMobile();
+
+  const { loadedVideos } = useContext(mainContext);
 
   return (
     <>
@@ -44,10 +47,14 @@ const Hero = () => {
             >
               <Suspense fallback={null}>
                 <group scale={isMobile ? 0 : 1}>
-                  <HomeHeroTitle />
+                  {loadedVideos?.['/models/home_hero_title.gltf'] && (
+                    <HomeHeroTitle />
+                  )}
                 </group>
                 <group scale={isMobile ? 1 : 0}>
-                  <HomeHeroTitleMobile />
+                  {loadedVideos?.['/models/home_hero_title_mobile.gltf'] && (
+                    <HomeHeroTitleMobile />
+                  )}
                 </group>
               </Suspense>
             </Canvas>

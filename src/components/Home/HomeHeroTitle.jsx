@@ -4,7 +4,7 @@ import { useAnimations, useGLTF } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import gsap from 'gsap';
 
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as THREE from 'three';
 
 import configs from '@/configs/titlesAnimation';
@@ -14,7 +14,7 @@ const { duration, easeEnter, easeLeave } = configs;
 const animatingNodes = {};
 
 const HomeHeroTitle = () => {
-  const { isLoaded, setNoScroll, setIsNavigationReady } =
+  const { isLoaded, setNoScroll, setIsNavigationReady, loadedVideos } =
     useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
 
@@ -24,9 +24,9 @@ const HomeHeroTitle = () => {
     depth: 0,
   });
 
-  const action = useRef(null);
+  const [action, setAction] = useState(null);
 
-  const model = useGLTF('/models/home_hero_title.gltf');
+  const model = useGLTF(loadedVideos['/models/home_hero_title.gltf']);
 
   const { animations, nodes } = model;
 
@@ -37,40 +37,37 @@ const HomeHeroTitle = () => {
   const { viewport } = three;
 
   useEffect(() => {
-    action.current = actions[names[0]];
-    if (action.current) {
-      action.current.reset();
-      action.current.paused = true;
-      action.current.play();
-    }
+    const a = actions[names[0]];
+    a.reset();
+    a.paused = true;
+    a.play();
+    setAction(a);
   }, [actions, names]);
 
   useGSAP(
     () => {
-      if (isLoaded) {
-        if (action.current) {
-          gsap
-            .timeline({
-              onComplete: () => {
-                setNoScroll(false);
-                setIsNavigationReady(true);
-              },
-              id: 'hero-title-init',
-            })
-            .to(action.current, {
-              time: 1,
-              duration: 1,
-              ease: 'power3.inOut',
-            })
-            .to(action.current, {
-              time: 2,
-              duration: 1,
-              ease: 'power3.Out',
-            });
-        }
+      if (isLoaded && action) {
+        gsap
+          .timeline({
+            onComplete: () => {
+              setNoScroll(false);
+              setIsNavigationReady(true);
+            },
+            id: 'hero-title-init',
+          })
+          .to(action, {
+            time: 1,
+            duration: 1,
+            ease: 'power3.inOut',
+          })
+          .to(action, {
+            time: 2,
+            duration: 1,
+            ease: 'power3.Out',
+          });
       }
     },
-    { dependencies: [isLoaded] }
+    { dependencies: [isLoaded, action] }
   );
 
   useEffect(() => {

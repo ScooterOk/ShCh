@@ -31,7 +31,14 @@ const videolist = [
   '/video/CUBE_03_full.mp4',
   '/video/CUBE_04_full.mp4',
   '/video/allworks.mp4',
+  '/models/home_hero_title.gltf',
+  '/models/home_hero_title_mobile.gltf',
+  '/models/works.gltf',
+  '/models/viewall.gltf',
+  '/models/viewall_mobile.gltf',
+  '/models/follow.gltf',
   '/video/audio_hover.mp3',
+  '/models/lets.gltf',
 ];
 
 export default function Home() {

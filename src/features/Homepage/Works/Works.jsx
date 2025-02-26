@@ -1,4 +1,4 @@
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useContext, useRef } from 'react';
 
 import { Canvas } from '@react-three/fiber';
 import HomeWorksTitle from '@/components/Home/HomeWorksTitle';
@@ -8,9 +8,11 @@ import styles from './Works.module.scss';
 import Skyrocket from '@/components/Home/Works/Skyrocket';
 import AngleSparky from '@/components/Home/Works/AngleSparky';
 import Mesmerized from '@/components/Home/Works/Mesmerized';
+import { mainContext } from '@/providers/MainProvider';
 
 const Works = () => {
   const container = useRef();
+  const { loadedVideos } = useContext(mainContext);
 
   return (
     <div className={styles.works}>
@@ -20,7 +22,9 @@ const Works = () => {
           //   gl={{ stencil: true }}
         >
           <Suspense fallback={null}>
-            <HomeWorksTitle container={container.current} />
+            {loadedVideos?.['/models/works.gltf'] && (
+              <HomeWorksTitle container={container.current} />
+            )}
           </Suspense>
           {/* <OrbitControls /> */}
         </Canvas>

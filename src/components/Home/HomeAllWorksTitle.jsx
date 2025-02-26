@@ -4,7 +4,7 @@ import { useAnimations, useGLTF, useVideoTexture } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import gsap from 'gsap';
 
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as THREE from 'three';
 
 import configs from '@/configs/titlesAnimation';
@@ -22,18 +22,9 @@ const HomeAllWorksTitle = ({ container }) => {
     depth: 0,
   });
 
-  // const { value } = useControls({
-  //   lerpLookAt: folder(
-  //     {
-  //       value: { value: 0, label: "value", min: 0, max: 2 },
-  //     },
-  //     { collapsed: true }
-  //   ),
-  // });
+  const [action, setAction] = useState(null);
 
-  const action = useRef(null);
-
-  const model = useGLTF('/models/viewall.gltf');
+  const model = useGLTF(loadedVideos['/models/viewall.gltf']);
 
   const { animations, nodes } = model;
 
@@ -53,17 +44,16 @@ const HomeAllWorksTitle = ({ container }) => {
   });
 
   useEffect(() => {
-    action.current = actions[names[0]];
-    if (action.current) {
-      action.current.reset();
-      action.current.paused = true;
-      action.current.play();
-    }
+    const a = actions[names[0]];
+    a.reset();
+    a.paused = true;
+    a.play();
+    setAction(a);
   }, [actions, names]);
 
   useGSAP(
     () => {
-      if (isLoaded && action.current) {
+      if (isLoaded && action) {
         gsap
           .timeline({
             scrollTrigger: {
@@ -73,19 +63,19 @@ const HomeAllWorksTitle = ({ container }) => {
             },
             id: 'allworks-title_init',
           })
-          .to(action.current, {
+          .to(action, {
             time: 0.5,
             duration: 1,
             ease: 'power3.inOut',
           })
-          .to(action.current, {
+          .to(action, {
             time: 1.5,
             duration: 1,
             ease: 'power3.Out',
           });
       }
     },
-    { dependencies: [isLoaded] }
+    { dependencies: [isLoaded, action] }
   );
 
   useEffect(() => {
