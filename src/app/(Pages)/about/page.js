@@ -28,6 +28,8 @@ const medialist = [
   '/models/about_digital_art_director_mob.gltf',
   '/models/10.gltf',
   '/models/recognition.gltf',
+  '/models/about_creativence.gltf',
+  '/models/about_innovis.gltf',
   '/video/audio_hover.mp3',
   '/models/lets.gltf',
 ];

@@ -19,8 +19,8 @@ let progressCount = { value: 0 };
 
 const Loader = ({ medialist: list, theme = 'light' }) => {
   const { setIsLoaded } = useContext(mainContext);
-  const { progress: modelsProgress } = useProgress();
-  const { progress: mediaProgress, isMediaListReady } = useMedia({
+  // const { progress: modelsProgress } = useProgress();
+  const { progress, isMediaListReady } = useMedia({
     list,
   });
 
@@ -28,10 +28,10 @@ const Loader = ({ medialist: list, theme = 'light' }) => {
 
   const container = useRef(null);
 
-  const progress = useMemo(
-    () => (modelsProgress + mediaProgress) / 2,
-    [modelsProgress, mediaProgress]
-  );
+  // const progress = useMemo(
+  //   () => (modelsProgress + mediaProgress) / 2,
+  //   [modelsProgress, mediaProgress]
+  // );
 
   useEffect(() => {
     if (isMediaListReady) setIsLoaded(true);
@@ -46,7 +46,7 @@ const Loader = ({ medialist: list, theme = 'light' }) => {
         overwrite: true,
         onUpdate: () => setCount(Math.round(progressCount.value)),
         onComplete: () => {
-          if (mediaProgress === 100) {
+          if (progress >= 100) {
             gsap.to(
               [
                 document.querySelectorAll(`.${styles.name} span`),

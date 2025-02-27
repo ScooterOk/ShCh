@@ -37,6 +37,9 @@ const medialist = [
   '/models/viewall.gltf',
   '/models/viewall_mobile.gltf',
   '/models/follow.gltf',
+  '/models/01_web_objects_upd.gltf',
+  '/models/03_motion_objects.gltf',
+  '/models/02_brand_objects.gltf',
   '/video/audio_hover.mp3',
   '/models/lets.gltf',
 ];
@@ -217,19 +220,26 @@ export default function Home() {
     // eslint-disable-next-line
   }, [isMobile, lenis]);
 
+  console.log('noScroll', noScroll);
+
   return (
     <main ref={mainContainerRef} className={styles.main}>
       <div ref={heroRef}>
         <Hero isLoaded={isLoaded} />
       </div>
 
-      <div ref={cubeRef}>
-        <FocusOn />
-      </div>
-      <Works />
-      <AllWorks />
-      <Follow />
-      <Footer />
+      {!noScroll && (
+        <>
+          <div ref={cubeRef}>
+            <FocusOn />
+          </div>
+          <Works />
+          <AllWorks />
+          <Follow />
+          <Footer />
+        </>
+      )}
+
       {!isLoaded && <Loader medialist={medialist} />}
     </main>
   );

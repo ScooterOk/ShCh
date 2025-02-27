@@ -5,10 +5,10 @@ import gsap from 'gsap';
 import { Color } from 'three';
 
 const BrandObjects = ({ isHolded }) => {
-  const { currentFocusSlide } = useContext(mainContext);
+  const { currentFocusSlide, loadedMedia } = useContext(mainContext);
 
   // Fetch model and a separate texture
-  const model = useGLTF('/models/02_brand_objects.gltf');
+  const model = useGLTF(loadedMedia['/models/02_brand_objects.gltf']);
 
   const { scene, animations, nodes } = model;
 

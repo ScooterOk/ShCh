@@ -108,7 +108,7 @@ const CoubScene = ({
   const modelRef = useRef();
 
   const lenis = useLenis();
-  const { isLoaded, setIsHolded } = useContext(mainContext);
+  const { isLoaded, setIsHolded, loadedMedia } = useContext(mainContext);
 
   const three = useThree();
 
@@ -194,13 +194,19 @@ const CoubScene = ({
         )}
 
         <Suspense fallback={null}>
-          <WebObjects isHolded={isHolded} />
+          {loadedMedia?.['/models/01_web_objects_upd.gltf'] && (
+            <WebObjects isHolded={isHolded} />
+          )}
         </Suspense>
         <Suspense fallback={null}>
-          <BrandObjects isHolded={isHolded} />
+          {loadedMedia?.['/models/02_brand_objects.gltf'] && (
+            <BrandObjects isHolded={isHolded} />
+          )}
         </Suspense>
         <Suspense fallback={null}>
-          <MotionObjects isHolded={isHolded} />
+          {loadedMedia?.['/models/03_motion_objects.gltf'] && (
+            <MotionObjects isHolded={isHolded} />
+          )}
         </Suspense>
       </group>
       <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, 0]}>

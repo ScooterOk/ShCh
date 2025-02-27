@@ -12,19 +12,37 @@ const useMedia = ({ list }) => {
   );
   const { loadedMedia, setLoadedMedia } = useContext(mainContext);
 
-  const progress = useMemo(
-    () =>
-      Number(
-        (
-          summary.reduce(
-            (previousValue, currentValue) =>
-              previousValue + currentValue.progress,
-            0
-          ) / list.filter((src) => !loadedMedia[src])?.length
-        )?.toFixed(0)
-      ) || 100,
-    [list, summary]
-  );
+  const progress = useMemo(() => {
+    // console.log(
+    //   'summary',
+    //   summary,
+    //   summary.reduce(
+    //     (previousValue, currentValue) => previousValue + currentValue.progress,
+    //     0
+    //   ),
+    //   list.length
+    // );
+
+    console.log(
+      summary.reduce(
+        (previousValue, currentValue) => previousValue + currentValue.progress,
+        0
+      ),
+      list.filter((src) => !loadedMedia[src])?.length
+    );
+
+    if (list.filter((src) => !loadedMedia[src])?.length === 0) return 100;
+
+    return Number(
+      (
+        summary.reduce(
+          (previousValue, currentValue) =>
+            previousValue + currentValue.progress,
+          0
+        ) / list.filter((src) => !loadedMedia[src])?.length
+      )?.toFixed(0)
+    );
+  }, [list, summary]);
 
   const isMediaListReady = useMemo(
     () => list.every((item) => loadedMedia?.[item]),
@@ -83,7 +101,7 @@ const useMedia = ({ list }) => {
                 const { done, value } = await reader.read();
                 try {
                   if (done) {
-                    if (!contentLength) {
+                    if (!isVideo) {
                       setSummary((prev) =>
                         prev.map((item) =>
                           item.src === src ? { ...item, progress: 100 } : item
@@ -95,23 +113,30 @@ const useMedia = ({ list }) => {
                   }
 
                   loaded += value.length;
-                  const result = total
-                    ? Number(((loaded / total) * 100).toFixed(0))
-                    : 0;
 
-                  const prevResult = prevSummary.find(
-                    (item) => item.src === src
-                  )?.progress;
+                  if (!isVideo) console.log(src, loaded, total);
 
-                  if (prevResult !== result) {
-                    setSummary((prev) =>
-                      prev.map((item) =>
+                  if (isVideo) {
+                    const result = total
+                      ? Number(((loaded / total) * 100).toFixed(0))
+                      : 0;
+
+                    const prevResult = prevSummary.find(
+                      (item) => item.src === src
+                    )?.progress;
+
+                    if (prevResult !== result) {
+                      setSummary((prev) =>
+                        prev.map((item) =>
+                          item.src === src
+                            ? { ...item, progress: result }
+                            : item
+                        )
+                      );
+                      prevSummary = prevSummary.map((item) =>
                         item.src === src ? { ...item, progress: result } : item
-                      )
-                    );
-                    prevSummary = prevSummary.map((item) =>
-                      item.src === src ? { ...item, progress: result } : item
-                    );
+                      );
+                    }
                   }
 
                   controller.enqueue(value);
