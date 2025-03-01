@@ -3,7 +3,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import React, { useContext, useRef } from 'react';
 
-const HomeHeroText = ({ styles }) => {
+const HomeHeroText = ({ styles, setRenderReady }) => {
   const { isLoaded } = useContext(mainContext);
 
   const rootRef = useRef();
@@ -12,7 +12,7 @@ const HomeHeroText = ({ styles }) => {
     () => {
       if (isLoaded) {
         gsap
-          .timeline({ delay: 2 })
+          .timeline({ delay: 2, onComplete: () => setRenderReady(true) })
           .from(rootRef.current.querySelectorAll('span'), {
             duration: 0.01,
             autoAlpha: 0,

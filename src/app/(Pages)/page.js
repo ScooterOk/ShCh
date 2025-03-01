@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useContext, useEffect, useRef } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import Loader from '@/components/Loader/Loader';
 import { mainContext } from '@/providers/MainProvider';
@@ -45,6 +45,8 @@ const medialist = [
 ];
 
 export default function Home() {
+  const [renderReady, setRenderReady] = useState(false);
+
   const {
     isLoaded,
     noScroll,
@@ -220,15 +222,13 @@ export default function Home() {
     // eslint-disable-next-line
   }, [isMobile, lenis]);
 
-  console.log('noScroll', noScroll);
-
   return (
     <main ref={mainContainerRef} className={styles.main}>
       <div ref={heroRef}>
-        <Hero isLoaded={isLoaded} />
+        <Hero isLoaded={isLoaded} setRenderReady={setRenderReady} />
       </div>
 
-      {!noScroll && (
+      {renderReady && (
         <>
           <div ref={cubeRef}>
             <FocusOn />

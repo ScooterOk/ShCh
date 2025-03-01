@@ -13,7 +13,7 @@ import useMobile from '@/hooks/useMobile';
 import styles from './Hero.module.scss';
 import { mainContext } from '@/providers/MainProvider';
 
-const Hero = () => {
+const Hero = ({ setRenderReady }) => {
   const [initMousePosition, setInitMousePosition] = useState({
     x: 0,
     y: 0,
@@ -58,7 +58,7 @@ const Hero = () => {
                 </group>
               </Suspense>
             </Canvas>
-            <HomeHeroText styles={styles} />
+            <HomeHeroText styles={styles} setRenderReady={setRenderReady} />
           </div>
         </div>
       </div>

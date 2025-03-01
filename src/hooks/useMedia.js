@@ -13,24 +13,6 @@ const useMedia = ({ list }) => {
   const { loadedMedia, setLoadedMedia } = useContext(mainContext);
 
   const progress = useMemo(() => {
-    // console.log(
-    //   'summary',
-    //   summary,
-    //   summary.reduce(
-    //     (previousValue, currentValue) => previousValue + currentValue.progress,
-    //     0
-    //   ),
-    //   list.length
-    // );
-
-    console.log(
-      summary.reduce(
-        (previousValue, currentValue) => previousValue + currentValue.progress,
-        0
-      ),
-      list.filter((src) => !loadedMedia[src])?.length
-    );
-
     if (list.filter((src) => !loadedMedia[src])?.length === 0) return 100;
 
     return Number(
@@ -113,8 +95,6 @@ const useMedia = ({ list }) => {
                   }
 
                   loaded += value.length;
-
-                  if (!isVideo) console.log(src, loaded, total);
 
                   if (isVideo) {
                     const result = total
