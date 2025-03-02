@@ -4,7 +4,7 @@ import { useAnimations, useGLTF } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import gsap from 'gsap';
 
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as THREE from 'three';
 
 import configs from '@/configs/titlesAnimation';
@@ -55,12 +55,13 @@ const FooterTitle = ({ container, titleColor }) => {
       if (isLoaded && action) {
         gsap
           .timeline({
+            id: 'footer-title-init',
             scrollTrigger: {
               trigger: container,
               start: 'top 80%',
               end: 'bottom bottom',
+              markers: true,
             },
-            id: 'footer-title-init',
           })
           .to(action, {
             time: 0.5,
@@ -68,7 +69,7 @@ const FooterTitle = ({ container, titleColor }) => {
             ease: 'power3.inOut',
           })
           .to(action, {
-            time: 1.5,
+            time: 1,
             duration: 1,
             ease: 'power3.Out',
           });

@@ -20,6 +20,8 @@ const Navigation = () => {
 
   const pathname = usePathname();
 
+  console.log('isNavigationReady', isNavigationReady);
+
   useGSAP(
     () => {
       if (isNavigationReady) {
