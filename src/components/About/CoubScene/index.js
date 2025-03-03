@@ -9,27 +9,23 @@ import {
   BrightnessContrastEffect,
 } from 'postprocessing';
 import gsap from 'gsap';
-import WebObjects from './CreativenceObjects';
-import BrandObjects from './InnovisObjects';
-import MotionObjects from './MotionObjects';
-import { mainContext } from '@/providers/MainProvider';
+import { Observer } from 'gsap/Observer';
 import { useLenis } from 'lenis/react';
-import Coub from './Coub';
 import * as THREE from 'three';
 
-import useMobile from '@/hooks/useMobile';
+import { mainContext } from '@/providers/MainProvider';
+
+import Coub from './Coub';
+
 import CreativenceObjects from './CreativenceObjects';
 import InnovisObjects from './InnovisObjects';
-import { Observer } from 'gsap/Observer';
 
 extend({ LensDistortionEffect });
 
 // Post processing
 const PostProcessing = ({ isHolded }) => {
-  const { isMobile } = useMobile();
   const { gl, scene, camera } = useThree();
   const composer = useMemo(() => new EffectComposer(gl), [gl]);
-  const { isFocusEntered } = useContext(mainContext);
   const distortionEffectRef = useRef(
     new LensDistortionEffect({
       distortion: new THREE.Vector2(0, 0),

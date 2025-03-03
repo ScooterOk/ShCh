@@ -60,7 +60,6 @@ const FooterTitle = ({ container, titleColor }) => {
               trigger: container,
               start: 'top 80%',
               end: 'bottom bottom',
-              markers: true,
             },
           })
           .to(action, {

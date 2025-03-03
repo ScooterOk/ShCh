@@ -1,17 +1,16 @@
-import { useProgress } from '@react-three/drei';
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
-
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
 import Image from 'next/image';
 import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
+import clsx from 'clsx';
 
-import styles from './Loader.module.scss';
 import SoundButton from '../SoundButton/SoundButton';
 import { mainContext } from '@/providers/MainProvider';
-import clsx from 'clsx';
 
 import colors from '@/configs/colors';
 import useMedia from '@/hooks/useMedia';
+
+import styles from './Loader.module.scss';
 
 const { bg, black } = colors;
 

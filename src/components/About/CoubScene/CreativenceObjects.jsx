@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import gsap from 'gsap';
 import { Color } from 'three';
-import { mainContext } from '@/providers/MainProvider';
 import { CubeCamera, useAnimations, useGLTF } from '@react-three/drei';
+
+import { mainContext } from '@/providers/MainProvider';
 
 const CreativenceObjects = ({ isHolded }) => {
   // Fetch model and a separate texture
-  const { isInit, currentDescriptionSlide, loadedMedia } =
-    useContext(mainContext);
+  const { currentDescriptionSlide, loadedMedia } = useContext(mainContext);
   const model = useGLTF(loadedMedia['/models/about_creativence.gltf']);
 
   const { scene, animations, nodes } = model;

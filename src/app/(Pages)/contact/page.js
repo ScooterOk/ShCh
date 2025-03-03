@@ -1,12 +1,14 @@
 'use client';
 import React, { useContext, useEffect } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
-import styles from './page.module.scss';
 import Footer from '@/components/Footer/Footer';
 import Loader from '@/components/Loader/Loader';
+
 import { mainContext } from '@/providers/MainProvider';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
+
+import styles from './page.module.scss';
 
 const medialist = ['/models/lets.gltf', '/video/audio_hover.mp3'];
 
@@ -15,8 +17,6 @@ const Contact = () => {
     isLoaded,
     setIsNavigationReady,
     setCurrentDescriptionSlide,
-    setIsInit,
-    setIsHolded,
     resetMainProviderData,
   } = useContext(mainContext);
 
