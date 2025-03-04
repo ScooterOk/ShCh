@@ -1,0 +1,73 @@
+@use '@/styles/vars' as *;
+
+.notFound {
+  background-color: $black;
+  min-height: 100dvh;
+  padding: 40px;
+  position: relative;
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 32px;
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 600;
+    color: $red;
+    position: relative;
+    z-index: 1;
+    &:hover {
+      .back__button {
+        color: $red;
+        &::before {
+          transform: scaleY(1);
+        }
+      }
+    }
+    &__button {
+      width: 80px;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $red;
+      color: $black;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      position: relative;
+      transition: color 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+      & svg {
+        z-index: 1;
+      }
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: $black;
+        transform: scaleY(0);
+        z-index: 0;
+        transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+      }
+      &:hover {
+        color: $red;
+        &::before {
+          transform: scaleY(1);
+        }
+      }
+    }
+  }
+  .text {
+    margin-top: 100px;
+    padding-left: 80px;
+    font-size: 20px;
+    line-height: 24px;
+    color: $red;
+    position: relative;
+    z-index: 1;
+  }
+  .canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+}

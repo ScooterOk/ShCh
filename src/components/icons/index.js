@@ -37,3 +37,15 @@ export const IconPlay = () => (
     <path d="M16 6L0 12V0L16 6Z" fill="currentColor" />
   </svg>
 );
+
+export const IconArrowLeft = () => (
+  <svg
+    width="9"
+    height="15"
+    viewBox="0 0 9 15"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M8 1L2 7.5L8 14" stroke="currentColor" strokeWidth="2" />
+  </svg>
+);
