@@ -34,7 +34,7 @@ const PostProcessing = ({ isHolded }) => {
   );
 
   const brightnessContrastEffect = useRef(
-    new BrightnessContrastEffect({ brightness: 0.1, contrast: 0.15 })
+    new BrightnessContrastEffect({ brightness: 0.1, contrast: 0.18 })
   );
 
   composer.removeAllPasses();

@@ -13,8 +13,13 @@ import {
 import { useGSAP } from '@gsap/react';
 
 import Coub from './Coub';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 extend({ LensDistortionEffect });
+
+let speed = 0;
 
 // Post processing
 const PostProcessing = () => {
@@ -28,7 +33,7 @@ const PostProcessing = () => {
   );
 
   const brightnessContrastEffect = useRef(
-    new BrightnessContrastEffect({ brightness: 0.1, contrast: 0.15 })
+    new BrightnessContrastEffect({ brightness: 0.1, contrast: 0.18 })
   );
 
   composer.removeAllPasses();
@@ -53,6 +58,23 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
 
   const { viewport } = three;
 
+  useFrame((_, delta) => {
+    // console.log('useFrame', speed);
+    // cubeRef.current.rotation.y += -(delta + speed * 0.0008) * 0.3;
+    cubeRef.current.rotation.y -= delta * 0.35 + speed * 0.0001;
+    // cubeRef.current.rotation.y += speed * -0.0001;
+    speed *= 0.95;
+  });
+
+  const handleUp = (e) => {
+    speed += e.deltaY;
+  };
+
+  const handleDown = (e) => {
+    console.log('handleDown', e.deltaY);
+    speed += e.deltaY;
+  };
+
   useGSAP(() => {
     gsap.from(cubeRef.current.scale, {
       x: 0.5,
@@ -62,11 +84,26 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
       duration: 1,
       ease: 'power2.out',
     });
-    gsap.to(cubeRef.current.rotation, {
-      y: Math.PI,
-      duration: 20,
-      ease: 'linear',
-      repeat: -1,
+    // gsap.to(cubeRef.current.rotation, {
+    //   y: Math.PI,
+    //   duration: 20,
+    //   ease: 'linear',
+    //   repeat: -1,
+    // });
+
+    ScrollTrigger.observe({
+      type: 'wheel,touch',
+      id: 'scroll-trigger-observe',
+      onUp: (e) => {
+        if (e.event.type === 'wheel') handleUp(e);
+        if (e.event.type === 'touchmove') handleDown(e);
+      },
+      onDown: (e) => {
+        if (e.event.type === 'wheel') handleDown(e);
+        if (e.event.type === 'touchmove') handleUp(e);
+      },
+      tolerance: 100,
+      // preventDefault: true,
     });
   });
 
