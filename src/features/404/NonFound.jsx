@@ -15,7 +15,6 @@ import TransitionAnimation from '@/components/TransitionAnimation/TransitionAnim
 const medialist = [
   '/video/404/404_side_01.mp4',
   '/video/404/404_side_02.mp4',
-  '/video/404/404_side_03.mp4',
   '/video/audio_hover.mp3',
 ];
 

@@ -11,9 +11,6 @@ const Coub = forwardRef((_, ref) => {
   const material_slide_2 = useVideoTexture(
     loadedMedia?.['/video/404/404_side_02.mp4']
   );
-  const material_slide_3 = useVideoTexture(
-    loadedMedia?.['/video/404/404_side_03.mp4']
-  );
 
   return (
     <mesh
@@ -22,7 +19,7 @@ const Coub = forwardRef((_, ref) => {
       rotation={[0, Math.PI * 2 + Math.PI / 2, 0]}
     >
       <boxGeometry args={[2, 2, 2]} />
-      <meshBasicMaterial attach={'material-0'} map={material_slide_3} />
+      <meshBasicMaterial attach={'material-0'} map={material_slide_1} />
       <meshBasicMaterial attach={'material-4'} map={material_slide_2} />
       <meshBasicMaterial attach={'material-1'} map={material_slide_1} />
       <meshBasicMaterial attach={'material-2'} color={'#000000'} />
