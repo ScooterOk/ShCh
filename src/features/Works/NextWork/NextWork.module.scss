@@ -1,0 +1,30 @@
+@use '@/styles/vars.scss' as *;
+
+.next {
+  background-color: $black;
+  padding: 280px 0 170px;
+  .wrapper {
+    display: flex;
+    align-items: flex-start;
+  }
+  &__title {
+    margin: 0 10%;
+    aspect-ratio: 2.55;
+    flex-grow: 1;
+    width: 47%;
+  }
+  &__video {
+    line-height: 0;
+    width: 33%;
+    video {
+      width: 100%;
+    }
+  }
+  &__copyright {
+    font-size: clamp(14px, 1.5vw, 20px);
+    font-weight: 600;
+    line-height: 1.2;
+    color: $bg;
+    padding: 240px 60px 0;
+  }
+}
