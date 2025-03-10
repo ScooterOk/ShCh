@@ -1,15 +1,14 @@
 'use client';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useLenis } from 'lenis/react';
 
 import styles from './ScrollBar.module.scss';
-import { mainContext } from '@/providers/MainProvider';
 
 const ScrollBar = () => {
   const [thumbHeight, setThumbHeight] = useState(0);
   const [thumbOffset, setThumbOffset] = useState(0);
-  const { isLoaded } = useContext(mainContext);
+
   const lenis = useLenis();
 
   const scrollbarRef = useRef();

@@ -14,7 +14,7 @@ const { duration, easeEnter, easeLeave } = configs;
 const animatingNodes = {};
 
 const HomeHeroTitle = () => {
-  const { isLoaded, setNoScroll, setIsNavigationReady, loadedVideos } =
+  const { isLoaded, setNoScroll, setIsNavigationReady, loadedMedia } =
     useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
 
@@ -26,7 +26,7 @@ const HomeHeroTitle = () => {
 
   const [action, setAction] = useState(null);
 
-  const model = useGLTF(loadedVideos['/models/home_hero_title.gltf']);
+  const model = useGLTF(loadedMedia['/models/home_hero_title.gltf']);
 
   const { animations, nodes } = model;
 

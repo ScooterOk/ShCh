@@ -5,7 +5,7 @@ import gsap from 'gsap';
 import React, { useContext, useRef } from 'react';
 
 const HomeHeroLoopVideo = ({ styles }) => {
-  const { isLoaded, loadedVideos } = useContext(mainContext);
+  const { isLoaded, loadedMedia } = useContext(mainContext);
   const rootRef = useRef();
   const initVideoRef = useRef();
   const mainVideoRef = useRef();
@@ -42,7 +42,7 @@ const HomeHeroLoopVideo = ({ styles }) => {
 
   return (
     <div ref={rootRef} className={styles.loop_video}>
-      {loadedVideos?.['/video/Hero_head_video_01.mp4'] && (
+      {loadedMedia?.['/video/Hero_head_video_01.mp4'] && (
         <video
           className={styles.loop_video_init}
           ref={initVideoRef}
@@ -53,13 +53,13 @@ const HomeHeroLoopVideo = ({ styles }) => {
           playsInline
         >
           <source
-            src={loadedVideos?.['/video/Hero_head_video_01.mp4']}
+            src={loadedMedia?.['/video/Hero_head_video_01.mp4']}
             type="video/mp4"
           />
         </video>
       )}
 
-      {loadedVideos?.['/video/Hero_head_video_02.mp4'] && (
+      {loadedMedia?.['/video/Hero_head_video_02.mp4'] && (
         <video
           className={styles.loop_video_main}
           ref={mainVideoRef}
@@ -71,7 +71,7 @@ const HomeHeroLoopVideo = ({ styles }) => {
           playsInline
         >
           <source
-            src={loadedVideos?.['/video/Hero_head_video_02.mp4']}
+            src={loadedMedia?.['/video/Hero_head_video_02.mp4']}
             type="video/mp4"
           />
         </video>

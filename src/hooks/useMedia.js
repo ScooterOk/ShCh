@@ -3,32 +3,32 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 
 let prevSummary = [];
 
-const useVideo = ({ list }) => {
+const useMedia = ({ list }) => {
   const [summary, setSummary] = useState(
     list.map((src) => ({
       src,
       progress: 0,
     }))
   );
-  const { loadedVideos, setLoadedVideos } = useContext(mainContext);
+  const { loadedMedia, setLoadedMedia } = useContext(mainContext);
 
-  const progress = useMemo(
-    () =>
-      Number(
-        (
-          summary.reduce(
-            (previousValue, currentValue) =>
-              previousValue + currentValue.progress,
-            0
-          ) / list.filter((src) => !loadedVideos[src])?.length
-        )?.toFixed(0)
-      ) || 100,
-    [list, summary]
-  );
+  const progress = useMemo(() => {
+    if (list.filter((src) => !loadedMedia[src])?.length === 0) return 100;
 
-  const isVideoListReady = useMemo(
-    () => list.every((item) => loadedVideos?.[item]),
-    [list, loadedVideos]
+    return Number(
+      (
+        summary.reduce(
+          (previousValue, currentValue) =>
+            previousValue + currentValue.progress,
+          0
+        ) / list.filter((src) => !loadedMedia[src])?.length
+      )?.toFixed(0)
+    );
+  }, [list, summary]);
+
+  const isMediaListReady = useMemo(
+    () => list.every((item) => loadedMedia?.[item]),
+    [list, loadedMedia]
   );
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const useVideo = ({ list }) => {
       // eslint-disable-next-line no-undef
       const responses = await Promise.all(
         list
-          .filter((src) => !loadedVideos[src])
+          .filter((src) => !loadedMedia[src])
           .map((src) => {
             const controller = new AbortController();
             abortControllers.push(controller);
@@ -83,7 +83,7 @@ const useVideo = ({ list }) => {
                 const { done, value } = await reader.read();
                 try {
                   if (done) {
-                    if (!contentLength) {
+                    if (!isVideo) {
                       setSummary((prev) =>
                         prev.map((item) =>
                           item.src === src ? { ...item, progress: 100 } : item
@@ -95,23 +95,28 @@ const useVideo = ({ list }) => {
                   }
 
                   loaded += value.length;
-                  const result = total
-                    ? Number(((loaded / total) * 100).toFixed(0))
-                    : 0;
 
-                  const prevResult = prevSummary.find(
-                    (item) => item.src === src
-                  )?.progress;
+                  if (isVideo) {
+                    const result = total
+                      ? Number(((loaded / total) * 100).toFixed(0))
+                      : 0;
 
-                  if (prevResult !== result) {
-                    setSummary((prev) =>
-                      prev.map((item) =>
+                    const prevResult = prevSummary.find(
+                      (item) => item.src === src
+                    )?.progress;
+
+                    if (prevResult !== result) {
+                      setSummary((prev) =>
+                        prev.map((item) =>
+                          item.src === src
+                            ? { ...item, progress: result }
+                            : item
+                        )
+                      );
+                      prevSummary = prevSummary.map((item) =>
                         item.src === src ? { ...item, progress: result } : item
-                      )
-                    );
-                    prevSummary = prevSummary.map((item) =>
-                      item.src === src ? { ...item, progress: result } : item
-                    );
+                      );
+                    }
                   }
 
                   controller.enqueue(value);
@@ -138,7 +143,7 @@ const useVideo = ({ list }) => {
       videos.forEach(({ src, blobSrc }) => {
         videoData[src] = blobSrc;
       });
-      setLoadedVideos((prev) => {
+      setLoadedMedia((prev) => {
         const result = { ...prev };
         for (let key in videoData) {
           result[key] = videoData[key];
@@ -151,12 +156,12 @@ const useVideo = ({ list }) => {
     return () => {
       abortControllers.forEach((controller) => controller.abort());
     };
-  }, [list, setLoadedVideos]);
+  }, [list, setLoadedMedia]);
 
   return {
     progress,
-    isVideoListReady,
+    isMediaListReady,
   };
 };
 
-export default useVideo;
+export default useMedia;

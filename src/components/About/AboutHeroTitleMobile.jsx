@@ -3,14 +3,8 @@ import { useGSAP } from '@gsap/react';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import gsap from 'gsap';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as THREE from 'three';
-
-import configs from '@/configs/titlesAnimation';
-
-const animatingNodes = {};
-
-const { duration, easeEnter, easeLeave } = configs;
 
 const AboutHeroTitleMobile = () => {
   const [widthScale, setWidthScale] = useState(1);
@@ -22,10 +16,10 @@ const AboutHeroTitleMobile = () => {
 
   const [action, setAction] = useState(null);
 
-  const { isLoaded, loadedVideos } = useContext(mainContext);
+  const { isLoaded, loadedMedia } = useContext(mainContext);
 
   const model = useGLTF(
-    loadedVideos['/models/about_digital_art_director_mob.gltf']
+    loadedMedia['/models/about_digital_art_director_mob.gltf']
   );
 
   const { animations, nodes } = model;

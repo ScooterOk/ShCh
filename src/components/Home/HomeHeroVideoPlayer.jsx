@@ -8,7 +8,7 @@ const HomeHeroVideoPlayer = ({
   setShowVideoPlayer,
   setInitMousePosition,
 }) => {
-  const { isLoaded, loadedVideos } = useContext(mainContext);
+  const { isLoaded, loadedMedia } = useContext(mainContext);
   const rootRef = useRef();
   const previewRef = useRef();
   const button = useRef();
@@ -41,7 +41,7 @@ const HomeHeroVideoPlayer = ({
 
   return (
     <div ref={rootRef} className={styles.player_preview}>
-      {loadedVideos?.['/video/showreel_preview.mp4'] && (
+      {loadedMedia?.['/video/showreel_preview.mp4'] && (
         <video
           ref={previewRef}
           width="1920"
@@ -52,7 +52,7 @@ const HomeHeroVideoPlayer = ({
           playsInline
         >
           <source
-            src={loadedVideos?.['/video/showreel_preview.mp4']}
+            src={loadedMedia?.['/video/showreel_preview.mp4']}
             type="video/mp4"
           />
         </video>

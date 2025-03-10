@@ -44,7 +44,6 @@ const FocusOn = () => {
     isHolded,
     setIsHolded,
     isTouched,
-    isTransition,
   } = useContext(mainContext);
   const container = useRef();
   const scrollBarTrigger = useRef();

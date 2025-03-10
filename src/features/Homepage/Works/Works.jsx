@@ -12,7 +12,7 @@ import { mainContext } from '@/providers/MainProvider';
 
 const Works = () => {
   const container = useRef();
-  const { loadedVideos } = useContext(mainContext);
+  const { loadedMedia } = useContext(mainContext);
 
   return (
     <div className={styles.works}>
@@ -22,7 +22,7 @@ const Works = () => {
           //   gl={{ stencil: true }}
         >
           <Suspense fallback={null}>
-            {loadedVideos?.['/models/works.gltf'] && (
+            {loadedMedia?.['/models/works.gltf'] && (
               <HomeWorksTitle container={container.current} />
             )}
           </Suspense>

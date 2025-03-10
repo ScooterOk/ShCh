@@ -18,7 +18,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import useMobile from '@/hooks/useMobile';
 
-const videolist = [
+const medialist = [
   '/video/hero_head_video_full.mp4',
   '/video/CUBE_01_full.mp4',
   '/video/CUBE_02_full.mp4',
@@ -28,6 +28,8 @@ const videolist = [
   '/models/about_digital_art_director_mob.gltf',
   '/models/10.gltf',
   '/models/recognition.gltf',
+  '/models/about_creativence.gltf',
+  '/models/about_innovis.gltf',
   '/video/audio_hover.mp3',
   '/models/lets.gltf',
 ];
@@ -191,7 +193,7 @@ const About = () => {
         <Recognition />
       </div>
       <Footer className={styles.footer} />
-      {!isLoaded && <Loader videolist={videolist} theme="dark" />}
+      {!isLoaded && <Loader medialist={medialist} theme="dark" />}
     </main>
   );
 };

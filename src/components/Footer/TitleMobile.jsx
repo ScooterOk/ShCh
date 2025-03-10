@@ -4,11 +4,11 @@ import { useAnimations, useGLTF } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import gsap from 'gsap';
 
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as THREE from 'three';
 
 const FooterTitleMobile = ({ container, titleColor }) => {
-  const { isLoaded, loadedVideos } = useContext(mainContext);
+  const { isLoaded, loadedMedia } = useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
 
   const material = titleColor
@@ -23,7 +23,7 @@ const FooterTitleMobile = ({ container, titleColor }) => {
 
   const [action, setAction] = useState(null);
 
-  const model = useGLTF(loadedVideos?.['/models/lets.gltf']);
+  const model = useGLTF(loadedMedia?.['/models/lets.gltf']);
 
   const { animations, nodes } = model;
 
@@ -52,12 +52,12 @@ const FooterTitleMobile = ({ container, titleColor }) => {
       if (isLoaded && action) {
         gsap
           .timeline({
+            id: 'footer-title-init',
             scrollTrigger: {
               trigger: container,
               start: 'top 80%',
               end: 'bottom bottom',
             },
-            id: 'footer-title-init',
           })
           .to(action, {
             time: 0.5,

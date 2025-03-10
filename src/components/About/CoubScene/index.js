@@ -9,27 +9,23 @@ import {
   BrightnessContrastEffect,
 } from 'postprocessing';
 import gsap from 'gsap';
-import WebObjects from './CreativenceObjects';
-import BrandObjects from './InnovisObjects';
-import MotionObjects from './MotionObjects';
-import { mainContext } from '@/providers/MainProvider';
+import { Observer } from 'gsap/Observer';
 import { useLenis } from 'lenis/react';
-import Coub from './Coub';
 import * as THREE from 'three';
 
-import useMobile from '@/hooks/useMobile';
+import { mainContext } from '@/providers/MainProvider';
+
+import Coub from './Coub';
+
 import CreativenceObjects from './CreativenceObjects';
 import InnovisObjects from './InnovisObjects';
-import { Observer } from 'gsap/Observer';
 
 extend({ LensDistortionEffect });
 
 // Post processing
 const PostProcessing = ({ isHolded }) => {
-  const { isMobile } = useMobile();
   const { gl, scene, camera } = useThree();
   const composer = useMemo(() => new EffectComposer(gl), [gl]);
-  const { isFocusEntered } = useContext(mainContext);
   const distortionEffectRef = useRef(
     new LensDistortionEffect({
       distortion: new THREE.Vector2(0, 0),
@@ -38,7 +34,7 @@ const PostProcessing = ({ isHolded }) => {
   );
 
   const brightnessContrastEffect = useRef(
-    new BrightnessContrastEffect({ brightness: 0.1, contrast: 0.15 })
+    new BrightnessContrastEffect({ brightness: 0.1, contrast: 0.18 })
   );
 
   composer.removeAllPasses();
@@ -111,7 +107,7 @@ const CoubScene = ({
   const modelRef = useRef();
 
   const lenis = useLenis();
-  const { isLoaded, setIsHolded } = useContext(mainContext);
+  const { isLoaded, setIsHolded, loadedMedia } = useContext(mainContext);
 
   const three = useThree();
 
@@ -199,22 +195,16 @@ const CoubScene = ({
           />
         )}
         <Suspense fallback={null}>
-          <CreativenceObjects isHolded={isHolded} />
+          {loadedMedia?.['/models/about_creativence.gltf'] && (
+            <CreativenceObjects isHolded={isHolded} />
+          )}
         </Suspense>
 
         <Suspense fallback={null}>
-          <InnovisObjects isHolded={isHolded} />
+          {loadedMedia?.['/models/about_innovis.gltf'] && (
+            <InnovisObjects isHolded={isHolded} />
+          )}
         </Suspense>
-
-        {/* <Suspense fallback={null}>
-          <WebObjects isHolded={isHolded} />
-        </Suspense>
-        <Suspense fallback={null}>
-          <BrandObjects isHolded={isHolded} />
-        </Suspense>
-        <Suspense fallback={null}>
-          <MotionObjects isHolded={isHolded} />
-        </Suspense> */}
       </group>
       <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[10, 10]} rotateX={-Math.PI / 2} />

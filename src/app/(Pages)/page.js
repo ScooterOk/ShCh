@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useContext, useEffect, useRef } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import Loader from '@/components/Loader/Loader';
 import { mainContext } from '@/providers/MainProvider';
@@ -22,7 +22,7 @@ import AllWorks from '@/features/Homepage/AllWorks/AllWorks';
 let cubeRotationActive = false;
 let scrollTweenActive = false;
 
-const videolist = [
+const medialist = [
   '/video/Hero_head_video_01.mp4',
   '/video/Hero_head_video_02.mp4',
   '/video/showreel_preview.mp4',
@@ -37,11 +37,16 @@ const videolist = [
   '/models/viewall.gltf',
   '/models/viewall_mobile.gltf',
   '/models/follow.gltf',
+  '/models/01_web_objects_upd.gltf',
+  '/models/03_motion_objects.gltf',
+  '/models/02_brand_objects.gltf',
   '/video/audio_hover.mp3',
   '/models/lets.gltf',
 ];
 
 export default function Home() {
+  const [renderReady, setRenderReady] = useState(false);
+
   const {
     isLoaded,
     noScroll,
@@ -220,17 +225,22 @@ export default function Home() {
   return (
     <main ref={mainContainerRef} className={styles.main}>
       <div ref={heroRef}>
-        <Hero isLoaded={isLoaded} />
+        <Hero isLoaded={isLoaded} setRenderReady={setRenderReady} />
       </div>
 
-      <div ref={cubeRef}>
-        <FocusOn />
-      </div>
-      <Works />
-      <AllWorks />
-      <Follow />
-      <Footer />
-      {!isLoaded && <Loader videolist={videolist} />}
+      {renderReady && (
+        <>
+          <div ref={cubeRef}>
+            <FocusOn />
+          </div>
+          <Works />
+          <AllWorks />
+          <Follow />
+          <Footer />
+        </>
+      )}
+
+      {!isLoaded && <Loader medialist={medialist} />}
     </main>
   );
 }

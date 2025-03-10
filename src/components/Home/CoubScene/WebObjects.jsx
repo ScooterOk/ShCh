@@ -6,8 +6,8 @@ import { CubeCamera, useAnimations, useGLTF } from '@react-three/drei';
 
 const WebObjects = ({ isHolded }) => {
   // Fetch model and a separate texture
-  const { isInit, currentFocusSlide } = useContext(mainContext);
-  const model = useGLTF('/models/01_web_objects_upd.gltf');
+  const { isInit, currentFocusSlide, loadedMedia } = useContext(mainContext);
+  const model = useGLTF(loadedMedia['/models/01_web_objects_upd.gltf']);
 
   const { scene, animations, nodes } = model;
 

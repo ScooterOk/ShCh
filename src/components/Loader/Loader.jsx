@@ -1,26 +1,25 @@
-import { useProgress } from '@react-three/drei';
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
-
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
 import Image from 'next/image';
 import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import useVideo from '@/hooks/useVideo';
-
-import styles from './Loader.module.scss';
-import SoundButton from '../SoundButton/SoundButton';
-import { mainContext } from '@/providers/MainProvider';
 import clsx from 'clsx';
 
+import SoundButton from '../SoundButton/SoundButton';
+import { mainContext } from '@/providers/MainProvider';
+
 import colors from '@/configs/colors';
+import useMedia from '@/hooks/useMedia';
+
+import styles from './Loader.module.scss';
 
 const { bg, black } = colors;
 
 let progressCount = { value: 0 };
 
-const Loader = ({ videolist: list, theme = 'light' }) => {
+const Loader = ({ medialist: list, theme = 'light' }) => {
   const { setIsLoaded } = useContext(mainContext);
-  const { progress: modelsProgress } = useProgress();
-  const { progress: videoProgress, isVideoListReady } = useVideo({
+  // const { progress: modelsProgress } = useProgress();
+  const { progress, isMediaListReady } = useMedia({
     list,
   });
 
@@ -28,13 +27,13 @@ const Loader = ({ videolist: list, theme = 'light' }) => {
 
   const container = useRef(null);
 
-  const progress = useMemo(
-    () => (modelsProgress + videoProgress) / 2,
-    [modelsProgress, videoProgress]
-  );
+  // const progress = useMemo(
+  //   () => (modelsProgress + mediaProgress) / 2,
+  //   [modelsProgress, mediaProgress]
+  // );
 
   useEffect(() => {
-    if (isVideoListReady) setIsLoaded(true);
+    if (isMediaListReady) setIsLoaded(true);
   }, [setIsLoaded]);
 
   // Progress count animation
@@ -46,7 +45,7 @@ const Loader = ({ videolist: list, theme = 'light' }) => {
         overwrite: true,
         onUpdate: () => setCount(Math.round(progressCount.value)),
         onComplete: () => {
-          if (videoProgress === 100) {
+          if (progress >= 100) {
             gsap.to(
               [
                 document.querySelectorAll(`.${styles.name} span`),

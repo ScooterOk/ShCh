@@ -1,0 +1,5 @@
+<IfModule mod_headers.c>
+  <FilesMatch "\.gltf$">
+    Header set Content-Encoding ""
+  </FilesMatch>
+</IfModule>

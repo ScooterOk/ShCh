@@ -1,0 +1,69 @@
+@use '@/styles/vars.scss' as *;
+
+.credits {
+  margin-top: 160px;
+  padding: 20px 60px 320px;
+  display: flex;
+  position: relative;
+  font-size: clamp(14px, 1.5vw, 20px);
+  font-weight: 600;
+  line-height: 1.2;
+  .line {
+    display: block;
+    height: 3px;
+    background-color: $black;
+    position: absolute;
+    top: 0;
+    left: 60px;
+    right: 60px;
+    transform-origin: left;
+  }
+  &__title {
+    width: 50%;
+  }
+  &__list {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    & > li {
+      display: flex;
+      align-items: center;
+      p {
+        width: 50%;
+      }
+    }
+  }
+  @media screen and (max-width: $breakpoint_tablet) {
+    margin-top: 60px;
+    padding: 20px 40px 60px 40px;
+    .line {
+      left: 40px;
+      right: 40px;
+    }
+    &__title {
+      width: 30%;
+    }
+    &__list {
+      width: 70%;
+      gap: 10px;
+    }
+  }
+  @media screen and (max-width: $breakpoint_mobile) {
+    margin-top: 40px;
+    padding: 20px 10px 40px 10px;
+    flex-direction: column;
+    .line {
+      left: 10px;
+      right: 10px;
+    }
+    &__title {
+      width: auto;
+    }
+    &__list {
+      margin-top: 20px;
+      width: auto;
+      gap: 10px;
+    }
+  }
+}

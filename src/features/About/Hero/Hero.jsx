@@ -9,7 +9,7 @@ import useMobile from '@/hooks/useMobile';
 import AboutHeroTitleMobile from '@/components/About/AboutHeroTitleMobile';
 
 const Hero = () => {
-  const { isLoaded, loadedVideos, setNoScroll, setIsNavigationReady } =
+  const { isLoaded, loadedMedia, setNoScroll, setIsNavigationReady } =
     useContext(mainContext);
   const videoRef = useRef();
   const canvas = useRef();
@@ -55,7 +55,7 @@ const Hero = () => {
       </div>
       <div className={styles.title}>
         <div className={styles.title__video}>
-          {loadedVideos?.['/video/hero_head_video_full.mp4'] && (
+          {loadedMedia?.['/video/hero_head_video_full.mp4'] && (
             <video
               ref={videoRef}
               width="680"
@@ -66,7 +66,7 @@ const Hero = () => {
               loop
             >
               <source
-                src={loadedVideos?.['/video/hero_head_video_full.mp4']}
+                src={loadedMedia?.['/video/hero_head_video_full.mp4']}
                 type="video/mp4"
               />
             </video>
@@ -112,12 +112,12 @@ const Hero = () => {
           >
             <Suspense fallback={null}>
               <group scale={isMobile ? 0 : 1}>
-                {loadedVideos?.['/models/about_digital_art_director.gltf'] && (
+                {loadedMedia?.['/models/about_digital_art_director.gltf'] && (
                   <AboutHeroTitle />
                 )}
               </group>
               <group scale={isMobile ? 1 : 0}>
-                {loadedVideos?.[
+                {loadedMedia?.[
                   '/models/about_digital_art_director_mob.gltf'
                 ] && <AboutHeroTitleMobile />}
               </group>

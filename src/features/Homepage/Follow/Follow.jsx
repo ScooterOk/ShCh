@@ -15,7 +15,7 @@ import { mainContext } from '@/providers/MainProvider';
 const Follow = () => {
   const container = useRef();
   const list = useRef();
-  const { loadedVideos } = useContext(mainContext);
+  const { loadedMedia } = useContext(mainContext);
 
   useGSAP(() => {
     // Scroll Bar Color Trigger
@@ -99,7 +99,7 @@ const Follow = () => {
           >
             <ambientLight intensity={1} />
             <Suspense fallback={null}>
-              {loadedVideos?.['/models/follow.gltf'] && (
+              {loadedMedia?.['/models/follow.gltf'] && (
                 <HomeFollowTitle container={container.current} />
               )}
             </Suspense>

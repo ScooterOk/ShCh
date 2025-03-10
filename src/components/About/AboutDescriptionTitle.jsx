@@ -18,9 +18,9 @@ const AboutDescriptionTitle = ({ setAction }) => {
     height: 0,
     depth: 0,
   });
-  const { loadedVideos } = useContext(mainContext);
+  const { loadedMedia } = useContext(mainContext);
 
-  const model = useGLTF(loadedVideos['/models/10.gltf']);
+  const model = useGLTF(loadedMedia['/models/10.gltf']);
 
   const { animations, nodes } = model;
 

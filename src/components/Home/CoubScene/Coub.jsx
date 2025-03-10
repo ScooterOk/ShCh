@@ -13,31 +13,31 @@ const Coub = forwardRef((props, ref) => {
   const { isHolded, currentSlide, cameraRef } = props;
   const holdTweenRef = useRef();
   const videoTimeRef = useRef(0);
-  const { loadedVideos } = useContext(mainContext);
+  const { loadedMedia } = useContext(mainContext);
 
   const material_slide_1 = useVideoTexture(
-    loadedVideos?.['/video/CUBE_01_full.mp4'],
+    loadedMedia?.['/video/CUBE_01_full.mp4'],
     {
       start: false,
       loop: false,
     }
   );
   const material_slide_2 = useVideoTexture(
-    loadedVideos?.['/video/CUBE_02_full.mp4'],
+    loadedMedia?.['/video/CUBE_02_full.mp4'],
     {
       start: false,
       loop: false,
     }
   );
   const material_slide_3 = useVideoTexture(
-    loadedVideos?.['/video/CUBE_03_full.mp4'],
+    loadedMedia?.['/video/CUBE_03_full.mp4'],
     {
       start: false,
       loop: false,
     }
   );
   const material_slide_4 = useVideoTexture(
-    loadedVideos?.['/video/CUBE_04_full.mp4']
+    loadedMedia?.['/video/CUBE_04_full.mp4']
   );
 
   const material = useMemo(() => {

@@ -2,17 +2,15 @@
 import React, { useContext, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-
 import { mainContext } from '@/providers/MainProvider';
-import Music from '@/components/Music';
-
-import styles from './Navigation.module.scss';
 import TransitionLink from '../TransitionLink/TransitionLink';
-
 import { usePathname } from 'next/navigation';
 import routerConfig from '@/configs/router';
 import clsx from 'clsx';
 import { handleHoverSound } from '@/services';
+
+import styles from './Navigation.module.scss';
+import Music from '../Music';
 
 const Navigation = () => {
   const { isNavigationReady, setNoScroll } = useContext(mainContext);
@@ -77,22 +75,28 @@ const Navigation = () => {
       {/* TODO: Turn on music */}
       {/* <Music /> */}
       <ul>
-        {Object.values(routerConfig).map((route) => (
-          <li key={`navigation-${route.id}`}>
-            <TransitionLink
-              className={clsx(route.href === pathname && styles.active)}
-              href={route.href}
-              theme={route.theme}
-              onMouseEnter={onMouseEnter}
-            >
-              {Array.from(route.title).map((l, i) => (
-                <span data-animation key={`name-${l}-${i}-${l}`}>
-                  {l}
-                </span>
-              ))}
-            </TransitionLink>
-          </li>
-        ))}
+        {Object.values(routerConfig).map((route) => {
+          const isWorksSub =
+            route.href === '/works' && pathname.includes('/works');
+          return (
+            <li key={`navigation-${route.id}`}>
+              <TransitionLink
+                className={clsx(
+                  (route.href === pathname || isWorksSub) && styles.active
+                )}
+                href={route.href}
+                theme={route.theme}
+                onMouseEnter={onMouseEnter}
+              >
+                {Array.from(route.title).map((l, i) => (
+                  <span data-animation key={`name-${l}-${i}-${l}`}>
+                    {l}
+                  </span>
+                ))}
+              </TransitionLink>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

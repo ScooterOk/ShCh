@@ -5,10 +5,10 @@ import { mainContext } from '@/providers/MainProvider';
 import { CubeCamera, useAnimations, useGLTF } from '@react-three/drei';
 
 const MotionObjects = ({ isHolded }) => {
-  const { currentFocusSlide } = useContext(mainContext);
+  const { currentFocusSlide, loadedMedia } = useContext(mainContext);
 
   // Fetch model and a separate texture
-  const model = useGLTF('/models/03_motion_objects.gltf');
+  const model = useGLTF(loadedMedia['/models/03_motion_objects.gltf']);
   const { scene, animations, nodes } = model;
 
   // Extract animation actions

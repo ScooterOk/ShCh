@@ -16,40 +16,45 @@ import { mainContext } from '@/providers/MainProvider';
 const Footer = ({ className, titleColor }) => {
   const container = useRef();
 
-  const { loadedVideos } = useContext(mainContext);
+  const { loadedMedia, isLoaded } = useContext(mainContext);
 
   const { isMobile } = useMobile();
 
-  useGSAP(() => {
-    const words = container.current.querySelectorAll('[data-animation]');
+  useGSAP(
+    () => {
+      if (isLoaded) {
+        const words = container.current.querySelectorAll('[data-animation]');
 
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: container.current,
-          start: 'top 80%',
-          end: 'bottom bottom',
-        },
-      })
-      .fromTo(
-        `.${styles.links__link}`,
-        { scaleX: 0 },
-        {
-          scaleX: 1,
-          duration: 1,
-          ease: 'power3.inOut',
-        }
-      )
-      .from(words, {
-        duration: 0.01,
-        opacity: 0,
-        stagger: {
-          amount: 1,
-          grid: 'auto',
-          from: 'random',
-        },
-      });
-  });
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: container.current,
+              start: 'top 80%',
+              end: 'bottom bottom',
+            },
+          })
+          .fromTo(
+            `.${styles.links__link}`,
+            { scaleX: 0 },
+            {
+              scaleX: 1,
+              duration: 1,
+              ease: 'power3.inOut',
+            }
+          )
+          .from(words, {
+            duration: 0.01,
+            opacity: 0,
+            stagger: {
+              amount: 1,
+              grid: 'auto',
+              from: 'random',
+            },
+          });
+      }
+    },
+    { dependencies: [isLoaded] }
+  );
 
   return (
     <div
@@ -62,7 +67,7 @@ const Footer = ({ className, titleColor }) => {
           <Canvas camera={{ position: [0, 0, 1], orthographic: true }}>
             <Suspense fallback={null}>
               <group scale={isMobile ? 0 : 1}>
-                {loadedVideos?.['/models/lets.gltf'] && (
+                {loadedMedia?.['/models/lets.gltf'] && (
                   <FooterTitle
                     container={container.current}
                     titleColor={titleColor}
@@ -70,7 +75,7 @@ const Footer = ({ className, titleColor }) => {
                 )}
               </group>
               <group scale={isMobile ? 1 : 0}>
-                {loadedVideos?.['/models/lets.gltf'] && (
+                {loadedMedia?.['/models/lets.gltf'] && (
                   <FooterTitleMobile
                     container={container.current}
                     titleColor={titleColor}

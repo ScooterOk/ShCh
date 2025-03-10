@@ -5,10 +5,10 @@ import gsap from 'gsap';
 import { Color } from 'three';
 
 const InnovisObjects = ({ isHolded }) => {
-  const { currentDescriptionSlide } = useContext(mainContext);
+  const { currentDescriptionSlide, loadedMedia } = useContext(mainContext);
 
   // Fetch model and a separate texture
-  const model = useGLTF('/models/about_innovis.gltf');
+  const model = useGLTF(loadedMedia['/models/about_innovis.gltf']);
 
   const { scene, animations, nodes } = model;
 

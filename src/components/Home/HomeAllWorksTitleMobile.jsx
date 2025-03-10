@@ -8,7 +8,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import * as THREE from 'three';
 
 const HomeAllWorksTitleMobile = ({ container }) => {
-  const { isLoaded, loadedVideos } = useContext(mainContext);
+  const { isLoaded, loadedMedia } = useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
 
   const [modelDimensions, setModelDimensions] = useState({
@@ -19,7 +19,7 @@ const HomeAllWorksTitleMobile = ({ container }) => {
 
   const [action, setAction] = useState(null);
 
-  const model = useGLTF(loadedVideos['/models/viewall_mobile.gltf']);
+  const model = useGLTF(loadedMedia['/models/viewall_mobile.gltf']);
 
   const { animations, nodes } = model;
 
@@ -29,7 +29,7 @@ const HomeAllWorksTitleMobile = ({ container }) => {
 
   const { viewport } = three;
 
-  const videoMaterial = useVideoTexture(loadedVideos?.['/video/allworks.mp4'], {
+  const videoMaterial = useVideoTexture(loadedMedia?.['/video/allworks.mp4'], {
     start: true,
     // loop: true,
   });

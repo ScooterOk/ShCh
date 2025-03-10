@@ -13,7 +13,7 @@ const { duration, easeEnter, easeLeave } = configs;
 const animatingNodes = {};
 
 const HomeFollowTitle = ({ container }) => {
-  const { isLoaded, loadedVideos } = useContext(mainContext);
+  const { isLoaded, loadedMedia } = useContext(mainContext);
   const [widthScale, setWidthScale] = useState(1);
 
   const [modelDimensions, setModelDimensions] = useState({
@@ -24,7 +24,7 @@ const HomeFollowTitle = ({ container }) => {
 
   const [action, setAction] = useState(null);
 
-  const model = useGLTF(loadedVideos['/models/follow.gltf']);
+  const model = useGLTF(loadedMedia['/models/follow.gltf']);
 
   const { animations, materials, nodes } = model;
 
@@ -59,7 +59,6 @@ const HomeFollowTitle = ({ container }) => {
               trigger: container,
               start: 'top 50%',
               end: 'bottom bottom',
-              markers: true,
             },
             id: 'follow-title-init',
           })

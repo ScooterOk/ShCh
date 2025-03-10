@@ -13,7 +13,7 @@ import useMobile from '@/hooks/useMobile';
 import styles from './Hero.module.scss';
 import { mainContext } from '@/providers/MainProvider';
 
-const Hero = () => {
+const Hero = ({ setRenderReady }) => {
   const [initMousePosition, setInitMousePosition] = useState({
     x: 0,
     y: 0,
@@ -23,7 +23,7 @@ const Hero = () => {
 
   const { isMobile } = useMobile();
 
-  const { loadedVideos } = useContext(mainContext);
+  const { loadedMedia } = useContext(mainContext);
 
   return (
     <>
@@ -47,18 +47,18 @@ const Hero = () => {
             >
               <Suspense fallback={null}>
                 <group scale={isMobile ? 0 : 1}>
-                  {loadedVideos?.['/models/home_hero_title.gltf'] && (
+                  {loadedMedia?.['/models/home_hero_title.gltf'] && (
                     <HomeHeroTitle />
                   )}
                 </group>
                 <group scale={isMobile ? 1 : 0}>
-                  {loadedVideos?.['/models/home_hero_title_mobile.gltf'] && (
+                  {loadedMedia?.['/models/home_hero_title_mobile.gltf'] && (
                     <HomeHeroTitleMobile />
                   )}
                 </group>
               </Suspense>
             </Canvas>
-            <HomeHeroText styles={styles} />
+            <HomeHeroText styles={styles} setRenderReady={setRenderReady} />
           </div>
         </div>
       </div>

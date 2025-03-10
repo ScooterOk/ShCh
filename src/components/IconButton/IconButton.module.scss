@@ -1,0 +1,40 @@
+@use '@/styles/vars' as *;
+
+.button {
+  width: 80px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $black;
+  color: $bg;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  position: relative;
+  transition: color 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+  flex-shrink: 0;
+  & svg {
+    z-index: 1;
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: $bg;
+    transform: scaleY(0);
+    z-index: 0;
+    transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1),
+      background-color 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  &:hover {
+    color: $black;
+    &::before {
+      transform: scaleY(1);
+      background-color: $red;
+    }
+  }
+  @media screen and (max-width: $breakpoint_mobile) {
+    width: 50px;
+  }
+}
