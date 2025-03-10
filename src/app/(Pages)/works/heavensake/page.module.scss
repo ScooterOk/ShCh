@@ -1,0 +1,22 @@
+@use '@/styles/vars' as *;
+
+.article {
+  background-color: $black;
+  line-height: 0;
+}
+
+.fullwidth {
+  line-height: 0;
+  & > * {
+    width: 100%;
+  }
+}
+.staticwidth {
+  line-height: 0;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 160px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 160px;
+}

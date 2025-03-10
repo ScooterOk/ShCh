@@ -6,7 +6,11 @@ export const heavensake = {
     tags: ['Brand Design'],
   },
   credits: [
-    { name: 'Brand Design', title: 'Serhii Churilov' },
-    { name: 'Brand Strategy', title: 'Vasyl Artiushchenko' },
+    { id: 'brand_design', name: 'Brand Design', title: 'Serhii Churilov' },
+    {
+      id: 'brand_strategy',
+      name: 'Brand Strategy',
+      title: 'Vasyl Artiushchenko',
+    },
   ],
 };
