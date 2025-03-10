@@ -12,7 +12,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const year = new Date().getFullYear();
 
-const NextWork = () => {
+const NextWork = ({ name }) => {
   const [action, setAction] = useState();
   const { loadedMedia, isLoaded } = useContext(mainContext);
 
@@ -93,6 +93,16 @@ const NextWork = () => {
     <div className={styles.next} ref={container}>
       <div className={styles.wrapper}>
         <div className={styles.next__title}>
+          {name && (
+            <div className={styles.next__title_name}>
+              {Array.from(name).map((l, i) => (
+                <span data-animation key={`name-${l}-${i}-${l}`}>
+                  {l}
+                </span>
+              ))}
+            </div>
+          )}
+
           <Link href="">
             <Canvas
               camera={{ position: [0, 0, 1], orthographic: true }}

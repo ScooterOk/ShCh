@@ -6,9 +6,6 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 40px;
-  // &__back {
-  //   clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
-  // }
   .info {
     display: grid;
     grid-template-columns: 1fr 1fr 0.9fr;
@@ -29,6 +26,7 @@
     &__tags {
       padding-left: 60px;
       position: relative;
+      white-space: nowrap;
       &_line {
         width: 3px;
         height: 100%;
@@ -36,6 +34,42 @@
         position: absolute;
         left: 0;
         top: 0;
+      }
+    }
+  }
+  @media screen and (max-width: 1200px) {
+    .info {
+      gap: 40px;
+      width: auto;
+      &__tags {
+        padding-left: 40px;
+      }
+    }
+  }
+
+  @media screen and (max-width: $breakpoint_tablet) {
+    .info {
+      display: flex;
+      flex-direction: column;
+      &__title {
+        min-height: 130px;
+        padding: 20px;
+      }
+      &__tags {
+        min-height: 130px;
+        padding-left: 20px;
+      }
+    }
+  }
+  @media screen and (max-width: $breakpoint_mobile) {
+    padding: 40px 10px;
+    gap: 10px;
+    .info {
+      &__title {
+        padding: 16px;
+      }
+      &__tags {
+        padding-left: 16px;
       }
     }
   }

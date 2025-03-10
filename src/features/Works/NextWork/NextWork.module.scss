@@ -3,6 +3,10 @@
 .next {
   background-color: $black;
   padding: 280px 0 170px;
+  font-size: clamp(14px, 1.5vw, 20px);
+  font-weight: 600;
+  line-height: 1.2;
+  color: $bg;
   .wrapper {
     display: flex;
     align-items: flex-start;
@@ -12,6 +16,12 @@
     aspect-ratio: 2.55;
     flex-grow: 1;
     width: 47%;
+    position: relative;
+    &_name {
+      position: absolute;
+      top: 0;
+      left: 65.5%;
+    }
   }
   &__video {
     line-height: 0;
@@ -21,10 +31,35 @@
     }
   }
   &__copyright {
-    font-size: clamp(14px, 1.5vw, 20px);
-    font-weight: 600;
-    line-height: 1.2;
-    color: $bg;
     padding: 240px 60px 0;
+  }
+  @media screen and (max-width: $breakpoint_tablet) {
+    padding: 120px 40px 160px;
+    .wrapper {
+      display: block;
+    }
+    &__title {
+      width: 100%;
+      margin: 0 0 100px 0;
+    }
+    &__video {
+      width: 100%;
+    }
+    &__copyright {
+      padding: 120px 0 0;
+    }
+  }
+  @media screen and (max-width: $breakpoint_mobile) {
+    padding: 60px 10px 160px;
+    &__title {
+      &_name {
+        top: calc(100% + 40px);
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+    &__copyright {
+      padding: 60px 0 0;
+    }
   }
 }

@@ -34,4 +34,36 @@
       }
     }
   }
+  @media screen and (max-width: $breakpoint_tablet) {
+    margin-top: 60px;
+    padding: 20px 40px 60px 40px;
+    .line {
+      left: 40px;
+      right: 40px;
+    }
+    &__title {
+      width: 30%;
+    }
+    &__list {
+      width: 70%;
+      gap: 10px;
+    }
+  }
+  @media screen and (max-width: $breakpoint_mobile) {
+    margin-top: 40px;
+    padding: 20px 10px 40px 10px;
+    flex-direction: column;
+    .line {
+      left: 10px;
+      right: 10px;
+    }
+    &__title {
+      width: auto;
+    }
+    &__list {
+      margin-top: 20px;
+      width: auto;
+      gap: 10px;
+    }
+  }
 }
