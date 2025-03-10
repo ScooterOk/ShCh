@@ -34,13 +34,13 @@ const NextWorkTitle = ({ setAction }) => {
 
   const { viewport } = three;
 
-  // useEffect(() => {
-  //   const action = actions[names[0]];
-  //   action.reset();
-  //   action.paused = true;
-  //   action.play();
-  //   setAction(actions[names[0]]);
-  // }, [actions, names, setAction]);
+  useEffect(() => {
+    const action = actions[names[0]];
+    action.reset();
+    action.paused = true;
+    action.play();
+    setAction(actions[names[0]]);
+  }, [actions, names, setAction]);
 
   useEffect(() => {
     if (ref.current) {

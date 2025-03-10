@@ -8,8 +8,7 @@
   font-size: clamp(14px, 1.5vw, 20px);
   font-weight: 600;
   line-height: 1.2;
-  &::before {
-    content: '';
+  .line {
     display: block;
     height: 3px;
     background-color: $black;
@@ -17,6 +16,7 @@
     top: 0;
     left: 60px;
     right: 60px;
+    transform-origin: left;
   }
   &__title {
     width: 50%;

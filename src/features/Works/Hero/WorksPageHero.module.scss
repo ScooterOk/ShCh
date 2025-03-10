@@ -6,6 +6,9 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 40px;
+  // &__back {
+  //   clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
+  // }
   .info {
     display: grid;
     grid-template-columns: 1fr 1fr 0.9fr;
@@ -21,10 +24,19 @@
       font-size: clamp(20px, 1.5vw, 26px);
       line-height: 1;
       color: $bg;
+      clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
     }
     &__tags {
       padding-left: 60px;
-      border-left: 3px solid $black;
+      position: relative;
+      &_line {
+        width: 3px;
+        height: 100%;
+        background-color: $black;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
     }
   }
 }
