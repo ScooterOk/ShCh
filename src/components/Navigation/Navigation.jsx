@@ -73,24 +73,30 @@ const Navigation = () => {
   return (
     <div ref={rootRef} className={styles.navigation}>
       {/* TODO: Turn on music */}
-      <Music />
+      {/* <Music /> */}
       <ul>
-        {Object.values(routerConfig).map((route) => (
-          <li key={`navigation-${route.id}`}>
-            <TransitionLink
-              className={clsx(route.href === pathname && styles.active)}
-              href={route.href}
-              theme={route.theme}
-              onMouseEnter={onMouseEnter}
-            >
-              {Array.from(route.title).map((l, i) => (
-                <span data-animation key={`name-${l}-${i}-${l}`}>
-                  {l}
-                </span>
-              ))}
-            </TransitionLink>
-          </li>
-        ))}
+        {Object.values(routerConfig).map((route) => {
+          const isWorksSub =
+            route.href === '/works' && pathname.includes('/works');
+          return (
+            <li key={`navigation-${route.id}`}>
+              <TransitionLink
+                className={clsx(
+                  (route.href === pathname || isWorksSub) && styles.active
+                )}
+                href={route.href}
+                theme={route.theme}
+                onMouseEnter={onMouseEnter}
+              >
+                {Array.from(route.title).map((l, i) => (
+                  <span data-animation key={`name-${l}-${i}-${l}`}>
+                    {l}
+                  </span>
+                ))}
+              </TransitionLink>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
