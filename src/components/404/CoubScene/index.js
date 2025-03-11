@@ -122,7 +122,7 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
         />
       </group>
       <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[10, 10]} rotateX={-Math.PI / 2} />
+        <planeGeometry args={[20, 20]} rotateX={-Math.PI / 2} />
         <MeshReflectorMaterial
           blur={[850, 590]}
           resolution={1024}

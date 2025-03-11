@@ -11,6 +11,14 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: false,
   },
+  async headers() {
+    return [
+      {
+        source: '/video/:path*',
+        headers: [{ key: 'Cache-Control', value: 'no-store, must-revalidate' }],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

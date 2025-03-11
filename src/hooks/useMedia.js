@@ -50,7 +50,10 @@ const useMedia = ({ list }) => {
           .map((src) => {
             const controller = new AbortController();
             abortControllers.push(controller);
-            return fetch(src, { signal: controller.signal });
+            return fetch(src, {
+              headers: { Range: 'bytes=0-' },
+              signal: controller.signal,
+            });
           })
       );
 
