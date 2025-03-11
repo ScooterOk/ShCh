@@ -59,7 +59,7 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
   const { viewport } = three;
 
   useFrame((_, delta) => {
-    cubeRef.current.rotation.y -= delta * 0.35 + speed * 0.0001;
+    cubeRef.current.rotation.y -= delta * 0.35 + speed * 0.001;
     speed *= 0.95;
   });
 
@@ -95,13 +95,19 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
       id: 'scroll-trigger-observe',
       onUp: (e) => {
         if (e.event.type === 'wheel') handleUp(e.deltaY);
-        if (e.event.type === 'touchmove') handleDown(e.deltaY * -1);
+        // if (e.event.type === 'touchmove') handleDown(e.deltaY * -1);
       },
       onDown: (e) => {
         if (e.event.type === 'wheel') handleDown(e.deltaY);
-        if (e.event.type === 'touchmove') handleUp(e.deltaY * -1);
+        // if (e.event.type === 'touchmove') handleUp(e.deltaY * -1);
       },
-      tolerance: 100,
+      onRight: (e) => {
+        if (e.event.type === 'touchmove') handleDown(e.deltaY * -1);
+      },
+      onLeft: (e) => {
+        if (e.event.type === 'touchmove') handleUp(e.deltaY * 1);
+      },
+      tolerance: 50,
       // preventDefault: true,
     });
   });
