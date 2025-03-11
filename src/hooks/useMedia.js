@@ -1,10 +1,10 @@
 import { mainContext } from '@/providers/MainProvider';
 import { useContext, useEffect, useMemo, useState } from 'react';
 
-let prevSummary = [];
+// let prevSummary = [];
 
 const useMedia = ({ list }) => {
-  const [summary, setSummary] = useState(
+  const [summary] = useState(
     list.map((src) => ({
       src,
       progress: 0,
@@ -35,10 +35,10 @@ const useMedia = ({ list }) => {
     // If list is empty, return
     if (!list || list.length === 0) return;
 
-    prevSummary = list.map((src) => ({
-      src,
-      progress: 0,
-    }));
+    // prevSummary = list.map((src) => ({
+    //   src,
+    //   progress: 0,
+    // }));
 
     // Abort controllers
     const abortControllers = [];
