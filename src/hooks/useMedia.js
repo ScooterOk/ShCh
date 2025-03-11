@@ -70,70 +70,71 @@ const useMedia = ({ list }) => {
             : response.url.slice(response.url.indexOf('/models'));
 
           // Get content length
-          const contentLength = response.headers.get('Content-Length');
-          const total = parseInt(contentLength, 10) || 0;
-          if (!total) {
-            console.warn(
-              'Content-Length not available. Progress may not be accurate.'
-            );
-          }
+          // const contentLength = response.headers.get('Content-Length');
+          // const total = parseInt(contentLength, 10) || 0;
+          // if (!total) {
+          //   console.warn(
+          //     'Content-Length not available. Progress may not be accurate.'
+          //   );
+          // }
 
-          let loaded = 0;
-          const reader = response.body.getReader();
-          const stream = new ReadableStream({
-            start(controller) {
-              async function push() {
-                const { done, value } = await reader.read();
-                try {
-                  if (done) {
-                    if (!isVideo) {
-                      setSummary((prev) =>
-                        prev.map((item) =>
-                          item.src === src ? { ...item, progress: 100 } : item
-                        )
-                      );
-                    }
-                    controller.close();
-                    return;
-                  }
+          // let loaded = 0;
+          // const reader = response.body.getReader();
+          // const stream = new ReadableStream({
+          //   start(controller) {
+          //     async function push() {
+          //       const { done, value } = await reader.read();
+          //       try {
+          //         if (done) {
+          //           if (!isVideo) {
+          //             setSummary((prev) =>
+          //               prev.map((item) =>
+          //                 item.src === src ? { ...item, progress: 100 } : item
+          //               )
+          //             );
+          //           }
+          //           controller.close();
+          //           return;
+          //         }
 
-                  loaded += value.length;
+          //         loaded += value.length;
 
-                  if (isVideo) {
-                    const result = total
-                      ? Number(((loaded / total) * 100).toFixed(0))
-                      : 0;
+          //         if (isVideo) {
+          //           const result = total
+          //             ? Number(((loaded / total) * 100).toFixed(0))
+          //             : 0;
 
-                    const prevResult = prevSummary.find(
-                      (item) => item.src === src
-                    )?.progress;
+          //           const prevResult = prevSummary.find(
+          //             (item) => item.src === src
+          //           )?.progress;
 
-                    if (prevResult !== result) {
-                      setSummary((prev) =>
-                        prev.map((item) =>
-                          item.src === src
-                            ? { ...item, progress: result }
-                            : item
-                        )
-                      );
-                      prevSummary = prevSummary.map((item) =>
-                        item.src === src ? { ...item, progress: result } : item
-                      );
-                    }
-                  }
+          //           if (prevResult !== result) {
+          //             setSummary((prev) =>
+          //               prev.map((item) =>
+          //                 item.src === src
+          //                   ? { ...item, progress: result }
+          //                   : item
+          //               )
+          //             );
+          //             prevSummary = prevSummary.map((item) =>
+          //               item.src === src ? { ...item, progress: result } : item
+          //             );
+          //           }
+          //         }
 
-                  controller.enqueue(value);
-                  push();
-                } catch (err) {
-                  console.error('Stream error:', err);
-                  controller.error(err);
-                }
-              }
-              push();
-            },
-          });
+          //         controller.enqueue(value);
+          //         push();
+          //       } catch (err) {
+          //         console.error('Stream error:', err);
+          //         controller.error(err);
+          //       }
+          //     }
+          //     push();
+          //   },
+          // });
 
-          const videoBlob = await new Response(stream).blob();
+          // const videoBlob = await new Response(stream).blob();
+          const videoBlob = await response.blob();
 
           return {
             src,

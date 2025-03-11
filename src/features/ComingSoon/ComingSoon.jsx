@@ -19,6 +19,8 @@ const ComingSoon = () => {
     list: medialist,
   });
 
+  console.log('progress', progress, isMediaListReady);
+
   const { resetMainProviderData } = useContext(mainContext);
 
   useEffect(() => {
