@@ -107,7 +107,7 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
       onLeft: (e) => {
         if (e.event.type === 'touchmove') handleUp(e.deltaY * 1);
       },
-      tolerance: 50,
+      tolerance: 100,
       // preventDefault: true,
     });
   });
