@@ -21,7 +21,7 @@ export const metadata = {
     description:
       'Serhii Churilov is an award-winning Digital Art Director and Designer, Awwwards Judge (2020-2025), specializing in web design, branding, and motion design to craft innovative brand stories.',
     url: 'https://serhiichurilov.com/',
-    siteName: 'Next.js',
+    siteName: 'Serhii Churilov',
     images: [
       {
         url: '/img/opengraph1200x630.png', // Must be an absolute URL
