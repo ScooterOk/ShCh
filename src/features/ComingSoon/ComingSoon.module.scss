@@ -1,0 +1,35 @@
+@use '@/styles/vars' as *;
+
+.comingSoon {
+  background-color: $black;
+  min-height: 100dvh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  .text {
+    font-size: 20px;
+    line-height: 24px;
+    color: $red;
+    position: relative;
+    font-weight: 600;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    text-align: center;
+    padding: 0 13%;
+  }
+  .canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  @media screen and (max-width: $breakpoint_tablet) {
+    display: block;
+    padding-top: 90px;
+    .text {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+}
