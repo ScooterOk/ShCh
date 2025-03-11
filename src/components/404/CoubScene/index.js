@@ -63,12 +63,15 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
     speed *= 0.95;
   });
 
-  const handleUp = (e) => {
-    speed += e.deltaY;
+  const handleUp = (delta) => {
+    console.log('Up', delta);
+    speed += delta;
   };
 
-  const handleDown = (e) => {
-    speed += e.deltaY;
+  const handleDown = (delta) => {
+    console.log('Down', delta);
+
+    speed += delta;
   };
 
   useGSAP(() => {
@@ -91,12 +94,12 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
       type: 'wheel,touch',
       id: 'scroll-trigger-observe',
       onUp: (e) => {
-        if (e.event.type === 'wheel') handleUp(e);
-        if (e.event.type === 'touchmove') handleDown(e);
+        if (e.event.type === 'wheel') handleUp(e.deltaY);
+        if (e.event.type === 'touchmove') handleDown(e.deltaY * -1);
       },
       onDown: (e) => {
-        if (e.event.type === 'wheel') handleDown(e);
-        if (e.event.type === 'touchmove') handleUp(e);
+        if (e.event.type === 'wheel') handleDown(e.deltaY);
+        if (e.event.type === 'touchmove') handleUp(e.deltaY * -1);
       },
       tolerance: 100,
       // preventDefault: true,

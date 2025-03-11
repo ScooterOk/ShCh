@@ -5,6 +5,7 @@ import { PerspectiveCamera } from '@react-three/drei';
 import CoubScene from '@/components/404/CoubScene';
 import useMedia from '@/hooks/useMedia';
 import { mainContext } from '@/providers/MainProvider';
+import { useLenis } from 'lenis/react';
 
 import styles from './ComingSoon.module.scss';
 
@@ -19,13 +20,14 @@ const ComingSoon = () => {
     list: medialist,
   });
 
-  console.log('progress', progress, isMediaListReady);
+  const lenis = useLenis();
 
   const { resetMainProviderData } = useContext(mainContext);
 
   useEffect(() => {
+    lenis?.stop();
     return () => resetMainProviderData();
-  }, [resetMainProviderData]);
+  }, [resetMainProviderData, lenis]);
 
   return (
     <main className={styles.comingSoon}>
