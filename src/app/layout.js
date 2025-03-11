@@ -10,6 +10,7 @@ const inter = Inter({
 });
 
 export const metadata = {
+  metadataBase: new URL('https://dev-serhii-churilov.vercel.app/'),
   title: 'Serhii Churilov',
   description:
     'Serhii Churilov is an award-winning Digital Art Director and Designer, Awwwards Judge (2020-2025), specializing in web design, branding, and motion design to craft innovative brand stories.',
