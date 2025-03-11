@@ -59,10 +59,7 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
   const { viewport } = three;
 
   useFrame((_, delta) => {
-    // console.log('useFrame', speed);
-    // cubeRef.current.rotation.y += -(delta + speed * 0.0008) * 0.3;
     cubeRef.current.rotation.y -= delta * 0.35 + speed * 0.0001;
-    // cubeRef.current.rotation.y += speed * -0.0001;
     speed *= 0.95;
   });
 
@@ -71,7 +68,6 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
   };
 
   const handleDown = (e) => {
-    console.log('handleDown', e.deltaY);
     speed += e.deltaY;
   };
 
