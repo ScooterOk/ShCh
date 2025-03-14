@@ -1,15 +1,16 @@
 import React, { useContext, useState } from 'react';
+import clsx from 'clsx';
 import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 import { worksListData } from '../data';
 import { handleHoverSound } from '@/services';
 
-import styles from './WorksList.module.scss';
-import { useGSAP } from '@gsap/react';
 import { mainContext } from '@/providers/MainProvider';
-import Link from 'next/link';
-import clsx from 'clsx';
+
 import TransitionLink from '@/components/TransitionLink/TransitionLink';
+
+import styles from './WorksList.module.scss';
 
 const WorksList = () => {
   const [isHoverActive, setIsHoverActive] = useState(false);
