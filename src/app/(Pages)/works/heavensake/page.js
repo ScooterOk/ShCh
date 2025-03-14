@@ -90,33 +90,6 @@ const Heavensake = () => {
     { dependencies: [isLoaded, lenis] }
   );
 
-  // Scrollbar trigger init
-  // useGSAP(
-  //   () => {
-  //     if (lenis) {
-  //       lenis.stop();
-  //       ScrollTrigger.create({
-  //         id: 'scroll-bar-trigger',
-  //         trigger: footer.current,
-  //         start: 'top 50%',
-  //         end: 'bottom 50%',
-  //         toggleClass: {
-  //           targets: document.querySelector('[data-id="scrollbar"]'),
-  //           className: 'light',
-  //         },
-  //       });
-  //     }
-  //   },
-  //   { dependencies: [lenis] }
-  // );
-
-  // useGSAP(
-  //   () => {
-
-  //   },
-  //   { dependencies: [] }
-  // );
-
   return (
     <main>
       <WorksPageHero {...heavensake.hero} />

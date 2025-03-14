@@ -26,7 +26,7 @@
     &__tags {
       padding-left: 60px;
       position: relative;
-      white-space: nowrap;
+      display: flex;
       &_line {
         width: 3px;
         height: 100%;
@@ -34,6 +34,12 @@
         position: absolute;
         left: 0;
         top: 0;
+      }
+      & > ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-self: flex-start;
       }
     }
   }

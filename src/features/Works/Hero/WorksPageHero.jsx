@@ -81,15 +81,17 @@ const WorksPageHero = ({ title, description, tags }) => {
         {tags?.length && (
           <div className={styles.info__tags}>
             <div className={styles.info__tags_line} ref={lineRef} />
-            {tags?.map((tag) => (
-              <span key={`tag-${tag}`}>
-                {Array.from(`#${tag}`).map((l, i) => (
-                  <span data-animation key={`name-${l}-${i}-${l}`}>
-                    {l}
-                  </span>
-                ))}
-              </span>
-            ))}
+            <ul>
+              {tags?.map((tag) => (
+                <li key={`tag-${tag}`}>
+                  {Array.from(`#${tag}`).map((l, i) => (
+                    <span data-animation key={`name-${l}-${i}-${l}`}>
+                      {l}
+                    </span>
+                  ))}
+                </li>
+              ))}
+            </ul>
           </div>
         )}
       </div>
