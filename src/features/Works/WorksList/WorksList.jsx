@@ -9,6 +9,7 @@ import { useGSAP } from '@gsap/react';
 import { mainContext } from '@/providers/MainProvider';
 import Link from 'next/link';
 import clsx from 'clsx';
+import TransitionLink from '@/components/TransitionLink/TransitionLink';
 
 const WorksList = () => {
   const [isHoverActive, setIsHoverActive] = useState(false);
@@ -140,7 +141,7 @@ const WorksList = () => {
           className={styles.works__item}
           onMouseEnter={handleHover}
         >
-          <Link href={`/works/${item.id}`} className={styles.link}>
+          <TransitionLink href={`/works/${item.id}`} className={styles.link}>
             <div className={styles.works__item_info}>
               <div className={styles.line} />
               <div className={styles.name}>
@@ -193,7 +194,7 @@ const WorksList = () => {
               })}
             </div>
             <div className={styles.works__item_right} />
-          </Link>
+          </TransitionLink>
         </div>
       ))}
     </div>
