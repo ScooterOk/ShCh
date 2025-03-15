@@ -31,3 +31,24 @@ export const koenigsegg = {
     { id: 'management', name: 'Management', title: 'Danylo Matvienko' },
   ],
 };
+
+export const skyrocket = {
+  hero: {
+    title: 'Skyrocket',
+    description:
+      'Skyrocket is the digital agency for ambitious brands to achieve breakthroughs. In collaboration with Skyrocket, we developed a new branding, promo website, and motion design.',
+    tags: ['Brand Design', 'Web Design', 'Motion Design'],
+  },
+  credits: [
+    { id: 'art_direction', name: 'Art Direction', title: 'Serhii Churilov' },
+    { id: 'ui_design', name: 'UI Design', title: 'Serhii Churilov' },
+    { id: 'brand_design', name: 'Brand Design', title: 'Serhii Churilov' },
+    { id: 'motion_design', name: 'Motion Design', title: 'Serhii Churilov' },
+    {
+      id: 'brand_strategy',
+      name: 'Brand Strategy',
+      title: 'Vasyl Artiushchenko ',
+    },
+    { id: 'ux_design', name: 'UX Design', title: 'Skyrocket' },
+  ],
+};
