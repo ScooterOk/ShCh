@@ -43,7 +43,6 @@
           }
         }
         &.active {
-          pointer-events: none;
           &::before {
             transform: scaleX(1);
           }
