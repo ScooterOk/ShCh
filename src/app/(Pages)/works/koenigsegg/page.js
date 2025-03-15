@@ -104,16 +104,12 @@ const Koenigsegg = () => {
     <main>
       <WorksPageHero {...koenigsegg.hero} />
       <div ref={scrollBarTrigger}>
-        <div className={styles.fullwidth}>
+        <div
+          className={cx(styles.fullwidth, styles.fullwidth__lg)}
+          id="koenigsegg-media-bg"
+        >
           {loadedMedia?.['/video/Koenigsegg/bg_koenigsegg_preview.mp4'] && (
-            <video
-              preload="auto"
-              muted
-              playsInline
-              loop
-              autoPlay
-              id="koenigsegg-media-bg"
-            >
+            <video preload="auto" muted playsInline loop autoPlay>
               <source
                 src={
                   loadedMedia?.['/video/Koenigsegg/bg_koenigsegg_preview.mp4']
@@ -163,9 +159,12 @@ const Koenigsegg = () => {
               </video>
             )}
           </div>
-          <div className={styles.fullwidth}>
+          <div
+            className={cx(styles.fullwidth, styles.fullwidth__md)}
+            data-media
+          >
             {loadedMedia?.['/video/Koenigsegg/05_screen_aesthetic.mp4'] && (
-              <video preload="auto" muted playsInline loop autoPlay data-media>
+              <video preload="auto" muted playsInline loop autoPlay>
                 <source
                   src={
                     loadedMedia?.['/video/Koenigsegg/05_screen_aesthetic.mp4']
