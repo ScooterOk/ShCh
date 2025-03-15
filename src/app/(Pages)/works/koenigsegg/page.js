@@ -19,12 +19,6 @@ import cx from '@/utils/cx';
 
 const medialist = [
   '/video/Koenigsegg/bg_koenigsegg_preview.mp4',
-  '/video/Koenigsegg/08_screen_menu.mp4',
-  '/video/Koenigsegg/07_screen_emotions.mp4',
-  '/video/Koenigsegg/05_screen_aesthetic.mp4',
-  '/video/Koenigsegg/04_screen_home.mp4',
-  '/video/Koenigsegg/03_wheel.mp4',
-  '/video/Koenigsegg/02_KOENIGSEGG_animation.mp4',
   '/models/next_work.gltf',
   '/video/audio_hover.mp3',
 ];
@@ -128,51 +122,34 @@ const Koenigsegg = () => {
               alt="koenigsegg-1"
               data-media
             />
-            {loadedMedia?.['/video/Koenigsegg/02_KOENIGSEGG_animation.mp4'] && (
-              <video preload="auto" muted playsInline loop autoPlay data-media>
-                <source
-                  src={
-                    loadedMedia?.[
-                      '/video/Koenigsegg/02_KOENIGSEGG_animation.mp4'
-                    ]
-                  }
-                  type="video/mp4"
-                />
-              </video>
-            )}
+            <video preload="auto" muted playsInline loop autoPlay data-media>
+              <source
+                src={'/video/Koenigsegg/02_KOENIGSEGG_animation.mp4'}
+                type="video/mp4"
+              />
+            </video>
           </div>
           <div className={cx(styles.grid, styles.grid__v2)}>
-            {loadedMedia?.['/video/Koenigsegg/03_wheel.mp4'] && (
-              <video preload="auto" muted playsInline loop autoPlay data-media>
-                <source
-                  src={loadedMedia?.['/video/Koenigsegg/03_wheel.mp4']}
-                  type="video/mp4"
-                />
-              </video>
-            )}
-            {loadedMedia?.['/video/Koenigsegg/03_wheel.mp4'] && (
-              <video preload="auto" muted playsInline loop autoPlay data-media>
-                <source
-                  src={loadedMedia?.['/video/Koenigsegg/04_screen_home.mp4']}
-                  type="video/mp4"
-                />
-              </video>
-            )}
+            <video preload="auto" muted playsInline loop autoPlay data-media>
+              <source src={'/video/Koenigsegg/03_wheel.mp4'} type="video/mp4" />
+            </video>
+            <video preload="auto" muted playsInline loop autoPlay data-media>
+              <source
+                src={'/video/Koenigsegg/04_screen_home.mp4'}
+                type="video/mp4"
+              />
+            </video>
           </div>
           <div
             className={cx(styles.fullwidth, styles.fullwidth__md)}
             data-media
           >
-            {loadedMedia?.['/video/Koenigsegg/05_screen_aesthetic.mp4'] && (
-              <video preload="auto" muted playsInline loop autoPlay>
-                <source
-                  src={
-                    loadedMedia?.['/video/Koenigsegg/05_screen_aesthetic.mp4']
-                  }
-                  type="video/mp4"
-                />
-              </video>
-            )}
+            <video preload="auto" muted playsInline loop autoPlay>
+              <source
+                src={'/video/Koenigsegg/05_screen_aesthetic.mp4'}
+                type="video/mp4"
+              />
+            </video>
           </div>
           <div className={cx(styles.grid, styles.grid__v3)}>
             <Image
@@ -182,27 +159,20 @@ const Koenigsegg = () => {
               alt="koenigsegg-6"
               data-media
             />
-
-            {loadedMedia?.['/video/Koenigsegg/07_screen_emotions.mp4'] && (
-              <video preload="auto" muted playsInline loop autoPlay data-media>
-                <source
-                  src={
-                    loadedMedia?.['/video/Koenigsegg/07_screen_emotions.mp4']
-                  }
-                  type="video/mp4"
-                />
-              </video>
-            )}
+            <video preload="auto" muted playsInline loop autoPlay data-media>
+              <source
+                src={'/video/Koenigsegg/07_screen_emotions.mp4'}
+                type="video/mp4"
+              />
+            </video>
           </div>
           <div className={cx(styles.grid, styles.grid__v4)}>
-            {loadedMedia?.['/video/Koenigsegg/08_screen_menu.mp4'] && (
-              <video preload="auto" muted playsInline loop autoPlay data-media>
-                <source
-                  src={loadedMedia?.['/video/Koenigsegg/08_screen_menu.mp4']}
-                  type="video/mp4"
-                />
-              </video>
-            )}
+            <video preload="auto" muted playsInline loop autoPlay data-media>
+              <source
+                src={'/video/Koenigsegg/08_screen_menu.mp4'}
+                type="video/mp4"
+              />
+            </video>
             <Image
               width={640}
               height={640}
