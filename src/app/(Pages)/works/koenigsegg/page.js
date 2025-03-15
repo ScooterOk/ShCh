@@ -55,8 +55,6 @@ const Koenigsegg = () => {
 
           const media = gsap.utils.toArray('[data-media]');
 
-          console.log('media', media);
-
           gsap.fromTo(
             '#koenigsegg-media-bg',
             { clipPath: 'polygon(0% 50%, 100% 50%, 100% 50%, 0px 50%)' },
