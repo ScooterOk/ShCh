@@ -5,12 +5,15 @@ import { useVideoTexture } from '@react-three/drei';
 const Coub = forwardRef((_, ref) => {
   const { loadedMedia } = useContext(mainContext);
 
-  const material_slide_1 = useVideoTexture(
-    loadedMedia?.['/video/404/404_side_01.mp4']
-  );
-  const material_slide_2 = useVideoTexture(
-    loadedMedia?.['/video/404/404_side_02.mp4']
-  );
+  // const material_slide_1 = useVideoTexture(
+  //   loadedMedia?.['/video/404/404_side_01.mp4']
+  // );
+  // const material_slide_2 = useVideoTexture(
+  //   loadedMedia?.['/video/404/404_side_02.mp4']
+  // );
+
+  const material_slide_1 = useVideoTexture('/video/404/404_side_01.mp4');
+  const material_slide_2 = useVideoTexture('/video/404/404_side_02.mp4');
 
   return (
     <mesh
