@@ -1,19 +1,24 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useContext } from 'react';
 
 import { useVideoTexture } from '@react-three/drei';
+import { mainContext } from '@/providers/MainProvider';
 
 const Coub = forwardRef((_, ref) => {
-  // const { loadedMedia } = useContext(mainContext);
+  const { loadedMedia } = useContext(mainContext);
 
-  // const material_slide_1 = useVideoTexture(
-  //   loadedMedia?.['/video/404/404_side_01.mp4']
-  // );
-  // const material_slide_2 = useVideoTexture(
-  //   loadedMedia?.['/video/404/404_side_02.mp4']
-  // );
+  console.log('loadedMedia', loadedMedia);
 
-  const material_slide_1 = useVideoTexture('/video/404/404_side_01.mp4');
-  const material_slide_2 = useVideoTexture('/video/404/404_side_02.mp4');
+  const material_slide_1 = useVideoTexture(
+    loadedMedia?.['/video/404/404_side_01.mp4']
+  );
+  const material_slide_2 = useVideoTexture(
+    loadedMedia?.['/video/404/404_side_02.mp4']
+  );
+
+  console.log('material_slide_1', material_slide_1);
+
+  // const material_slide_1 = useVideoTexture('/video/404/404_side_01.mp4');
+  // const material_slide_2 = useVideoTexture('/video/404/404_side_02.mp4');
 
   return (
     <mesh
