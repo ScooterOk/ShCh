@@ -1,5 +1,5 @@
 'use client';
-import Navigation from '@/components/Navigation/Navigation';
+
 import React, { useEffect, useRef } from 'react';
 import { ReactLenis } from 'lenis/react';
 import gsap from 'gsap';
