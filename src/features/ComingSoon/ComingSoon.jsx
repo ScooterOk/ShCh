@@ -29,8 +29,6 @@ const ComingSoon = () => {
     return () => resetMainProviderData();
   }, [resetMainProviderData, lenis]);
 
-  console.log('progress', progress);
-
   return (
     <main className={styles.comingSoon}>
       <div className={styles.text}>

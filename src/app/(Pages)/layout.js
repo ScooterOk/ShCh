@@ -30,7 +30,7 @@ const Layout = ({ children }) => {
       options={{ duration: 1, syncTouch: true }}
     >
       <TransitionAnimation />
-      <Navigation />
+      {/* <Navigation /> */}
       <ScrollBar />
       <HoverSound />
       {children}

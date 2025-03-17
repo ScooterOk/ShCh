@@ -74,7 +74,7 @@ const Music = () => {
         if (!isMuted) audioRef.current.play();
       },
       onComplete: () => {
-        if (isMuted) audioRef.current.pause();
+        if (isMuted) audioRef?.current?.pause();
       },
     });
   }, [isMuted]);
