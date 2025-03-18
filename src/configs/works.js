@@ -52,3 +52,28 @@ export const skyrocket = {
     { id: 'ux_design', name: 'UX Design', title: 'Skyrocket' },
   ],
 };
+
+export const angle2 = {
+  hero: {
+    title: 'Angle2 Agency',
+    livesite: 'https://angle2.agency/lab/',
+    description:
+      'Angle2 Agency is an Ukraine-based  design agency, that creates complex interfaces and interactive promo-web sites. Together with Angle2, we developed a new brand identity and a promotional website.',
+    tags: ['Brand Design', 'Web Design'],
+  },
+  credits: [
+    { id: 'art_direction', name: 'Art Direction', title: 'Serhii Churilov' },
+    { id: 'ux_ui_design', name: 'UX/UI Design', title: 'Serhii Churilov' },
+    { id: 'brand_design', name: 'Brand Design', title: 'Serhii Churilov' },
+    {
+      id: 'creative_frontDev',
+      name: 'Creative FrontDev',
+      title: 'Dmytro Oborskyi',
+    },
+    {
+      id: 'management',
+      name: 'Management',
+      title: 'ANGLE2',
+    },
+  ],
+};

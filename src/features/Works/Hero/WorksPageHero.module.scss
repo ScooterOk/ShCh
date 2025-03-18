@@ -18,10 +18,16 @@
     &__title {
       padding: 30px 40px;
       background-color: $black;
-      font-size: clamp(20px, 1.5vw, 26px);
-      line-height: 1;
       color: $bg;
       clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
+      h1 {
+        font-size: clamp(20px, 1.5vw, 26px);
+        line-height: 1;
+      }
+      &_link {
+        margin-top: 40px;
+        font-size: clamp(14px, 1.5vw, 16px);
+      }
     }
     &__tags {
       padding-left: 60px;
