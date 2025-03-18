@@ -71,10 +71,10 @@ const Music = () => {
       duration: 3,
       overwrite: true,
       onStart: () => {
-        if (!isMuted) audioRef.current.play();
+        if (!isMuted) audioRef?.current?.play();
       },
       onComplete: () => {
-        if (isMuted) audioRef.current.pause();
+        if (isMuted) audioRef?.current?.pause();
       },
     });
   }, [isMuted]);
