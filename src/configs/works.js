@@ -102,3 +102,16 @@ export const sparky = {
     },
   ],
 };
+
+export const mesmerized = {
+  hero: {
+    title: 'Mesmerized',
+    // livesite: 'https://angle2.agency/lab/',
+    description: 'New Branding for the Ukrainian rock band Mesmerized.',
+    tags: ['Brand Design'],
+  },
+  credits: [
+    { id: 'art_direction', name: 'Art Direction', title: 'Serhii Churilov' },
+    { id: 'brand_design', name: 'Brand Design', title: 'Serhii Churilov' },
+  ],
+};
