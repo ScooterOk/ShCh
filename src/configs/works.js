@@ -77,3 +77,28 @@ export const angle2 = {
     },
   ],
 };
+
+export const sparky = {
+  hero: {
+    title: 'Sparky',
+    // livesite: 'https://angle2.agency/lab/',
+    description:
+      'The Shopify Plus partner with startup agility and enterprise ability. For this client we developed promotional website.',
+    tags: ['Web Design'],
+  },
+  credits: [
+    { id: 'art_direction', name: 'Art Direction', title: 'Serhii Churilov' },
+    { id: 'ux_ui_design', name: 'UX/UI Design', title: 'Serhii Churilov' },
+    { id: 'brand_design', name: 'Brand Design', title: 'Serhii Churilov' },
+    {
+      id: 'creative_frontDev',
+      name: 'Creative FrontDev',
+      title: 'Dmytro Oborskyi',
+    },
+    {
+      id: 'management',
+      name: 'Management',
+      title: 'ANGLE2',
+    },
+  ],
+};
