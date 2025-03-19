@@ -115,3 +115,18 @@ export const mesmerized = {
     { id: 'brand_design', name: 'Brand Design', title: 'Serhii Churilov' },
   ],
 };
+
+export const sanctuary = {
+  hero: {
+    title: 'Sanctuary AI',
+    // livesite: 'https://angle2.agency/lab/',
+    description:
+      'Sanctuary AI is on a mission to create and deploy millions of industrial-grade humanoid robots to help address growing labor challenges. Working alongside Skyrocket, we created a design concept for a promotional website.',
+    tags: ['Web Design', 'Motion Design'],
+  },
+  credits: [
+    { id: 'art_direction', name: 'Art Direction', title: 'Serhii Churilov' },
+    { id: 'motion_design ', name: 'Motion Design ', title: 'Serhii Churilov' },
+    { id: 'management ', name: 'Management ', title: 'Skyrocket' },
+  ],
+};
