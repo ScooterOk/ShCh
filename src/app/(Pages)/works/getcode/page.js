@@ -49,6 +49,8 @@ const Getcode = () => {
             '#getcode-media-bg',
             { clipPath: 'polygon(0% 50%, 100% 50%, 100% 50%, 0px 50%)' },
             {
+              onStart: () =>
+                document.querySelector('#getcode-media-bg video')?.play(),
               scrollTrigger: {
                 trigger: '#getcode-media-bg',
                 start: '-=10% 80%',
@@ -103,7 +105,7 @@ const Getcode = () => {
         data-scroll-color
       >
         {loadedMedia?.['/video/Getcode/bg_getcode_home_10.mp4'] && (
-          <video preload="auto" muted playsInline loop autoPlay>
+          <video preload="auto" muted playsInline loop>
             <source
               src={loadedMedia?.['/video/Getcode/bg_getcode_home_10.mp4']}
               type="video/mp4"

@@ -49,6 +49,8 @@ const SanctuaryAI = () => {
             '#sanctury-media-bg',
             { clipPath: 'polygon(0% 50%, 100% 50%, 100% 50%, 0px 50%)' },
             {
+              onStart: () =>
+                document.querySelector('#sanctury-media-bg video')?.play(),
               scrollTrigger: {
                 trigger: '#sanctury-media-bg',
                 start: '-=10% 80%',
@@ -102,7 +104,7 @@ const SanctuaryAI = () => {
         id="sanctury-media-bg"
       >
         {loadedMedia?.['/video/Sanctury/bg_preview_sactuary.mp4'] && (
-          <video preload="auto" muted playsInline loop autoPlay>
+          <video preload="auto" muted playsInline loop>
             <source
               src={loadedMedia?.['/video/Sanctury/bg_preview_sactuary.mp4']}
               type="video/mp4"

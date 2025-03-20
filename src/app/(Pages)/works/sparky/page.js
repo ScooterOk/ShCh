@@ -46,11 +46,13 @@ const Sparky = () => {
           const scrollSolor = gsap.utils.toArray('[data-scroll-color]');
 
           gsap.fromTo(
-            '#koenigsegg-media-bg',
+            '#sparky-media-bg',
             { clipPath: 'polygon(0% 50%, 100% 50%, 100% 50%, 0px 50%)' },
             {
+              onStart: () =>
+                document.querySelector('#sparky-media-bg video')?.play(),
               scrollTrigger: {
-                trigger: '#koenigsegg-media-bg',
+                trigger: '#sparky-media-bg',
                 start: '-=10% 80%',
                 end: 'bottom bottom',
               },
@@ -99,11 +101,11 @@ const Sparky = () => {
       <WorksPageHero {...sparky.hero} />
       <div
         className={cx(styles.fullwidth, styles.fullwidth__lg)}
-        id="koenigsegg-media-bg"
+        id="sparky-media-bg"
         data-scroll-color
       >
         {loadedMedia?.['/video/Sparky/bg_sparky.mp4'] && (
-          <video preload="auto" muted playsInline loop autoPlay>
+          <video preload="auto" muted playsInline loop>
             <source
               src={loadedMedia?.['/video/Sparky/bg_sparky.mp4']}
               type="video/mp4"

@@ -7,8 +7,15 @@
 
 .fullwidth {
   line-height: 0;
+  background-color: $black;
+  aspect-ratio: 16/9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   & > * {
+    display: block;
     width: 100%;
+    max-width: 1920px;
   }
 }
 .staticwidth {

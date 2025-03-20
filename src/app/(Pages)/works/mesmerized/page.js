@@ -46,11 +46,13 @@ const Mesmerized = () => {
           const scrollSolor = gsap.utils.toArray('[data-scroll-color]');
 
           gsap.fromTo(
-            '#koenigsegg-media-bg',
+            '#mesmerized-media-bg',
             { clipPath: 'polygon(0% 50%, 100% 50%, 100% 50%, 0px 50%)' },
             {
+              onStart: () =>
+                document.querySelector('#mesmerized-media-bg video')?.play(),
               scrollTrigger: {
-                trigger: '#koenigsegg-media-bg',
+                trigger: '#mesmerized-media-bg',
                 start: '-=10% 80%',
                 end: 'bottom bottom',
               },
@@ -99,11 +101,11 @@ const Mesmerized = () => {
       <WorksPageHero {...mesmerized.hero} />
       <div
         className={cx(styles.fullwidth, styles.fullwidth__lg)}
-        id="koenigsegg-media-bg"
+        id="mesmerized-media-bg"
         data-scroll-color
       >
         {loadedMedia?.['/video/Mesmerized/bg_mesmerized.mp4'] && (
-          <video preload="auto" muted playsInline loop autoPlay>
+          <video preload="auto" muted playsInline loop>
             <source
               src={loadedMedia?.['/video/Mesmerized/bg_mesmerized.mp4']}
               type="video/mp4"

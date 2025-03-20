@@ -59,6 +59,8 @@ const Koenigsegg = () => {
             '#koenigsegg-media-bg',
             { clipPath: 'polygon(0% 50%, 100% 50%, 100% 50%, 0px 50%)' },
             {
+              onStart: () =>
+                document.querySelector('#koenigsegg-media-bg video')?.play(),
               scrollTrigger: {
                 trigger: '#koenigsegg-media-bg',
                 start: '-=10% 80%',
@@ -101,7 +103,7 @@ const Koenigsegg = () => {
           id="koenigsegg-media-bg"
         >
           {loadedMedia?.['/video/Koenigsegg/bg_koenigsegg_preview.mp4'] && (
-            <video preload="auto" muted playsInline loop autoPlay>
+            <video preload="auto" muted playsInline loop>
               <source
                 src={
                   loadedMedia?.['/video/Koenigsegg/bg_koenigsegg_preview.mp4']

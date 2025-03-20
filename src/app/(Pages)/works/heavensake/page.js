@@ -55,6 +55,8 @@ const Heavensake = () => {
             '#heavensake-media-1',
             { clipPath: 'polygon(0% 50%, 100% 50%, 100% 50%, 0px 50%)' },
             {
+              onStart: () =>
+                document.querySelector('#heavensake-media-1 video')?.play(),
               scrollTrigger: {
                 trigger: '#heavensake-media-1',
                 start: '-=10% 80%',
@@ -92,15 +94,9 @@ const Heavensake = () => {
     <main>
       <WorksPageHero {...heavensake.hero} />
       <div ref={scrollBarTrigger}>
-        <div className={styles.fullwidth}>
+        <div className={styles.fullwidth} id="heavensake-media-1">
           {loadedMedia?.['/video/HEAVENSAKE/bg_preview_heavenSAKE.mp4'] && (
-            <video
-              preload="auto"
-              muted
-              playsInline
-              loop
-              id="heavensake-media-1"
-            >
+            <video preload="auto" muted playsInline loop>
               <source
                 src={
                   loadedMedia?.['/video/HEAVENSAKE/bg_preview_heavenSAKE.mp4']

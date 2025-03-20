@@ -49,6 +49,8 @@ const Skyrocket = () => {
             '#koenigsegg-media-bg',
             { clipPath: 'polygon(0% 50%, 100% 50%, 100% 50%, 0px 50%)' },
             {
+              onStart: () =>
+                document.querySelector('#koenigsegg-media-bg video')?.play(),
               scrollTrigger: {
                 trigger: '#koenigsegg-media-bg',
                 start: '-=10% 80%',
@@ -103,7 +105,7 @@ const Skyrocket = () => {
         data-scroll-color
       >
         {loadedMedia?.['/video/Skyrocket/bg_skyrocket_preview.mp4'] && (
-          <video preload="auto" muted playsInline loop autoPlay>
+          <video preload="auto" muted playsInline loop>
             <source
               src={loadedMedia?.['/video/Skyrocket/bg_skyrocket_preview.mp4']}
               type="video/mp4"

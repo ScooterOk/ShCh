@@ -45,11 +45,15 @@ const Skyrocket = () => {
           const scrollSolor = gsap.utils.toArray('[data-scroll-color]');
 
           gsap.fromTo(
-            '#koenigsegg-media-bg',
+            '#skyrocket-motion-media-bg',
             { clipPath: 'polygon(0% 50%, 100% 50%, 100% 50%, 0px 50%)' },
             {
+              onStart: () =>
+                document
+                  .querySelector('#skyrocket-motion-media-bg video')
+                  ?.play(),
               scrollTrigger: {
-                trigger: '#koenigsegg-media-bg',
+                trigger: '#skyrocket-motion-media-bg',
                 start: '-=10% 80%',
                 end: 'bottom bottom',
               },
@@ -98,11 +102,11 @@ const Skyrocket = () => {
       <WorksPageHero {...skyrocketMotion.hero} />
       <div
         className={cx(styles.fullwidth, styles.fullwidth__lg)}
-        id="koenigsegg-media-bg"
+        id="skyrocket-motion-media-bg"
         data-scroll-color
       >
         {loadedMedia?.['/video/SkyrocketMotion/bg_skyrocket_animecase.mp4'] && (
-          <video preload="auto" muted playsInline loop autoPlay>
+          <video preload="auto" muted playsInline loop>
             <source
               src={
                 loadedMedia?.[

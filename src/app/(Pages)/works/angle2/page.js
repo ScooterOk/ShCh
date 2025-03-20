@@ -46,11 +46,13 @@ const Angle2 = () => {
           const scrollSolor = gsap.utils.toArray('[data-scroll-color]');
 
           gsap.fromTo(
-            '#koenigsegg-media-bg',
+            '#angle2-media-bg',
             { clipPath: 'polygon(0% 50%, 100% 50%, 100% 50%, 0px 50%)' },
             {
+              onStart: () =>
+                document.querySelector('#angle2-media-bg video')?.play(),
               scrollTrigger: {
-                trigger: '#koenigsegg-media-bg',
+                trigger: '#angle2-media-bg',
                 start: '-=10% 80%',
                 end: 'bottom bottom',
               },
@@ -99,11 +101,11 @@ const Angle2 = () => {
       <WorksPageHero {...angle2.hero} />
       <div
         className={cx(styles.fullwidth, styles.fullwidth__lg)}
-        id="koenigsegg-media-bg"
+        id="angle2-media-bg"
         data-scroll-color
       >
         {loadedMedia?.['/video/angle2/bg_angle2.mp4'] && (
-          <video preload="auto" muted playsInline loop autoPlay>
+          <video preload="auto" muted playsInline loop>
             <source
               src={loadedMedia?.['/video/angle2/bg_angle2.mp4']}
               type="video/mp4"
