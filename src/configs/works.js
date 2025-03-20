@@ -130,3 +130,17 @@ export const sanctuary = {
     { id: 'management ', name: 'Management ', title: 'Skyrocket' },
   ],
 };
+
+export const skyrocketMotion = {
+  hero: {
+    title: 'Skyrocket',
+    description:
+      'In collaboration with Skyrocket, I created an animated preview of client projects, emphasizing the unique vibe of each one.',
+    tags: ['Motion Design'],
+  },
+  credits: [
+    { id: 'art_direction', name: 'Art Direction', title: 'Serhii Churilov' },
+    { id: 'motion_design', name: 'Motion Design', title: 'Serhii Churilov' },
+    { id: 'management', name: 'Management', title: 'Skyrocket' },
+  ],
+};

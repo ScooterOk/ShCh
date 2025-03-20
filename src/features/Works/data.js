@@ -53,8 +53,8 @@ export const worksListData = [
     media: ['sanc_001.png', 'sanc_002.png', 'sanc_003.png', 'sanc_004.png'],
   },
   {
-    id: 'skyrocket2',
-    name: 'Skyrocket',
+    id: 'skyrocket-motion',
+    name: 'Skyrocket Motion',
     tags: ['#Motion Design'],
     media: [
       'skyrocket2_01.mp4',
