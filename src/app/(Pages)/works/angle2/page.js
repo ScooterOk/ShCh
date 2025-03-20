@@ -188,7 +188,7 @@ const Angle2 = () => {
       </div>
 
       <WorksPageCredits credits={angle2.credits} />
-      <NextWork name={'HEAVENSAKE'} />
+      <NextWork {...angle2.nextWork} />
       {!isLoaded && <Loader medialist={medialist} />}
     </main>
   );

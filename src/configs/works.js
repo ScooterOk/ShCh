@@ -1,20 +1,3 @@
-export const heavensake = {
-  hero: {
-    title: 'HEAVENSAKE',
-    description:
-      'HEAVENSAKE is a luxury sake brand that embodies a unique combination of Japanese tradition and French artistry, helmed by the acclaimed French cellar master Régis Camus.',
-    tags: ['Brand Design'],
-  },
-  credits: [
-    { id: 'brand_design', name: 'Brand Design', title: 'Serhii Churilov' },
-    {
-      id: 'brand_strategy',
-      name: 'Brand Strategy',
-      title: 'Vasyl Artiushchenko',
-    },
-  ],
-};
-
 export const koenigsegg = {
   hero: {
     title: 'Koenigsegg',
@@ -30,6 +13,33 @@ export const koenigsegg = {
     { id: 'sound_design', name: 'Sound Design', title: 'Dmitry Tkach' },
     { id: 'management', name: 'Management', title: 'Danylo Matvienko' },
   ],
+  nextWork: {
+    title: 'HEAVENSAKE',
+    preview: '/video/HEAVENSAKE/bg_preview_heavenSAKE.mp4',
+    href: '/works/heavensake',
+  },
+};
+
+export const heavensake = {
+  hero: {
+    title: 'HEAVENSAKE',
+    description:
+      'HEAVENSAKE is a luxury sake brand that embodies a unique combination of Japanese tradition and French artistry, helmed by the acclaimed French cellar master Régis Camus.',
+    tags: ['Brand Design'],
+  },
+  credits: [
+    { id: 'brand_design', name: 'Brand Design', title: 'Serhii Churilov' },
+    {
+      id: 'brand_strategy',
+      name: 'Brand Strategy',
+      title: 'Vasyl Artiushchenko',
+    },
+  ],
+  nextWork: {
+    title: 'Skyrocket',
+    preview: '/video/Skyrocket/bg_skyrocket_preview.mp4',
+    href: '/works/skyrocket',
+  },
 };
 
 export const skyrocket = {
@@ -51,6 +61,11 @@ export const skyrocket = {
     },
     { id: 'ux_design', name: 'UX Design', title: 'Skyrocket' },
   ],
+  nextWork: {
+    title: 'Angle2 Agency',
+    preview: '/video/angle2/bg_angle2.mp4',
+    href: '/works/angle2',
+  },
 };
 
 export const angle2 = {
@@ -76,6 +91,11 @@ export const angle2 = {
       title: 'ANGLE2',
     },
   ],
+  nextWork: {
+    title: 'Sparky',
+    preview: '/video/Sparky/bg_sparky.mp4',
+    href: '/works/sparky',
+  },
 };
 
 export const sparky = {
@@ -101,6 +121,11 @@ export const sparky = {
       title: 'ANGLE2',
     },
   ],
+  nextWork: {
+    title: 'Mesmerized',
+    preview: '/video/Mesmerized/bg_mesmerized.mp4',
+    href: '/works/mesmerized',
+  },
 };
 
 export const mesmerized = {
@@ -114,6 +139,11 @@ export const mesmerized = {
     { id: 'art_direction', name: 'Art Direction', title: 'Serhii Churilov' },
     { id: 'brand_design', name: 'Brand Design', title: 'Serhii Churilov' },
   ],
+  nextWork: {
+    title: 'Sanctuary AI',
+    preview: '/video/Sanctury/bg_preview_sactuary.mp4',
+    href: '/works/sanctuary',
+  },
 };
 
 export const sanctuary = {
@@ -129,6 +159,11 @@ export const sanctuary = {
     { id: 'motion_design ', name: 'Motion Design ', title: 'Serhii Churilov' },
     { id: 'management ', name: 'Management ', title: 'Skyrocket' },
   ],
+  nextWork: {
+    title: 'Skyrocket Motion',
+    preview: '/video/SkyrocketMotion/bg_skyrocket_animecase.mp4',
+    href: '/works/skyrocket-motion',
+  },
 };
 
 export const skyrocketMotion = {
@@ -143,6 +178,11 @@ export const skyrocketMotion = {
     { id: 'motion_design', name: 'Motion Design', title: 'Serhii Churilov' },
     { id: 'management', name: 'Management', title: 'Skyrocket' },
   ],
+  nextWork: {
+    title: 'GetCode',
+    preview: '/video/Getcode/bg_getcode_home_10.mp4',
+    href: '/works/getcode',
+  },
 };
 
 export const getcode = {
@@ -156,7 +196,6 @@ export const getcode = {
   credits: [
     { id: 'art_direction', name: 'Art Direction', title: 'Serhii Churilov' },
     { id: 'ux_ui_design', name: 'UX/UI Design', title: 'Serhii Churilov' },
-    { id: 'management', name: 'Management', title: 'Skyrocket' },
     { id: 'brand_design', name: 'Brand Design', title: 'Serhii Churilov' },
     {
       id: 'frontend',
@@ -170,4 +209,9 @@ export const getcode = {
     },
     { id: 'management', name: 'Management', title: 'ANGLE2' },
   ],
+  nextWork: {
+    title: 'Koenigsegg',
+    preview: '/video/Koenigsegg/bg_koenigsegg_preview.mp4',
+    href: '/works/koenigsegg',
+  },
 };

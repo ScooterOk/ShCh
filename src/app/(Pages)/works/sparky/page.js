@@ -200,7 +200,7 @@ const Sparky = () => {
       </div>
 
       <WorksPageCredits credits={sparky.credits} />
-      <NextWork name={'HEAVENSAKE'} />
+      <NextWork {...sparky.nextWork} />
       {!isLoaded && <Loader medialist={medialist} />}
     </main>
   );

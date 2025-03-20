@@ -165,7 +165,7 @@ const Mesmerized = () => {
       </div>
 
       <WorksPageCredits credits={mesmerized.credits} />
-      <NextWork name={'HEAVENSAKE'} />
+      <NextWork {...mesmerized.nextWork} />
       {!isLoaded && <Loader medialist={medialist} />}
     </main>
   );

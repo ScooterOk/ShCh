@@ -197,7 +197,7 @@ const Getcode = () => {
       </div>
 
       <WorksPageCredits credits={getcode.credits} />
-      <NextWork name={'HEAVENSAKE'} />
+      <NextWork {...getcode.nextWork} />
       {!isLoaded && <Loader medialist={medialist} />}
     </main>
   );

@@ -140,7 +140,7 @@ const Heavensake = () => {
       </div>
 
       <WorksPageCredits credits={heavensake.credits} />
-      <NextWork name={'HEAVENSAKE'} />
+      <NextWork {...heavensake.nextWork} />
       {!isLoaded && <Loader medialist={medialist} />}
     </main>
   );

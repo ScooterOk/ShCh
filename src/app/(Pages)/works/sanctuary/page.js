@@ -155,7 +155,7 @@ const SanctuaryAI = () => {
       </div>
 
       <WorksPageCredits credits={sanctuary.credits} />
-      <NextWork name={'HEAVENSAKE'} />
+      <NextWork {...sanctuary.nextWork} />
       {!isLoaded && <Loader medialist={medialist} />}
     </main>
   );

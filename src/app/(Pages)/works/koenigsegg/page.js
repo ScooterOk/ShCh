@@ -183,7 +183,7 @@ const Koenigsegg = () => {
       </div>
 
       <WorksPageCredits credits={koenigsegg.credits} />
-      <NextWork name={'HEAVENSAKE'} />
+      <NextWork {...koenigsegg.nextWork} />
       {!isLoaded && <Loader medialist={medialist} />}
     </main>
   );

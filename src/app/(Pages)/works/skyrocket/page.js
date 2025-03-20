@@ -189,7 +189,7 @@ const Skyrocket = () => {
       </div>
 
       <WorksPageCredits credits={skyrocket.credits} />
-      <NextWork name={'HEAVENSAKE'} />
+      <NextWork {...skyrocket.nextWork} />
       {!isLoaded && <Loader medialist={medialist} />}
     </main>
   );
