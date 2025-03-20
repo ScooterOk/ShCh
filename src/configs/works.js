@@ -144,3 +144,30 @@ export const skyrocketMotion = {
     { id: 'management', name: 'Management', title: 'Skyrocket' },
   ],
 };
+
+export const getcode = {
+  hero: {
+    title: 'GetCode',
+    livesite: 'https://www.get-code.net/',
+    description:
+      'The Crew of Laravel artisans bringing SaaS Products to the Next Level GetCode is an exclusive Laravel Framework development company. In collaboration with Angle2 design agency and GetCode, we crafted a new brand identity and a new promotional website.',
+    tags: ['Web Design', 'Brand Design'],
+  },
+  credits: [
+    { id: 'art_direction', name: 'Art Direction', title: 'Serhii Churilov' },
+    { id: 'ux_ui_design', name: 'UX/UI Design', title: 'Serhii Churilov' },
+    { id: 'management', name: 'Management', title: 'Skyrocket' },
+    { id: 'brand_design', name: 'Brand Design', title: 'Serhii Churilov' },
+    {
+      id: 'frontend',
+      name: 'Front-end Development',
+      title: 'Dmytro Oborskyi',
+    },
+    {
+      id: 'backend',
+      name: 'Back-end Development ',
+      title: 'Glib Goloborodko',
+    },
+    { id: 'management', name: 'Management', title: 'ANGLE2' },
+  ],
+};
