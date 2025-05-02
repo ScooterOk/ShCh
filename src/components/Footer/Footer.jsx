@@ -106,8 +106,10 @@ const Footer = ({ className, titleColor }) => {
           ))}
         </div>
       </div>
-      <Links />
-      <Copyright />
+      <div className={styles.grid}>
+        <Copyright />
+        <Links />
+      </div>
     </div>
   );
 };

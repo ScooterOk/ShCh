@@ -24,10 +24,14 @@
       line-height: 1.2em;
     }
   }
-  .links {
-    width: 50%;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
     margin-top: 160px;
-    margin-left: auto;
+  }
+  .links {
+    width: 100%;
     transform-origin: left;
     &__link {
       transform-origin: left;
@@ -38,10 +42,12 @@
     }
   }
   .copyright {
-    margin-top: 140px;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    & > p:last-child {
+      margin-top: auto;
+    }
   }
   @media screen and (max-width: $breakpoint_tablet) {
     padding: 60px 40px 120px 40px;

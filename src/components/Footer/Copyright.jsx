@@ -20,7 +20,7 @@ const Copyright = () => {
         ))}
       </p>
       <p>
-        {Array.from('Design by Serhii Churilov').map((l, i) => (
+        {Array.from('©2025 Serhii Churilov').map((l, i) => (
           <span data-animation key={`name-${l}-${i}-${l}`}>
             {l}
           </span>
