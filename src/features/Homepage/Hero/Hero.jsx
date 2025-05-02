@@ -31,7 +31,7 @@ const Hero = ({ setRenderReady }) => {
         <div className={styles.hero__grid}>
           <div className={styles.hero__profile}>
             <HomeHeroLoopVideo styles={styles} />
-            <HomeHeroName styles={styles} />
+            <HomeHeroName styles={styles} mobile={true} />
           </div>
           <HomeHeroVideoPlayer
             styles={styles}
@@ -40,13 +40,25 @@ const Hero = ({ setRenderReady }) => {
           />
 
           <div className={styles.hero__title}>
+            <HomeHeroName styles={styles} />
             <Canvas
               ref={canvas}
               camera={{ position: [0, 0, 1], orthographic: true }}
               gl={{ stencil: true }}
             >
               <Suspense fallback={null}>
-                <group scale={isMobile ? 0 : 1}>
+                <group position={[0, 0, isMobile ? 10 : 0]}>
+                  {loadedMedia?.['/models/home_hero_title.gltf'] && (
+                    <HomeHeroTitle />
+                  )}
+                </group>
+                <group position={[0, 0, isMobile ? 0 : 10]}>
+                  {loadedMedia?.['/models/home_hero_title_mobile.gltf'] && (
+                    <HomeHeroTitleMobile />
+                  )}
+                </group>
+
+                {/* <group scale={isMobile ? 0 : 1}>
                   {loadedMedia?.['/models/home_hero_title.gltf'] && (
                     <HomeHeroTitle />
                   )}
@@ -55,7 +67,7 @@ const Hero = ({ setRenderReady }) => {
                   {loadedMedia?.['/models/home_hero_title_mobile.gltf'] && (
                     <HomeHeroTitleMobile />
                   )}
-                </group>
+                </group> */}
               </Suspense>
             </Canvas>
             <HomeHeroText styles={styles} setRenderReady={setRenderReady} />
