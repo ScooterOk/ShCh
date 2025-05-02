@@ -8,8 +8,9 @@ import styles from './Works.module.scss';
 import Skyrocket from '@/components/Home/Works/Skyrocket';
 import Mesmerized from '@/components/Home/Works/Mesmerized';
 import { mainContext } from '@/providers/MainProvider';
-import Heavensake from '@/components/Home/Works/HEAVENSAKE';
+
 import Angle2 from '@/components/Home/Works/Angle2';
+import Heavensake from '@/components/Home/Works/Heavensake';
 
 const Works = () => {
   const container = useRef();
