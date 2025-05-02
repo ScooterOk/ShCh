@@ -16,6 +16,7 @@ const Works = () => {
 
   return (
     <div className={styles.works}>
+      <div className={styles.featured}>Featured</div>
       <div className={styles.title} ref={container}>
         <Canvas
           camera={{ position: [0, 0, 1], orthographic: true }}
