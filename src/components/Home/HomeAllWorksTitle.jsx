@@ -93,7 +93,7 @@ const HomeAllWorksTitle = ({ container }) => {
   }, [ref]);
 
   useEffect(() => {
-    const w = (viewport.width / modelDimensions.width) * 1.055;
+    const w = (viewport.width / modelDimensions.width) * 1.05;
     setWidthScale(w);
   }, [modelDimensions.width, viewport.width]);
 
@@ -138,11 +138,27 @@ const HomeAllWorksTitle = ({ container }) => {
     <group
       ref={ref}
       dispose={null}
-      position={[0.16, -0.005, 0]}
+      position={[0.16, 0.018, 0]}
       scale={widthScale}
     >
       <group>
-        <group name="Layer_1" position={[0.084, 0.021, 0]} scale={0.059}>
+        <group name="Layer_1" position={[0.08, 0.021, 0]} scale={0.059}>
+          <mesh
+            name="line1"
+            castShadow
+            receiveShadow
+            geometry={nodes.line1.geometry}
+            material={nodes.line1.material}
+            position={[-8.167, -17.845, 0]}
+          />
+          <mesh
+            name="line"
+            castShadow
+            receiveShadow
+            geometry={nodes.line.geometry}
+            material={nodes.line.material}
+            position={[-23.032, -12.474, 0]}
+          />
           <mesh
             name="s"
             castShadow
@@ -248,6 +264,8 @@ const HomeAllWorksTitle = ({ container }) => {
             morphTargetDictionary={nodes.Fill.morphTargetDictionary}
             morphTargetInfluences={nodes.Fill.morphTargetInfluences}
             position={[-9.797, -3.729, 0]}
+            onPointerEnter={handlePointerEnter}
+            onPointerLeave={handlePointerLeave}
           />
           <mesh
             name="w_1"
