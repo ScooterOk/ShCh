@@ -1,9 +1,10 @@
 import { mainContext } from '@/providers/MainProvider';
 import { useGSAP } from '@gsap/react';
+import clsx from 'clsx';
 import gsap from 'gsap';
 import React, { useContext, useRef } from 'react';
 
-const HomeHeroName = ({ styles }) => {
+const HomeHeroName = ({ styles, mobile }) => {
   const { isLoaded } = useContext(mainContext);
 
   const rootRef = useRef();
@@ -26,7 +27,10 @@ const HomeHeroName = ({ styles }) => {
   );
 
   return (
-    <div ref={rootRef} className={styles.name}>
+    <div
+      ref={rootRef}
+      className={clsx(styles.name, mobile && styles.mobileOnly)}
+    >
       <p>
         {Array.from('Serhii Churilov').map((l, i) => (
           <span key={`name-${l}-${i}-${l}`}>{l}</span>
