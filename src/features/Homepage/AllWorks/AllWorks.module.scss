@@ -7,9 +7,6 @@
     width: 85%;
     aspect-ratio: 3.9;
     margin: auto;
-    canvas {
-      background-color: rgb(200, 168, 229);
-    }
   }
   @media screen and (max-width: $breakpoint_tablet) {
     margin-top: 120px;

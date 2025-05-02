@@ -6,9 +6,10 @@ import Koenigsegg from '@/components/Home/Works/Koenigsegg';
 
 import styles from './Works.module.scss';
 import Skyrocket from '@/components/Home/Works/Skyrocket';
-import AngleSparky from '@/components/Home/Works/AngleSparky';
 import Mesmerized from '@/components/Home/Works/Mesmerized';
 import { mainContext } from '@/providers/MainProvider';
+import Heavensake from '@/components/Home/Works/HEAVENSAKE';
+import Angle2 from '@/components/Home/Works/Angle2';
 
 const Works = () => {
   const container = useRef();
@@ -32,8 +33,9 @@ const Works = () => {
       </div>
       <Koenigsegg styles={styles} />
       <Skyrocket styles={styles} />
-      <AngleSparky styles={styles} />
+      <Heavensake styles={styles} />
       <Mesmerized styles={styles} />
+      <Angle2 styles={styles} />
     </div>
   );
 };

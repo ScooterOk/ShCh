@@ -36,7 +36,7 @@ const HomeAllWorksTitle = ({ container }) => {
 
   const videoMaterial = useVideoTexture(loadedMedia?.['/video/allworks.mp4'], {
     start: true,
-    // loop: true,
+    loop: true,
   });
 
   const fillMaterial = new THREE.MeshBasicMaterial({
@@ -264,8 +264,6 @@ const HomeAllWorksTitle = ({ container }) => {
             morphTargetDictionary={nodes.Fill.morphTargetDictionary}
             morphTargetInfluences={nodes.Fill.morphTargetInfluences}
             position={[-9.797, -3.729, 0]}
-            onPointerEnter={handlePointerEnter}
-            onPointerLeave={handlePointerLeave}
           />
           <mesh
             name="w_1"
