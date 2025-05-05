@@ -39,6 +39,9 @@ const HomeAllWorksTitle = ({ container }) => {
     loop: true,
   });
 
+  videoMaterial.flipY = false;
+  videoMaterial.needsUpdate = true;
+
   const fillMaterial = new THREE.MeshBasicMaterial({
     map: videoMaterial,
   });
@@ -133,6 +136,8 @@ const HomeAllWorksTitle = ({ container }) => {
       });
     }
   };
+
+  console.log('nodes', nodes);
 
   return (
     <group

@@ -83,10 +83,10 @@
     width: 66.66%;
     flex-shrink: 0;
     height: auto;
-    aspect-ratio: 5/3;
+    // aspect-ratio: 5/3;
     background-color: #000;
     clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
-    padding: 60px;
+    // padding: 60px;
   }
   @media screen and (max-width: $breakpoint_tablet) {
     margin-top: 60px;
@@ -137,7 +137,7 @@
         width: 100%;
         height: auto;
         clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
-        padding: 60px;
+        // padding: 60px;
         background-color: $black;
       }
     }
