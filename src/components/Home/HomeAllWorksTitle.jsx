@@ -137,8 +137,6 @@ const HomeAllWorksTitle = ({ container }) => {
     }
   };
 
-  console.log('nodes', nodes);
-
   return (
     <group
       ref={ref}

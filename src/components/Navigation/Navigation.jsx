@@ -13,7 +13,7 @@ import styles from './Navigation.module.scss';
 import Music from '../Music';
 
 const Navigation = () => {
-  const { isNavigationReady, setNoScroll } = useContext(mainContext);
+  const { isNavigationReady, setNoScroll, isMuted } = useContext(mainContext);
   const rootRef = useRef();
 
   const pathname = usePathname();
@@ -44,7 +44,7 @@ const Navigation = () => {
     const currentTargets = e.currentTarget.querySelectorAll('span');
 
     // Play hover sound
-    handleHoverSound();
+    if (!isMuted) handleHoverSound();
 
     if (e.type === 'mouseenter') {
       gsap

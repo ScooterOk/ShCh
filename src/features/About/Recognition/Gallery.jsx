@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useContext, useRef, useState } from 'react';
 
 import clsx from 'clsx';
 import gsap from 'gsap';
@@ -11,9 +11,12 @@ import { useGSAP } from '@gsap/react';
 import { useLenis } from 'lenis/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { handleHoverSound } from '@/services';
+import { mainContext } from '@/providers/MainProvider';
 
 const Gallery = ({ imagesListRef, lineRef }) => {
   const [activeList, setActiveList] = useState(certificates.map(() => false));
+
+  const { isMuted } = useContext(mainContext);
 
   const listRef = useRef();
 
@@ -85,7 +88,7 @@ const Gallery = ({ imagesListRef, lineRef }) => {
       );
 
       // Play hover sound
-      handleHoverSound();
+      if (!isMuted) handleHoverSound();
 
       setActiveList((prev) => {
         const list = [...prev];

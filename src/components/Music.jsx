@@ -35,7 +35,7 @@ const Music = () => {
         audioRef.current.volume = 0;
         document.addEventListener(
           'click',
-          () => {
+          (e) => {
             audioContext = new (window.AudioContext ||
               window.webkitAudioContext)();
             const track = audioContext.createMediaElementSource(
@@ -46,15 +46,17 @@ const Music = () => {
             lowPassFilter.frequency.value = 20000;
             track.connect(lowPassFilter).connect(audioContext.destination);
             audioContext.resume();
-            if (!isMobile) {
-              gsap.to(audioRef.current, {
-                volume: defaultVolume,
-                duration: 10,
-                onStart: () => {
-                  // audioRef.current.play();
-                  setIsMuted(false);
-                },
-              });
+            if (!isMobile && e.target.id !== 'play-video-button') {
+              setIsMuted(false);
+              audioRef.current.volume = defaultVolume;
+              // gsap.to(audioRef.current, {
+              //   volume: defaultVolume,
+              //   duration: 10,
+              //   onStart: () => {
+              //     // audioRef.current.play();
+              //     setIsMuted(false);
+              //   },
+              // });
             }
             setIsMusicInit(true);
           },
@@ -66,17 +68,21 @@ const Music = () => {
   );
 
   useEffect(() => {
-    gsap.to(audioRef.current, {
-      volume: isMuted ? 0 : defaultVolume,
-      duration: 3,
-      overwrite: true,
-      onStart: () => {
-        if (!isMuted) audioRef?.current?.play();
-      },
-      onComplete: () => {
-        if (isMuted) audioRef?.current?.pause();
-      },
-    });
+    console.log('isMuted', isMuted);
+
+    audioRef.current.volume = isMuted ? 0 : defaultVolume;
+    audioRef?.current?.[isMuted ? 'pause' : 'play']();
+    // gsap.to(audioRef.current, {
+    //   volume: isMuted ? 0 : defaultVolume,
+    //   duration: 3,
+    //   overwrite: true,
+    //   onStart: () => {
+    //     if (!isMuted) audioRef?.current?.play();
+    //   },
+    //   onComplete: () => {
+    //     if (isMuted) audioRef?.current?.pause();
+    //   },
+    // });
   }, [isMuted]);
 
   useEffect(() => {
@@ -99,7 +105,7 @@ const Music = () => {
   const handleHover = (e) => {
     if (e.type === 'mouseenter') {
       // Play hover sound
-      handleHoverSound();
+      if (!isMuted) handleHoverSound();
 
       gsap.to(params, {
         color: '#000000',

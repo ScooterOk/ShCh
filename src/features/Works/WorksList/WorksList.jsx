@@ -14,7 +14,7 @@ import styles from './WorksList.module.scss';
 
 const WorksList = () => {
   const [isHoverActive, setIsHoverActive] = useState(false);
-  const { isLoaded, setIsNavigationReady } = useContext(mainContext);
+  const { isLoaded, setIsNavigationReady, isMuted } = useContext(mainContext);
 
   useGSAP(
     () => {
@@ -111,7 +111,7 @@ const WorksList = () => {
     if (!isHoverActive) return;
     const currentTargets = e.currentTarget.querySelectorAll('[data-animation]');
 
-    handleHoverSound();
+    if (!isMuted) handleHoverSound();
     gsap
       .timeline()
       .to(currentTargets, {

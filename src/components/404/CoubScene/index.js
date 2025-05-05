@@ -66,8 +66,6 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
   });
 
   const handleChange = (delta) => {
-    console.log('handleChange', delta);
-
     speed += delta;
   };
 

@@ -1,4 +1,5 @@
 import { mainContext } from '@/providers/MainProvider';
+import { handleHoverSound } from '@/services';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import React, { useContext, useRef } from 'react';
@@ -8,7 +9,7 @@ const HomeHeroVideoPlayer = ({
   setShowVideoPlayer,
   setInitMousePosition,
 }) => {
-  const { isLoaded, loadedMedia } = useContext(mainContext);
+  const { isLoaded, loadedMedia, isMuted } = useContext(mainContext);
   const rootRef = useRef();
   const previewRef = useRef();
   const button = useRef();
@@ -39,6 +40,10 @@ const HomeHeroVideoPlayer = ({
     setShowVideoPlayer(true);
   };
 
+  const handleHover = () => {
+    if (!isMuted) handleHoverSound();
+  };
+
   return (
     <div ref={rootRef} className={styles.player_preview}>
       {loadedMedia?.['/video/showreel_preview.mp4'] && (
@@ -59,7 +64,12 @@ const HomeHeroVideoPlayer = ({
       )}
 
       <div className={styles.button}>
-        <button ref={button} onClick={handleplayVideo} />
+        <button
+          ref={button}
+          onClick={handleplayVideo}
+          onMouseEnter={handleHover}
+          id="play-video-button"
+        />
       </div>
     </div>
   );
