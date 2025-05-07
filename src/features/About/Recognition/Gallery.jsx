@@ -13,6 +13,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { handleHoverSound } from '@/services';
 import { mainContext } from '@/providers/MainProvider';
 
+const currentYear = new Date().getFullYear();
+
 const Gallery = ({ imagesListRef, lineRef }) => {
   const [activeList, setActiveList] = useState(certificates.map(() => false));
 
@@ -156,7 +158,7 @@ const Gallery = ({ imagesListRef, lineRef }) => {
             ))}
           </p>
           <p>
-            {Array.from('Member 2020-2024').map((l, i) => (
+            {Array.from(`Member 2020-${currentYear}`).map((l, i) => (
               <span data-animation key={`name-${l}-${i}-${l}`}>
                 {l}
               </span>
