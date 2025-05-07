@@ -67,9 +67,11 @@
       height: auto;
       aspect-ratio: 1 / 1;
       margin-left: 50%;
+      margin-bottom: 3px;
     }
     @media screen and (max-width: $breakpoint_mobile) {
       width: 50%;
+      margin-bottom: 4px;
     }
     video {
       position: absolute;
