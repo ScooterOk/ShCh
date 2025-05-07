@@ -258,6 +258,7 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
         className={styles.video}
         preload="auto"
         loop
+        playsInline
         onMouseMove={handleMouseMove}
         onClick={handleClickPlay}
       >
