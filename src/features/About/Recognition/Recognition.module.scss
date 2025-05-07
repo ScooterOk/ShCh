@@ -1,7 +1,7 @@
 @use '@/styles/vars' as *;
 
 .recognition {
-  padding: 60px;
+  padding: 220px 60px;
   .title {
     width: 72.3vw;
     aspect-ratio: 8.26;
@@ -76,7 +76,7 @@
 
   // Tablet styles
   @media screen and (max-width: $breakpoint_tablet) {
-    padding: 40px;
+    padding: 160px 40px;
     .title {
       width: auto;
     }

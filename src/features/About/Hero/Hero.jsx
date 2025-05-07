@@ -97,26 +97,29 @@ const Hero = () => {
             ))}
           </div>
         </div>
-        <div className={styles.title__director}>
-          {Array.from('Director &').map((l, i) => (
-            <span data-animation key={`name-${l}-${i}-${l}`}>
-              {l}
-            </span>
-          ))}
-        </div>
         <div className={styles.title__canvas}>
+          <div className={styles.title__director}>
+            {Array.from('Director &').map((l, i) => (
+              <span data-animation key={`name-${l}-${i}-${l}`}>
+                {l}
+              </span>
+            ))}
+          </div>
           <Canvas
             ref={canvas}
             camera={{ position: [0, 0, 1], orthographic: true }}
             gl={{ stencil: true }}
           >
             <Suspense fallback={null}>
-              <group scale={isMobile ? 0 : 1}>
+              <group
+                position={[0, 0, isMobile ? 10 : 0]}
+                scale={isMobile ? 0 : 1}
+              >
                 {loadedMedia?.['/models/about_digital_art_director.gltf'] && (
                   <AboutHeroTitle />
                 )}
               </group>
-              <group scale={isMobile ? 1 : 0}>
+              <group position={[0, 0, isMobile ? 0 : 10]}>
                 {loadedMedia?.[
                   '/models/about_digital_art_director_mob.gltf'
                 ] && <AboutHeroTitleMobile />}

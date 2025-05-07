@@ -59,6 +59,7 @@
     }
     &__canvas {
       height: 29vw;
+      position: relative;
     }
   }
 
@@ -96,8 +97,7 @@
         }
       }
       &__director {
-        top: auto;
-        bottom: 18.5%;
+        top: 34.2%;
         left: 65.8%;
       }
       &__canvas {

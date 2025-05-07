@@ -103,6 +103,30 @@ const Gallery = ({ imagesListRef, lineRef }) => {
         ease: 'power2.inOut',
         overwrite: true,
       });
+
+      if (isEnter) {
+        const currentTargets = e.currentTarget.querySelectorAll('span');
+        gsap
+          .timeline()
+          .to(currentTargets, {
+            duration: 0.1,
+            opacity: 0,
+            stagger: {
+              amount: 0.3,
+              grid: 'auto',
+              from: 'random',
+            },
+          })
+          .to(currentTargets, {
+            duration: 0.01,
+            opacity: 1,
+            stagger: {
+              amount: 0.3,
+              grid: 'auto',
+              from: 'random',
+            },
+          });
+      }
     },
     [imagesListRef, isMobile]
   );
