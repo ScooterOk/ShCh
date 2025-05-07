@@ -132,7 +132,7 @@ const SanctuaryAI = () => {
         </div>
         <div className={cx(styles.grid, styles.grid__left)}>
           <video preload="auto" muted playsInline loop autoPlay data-media>
-            <source src={'/video/Sanctury/sanctuary_07.mp4'} type="video/mp4" />
+            <source src={'/video/Sanctury/sanctuary_01.mp4'} type="video/mp4" />
           </video>
         </div>
         <div className={cx(styles.grid, styles.grid__right)}>
