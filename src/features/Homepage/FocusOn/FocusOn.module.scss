@@ -6,8 +6,10 @@
   position: relative;
   user-select: none;
   -webkit-user-select: none;
-  touch-action: none;
-  -webkit-touch-callout: none;
+  &.active {
+    touch-action: none;
+    -webkit-touch-callout: none;
+  }
 }
 
 .content {

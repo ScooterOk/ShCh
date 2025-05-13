@@ -1,6 +1,6 @@
 'use client';
 import clsx from 'clsx';
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 
 export const mainContext = createContext();
 
@@ -14,23 +14,10 @@ const MainProvider = ({ children }) => {
   const [currentDescriptionSlide, setCurrentDescriptionSlide] = useState(-1);
   const [isInit, setIsInit] = useState(false);
   const [isHolded, setIsHolded] = useState(null);
-  const [isTouched, setIsTouched] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [isTransition, setIsTransition] = useState(null);
 
   const { Provider } = mainContext;
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const handleTouchStart = () => {
-        setIsTouched(true);
-      };
-      window.addEventListener('touchstart', handleTouchStart, { once: true });
-      return () => {
-        window.removeEventListener('touchstart', handleTouchStart);
-      };
-    }
-  }, []);
 
   const resetMainProviderData = useCallback(() => {
     setCurrentFocusSlide(-1);
@@ -67,8 +54,6 @@ const MainProvider = ({ children }) => {
           setCurrentDescriptionSlide,
           isHolded,
           setIsHolded,
-          isTouched,
-          setIsTouched,
           isMuted,
           setIsMuted,
           isTransition,

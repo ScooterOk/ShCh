@@ -68,8 +68,6 @@ const Music = () => {
   );
 
   useEffect(() => {
-    console.log('isMuted', isMuted);
-
     audioRef.current.volume = isMuted ? 0 : defaultVolume;
     audioRef?.current?.[isMuted ? 'pause' : 'play']();
     // gsap.to(audioRef.current, {

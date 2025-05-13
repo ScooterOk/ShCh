@@ -37,7 +37,7 @@ const DescriptionCube = () => {
 
   const lenis = useLenis();
 
-  const { isMobile } = useMobile();
+  const { isMobile, isTouch } = useMobile();
 
   const {
     isLoaded,
@@ -47,7 +47,6 @@ const DescriptionCube = () => {
     setCurrentDescriptionSlide,
     isHolded,
     setIsHolded,
-    isTouched,
   } = useContext(mainContext);
   const container = useRef();
   const scrollBarTrigger = useRef();
@@ -416,7 +415,7 @@ const DescriptionCube = () => {
 
   const handleMouseMove = useCallback(
     (e) => {
-      if (isTouched) return;
+      if (isTouch) return;
       gsap.to(position, {
         x: e.clientX,
         y: e.clientY,
@@ -430,7 +429,7 @@ const DescriptionCube = () => {
         },
       });
     },
-    [isTouched]
+    [isTouch]
   );
 
   // Mousemove init
@@ -447,7 +446,12 @@ const DescriptionCube = () => {
     <div ref={scrollBarTrigger}>
       <div
         ref={container}
-        className={styles.focus}
+        className={clsx(
+          styles.focus,
+          currentDescriptionSlide > -1 &&
+            currentDescriptionSlide < 2 &&
+            styles.active
+        )}
         onPointerDown={handleClickAndHold}
         onPointerUp={handleClickAndHold}
         style={{
@@ -458,7 +462,7 @@ const DescriptionCube = () => {
       >
         <div
           ref={cursorRef}
-          className={clsx(styles.click_hold, isTouched && styles.disabled)}
+          className={clsx(styles.click_hold, isTouch && styles.disabled)}
         >
           <div className={styles.click_hold__line} />
           {Array.from('Click&Hold').map((l, i) => (
