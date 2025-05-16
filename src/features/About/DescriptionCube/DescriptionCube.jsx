@@ -523,6 +523,7 @@ const DescriptionCube = () => {
           {loadedMedia?.['/video/CUBE_01_full.mp4'] && (
             <video
               id="material_slide_1"
+              playsInline
               style={{ width: videoSourseSize, height: videoSourseSize }}
             >
               <source
@@ -534,6 +535,7 @@ const DescriptionCube = () => {
           {loadedMedia?.['/video/CUBE_02_full.mp4'] && (
             <video
               id="material_slide_2"
+              playsInline
               style={{ width: videoSourseSize, height: videoSourseSize }}
             >
               <source
@@ -545,6 +547,7 @@ const DescriptionCube = () => {
           {loadedMedia?.['/video/CUBE_04_full.mp4'] && (
             <video
               id="material_slide_4"
+              playsInline
               autoPlay
               muted
               loop

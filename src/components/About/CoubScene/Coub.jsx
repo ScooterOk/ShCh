@@ -13,12 +13,15 @@ const Coub = forwardRef((props, ref) => {
 
   if (!material_slide_1) {
     const video = document.getElementById('material_slide_1');
+    video.currentTime = video.duration - 0.1;
+    video.play();
     material_slide_1 = new THREE.VideoTexture(video);
   }
 
   if (!material_slide_2) {
     const video = document.getElementById('material_slide_2');
-    video.currentTime = video.duration;
+    video.currentTime = video.duration - 0.1;
+    video.play();
     material_slide_2 = new THREE.VideoTexture(video);
   }
 
