@@ -21,6 +21,8 @@ import useMobile from '@/hooks/useMobile';
 import { Observer } from 'gsap/Observer';
 import CoubScene from '@/components/About/CoubScene';
 
+const videoSourseSize = 1;
+
 const position = {
   x: 0,
   y: 0,
@@ -47,6 +49,7 @@ const DescriptionCube = () => {
     setCurrentDescriptionSlide,
     isHolded,
     setIsHolded,
+    loadedMedia,
   } = useContext(mainContext);
   const container = useRef();
   const scrollBarTrigger = useRef();
@@ -499,6 +502,53 @@ const DescriptionCube = () => {
             ))}
           </p>
         </div>
+
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            zIndex: -1,
+          }}
+        >
+          {loadedMedia?.['/video/CUBE_01_full.mp4'] && (
+            <video
+              id="material_slide_1"
+              style={{ width: videoSourseSize, height: videoSourseSize }}
+            >
+              <source
+                src={loadedMedia?.['/video/CUBE_01_full.mp4']}
+                type="video/mp4"
+              />
+            </video>
+          )}
+          {loadedMedia?.['/video/CUBE_02_full.mp4'] && (
+            <video
+              id="material_slide_2"
+              style={{ width: videoSourseSize, height: videoSourseSize }}
+            >
+              <source
+                src={loadedMedia?.['/video/CUBE_02_full.mp4']}
+                type="video/mp4"
+              />
+            </video>
+          )}
+          {loadedMedia?.['/video/CUBE_04_full.mp4'] && (
+            <video
+              id="material_slide_4"
+              autoPlay
+              muted
+              loop
+              style={{ width: videoSourseSize, height: videoSourseSize }}
+            >
+              <source
+                src={loadedMedia?.['/video/CUBE_04_full.mp4']}
+                type="video/mp4"
+              />
+            </video>
+          )}
+        </div>
+
         <Canvas shadows>
           <color attach="background" args={['#000000']} />
           <PerspectiveCamera
