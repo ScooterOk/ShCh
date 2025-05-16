@@ -30,6 +30,8 @@ const position = {
 
 const slides = ['creativence', 'innovis'];
 
+let timeout;
+
 const DescriptionCube = () => {
   const [mousePosition, setMousePosition] = useState({
     x: position.x,
@@ -403,18 +405,25 @@ const DescriptionCube = () => {
     }
   }, [currentDescriptionSlide, setIsHolded]);
 
-  const handleClickAndHold = useCallback(
-    (e) => {
-      if (currentDescriptionSlide < 0 || currentDescriptionSlide > 1) return;
-      if (e.type === 'pointerdown') {
+  const handleClickAndHold = (e) => {
+    if (currentDescriptionSlide < 0 || currentDescriptionSlide > 1) {
+      if (isTouch) clearTimeout(timeout);
+      return;
+    }
+
+    if (e.type === 'pointerdown') {
+      if (isTouch) {
+        timeout = setTimeout(() => setIsHolded(true), 300);
+      } else {
         setIsHolded(true);
       }
-      if (e.type === 'pointerup') {
-        setIsHolded(false);
-      }
-    },
-    [currentDescriptionSlide, setIsHolded]
-  );
+    }
+
+    if (e.type === 'pointerup') {
+      if (isTouch) clearTimeout(timeout);
+      setIsHolded(false);
+    }
+  };
 
   const handleMouseMove = useCallback(
     (e) => {
