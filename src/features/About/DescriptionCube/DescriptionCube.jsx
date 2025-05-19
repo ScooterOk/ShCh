@@ -21,7 +21,7 @@ import useMobile from '@/hooks/useMobile';
 import { Observer } from 'gsap/Observer';
 import CoubScene from '@/components/About/CoubScene';
 
-const videoSourseSize = 1;
+const videoSourseSize = 50;
 
 const position = {
   x: 0,
@@ -517,13 +517,15 @@ const DescriptionCube = () => {
             position: 'fixed',
             top: 0,
             left: 0,
-            zIndex: -1,
+            zIndex: 2,
           }}
         >
           {loadedMedia?.['/video/CUBE_01_full.mp4'] && (
             <video
               id="material_slide_1"
               playsInline
+              muted
+              preload="auto"
               style={{ width: videoSourseSize, height: videoSourseSize }}
             >
               <source
@@ -536,6 +538,8 @@ const DescriptionCube = () => {
             <video
               id="material_slide_2"
               playsInline
+              muted
+              preload="auto"
               style={{ width: videoSourseSize, height: videoSourseSize }}
             >
               <source
@@ -561,7 +565,14 @@ const DescriptionCube = () => {
           )}
         </div>
 
-        <Canvas shadows>
+        <Canvas
+          shadows={false}
+          gl={{
+            powerPreference: 'high-performance',
+            preserveDrawingBuffer: false,
+            failIfMajorPerformanceCaveat: true,
+          }}
+        >
           <color attach="background" args={['#000000']} />
           <PerspectiveCamera
             ref={cameraRef}
@@ -579,6 +590,10 @@ const DescriptionCube = () => {
               isHolded={isHolded}
               styles={styles}
             />
+            {/* <mesh>
+              <boxGeometry />
+              <meshStandardMaterial color="hotpink" />
+            </mesh> */}
           </Suspense>
         </Canvas>
       </div>
