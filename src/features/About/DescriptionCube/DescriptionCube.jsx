@@ -21,7 +21,7 @@ import useMobile from '@/hooks/useMobile';
 import { Observer } from 'gsap/Observer';
 import CoubScene from '@/components/About/CoubScene';
 
-const videoSourseSize = 50;
+const videoSourseSize = 1;
 
 const position = {
   x: 0,
@@ -517,7 +517,7 @@ const DescriptionCube = () => {
             position: 'fixed',
             top: 0,
             left: 0,
-            zIndex: 2,
+            zIndex: -1,
           }}
         >
           {loadedMedia?.['/video/CUBE_01_full.mp4'] && (

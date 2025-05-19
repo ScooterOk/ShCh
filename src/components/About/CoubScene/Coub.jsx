@@ -10,38 +10,47 @@ const Coub = forwardRef((props, ref) => {
   const holdTweenRef = useRef();
   const videoTimeRef = useRef(0);
   const handleOnHoldedRef = useRef();
+  const material_slide_1 = useRef(
+    new THREE.VideoTexture(document.getElementById('material_slide_1'))
+  );
+  const material_slide_2 = useRef(
+    new THREE.VideoTexture(document.getElementById('material_slide_2'))
+  );
+  const material_slide_4 = useRef(
+    new THREE.VideoTexture(document.getElementById('material_slide_4'))
+  );
 
-  if (!material_slide_1) {
-    const video = document.getElementById('material_slide_1');
-    // video.play();
-    // video.currentTime = 0;
-    // video.pause();
-    video.currentTime = video.duration - 0.5;
-    video.play();
-    material_slide_1 = new THREE.VideoTexture(video);
-  }
+  // if (!material_slide_1) {
+  //   const video = document.getElementById('material_slide_1');
+  //   // video.play();
+  //   // video.currentTime = 0;
+  //   // video.pause();
+  //   video.currentTime = video.duration - 0.5;
+  //   video.play();
+  //   material_slide_1 = new THREE.VideoTexture(video);
+  // }
 
-  if (!material_slide_2) {
-    const video = document.getElementById('material_slide_2');
-    // video.play();
-    // video.currentTime = 0;
-    // video.pause();
-    video.currentTime = video.duration - 0.5;
-    video.play();
-    material_slide_2 = new THREE.VideoTexture(video);
-  }
+  // if (!material_slide_2) {
+  //   const video = document.getElementById('material_slide_2');
+  //   // video.play();
+  //   // video.currentTime = 0;
+  //   // video.pause();
+  //   video.currentTime = video.duration - 0.5;
+  //   video.play();
+  //   material_slide_2 = new THREE.VideoTexture(video);
+  // }
 
-  if (!material_slide_4) {
-    const video = document.getElementById('material_slide_4');
-    material_slide_4 = new THREE.VideoTexture(video);
-  }
+  // if (!material_slide_4) {
+  //   const video = document.getElementById('material_slide_4');
+  //   material_slide_4 = new THREE.VideoTexture(video);
+  // }
 
   const material = useMemo(() => {
     const materials = [
-      material_slide_1.image,
-      material_slide_2.image,
-      material_slide_4.image,
-      material_slide_4.image,
+      material_slide_1.current.image,
+      material_slide_2.current.image,
+      material_slide_4.current.image,
+      material_slide_4.current.image,
     ];
     if (currentSlide < 0) return materials[0];
     if (currentSlide > materials.length - 1)
@@ -87,7 +96,7 @@ const Coub = forwardRef((props, ref) => {
           material?.currentTime < 1
             ? material.duration - material.currentTime
             : 5.5;
-        material.currentTime = !isNaN(time) ? time : 0.5;
+        material.currentTime = !isNaN(time) ? time : 0;
         gsap.to(cameraRef.current?.position, {
           z: 4.5,
           duration: 1,
@@ -99,7 +108,20 @@ const Coub = forwardRef((props, ref) => {
   );
 
   useEffect(() => {
+    setTimeout(() => {
+      material_slide_1.current.image.play();
+      material_slide_2.current.image.play();
+      material_slide_1.current.image.currentTime = 0;
+      material_slide_2.current.image.currentTime = 0;
+      material_slide_1.current.image.pause();
+      material_slide_2.current.image.pause();
+    }, 0);
+  }, [currentSlide]);
+
+  useEffect(() => {
     handleOnHoldedRef.current = handleOnHolded;
+
+    console.log('AAAAAA');
   }, [handleOnHolded]);
 
   useEffect(() => {
@@ -113,12 +135,15 @@ const Coub = forwardRef((props, ref) => {
       rotation={[0, Math.PI * 2 + Math.PI / 2, 0]}
     >
       <boxGeometry args={[2, 2, 2]} />
-      <meshBasicMaterial attach={'material-0'} map={material_slide_2} />
-      <meshBasicMaterial attach={'material-4'} map={material_slide_1} />
-      <meshBasicMaterial attach={'material-1'} map={material_slide_4} />
+      <meshStandardMaterial
+        attach={'material-0'}
+        map={material_slide_2.current}
+      />
+      <meshBasicMaterial attach={'material-4'} map={material_slide_1.current} />
+      <meshBasicMaterial attach={'material-1'} map={material_slide_4.current} />
       <meshBasicMaterial attach={'material-2'} color={'#000000'} />
       <meshBasicMaterial attach={'material-3'} color={'#000000'} />
-      <meshBasicMaterial attach={'material-5'} map={material_slide_4} />
+      <meshBasicMaterial attach={'material-5'} map={material_slide_4.current} />
     </mesh>
   );
 });
