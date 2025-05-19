@@ -3,8 +3,6 @@ import React, { forwardRef, useEffect, useMemo, useRef } from 'react';
 
 import * as THREE from 'three';
 
-let material_slide_1, material_slide_2, material_slide_4;
-
 const Coub = forwardRef((props, ref) => {
   const { isHolded, currentSlide, cameraRef } = props;
   const holdTweenRef = useRef();
