@@ -565,14 +565,7 @@ const DescriptionCube = () => {
           )}
         </div>
 
-        <Canvas
-          shadows={false}
-          gl={{
-            powerPreference: 'high-performance',
-            preserveDrawingBuffer: false,
-            failIfMajorPerformanceCaveat: true,
-          }}
-        >
+        <Canvas shadows={false}>
           <color attach="background" args={['#000000']} />
           <PerspectiveCamera
             ref={cameraRef}

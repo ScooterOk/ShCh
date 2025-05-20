@@ -118,8 +118,6 @@ const Coub = forwardRef((props, ref) => {
 
   useEffect(() => {
     handleOnHoldedRef.current = handleOnHolded;
-
-    console.log('AAAAAA');
   }, [handleOnHolded]);
 
   useEffect(() => {

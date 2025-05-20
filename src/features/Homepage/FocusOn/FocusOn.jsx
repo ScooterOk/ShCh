@@ -20,10 +20,14 @@ import styles from './FocusOn.module.scss';
 import useMobile from '@/hooks/useMobile';
 import { Observer } from 'gsap/Observer';
 
+const videoSourseSize = 1;
+
 const position = {
   x: 0,
   y: 0,
 };
+
+let timeout;
 
 const FocusOn = () => {
   const [mousePosition, setMousePosition] = useState({
@@ -43,6 +47,7 @@ const FocusOn = () => {
     setCurrentFocusSlide,
     isHolded,
     setIsHolded,
+    loadedMedia,
   } = useContext(mainContext);
   const container = useRef();
   const scrollBarTrigger = useRef();
@@ -428,18 +433,38 @@ const FocusOn = () => {
       });
   }, [currentFocusSlide, setIsHolded]);
 
-  const handleClickAndHold = useCallback(
-    (e) => {
-      if (currentFocusSlide < 0 || currentFocusSlide > 2) return;
-      if (e.type === 'pointerdown') {
+  // const handleClickAndHold = useCallback(
+  //   (e) => {
+  //     if (currentFocusSlide < 0 || currentFocusSlide > 2) return;
+  //     if (e.type === 'pointerdown') {
+  //       setIsHolded(true);
+  //     }
+  //     if (e.type === 'pointerup') {
+  //       setIsHolded(false);
+  //     }
+  //   },
+  //   [currentFocusSlide, setIsHolded]
+  // );
+
+  const handleClickAndHold = (e) => {
+    if (currentFocusSlide < 0 || currentFocusSlide > 2) {
+      if (isTouch) clearTimeout(timeout);
+      return;
+    }
+
+    if (e.type === 'pointerdown') {
+      if (isTouch) {
+        timeout = setTimeout(() => setIsHolded(true), 300);
+      } else {
         setIsHolded(true);
       }
-      if (e.type === 'pointerup') {
-        setIsHolded(false);
-      }
-    },
-    [currentFocusSlide, setIsHolded]
-  );
+    }
+
+    if (e.type === 'pointerup') {
+      if (isTouch) clearTimeout(timeout);
+      setIsHolded(false);
+    }
+  };
 
   const handleMouseMove = useCallback(
     (e) => {
@@ -472,6 +497,72 @@ const FocusOn = () => {
 
   return (
     <div ref={scrollBarTrigger}>
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          zIndex: -1,
+        }}
+      >
+        {loadedMedia?.['/video/CUBE_01_full.mp4'] && (
+          <video
+            id="material_slide_1"
+            playsInline
+            muted
+            preload="auto"
+            style={{ width: videoSourseSize, height: videoSourseSize }}
+          >
+            <source
+              src={loadedMedia?.['/video/CUBE_01_full.mp4']}
+              type="video/mp4"
+            />
+          </video>
+        )}
+        {loadedMedia?.['/video/CUBE_02_full.mp4'] && (
+          <video
+            id="material_slide_2"
+            playsInline
+            muted
+            preload="auto"
+            style={{ width: videoSourseSize, height: videoSourseSize }}
+          >
+            <source
+              src={loadedMedia?.['/video/CUBE_02_full.mp4']}
+              type="video/mp4"
+            />
+          </video>
+        )}
+        {loadedMedia?.['/video/CUBE_03_full.mp4'] && (
+          <video
+            id="material_slide_3"
+            playsInline
+            muted
+            preload="auto"
+            style={{ width: videoSourseSize, height: videoSourseSize }}
+          >
+            <source
+              src={loadedMedia?.['/video/CUBE_03_full.mp4']}
+              type="video/mp4"
+            />
+          </video>
+        )}
+        {loadedMedia?.['/video/CUBE_04_full.mp4'] && (
+          <video
+            id="material_slide_4"
+            playsInline
+            autoPlay
+            muted
+            loop
+            style={{ width: videoSourseSize, height: videoSourseSize }}
+          >
+            <source
+              src={loadedMedia?.['/video/CUBE_04_full.mp4']}
+              type="video/mp4"
+            />
+          </video>
+        )}
+      </div>
       <div
         ref={container}
         className={clsx(
