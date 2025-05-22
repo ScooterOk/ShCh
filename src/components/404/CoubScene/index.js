@@ -59,16 +59,14 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
   const { viewport } = three;
 
   useFrame((_, delta) => {
+    // cubeRef.current.rotation.y += -(delta + speed * 0.0008) * 0.3;
     cubeRef.current.rotation.y -= delta * 0.35 + speed * 0.0001;
+    // cubeRef.current.rotation.y += speed * -0.0001;
     speed *= 0.95;
   });
 
-  const handleUp = (e) => {
-    speed += e.deltaY;
-  };
-
-  const handleDown = (e) => {
-    speed += e.deltaY;
+  const handleChange = (delta) => {
+    speed += delta;
   };
 
   useGSAP(() => {
@@ -90,13 +88,11 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
     ScrollTrigger.observe({
       type: 'wheel,touch',
       id: 'scroll-trigger-observe',
-      onUp: (e) => {
-        if (e.event.type === 'wheel') handleUp(e);
-        if (e.event.type === 'touchmove') handleDown(e);
+      onChangeY: (e) => {
+        if (e.event.type === 'wheel') handleChange(e.deltaY);
       },
-      onDown: (e) => {
-        if (e.event.type === 'wheel') handleDown(e);
-        if (e.event.type === 'touchmove') handleUp(e);
+      onChangeX: (e) => {
+        if (e.event.type === 'touchmove') handleChange(-e.deltaX * 7);
       },
       tolerance: 100,
       // preventDefault: true,
@@ -122,7 +118,7 @@ const CoubScene = ({ cameraRef, currentSlide, isHolded }) => {
         />
       </group>
       <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[20, 20]} rotateX={-Math.PI / 2} />
+        <planeGeometry args={[10, 10]} rotateX={-Math.PI / 2} />
         <MeshReflectorMaterial
           blur={[850, 590]}
           resolution={1024}
