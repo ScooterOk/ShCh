@@ -15,6 +15,7 @@ const HoverLink = ({
   children,
   className,
   line = true,
+  ...rest
 }) => {
   const linkRef = useRef();
   const { isMuted } = useContext(mainContext);
@@ -58,7 +59,7 @@ const HoverLink = ({
       )}
       onMouseEnter={onMouseEnter}
     >
-      <Component href={href} ref={linkRef}>
+      <Component href={href} ref={linkRef} {...rest}>
         {Array.from(children).map((l, i) => (
           <span
             data-animation
