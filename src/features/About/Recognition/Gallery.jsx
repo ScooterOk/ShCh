@@ -98,11 +98,11 @@ const Gallery = ({ imagesListRef, lineRef }) => {
         return list;
       });
       gsap.to(image, {
-        duration: 1,
+        duration: 0.8,
         clipPath: isEnter
           ? 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)'
           : 'polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%)',
-        ease: 'power2.inOut',
+        ease: 'power4.inOut',
         overwrite: true,
       });
 

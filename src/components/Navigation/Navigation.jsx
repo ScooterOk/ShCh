@@ -29,10 +29,10 @@ const Navigation = () => {
             y: 100,
             ease: 'power3.out',
           })
-          .from(rootRef.current.querySelector('canvas'), {
-            duration: 1,
-            opacity: 0,
-          })
+          // .from(rootRef.current.querySelector('canvas'), {
+          //   duration: 1,
+          //   opacity: 0,
+          // })
           .set(rootRef.current, { clearProps: 'transform' })
           .add(() => setNoScroll(false));
       }
