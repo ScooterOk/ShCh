@@ -70,7 +70,7 @@ const Skyrocket = () => {
               {
                 scrollTrigger: {
                   trigger: el,
-                  start: '-=10% 80%',
+                  start: '-=10% bottom',
                   end: 'bottom bottom',
                 },
                 clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)',

@@ -29,7 +29,7 @@ const Footer = ({ className, titleColor }) => {
           .timeline({
             scrollTrigger: {
               trigger: container.current,
-              start: 'top 80%',
+              start: 'top 50%',
               end: 'bottom bottom',
             },
           })
@@ -46,7 +46,7 @@ const Footer = ({ className, titleColor }) => {
             duration: 0.01,
             opacity: 0,
             stagger: {
-              amount: 1,
+              amount: 1.4,
               grid: 'auto',
               from: 'random',
             },

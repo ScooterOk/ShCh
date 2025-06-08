@@ -17,7 +17,7 @@ const Angle2 = ({ styles }) => {
       ScrollTrigger.create({
         id: 'angle2Trigger',
         trigger: mediaRef.current,
-        start: 'top 50%',
+        start: 'top bottom',
         end: 'bottom 50%',
         toggleClass: {
           targets: document.querySelector('[data-id="scrollbar"]'),

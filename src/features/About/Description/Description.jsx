@@ -57,7 +57,7 @@ const Description = () => {
               duration: 0.01,
               opacity: 0,
               stagger: {
-                amount: 0.5,
+                amount: 1,
                 grid: 'auto',
                 from: 'random',
               },
