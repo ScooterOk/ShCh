@@ -36,7 +36,7 @@ const Koenigsegg = ({ styles }) => {
         .timeline({
           scrollTrigger: {
             trigger: container.current,
-            start: '-=10% 80%',
+            start: '-=10% bottom',
             end: 'bottom bottom',
           },
         })

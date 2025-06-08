@@ -35,7 +35,7 @@ const Follow = () => {
       .timeline({
         scrollTrigger: {
           trigger: container.current,
-          start: 'top 50%',
+          start: 'top 75%',
           end: 'bottom bottom',
         },
       })

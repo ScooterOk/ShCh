@@ -32,7 +32,7 @@ const Skyrocket = ({ styles }) => {
         .timeline({
           scrollTrigger: {
             trigger: container.current,
-            start: 'top 50%',
+            start: 'top bottom',
             end: 'bottom bottom',
           },
         })
