@@ -31,7 +31,6 @@ const Footer = ({ className, titleColor }) => {
               trigger: container.current,
               start: 'top 50%',
               end: 'bottom bottom',
-              markers: true,
             },
           })
           .fromTo(
