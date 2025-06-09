@@ -4,10 +4,11 @@ import React, { forwardRef, useContext } from 'react';
 import { mainContext } from '@/providers/MainProvider';
 
 const TransitionLink = forwardRef(
-  ({ href, children, theme = 'light', ...props }, ref) => {
+  ({ href, children, theme = 'light', disabled = false, ...props }, ref) => {
     const { setIsTransition } = useContext(mainContext);
 
     const handleClick = (e) => {
+      if (disabled) return;
       e.preventDefault();
       setIsTransition({ href, theme });
     };
