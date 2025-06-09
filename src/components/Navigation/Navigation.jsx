@@ -87,6 +87,9 @@ const Navigation = () => {
                 href={route.href}
                 theme={route.theme}
                 onMouseEnter={onMouseEnter}
+                {...((route.href === pathname || isWorksSub) && {
+                  disabled: true,
+                })}
               >
                 {Array.from(route.title).map((l, i) => (
                   <span data-animation key={`name-${l}-${i}-${l}`}>
