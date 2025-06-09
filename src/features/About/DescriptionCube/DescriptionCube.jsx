@@ -375,7 +375,7 @@ const DescriptionCube = () => {
       return;
     }
 
-    gsap
+    const wordsTimeline = gsap
       .timeline({
         onComplete: () => (prevSlideRef.current = currentDescriptionSlide),
       })
@@ -393,7 +393,7 @@ const DescriptionCube = () => {
       });
 
     if (document.querySelectorAll(nextTargets).length) {
-      gsap.to(nextTargets, {
+      wordsTimeline.to(nextTargets, {
         duration: 0.01,
         opacity: !nextSlide && currentSlide === 'creativence' ? 0 : 1,
         stagger: {
