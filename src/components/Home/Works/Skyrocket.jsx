@@ -1,4 +1,5 @@
 import HoverLink from '@/components/HoverLink/HoverLink';
+import TransitionLink from '@/components/TransitionLink/TransitionLink';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -114,7 +115,9 @@ const Skyrocket = ({ styles }) => {
               ))}
             </p>
             <div className={styles.information__link}>
-              <HoverLink href="/works/koenigsegg">View Case</HoverLink>
+              <HoverLink Component={TransitionLink} href="/works/skyrocket">
+                View Case
+              </HoverLink>
             </div>
           </div>
         </div>

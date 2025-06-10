@@ -4,6 +4,7 @@ import { useGSAP } from '@gsap/react';
 import HoverLink from '@/components/HoverLink/HoverLink';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useMobile from '@/hooks/useMobile';
+import TransitionLink from '@/components/TransitionLink/TransitionLink';
 
 const Angle2 = ({ styles }) => {
   const container = useRef();
@@ -119,7 +120,9 @@ const Angle2 = ({ styles }) => {
           ))}
         </p>
         <div className={styles.information__link}>
-          <HoverLink href="/works/angle2">View Case</HoverLink>
+          <HoverLink Component={TransitionLink} href="/works/angle2">
+            View Case
+          </HoverLink>
         </div>
       </div>
     </div>
