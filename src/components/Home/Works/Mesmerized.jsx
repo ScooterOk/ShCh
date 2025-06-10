@@ -1,4 +1,5 @@
 import HoverLink from '@/components/HoverLink/HoverLink';
+import TransitionLink from '@/components/TransitionLink/TransitionLink';
 import useMobile from '@/hooks/useMobile';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -143,7 +144,9 @@ const Mesmerized = ({ styles }) => {
               ))}
             </p>
             <div className={styles.information__link}>
-              <HoverLink href="/works/koenigsegg">View Case</HoverLink>
+              <HoverLink Component={TransitionLink} href="/works/mesmerized">
+                View Case
+              </HoverLink>
             </div>
           </div>
         </div>

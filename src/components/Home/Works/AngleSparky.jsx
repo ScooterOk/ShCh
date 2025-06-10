@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HoverLink from '@/components/HoverLink/HoverLink';
 import useMobile from '@/hooks/useMobile';
+import TransitionLink from '@/components/TransitionLink/TransitionLink';
 
 const AngleSparky = ({ styles }) => {
   const container = useRef();
@@ -176,7 +177,9 @@ const AngleSparky = ({ styles }) => {
             )}
           </p>
           <div className={styles.information__link}>
-            <HoverLink href="/works/koenigsegg">View Case</HoverLink>
+            <HoverLink Component={TransitionLink} href="/works/koenigsegg">
+              View Case
+            </HoverLink>
           </div>
         </div>
       </div>
