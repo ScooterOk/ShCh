@@ -56,14 +56,14 @@ const WorksPageCredits = ({ credits: list }) => {
         {list?.map((item) => (
           <li key={`credit-${item.id}`}>
             <p>
-              {Array.from(item.title).map((l, i) => (
+              {Array.from(item.name).map((l, i) => (
                 <span data-animation key={`name-${l}-${i}-${l}`}>
                   {l}
                 </span>
               ))}
             </p>
             <p>
-              {Array.from(item.name).map((l, i) => (
+              {Array.from(item.title).map((l, i) => (
                 <span data-animation key={`name-${l}-${i}-${l}`}>
                   {l}
                 </span>

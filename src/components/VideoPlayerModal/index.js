@@ -17,10 +17,8 @@ let params = {
   color: '#f52b2b',
 };
 
-let isPlayed;
-
 const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
-  const { setIsMuted } = useContext(mainContext);
+  const { isMuted, setIsMuted } = useContext(mainContext);
   const [currentTime, setCurrentTime] = useState('00:00:00');
   const [isPlay, setIsPlay] = useState(true);
   const [isMute, setIsMute] = useState(false);
@@ -33,10 +31,12 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
   const videoRef = useRef();
   const cursorPauseRef = useRef();
   const cursorPlayRef = useRef();
+  const isPlayed = useRef();
 
   useEffect(() => {
     const music = document.querySelector('#background-song');
     if (show) {
+      isPlayed.current = !music.paused;
       position.x = initMousePosition.x;
       position.y = initMousePosition.y;
       setMousePosition(initMousePosition);
@@ -49,7 +49,6 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
         duration: 0.5,
         ease: 'power4.inOut',
         onComplete: () => {
-          isPlayed = !music.paused;
           videoRef.current.play();
           setIsMuted(true);
         },
@@ -60,7 +59,7 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
       gsap
         .timeline({
           onComplete: () => {
-            if (isPlayed) setIsMuted(false);
+            if (isPlayed.current) setIsMuted(false);
           },
         })
         .to(modalRef.current, {
@@ -174,10 +173,11 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
   };
 
   const handleClickSound = () => {
-    gsap.to(videoRef.current, {
-      volume: isMute ? 1 : 0,
-      duration: 1,
-    });
+    videoRef.current.volume = isMute ? 1 : 0;
+    // gsap.to(videoRef.current, {
+    //   volume: isMute ? 1 : 0,
+    //   duration: 1,
+    // });
     setIsMute(!isMute);
   };
 
@@ -210,7 +210,7 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
       : cursorPlayRef.current.querySelectorAll('span');
     if (e.type === 'mouseenter') {
       // Play hover sound
-      handleHoverSound();
+      if (!isMuted) handleHoverSound();
 
       gsap.to(currentTargets, {
         duration: 0.1,
@@ -258,6 +258,7 @@ const VideoPlayerModal = ({ show, onClose, initMousePosition }) => {
         className={styles.video}
         preload="auto"
         loop
+        playsInline
         onMouseMove={handleMouseMove}
         onClick={handleClickPlay}
       >

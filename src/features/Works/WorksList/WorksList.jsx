@@ -1,18 +1,20 @@
 import React, { useContext, useState } from 'react';
+import clsx from 'clsx';
 import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 import { worksListData } from '../data';
 import { handleHoverSound } from '@/services';
 
-import styles from './WorksList.module.scss';
-import { useGSAP } from '@gsap/react';
 import { mainContext } from '@/providers/MainProvider';
-import Link from 'next/link';
-import clsx from 'clsx';
+
+import TransitionLink from '@/components/TransitionLink/TransitionLink';
+
+import styles from './WorksList.module.scss';
 
 const WorksList = () => {
   const [isHoverActive, setIsHoverActive] = useState(false);
-  const { isLoaded, setIsNavigationReady } = useContext(mainContext);
+  const { isLoaded, setIsNavigationReady, isMuted } = useContext(mainContext);
 
   useGSAP(
     () => {
@@ -109,7 +111,7 @@ const WorksList = () => {
     if (!isHoverActive) return;
     const currentTargets = e.currentTarget.querySelectorAll('[data-animation]');
 
-    handleHoverSound();
+    if (!isMuted) handleHoverSound();
     gsap
       .timeline()
       .to(currentTargets, {
@@ -140,7 +142,7 @@ const WorksList = () => {
           className={styles.works__item}
           onMouseEnter={handleHover}
         >
-          <Link href={`/works/${item.id}`} className={styles.link}>
+          <TransitionLink href={`/works/${item.id}`} className={styles.link}>
             <div className={styles.works__item_info}>
               <div className={styles.line} />
               <div className={styles.name}>
@@ -193,7 +195,7 @@ const WorksList = () => {
               })}
             </div>
             <div className={styles.works__item_right} />
-          </Link>
+          </TransitionLink>
         </div>
       ))}
     </div>

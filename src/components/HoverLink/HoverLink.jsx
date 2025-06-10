@@ -1,10 +1,11 @@
 import Link from 'next/link';
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 
 import styles from './HoverLink.module.scss';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { handleHoverSound } from '@/services';
+import { mainContext } from '@/providers/MainProvider';
 
 const random = Math.random();
 
@@ -14,14 +15,16 @@ const HoverLink = ({
   children,
   className,
   line = true,
+  ...rest
 }) => {
   const linkRef = useRef();
+  const { isMuted } = useContext(mainContext);
 
   const onMouseEnter = (e) => {
     const currentTargets = linkRef.current.querySelectorAll('span');
 
     // Play hover sound
-    handleHoverSound();
+    if (!isMuted) handleHoverSound();
 
     if (e.type === 'mouseenter') {
       gsap
@@ -56,7 +59,7 @@ const HoverLink = ({
       )}
       onMouseEnter={onMouseEnter}
     >
-      <Component href={href} ref={linkRef}>
+      <Component href={href} ref={linkRef} {...rest}>
         {Array.from(children).map((l, i) => (
           <span
             data-animation

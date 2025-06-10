@@ -51,12 +51,12 @@ const Heavensake = () => {
 
           const media = gsap.utils.toArray('[data-media]');
 
-          console.log('media', media);
-
           gsap.fromTo(
             '#heavensake-media-1',
             { clipPath: 'polygon(0% 50%, 100% 50%, 100% 50%, 0px 50%)' },
             {
+              onStart: () =>
+                document.querySelector('#heavensake-media-1 video')?.play(),
               scrollTrigger: {
                 trigger: '#heavensake-media-1',
                 start: '-=10% 80%',
@@ -75,7 +75,7 @@ const Heavensake = () => {
               {
                 scrollTrigger: {
                   trigger: el,
-                  start: '-=10% 80%',
+                  start: '-=10% bottom',
                   end: 'bottom bottom',
                 },
                 clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)',
@@ -90,46 +90,13 @@ const Heavensake = () => {
     { dependencies: [isLoaded, lenis] }
   );
 
-  // Scrollbar trigger init
-  // useGSAP(
-  //   () => {
-  //     if (lenis) {
-  //       lenis.stop();
-  //       ScrollTrigger.create({
-  //         id: 'scroll-bar-trigger',
-  //         trigger: footer.current,
-  //         start: 'top 50%',
-  //         end: 'bottom 50%',
-  //         toggleClass: {
-  //           targets: document.querySelector('[data-id="scrollbar"]'),
-  //           className: 'light',
-  //         },
-  //       });
-  //     }
-  //   },
-  //   { dependencies: [lenis] }
-  // );
-
-  // useGSAP(
-  //   () => {
-
-  //   },
-  //   { dependencies: [] }
-  // );
-
   return (
     <main>
       <WorksPageHero {...heavensake.hero} />
       <div ref={scrollBarTrigger}>
-        <div className={styles.fullwidth}>
+        <div className={styles.fullwidth} id="heavensake-media-1">
           {loadedMedia?.['/video/HEAVENSAKE/bg_preview_heavenSAKE.mp4'] && (
-            <video
-              preload="auto"
-              muted
-              playsInline
-              loop
-              id="heavensake-media-1"
-            >
+            <video preload="auto" muted playsInline loop>
               <source
                 src={
                   loadedMedia?.['/video/HEAVENSAKE/bg_preview_heavenSAKE.mp4']
@@ -169,7 +136,7 @@ const Heavensake = () => {
       </div>
 
       <WorksPageCredits credits={heavensake.credits} />
-      <NextWork name={'HEAVENSAKE'} />
+      <NextWork {...heavensake.nextWork} />
       {!isLoaded && <Loader medialist={medialist} />}
     </main>
   );

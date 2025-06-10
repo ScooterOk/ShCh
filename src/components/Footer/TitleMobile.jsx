@@ -55,7 +55,7 @@ const FooterTitleMobile = ({ container, titleColor }) => {
             id: 'footer-title-init',
             scrollTrigger: {
               trigger: container,
-              start: 'top 80%',
+              start: 'top 50%',
               end: 'bottom bottom',
             },
           })
@@ -185,7 +185,7 @@ const FooterTitleMobile = ({ container, titleColor }) => {
             castShadow
             receiveShadow
             geometry={nodes.Fill_4.geometry}
-            material={nodes.Fill_4.material}
+            material={material ? material : nodes.Fill_4.material}
             morphTargetDictionary={nodes.Fill_4.morphTargetDictionary}
             morphTargetInfluences={nodes.Fill_4.morphTargetInfluences}
             position={[-36.693, -17.803, 0]}

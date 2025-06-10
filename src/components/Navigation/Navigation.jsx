@@ -13,7 +13,7 @@ import styles from './Navigation.module.scss';
 import Music from '../Music';
 
 const Navigation = () => {
-  const { isNavigationReady, setNoScroll } = useContext(mainContext);
+  const { isNavigationReady, setNoScroll, isMuted } = useContext(mainContext);
   const rootRef = useRef();
 
   const pathname = usePathname();
@@ -29,10 +29,10 @@ const Navigation = () => {
             y: 100,
             ease: 'power3.out',
           })
-          .from(rootRef.current.querySelector('canvas'), {
-            duration: 1,
-            opacity: 0,
-          })
+          // .from(rootRef.current.querySelector('canvas'), {
+          //   duration: 1,
+          //   opacity: 0,
+          // })
           .set(rootRef.current, { clearProps: 'transform' })
           .add(() => setNoScroll(false));
       }
@@ -44,7 +44,7 @@ const Navigation = () => {
     const currentTargets = e.currentTarget.querySelectorAll('span');
 
     // Play hover sound
-    handleHoverSound();
+    if (!isMuted) handleHoverSound();
 
     if (e.type === 'mouseenter') {
       gsap
@@ -87,6 +87,9 @@ const Navigation = () => {
                 href={route.href}
                 theme={route.theme}
                 onMouseEnter={onMouseEnter}
+                {...((route.href === pathname || isWorksSub) && {
+                  disabled: true,
+                })}
               >
                 {Array.from(route.title).map((l, i) => (
                   <span data-animation key={`name-${l}-${i}-${l}`}>

@@ -1,7 +1,7 @@
 @use '@/styles/vars' as *;
 
 .recognition {
-  padding: 60px;
+  padding: 220px 60px;
   .title {
     width: 72.3vw;
     aspect-ratio: 8.26;
@@ -15,7 +15,7 @@
       width: 25%;
       aspect-ratio: 0.756;
       position: relative;
-      background: url('/img/certificates/00_jury2024_SerhiiChurilov.jpg')
+      background: url('/img/certificates/00_jury2025_SerhiiChurilov.jpg')
         no-repeat center / 100% auto;
       img {
         display: inline-block;
@@ -76,7 +76,7 @@
 
   // Tablet styles
   @media screen and (max-width: $breakpoint_tablet) {
-    padding: 40px;
+    padding: 160px 40px;
     .title {
       width: auto;
     }

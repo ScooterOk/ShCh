@@ -22,7 +22,7 @@ const medialist = [
   '/video/hero_head_video_full.mp4',
   '/video/CUBE_01_full.mp4',
   '/video/CUBE_02_full.mp4',
-  '/video/CUBE_03_full.mp4',
+  // '/video/CUBE_03_full.mp4',
   '/video/CUBE_04_full.mp4',
   '/models/about_digital_art_director.gltf',
   '/models/about_digital_art_director_mob.gltf',

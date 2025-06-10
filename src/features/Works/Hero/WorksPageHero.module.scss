@@ -18,15 +18,21 @@
     &__title {
       padding: 30px 40px;
       background-color: $black;
-      font-size: clamp(20px, 1.5vw, 26px);
-      line-height: 1;
       color: $bg;
       clip-path: polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%);
+      h1 {
+        font-size: clamp(20px, 1.5vw, 26px);
+        line-height: 1;
+      }
+      &_link {
+        margin-top: 40px;
+        font-size: clamp(14px, 1.5vw, 16px);
+      }
     }
     &__tags {
       padding-left: 60px;
       position: relative;
-      white-space: nowrap;
+      display: flex;
       &_line {
         width: 3px;
         height: 100%;
@@ -34,6 +40,12 @@
         position: absolute;
         left: 0;
         top: 0;
+      }
+      & > ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-self: flex-start;
       }
     }
   }

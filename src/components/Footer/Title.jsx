@@ -58,7 +58,7 @@ const FooterTitle = ({ container, titleColor }) => {
             id: 'footer-title-init',
             scrollTrigger: {
               trigger: container,
-              start: 'top 80%',
+              start: 'top 50%',
               end: 'bottom bottom',
             },
           })

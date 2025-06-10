@@ -35,7 +35,7 @@ const Follow = () => {
       .timeline({
         scrollTrigger: {
           trigger: container.current,
-          start: 'top 50%',
+          start: 'top 75%',
           end: 'bottom bottom',
         },
       })
@@ -117,10 +117,20 @@ const Follow = () => {
         </div>
       </div>
       <div className={styles.list} ref={list}>
-        <HoverLink href="/" Component={'a'} line={false}>
+        <HoverLink
+          href="https://www.instagram.com/serhii_churilov/"
+          Component={'a'}
+          line={false}
+          target="_blank"
+        >
           Instagram
         </HoverLink>
-        <HoverLink href="/" Component={'a'} line={false}>
+        <HoverLink
+          href="https://www.linkedin.com/in/sergeychurilov6a268511b"
+          Component={'a'}
+          line={false}
+          target="_blank"
+        >
           LinkedIn
         </HoverLink>
       </div>

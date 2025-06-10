@@ -4,8 +4,9 @@
   margin-top: 300px;
   padding: 0 60px;
   &__title {
+    display: block;
     width: 85%;
-    aspect-ratio: 4;
+    aspect-ratio: 3.9;
     margin: auto;
   }
   @media screen and (max-width: $breakpoint_tablet) {

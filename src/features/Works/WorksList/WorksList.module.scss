@@ -8,18 +8,20 @@
   gap: 3px;
   &:not(.disabled) {
     .works__item {
-      &:hover {
-        color: $bg;
-        &::before {
-          transform: scaleY(1);
-        }
-        .works__item_gallery {
-          &::-webkit-scrollbar-track {
-            background-color: rgba(155, 155, 136, 0.2);
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          color: $bg;
+          &::before {
+            transform: scaleY(1);
           }
+          .works__item_gallery {
+            &::-webkit-scrollbar-track {
+              background-color: rgba(155, 155, 136, 0.2);
+            }
 
-          &::-webkit-scrollbar-thumb {
-            background-color: $bg;
+            &::-webkit-scrollbar-thumb {
+              background-color: $bg;
+            }
           }
         }
       }

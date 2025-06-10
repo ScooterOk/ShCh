@@ -6,8 +6,9 @@ import styles from './WorksPageHero.module.scss';
 import { useGSAP } from '@gsap/react';
 import { mainContext } from '@/providers/MainProvider';
 import gsap from 'gsap';
+import HoverLink from '@/components/HoverLink/HoverLink';
 
-const WorksPageHero = ({ title, description, tags }) => {
+const WorksPageHero = ({ title, description, tags, livesite }) => {
   const { isLoaded, setIsNavigationReady } = useContext(mainContext);
 
   const container = useRef();
@@ -58,15 +59,22 @@ const WorksPageHero = ({ title, description, tags }) => {
         <IconArrowLeft />
       </IconButton>
       <div className={styles.info}>
-        {title && (
+        {(title || livesite) && (
           <div className={styles.info__title} ref={titleRef}>
-            <h1>
-              {Array.from(title).map((l, i) => (
-                <span data-animation key={`name-${l}-${i}-${l}`}>
-                  {l}
-                </span>
-              ))}
-            </h1>
+            {title && (
+              <h1>
+                {Array.from(title).map((l, i) => (
+                  <span data-animation key={`name-${l}-${i}-${l}`}>
+                    {l}
+                  </span>
+                ))}
+              </h1>
+            )}
+            {livesite && (
+              <HoverLink className={styles.info__title_link} href={livesite}>
+                Live Site
+              </HoverLink>
+            )}
           </div>
         )}
         {description && (
@@ -81,15 +89,17 @@ const WorksPageHero = ({ title, description, tags }) => {
         {tags?.length && (
           <div className={styles.info__tags}>
             <div className={styles.info__tags_line} ref={lineRef} />
-            {tags?.map((tag) => (
-              <span key={`tag-${tag}`}>
-                {Array.from(`#${tag}`).map((l, i) => (
-                  <span data-animation key={`name-${l}-${i}-${l}`}>
-                    {l}
-                  </span>
-                ))}
-              </span>
-            ))}
+            <ul>
+              {tags?.map((tag) => (
+                <li key={`tag-${tag}`}>
+                  {Array.from(`#${tag}`).map((l, i) => (
+                    <span data-animation key={`name-${l}-${i}-${l}`}>
+                      {l}
+                    </span>
+                  ))}
+                </li>
+              ))}
+            </ul>
           </div>
         )}
       </div>

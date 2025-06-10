@@ -102,6 +102,14 @@ const HomeAllWorksTitleMobile = ({ container }) => {
       <group>
         <group name="Layer_1" position={[0.084, 0.021, 0]} scale={0.059}>
           <mesh
+            name="i"
+            castShadow
+            receiveShadow
+            geometry={nodes.i.geometry}
+            material={nodes.i.material}
+            position={[-23.077, -12.474, 0]}
+          />
+          <mesh
             name="s"
             castShadow
             receiveShadow
@@ -212,13 +220,13 @@ const HomeAllWorksTitleMobile = ({ container }) => {
             position={[-23.077, -12.474, 0]}
           />
           <mesh
-            name="i"
+            name="i_1"
             castShadow
             receiveShadow
-            geometry={nodes.i.geometry}
-            material={nodes.i.material}
-            morphTargetDictionary={nodes.i.morphTargetDictionary}
-            morphTargetInfluences={nodes.i.morphTargetInfluences}
+            geometry={nodes.i_1.geometry}
+            material={nodes.i_1.material}
+            morphTargetDictionary={nodes.i_1.morphTargetDictionary}
+            morphTargetInfluences={nodes.i_1.morphTargetInfluences}
             position={[-23.077, -12.474, 0]}
           />
           <mesh
@@ -230,6 +238,22 @@ const HomeAllWorksTitleMobile = ({ container }) => {
             morphTargetDictionary={nodes.v.morphTargetDictionary}
             morphTargetInfluences={nodes.v.morphTargetInfluences}
             position={[-23.077, -12.474, 0]}
+          />
+          <mesh
+            name="i1"
+            castShadow
+            receiveShadow
+            geometry={nodes.i1.geometry}
+            material={nodes.i1.material}
+            position={[-18.317, -17.123, 0]}
+          />
+          <mesh
+            name="i2"
+            castShadow
+            receiveShadow
+            geometry={nodes.i2.geometry}
+            material={nodes.i2.material}
+            position={[-18.317, -21.833, 0]}
           />
         </group>
       </group>

@@ -6,9 +6,11 @@ import Koenigsegg from '@/components/Home/Works/Koenigsegg';
 
 import styles from './Works.module.scss';
 import Skyrocket from '@/components/Home/Works/Skyrocket';
-import AngleSparky from '@/components/Home/Works/AngleSparky';
 import Mesmerized from '@/components/Home/Works/Mesmerized';
 import { mainContext } from '@/providers/MainProvider';
+
+import Angle2 from '@/components/Home/Works/Angle2';
+import Heavensake from '@/components/Home/Works/Heavensake';
 
 const Works = () => {
   const container = useRef();
@@ -16,6 +18,7 @@ const Works = () => {
 
   return (
     <div className={styles.works}>
+      <div className={styles.featured}>Featured</div>
       <div className={styles.title} ref={container}>
         <Canvas
           camera={{ position: [0, 0, 1], orthographic: true }}
@@ -31,8 +34,9 @@ const Works = () => {
       </div>
       <Koenigsegg styles={styles} />
       <Skyrocket styles={styles} />
-      <AngleSparky styles={styles} />
+      <Heavensake styles={styles} />
       <Mesmerized styles={styles} />
+      <Angle2 styles={styles} />
     </div>
   );
 };

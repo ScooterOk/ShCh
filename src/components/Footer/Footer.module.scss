@@ -5,6 +5,7 @@
   font-size: clamp(14px, 1.5vw, 20px);
   font-weight: 600;
   line-height: 1.2em;
+  min-height: 100dvh;
   .date {
     width: 50%;
     margin-left: auto;
@@ -24,10 +25,13 @@
       line-height: 1.2em;
     }
   }
-  .links {
-    width: 50%;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     margin-top: 160px;
-    margin-left: auto;
+  }
+  .links {
+    width: 100%;
     transform-origin: left;
     &__link {
       transform-origin: left;
@@ -38,10 +42,13 @@
     }
   }
   .copyright {
-    margin-top: 140px;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    padding-right: 40px;
+    & > p:last-child {
+      margin-top: auto;
+    }
   }
   @media screen and (max-width: $breakpoint_tablet) {
     padding: 60px 40px 120px 40px;
@@ -63,6 +70,11 @@
         margin-left: auto;
       }
     }
+    .grid {
+      display: flex;
+      flex-direction: column;
+      margin-top: 80px;
+    }
     .links {
       margin-top: 20px;
       width: 100%;
@@ -76,6 +88,7 @@
     }
     .copyright {
       margin-top: 60px;
+      order: 2;
     }
   }
   @media screen and (max-width: $breakpoint_mobile) {

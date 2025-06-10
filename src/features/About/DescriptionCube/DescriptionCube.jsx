@@ -21,12 +21,16 @@ import useMobile from '@/hooks/useMobile';
 import { Observer } from 'gsap/Observer';
 import CoubScene from '@/components/About/CoubScene';
 
+const videoSourseSize = 1;
+
 const position = {
   x: 0,
   y: 0,
 };
 
 const slides = ['creativence', 'innovis'];
+
+let timeout;
 
 const DescriptionCube = () => {
   const [mousePosition, setMousePosition] = useState({
@@ -37,7 +41,7 @@ const DescriptionCube = () => {
 
   const lenis = useLenis();
 
-  const { isMobile } = useMobile();
+  const { isMobile, isTouch } = useMobile();
 
   const {
     isLoaded,
@@ -47,7 +51,7 @@ const DescriptionCube = () => {
     setCurrentDescriptionSlide,
     isHolded,
     setIsHolded,
-    isTouched,
+    loadedMedia,
   } = useContext(mainContext);
   const container = useRef();
   const scrollBarTrigger = useRef();
@@ -371,7 +375,7 @@ const DescriptionCube = () => {
       return;
     }
 
-    gsap
+    const wordsTimeline = gsap
       .timeline({
         onComplete: () => (prevSlideRef.current = currentDescriptionSlide),
       })
@@ -389,7 +393,7 @@ const DescriptionCube = () => {
       });
 
     if (document.querySelectorAll(nextTargets).length) {
-      gsap.to(nextTargets, {
+      wordsTimeline.to(nextTargets, {
         duration: 0.01,
         opacity: !nextSlide && currentSlide === 'creativence' ? 0 : 1,
         stagger: {
@@ -401,22 +405,29 @@ const DescriptionCube = () => {
     }
   }, [currentDescriptionSlide, setIsHolded]);
 
-  const handleClickAndHold = useCallback(
-    (e) => {
-      if (currentDescriptionSlide < 0 || currentDescriptionSlide > 1) return;
-      if (e.type === 'pointerdown') {
+  const handleClickAndHold = (e) => {
+    if (currentDescriptionSlide < 0 || currentDescriptionSlide > 1) {
+      if (isTouch) clearTimeout(timeout);
+      return;
+    }
+
+    if (e.type === 'pointerdown') {
+      if (isTouch) {
+        timeout = setTimeout(() => setIsHolded(true), 300);
+      } else {
         setIsHolded(true);
       }
-      if (e.type === 'pointerup') {
-        setIsHolded(false);
-      }
-    },
-    [currentDescriptionSlide, setIsHolded]
-  );
+    }
+
+    if (e.type === 'pointerup') {
+      if (isTouch) clearTimeout(timeout);
+      setIsHolded(false);
+    }
+  };
 
   const handleMouseMove = useCallback(
     (e) => {
-      if (isTouched) return;
+      if (isTouch) return;
       gsap.to(position, {
         x: e.clientX,
         y: e.clientY,
@@ -430,7 +441,7 @@ const DescriptionCube = () => {
         },
       });
     },
-    [isTouched]
+    [isTouch]
   );
 
   // Mousemove init
@@ -447,7 +458,12 @@ const DescriptionCube = () => {
     <div ref={scrollBarTrigger}>
       <div
         ref={container}
-        className={styles.focus}
+        className={clsx(
+          styles.focus,
+          currentDescriptionSlide > -1 &&
+            currentDescriptionSlide < 2 &&
+            styles.active
+        )}
         onPointerDown={handleClickAndHold}
         onPointerUp={handleClickAndHold}
         style={{
@@ -458,7 +474,7 @@ const DescriptionCube = () => {
       >
         <div
           ref={cursorRef}
-          className={clsx(styles.click_hold, isTouched && styles.disabled)}
+          className={clsx(styles.click_hold, isTouch && styles.disabled)}
         >
           <div className={styles.click_hold__line} />
           {Array.from('Click&Hold').map((l, i) => (
@@ -495,7 +511,61 @@ const DescriptionCube = () => {
             ))}
           </p>
         </div>
-        <Canvas shadows>
+
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            zIndex: -1,
+          }}
+        >
+          {loadedMedia?.['/video/CUBE_01_full.mp4'] && (
+            <video
+              id="material_slide_1"
+              playsInline
+              muted
+              preload="auto"
+              style={{ width: videoSourseSize, height: videoSourseSize }}
+            >
+              <source
+                src={loadedMedia?.['/video/CUBE_01_full.mp4']}
+                type="video/mp4"
+              />
+            </video>
+          )}
+          {loadedMedia?.['/video/CUBE_02_full.mp4'] && (
+            <video
+              id="material_slide_2"
+              playsInline
+              muted
+              preload="auto"
+              style={{ width: videoSourseSize, height: videoSourseSize }}
+            >
+              <source
+                src={loadedMedia?.['/video/CUBE_02_full.mp4']}
+                type="video/mp4"
+              />
+            </video>
+          )}
+          {loadedMedia?.['/video/CUBE_04_full.mp4'] && (
+            <video
+              id="material_slide_4"
+              playsInline
+              autoPlay
+              muted
+              loop
+              style={{ width: videoSourseSize, height: videoSourseSize }}
+            >
+              <source
+                src={loadedMedia?.['/video/CUBE_04_full.mp4']}
+                type="video/mp4"
+              />
+            </video>
+          )}
+        </div>
+
+        <Canvas shadows={false}>
           <color attach="background" args={['#000000']} />
           <PerspectiveCamera
             ref={cameraRef}
@@ -513,6 +583,10 @@ const DescriptionCube = () => {
               isHolded={isHolded}
               styles={styles}
             />
+            {/* <mesh>
+              <boxGeometry />
+              <meshStandardMaterial color="hotpink" />
+            </mesh> */}
           </Suspense>
         </Canvas>
       </div>

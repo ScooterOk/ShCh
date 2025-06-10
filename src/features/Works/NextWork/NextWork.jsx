@@ -5,14 +5,14 @@ import { Canvas } from '@react-three/fiber';
 
 import NextWorkTitle from '@/components/Works/NextWorkTitle';
 import { mainContext } from '@/providers/MainProvider';
-import Link from 'next/link';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import TransitionLink from '@/components/TransitionLink/TransitionLink';
 
 const year = new Date().getFullYear();
 
-const NextWork = ({ name }) => {
+const NextWork = ({ title, preview, href }) => {
   const [action, setAction] = useState();
   const { loadedMedia, isLoaded } = useContext(mainContext);
 
@@ -93,9 +93,9 @@ const NextWork = ({ name }) => {
     <div className={styles.next} ref={container}>
       <div className={styles.wrapper}>
         <div className={styles.next__title}>
-          {name && (
+          {title && (
             <div className={styles.next__title_name}>
-              {Array.from(name).map((l, i) => (
+              {Array.from(title).map((l, i) => (
                 <span data-animation key={`name-${l}-${i}-${l}`}>
                   {l}
                 </span>
@@ -103,7 +103,7 @@ const NextWork = ({ name }) => {
             </div>
           )}
 
-          <Link href="">
+          <TransitionLink href={href}>
             <Canvas
               camera={{ position: [0, 0, 1], orthographic: true }}
               //   gl={{ stencil: true }}
@@ -117,23 +117,22 @@ const NextWork = ({ name }) => {
                 )}
               </Suspense>
             </Canvas>
-          </Link>
+          </TransitionLink>
         </div>
-        <div className={styles.next__video}>
-          <video
-            preload="auto"
-            muted
-            loop
-            playsInline
-            autoPlay
-            ref={nextVideoRef}
-          >
-            <source
-              src={'/video/HEAVENSAKE/bg_preview_heavenSAKE.mp4'}
-              type="video/mp4"
-            />
-          </video>
-        </div>
+        {preview && (
+          <div className={styles.next__video}>
+            <video
+              preload="auto"
+              muted
+              loop
+              playsInline
+              autoPlay
+              ref={nextVideoRef}
+            >
+              <source src={preview} type="video/mp4" />
+            </video>
+          </div>
+        )}
       </div>
 
       <div className={styles.next__copyright}>

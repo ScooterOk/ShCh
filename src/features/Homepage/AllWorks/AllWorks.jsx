@@ -6,6 +6,7 @@ import HomeAllWorksTitle from '@/components/Home/HomeAllWorksTitle';
 import useMobile from '@/hooks/useMobile';
 import HomeAllWorksTitleMobile from '@/components/Home/HomeAllWorksTitleMobile';
 import { mainContext } from '@/providers/MainProvider';
+import TransitionLink from '@/components/TransitionLink/TransitionLink';
 
 const AllWorks = () => {
   const { loadedMedia } = useContext(mainContext);
@@ -17,7 +18,7 @@ const AllWorks = () => {
 
   return (
     <div className={styles.allworks} ref={container}>
-      <div className={styles.allworks__title}>
+      <TransitionLink href={'/works'} className={styles.allworks__title}>
         <Canvas
           camera={{ position: [0, 0, 1], orthographic: true }}
           //   gl={{ stencil: true }}
@@ -36,7 +37,7 @@ const AllWorks = () => {
           </Suspense>
           {/* <OrbitControls /> */}
         </Canvas>
-      </div>
+      </TransitionLink>
     </div>
   );
 };

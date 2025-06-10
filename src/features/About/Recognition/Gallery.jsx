@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useContext, useRef, useState } from 'react';
 
 import clsx from 'clsx';
 import gsap from 'gsap';
@@ -11,9 +11,14 @@ import { useGSAP } from '@gsap/react';
 import { useLenis } from 'lenis/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { handleHoverSound } from '@/services';
+import { mainContext } from '@/providers/MainProvider';
+
+const currentYear = new Date().getFullYear();
 
 const Gallery = ({ imagesListRef, lineRef }) => {
   const [activeList, setActiveList] = useState(certificates.map(() => false));
+
+  const { isMuted } = useContext(mainContext);
 
   const listRef = useRef();
 
@@ -85,7 +90,7 @@ const Gallery = ({ imagesListRef, lineRef }) => {
       );
 
       // Play hover sound
-      handleHoverSound();
+      if (!isMuted) handleHoverSound();
 
       setActiveList((prev) => {
         const list = [...prev];
@@ -93,13 +98,37 @@ const Gallery = ({ imagesListRef, lineRef }) => {
         return list;
       });
       gsap.to(image, {
-        duration: 1,
+        duration: 0.8,
         clipPath: isEnter
           ? 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)'
           : 'polygon(0px 50%, 100% 50%, 100% 50%, 0px 50%)',
-        ease: 'power2.inOut',
+        ease: 'power4.inOut',
         overwrite: true,
       });
+
+      if (isEnter) {
+        const currentTargets = e.currentTarget.querySelectorAll('span');
+        gsap
+          .timeline()
+          .to(currentTargets, {
+            duration: 0.1,
+            opacity: 0,
+            stagger: {
+              amount: 0.3,
+              grid: 'auto',
+              from: 'random',
+            },
+          })
+          .to(currentTargets, {
+            duration: 0.01,
+            opacity: 1,
+            stagger: {
+              amount: 0.3,
+              grid: 'auto',
+              from: 'random',
+            },
+          });
+      }
     },
     [imagesListRef, isMobile]
   );
@@ -129,7 +158,7 @@ const Gallery = ({ imagesListRef, lineRef }) => {
             ))}
           </p>
           <p>
-            {Array.from('Member 2020-2024').map((l, i) => (
+            {Array.from(`Member 2020-${currentYear}`).map((l, i) => (
               <span data-animation key={`name-${l}-${i}-${l}`}>
                 {l}
               </span>

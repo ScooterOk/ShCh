@@ -109,6 +109,7 @@ const CoubScene = ({
 
   const lenis = useLenis();
   const { isLoaded, setIsHolded, loadedMedia } = useContext(mainContext);
+  const { isMobile } = useMobile();
 
   const three = useThree();
 
@@ -212,8 +213,8 @@ const CoubScene = ({
       <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[10, 10]} rotateX={-Math.PI / 2} />
         <MeshReflectorMaterial
-          blur={[850, 590]}
-          resolution={1024}
+          blur={isMobile ? [250, 190] : [850, 590]}
+          resolution={isMobile ? 512 : 1024}
           mixBlur={4.2}
           mixStrength={220}
           roughness={0.21}

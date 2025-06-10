@@ -85,7 +85,7 @@ const HomeHeroTitle = () => {
   }, [ref]);
 
   useEffect(() => {
-    const w = (viewport.width / modelDimensions.width) * 1.058;
+    const w = (viewport.width / modelDimensions.width) * 1.052;
     setWidthScale(w);
   }, [modelDimensions.width, viewport.width]);
 
@@ -127,7 +127,12 @@ const HomeHeroTitle = () => {
   };
 
   return (
-    <group ref={ref} dispose={null} position={[0.055, 0, 0]} scale={widthScale}>
+    <group
+      ref={ref}
+      dispose={null}
+      position={[-0.02, 0.05, 0]}
+      scale={widthScale}
+    >
       <group>
         <group name="Null1">
           <group name="Null">
@@ -139,7 +144,7 @@ const HomeHeroTitle = () => {
               material={nodes.E.material}
               morphTargetDictionary={nodes.E.morphTargetDictionary}
               morphTargetInfluences={nodes.E.morphTargetInfluences}
-              position={[-0.268, 0.105, 0.042]}
+              position={[-0.254, 0.105, 0.042]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -151,7 +156,7 @@ const HomeHeroTitle = () => {
               material={nodes.C.material}
               morphTargetDictionary={nodes.C.morphTargetDictionary}
               morphTargetInfluences={nodes.C.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.254, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -163,7 +168,7 @@ const HomeHeroTitle = () => {
               material={nodes.N.material}
               morphTargetDictionary={nodes.N.morphTargetDictionary}
               morphTargetInfluences={nodes.N.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.254, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -175,7 +180,7 @@ const HomeHeroTitle = () => {
               material={nodes.E_1.material}
               morphTargetDictionary={nodes.E_1.morphTargetDictionary}
               morphTargetInfluences={nodes.E_1.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.254, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -187,7 +192,7 @@ const HomeHeroTitle = () => {
               material={nodes.I.material}
               morphTargetDictionary={nodes.I.morphTargetDictionary}
               morphTargetInfluences={nodes.I.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.254, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -199,7 +204,7 @@ const HomeHeroTitle = () => {
               material={nodes.R.material}
               morphTargetDictionary={nodes.R.morphTargetDictionary}
               morphTargetInfluences={nodes.R.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.254, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -211,7 +216,7 @@ const HomeHeroTitle = () => {
               material={nodes.E_2.material}
               morphTargetDictionary={nodes.E_2.morphTargetDictionary}
               morphTargetInfluences={nodes.E_2.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.184, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -259,7 +264,7 @@ const HomeHeroTitle = () => {
               material={nodes.N_1.material}
               morphTargetDictionary={nodes.N_1.morphTargetDictionary}
               morphTargetInfluences={nodes.N_1.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.259, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -271,7 +276,7 @@ const HomeHeroTitle = () => {
               material={nodes.G.material}
               morphTargetDictionary={nodes.G.morphTargetDictionary}
               morphTargetInfluences={nodes.G.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.021, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -283,7 +288,7 @@ const HomeHeroTitle = () => {
               material={nodes.I_1.material}
               morphTargetDictionary={nodes.I_1.morphTargetDictionary}
               morphTargetInfluences={nodes.I_1.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.259, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -295,7 +300,7 @@ const HomeHeroTitle = () => {
               material={nodes.S.material}
               morphTargetDictionary={nodes.S.morphTargetDictionary}
               morphTargetInfluences={nodes.S.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.259, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -307,7 +312,7 @@ const HomeHeroTitle = () => {
               material={nodes.E_4.material}
               morphTargetDictionary={nodes.E_4.morphTargetDictionary}
               morphTargetInfluences={nodes.E_4.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.259, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -319,7 +324,7 @@ const HomeHeroTitle = () => {
               material={nodes.D.material}
               morphTargetDictionary={nodes.D.morphTargetDictionary}
               morphTargetInfluences={nodes.D.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.259, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -331,7 +336,7 @@ const HomeHeroTitle = () => {
               material={nodes.L.material}
               morphTargetDictionary={nodes.L.morphTargetDictionary}
               morphTargetInfluences={nodes.L.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.259, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -343,7 +348,7 @@ const HomeHeroTitle = () => {
               material={nodes.A.material}
               morphTargetDictionary={nodes.A.morphTargetDictionary}
               morphTargetInfluences={nodes.A.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.259, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -355,7 +360,7 @@ const HomeHeroTitle = () => {
               material={nodes.T.material}
               morphTargetDictionary={nodes.T.morphTargetDictionary}
               morphTargetInfluences={nodes.T.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.259, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -367,7 +372,7 @@ const HomeHeroTitle = () => {
               material={nodes.I_2.material}
               morphTargetDictionary={nodes.I_2.morphTargetDictionary}
               morphTargetInfluences={nodes.I_2.morphTargetInfluences}
-              position={[-0.226, 0.105, 0]}
+              position={[-0.217, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -379,7 +384,7 @@ const HomeHeroTitle = () => {
               material={nodes.G_1.material}
               morphTargetDictionary={nodes.G_1.morphTargetDictionary}
               morphTargetInfluences={nodes.G_1.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.259, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -391,7 +396,7 @@ const HomeHeroTitle = () => {
               material={nodes.I_3.material}
               morphTargetDictionary={nodes.I_3.morphTargetDictionary}
               morphTargetInfluences={nodes.I_3.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.259, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />
@@ -403,7 +408,7 @@ const HomeHeroTitle = () => {
               material={nodes.D_1.material}
               morphTargetDictionary={nodes.D_1.morphTargetDictionary}
               morphTargetInfluences={nodes.D_1.morphTargetInfluences}
-              position={[-0.268, 0.105, 0]}
+              position={[-0.259, 0.105, 0]}
               onPointerEnter={handlePointerEnter}
               onPointerLeave={handlePointerLeave}
             />

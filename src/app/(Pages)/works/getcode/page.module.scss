@@ -1,0 +1,204 @@
+@use '@/styles/vars' as *;
+
+.article {
+  line-height: 0;
+  margin-top: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 160px;
+  img {
+    height: auto;
+  }
+}
+
+.fullwidth {
+  background-color: $black;
+  aspect-ratio: 2/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > * {
+    display: block;
+    width: 100%;
+  }
+  &__lg > * {
+    max-width: 1920px;
+  }
+  &__md > * {
+    max-width: 1280px;
+  }
+}
+
+.grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: clamp(40px, 3.5vw, 60px);
+  &__v1 {
+    padding-right: 60px;
+    & > *:first-child {
+      width: 66%;
+      height: auto;
+      flex-shrink: 0;
+      padding: clamp(40px, 3.5vw, 60px);
+      background-color: $black;
+      overflow: hidden;
+      & > img,
+      & > video {
+        width: 100%;
+        height: auto;
+      }
+    }
+    & > *:last-child {
+      height: auto;
+      width: 27%;
+      flex-shrink: 0;
+      padding: clamp(40px, 3.5vw, 60px);
+      background-color: $black;
+      overflow: hidden;
+      & > img,
+      & > video {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+  &__v2 {
+    & > *:first-child {
+      max-width: 640px;
+      width: 33%;
+      aspect-ratio: 1;
+      flex-shrink: 0;
+      background-color: $black;
+      overflow: hidden;
+      padding: clamp(40px, 3.5vw, 60px);
+      text-align: center;
+      & > img,
+      & > video {
+        width: auto;
+        height: 100%;
+      }
+    }
+    & > *:last-child {
+      width: 50%;
+      flex-shrink: 0;
+      background-color: $black;
+      aspect-ratio: 1;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: clamp(40px, 3.5vw, 60px);
+      text-align: center;
+      & > img,
+      & > video {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+  &__v3 {
+    & > *:first-child {
+      max-width: 520px;
+      width: 27%;
+      aspect-ratio: 1;
+      flex-shrink: 0;
+      background-color: $black;
+      overflow: hidden;
+      padding: clamp(40px, 3.5vw, 60px);
+      text-align: center;
+      & > img,
+      & > video {
+        width: auto;
+        height: 100%;
+      }
+    }
+    & > *:last-child {
+      width: 66%;
+      flex-shrink: 0;
+      background-color: $black;
+      overflow: hidden;
+      padding: clamp(40px, 3.5vw, 60px);
+      text-align: center;
+      & > img,
+      & > video {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+  &__v4 {
+    & > *:first-child {
+      width: 50%;
+      aspect-ratio: 1;
+      flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $black;
+      overflow: hidden;
+      padding: clamp(40px, 3.5vw, 60px);
+      & > img,
+      & > video {
+        width: 100%;
+        height: auto;
+      }
+    }
+    & > *:last-child {
+      max-width: 640px;
+      aspect-ratio: 1;
+      width: 33%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      background-color: $black;
+      overflow: hidden;
+      padding: clamp(40px, 3.5vw, 60px);
+      & > img,
+      & > video {
+        width: auto;
+        height: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $breakpoint_tablet) {
+  .article {
+    margin-top: 120px;
+    gap: 90px;
+  }
+  .grid {
+    gap: 40px;
+    &__v1 {
+      padding-right: 40px;
+    }
+  }
+}
+
+@media screen and (max-width: $breakpoint_mobile) {
+  .article {
+    margin-top: 80px;
+    gap: 60px;
+  }
+  .grid {
+    gap: 60px;
+    flex-direction: column;
+    & > *:first-child {
+      max-width: initial;
+      width: 100%;
+    }
+    & > *:last-child {
+      max-width: initial;
+      width: 100%;
+    }
+    & > *:only-child {
+      max-width: initial;
+      width: 100%;
+    }
+    &__v1 {
+      padding-right: 0px;
+    }
+  }
+}
