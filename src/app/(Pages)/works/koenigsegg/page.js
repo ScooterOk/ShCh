@@ -81,7 +81,6 @@ const Koenigsegg = () => {
                   trigger: el,
                   start: '-=10% bottom',
                   end: 'bottom bottom',
-                  markers: true,
                 },
                 clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0px 100%)',
                 duration: 1.5,
