@@ -33,11 +33,15 @@
   .links {
     width: 100%;
     transform-origin: left;
+    display: flex;
+    flex-direction: column;
     &__link {
       transform-origin: left;
+      align-self: flex-start;
       &_email {
         margin-bottom: 60px;
         font-size: 20px;
+        align-self: auto;
       }
     }
   }
